@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-import LV from 'src'
+import plain from 'src'
 import './components.js'
 import DemoChild from './demo-child'
 import move from 'src/directives/move'
 
 Vue.config.productionTip = false
-Vue.use(LV, {
+Vue.use(plain, {
     prefix: 'link',
     iconfont: 'https://at.alicdn.com/t/font_954560_kicgud0zqeb.js',                               //自定义iconfont图表地址
 })

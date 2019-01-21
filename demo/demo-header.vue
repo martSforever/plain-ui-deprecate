@@ -1,6 +1,6 @@
 <template>
     <div class="demo-header">
-        LV-UI
+        plain-ui
     </div>
 </template>
 

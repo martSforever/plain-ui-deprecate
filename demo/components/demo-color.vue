@@ -1,7 +1,7 @@
 <template>
     <div class="demo-color">
         <demo-row title="概述">
-            LV-UI 推荐使用一下调色板的颜色作为开发规范，以保证页面和组件默认色调之间的视觉一致。
+            plain-UI 推荐使用一下调色板的颜色作为开发规范，以保证页面和组件默认色调之间的视觉一致。
         </demo-row>
         <demo-row title="主色">
             <div v-for="(item,index) in mainColors" class="demo-color-item" :style="{backgroundColor:item.color}" :key="index">

@@ -1,6 +1,6 @@
 const $storage = {
-    storageKey: 'LV',
-    storage: JSON.parse(localStorage.getItem('LV')) || {},
+    storageKey: 'plain',
+    storage: JSON.parse(localStorage.getItem('plain')) || {},
     get(key) {
         return this.storage[key]
     },

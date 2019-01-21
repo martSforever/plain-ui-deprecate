@@ -86,8 +86,6 @@ const components = {
     ...ColumnComponents,
 }
 
-console.log(components)
-
 const TYPE = {
     info: {icon: 'lv-info-circle-fill', color: 'primary'},
     warn: {icon: 'lv-alert', color: 'warn'},
@@ -96,7 +94,7 @@ const TYPE = {
     help: {icon: 'lv-help-circle-fill', color: 'info'},
 }
 
-const LV = {
+const PlainUI = {
     $utils,
     $dom,
     $storage,
@@ -106,7 +104,7 @@ const LV = {
     install(Vue, {prefix = 'lv', iconfont} = {}) {
         Vue.use(DomPortal)
         Vue.use(mavonEditor)
-        Vue.prototype.$lv = LV
+        Vue.prototype.$lv = PlainUI
         Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice
         Vue.prototype.$dialog = $dialog
@@ -117,9 +115,9 @@ const LV = {
     },
 }
 
-window.LV = LV;
+window.PlainUI = PlainUI;
 
-export default LV
+export default PlainUI
 
 export {
     TYPE,
