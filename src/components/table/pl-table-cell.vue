@@ -5,7 +5,7 @@
                            :scope-slot-func="scopeSlotFunc"
                            :data="data"/>
             <template v-else>
-                <span>{{text}}</span>
+                <span class="table-cell-default-text">{{text}}</span>
                 <slot></slot>
             </template>
         </template>
@@ -24,13 +24,16 @@
             scopeSlotFunc: {},                  //作用域渲染函数
             data: {},                           //作用域渲染函数渲染的数据
             text: {},                           //没有有作用域渲染函数的时候显示的文本
-            width: {},                          //列宽
+            width: {},                          //单元格宽度
+            height: {},                         //单元格高度
             isFixed: {default: false},          //是否为对应fixed table的cell
         },
         computed: {
             styles() {
-                const styles = {height: this.$plain.$utils.unit(this.rowHeight),}
-                this.width != null && (styles.width = this.$plain.$utils.unit(this.width))
+                const styles = {
+                    height: this.$plain.$utils.unit(this.height),
+                    width: this.$plain.$utils.unit(this.width),
+                }
                 return styles
             },
         },
@@ -67,5 +70,13 @@
                 }
             }
         }
+    }
+
+    .pl-column-text-default-text, .pl-table-cell-default-text {
+        display: block;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 </style>

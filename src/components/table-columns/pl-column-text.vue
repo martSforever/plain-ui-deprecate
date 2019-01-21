@@ -1,7 +1,7 @@
 <template>
     <div class="pl-column-text" :class="[`pl-column-text-${align}`,{'pl-column-text-link':link}]" v-tooltip="{content:showValue,tooltip}">
         <slot :row="row" :rowIndex="rowIndex" :align="align" :field="field" :editable="editable">
-            <span>{{label!=null?label:showValue}}</span>
+            <span class="pl-column-text-default-text">{{label!=null?label:showValue}}</span>
         </slot>
     </div>
 </template>

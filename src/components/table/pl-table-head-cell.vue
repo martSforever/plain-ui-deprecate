@@ -5,7 +5,8 @@
                 :scope-slot-func="col.titleScopedSlot"
                 :data="{col}"
                 :text="col.title"
-                :row-height="null"
+                :height="headRowHeight"
+                :width="col.width"
                 :class="[`pl-table-cell-${col.align}`]">
             <div class="pl-table-head-cell-sort" :class="classes" v-if="!!col.sort">
                 <pl-icon icon="pl-triangle-up-fill" class="pl-sort-asc-icon"/>

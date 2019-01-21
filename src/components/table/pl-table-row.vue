@@ -11,7 +11,7 @@
                     :scope-slot-func="col.colScopedSlot"
                     :data="{row,rowIndex,col,colIndex,editRow}"
                     :text="row[col.field]"
-                    :row-height="rowHeight"
+                    :height="rowHeight"
                     :width="col.width"
             />
         </td>
