@@ -41,18 +41,18 @@
         </link-mavon>
 
         <link-mavon code='
-            <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="lv-date" suffix-icon="lv-search"/>
+            <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
         '>
             <demo-row title="左右图标">
-                <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="lv-date" suffix-icon="lv-search"/>
+                <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
             </demo-row>
         </link-mavon>
 
         <link-mavon code='
-            <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="lv-search" @click="_click"/>
+            <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="pl-search" @click="_click"/>
         '>
             <demo-row title="只有图标">
-                <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="lv-search" @click="_click"/>
+                <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="pl-search" @click="_click"/>
             </demo-row>
         </link-mavon>
 
@@ -283,7 +283,7 @@
             </demo-row>
         </link-mavon>
 
-        <link-doc :lv-props="lvProps" :lv-events="lvEvents" :lv-slots="lvSlots"/>
+        <link-doc :pl-props="lvProps" :pl-events="lvEvents" :pl-slots="lvSlots"/>
     </div>
 </template>
 
@@ -304,7 +304,7 @@
                     {name: 'boxSize', type: 'String', select: 'large|default|small', default: 'default', desc: '盒子大小'},
                     {name: 'prefixIcon', type: 'String', select: null, default: null, desc: '前置图标'},
                     {name: 'suffixIcon', type: 'String', select: null, default: null, desc: '后置图标'},
-                    {name: 'clearIcon', type: 'String', select: null, default: null, desc: '清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示lv-close，否则显示clearIcon'},
+                    {name: 'clearIcon', type: 'String', select: null, default: null, desc: '清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pl-close，否则显示clearIcon'},
                     {name: 'loading', type: 'Boolean', select: null, default: null, desc: '显示按钮loading图标'},
                     {name: 'iconOnly', type: 'Boolean', select: null, default: null, desc: '只有图标，设置为true则盒子宽高相等，并且为圆形'},
                     {name: 'readonly', type: 'Boolean', select: null, default: null, desc: '只读'},

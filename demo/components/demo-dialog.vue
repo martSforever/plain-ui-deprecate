@@ -29,7 +29,7 @@
 
         <demo-row title="弹出动画">
             <link-button label="transition" @click="$refs.transitionDialog.show()"/>
-            <link-dialog ref="transitionDialog" transition="lv-dialog-scale">transition</link-dialog>
+            <link-dialog ref="transitionDialog" transition="pl-dialog-scale">transition</link-dialog>
         </demo-row>
 
         <demo-row title="设定宽度以及高度">

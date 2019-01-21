@@ -1,0 +1,42 @@
+<template>
+    <div class="pl-loading" :style="styles">
+        <img :src="src" class="pl-loading-img"/>
+    </div>
+</template>
+
+<script>
+    import svgs from './index'
+
+    export default {
+        name: "pl-loading",
+        props: {
+            type: {type: String, default: 'spinner3'},
+            size: {type: Number | String, default: '48px'},
+        },
+        computed: {
+            src() {
+                return svgs[this.type]
+            },
+            styles() {
+                const styles = {}
+                !!this.size && Object.assign(styles, {
+                    width: this.$plain.$utils.typeOf(this.size) === 'string' ? this.size : `${this.size}px`,
+                    height: this.$plain.$utils.typeOf(this.size) === 'string' ? this.size : `${this.size}px`,
+                })
+                return styles
+            },
+        },
+    }
+</script>
+
+<style lang="scss">
+    .pl-loading {
+        display: inline-block;
+        vertical-align: center;
+        img.pl-loading-img {
+            height: 100%;
+            width: 100%;
+            display: block;
+        }
+    }
+</style>

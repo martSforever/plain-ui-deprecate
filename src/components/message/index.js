@@ -1,4 +1,4 @@
-import LvMessageContainer from './lv-message-container'
+import PlMessageContainer from './pl-message-container'
 import Vue from 'vue'
 import utils from '../../utils/utils'
 import dom from '../../utils/dom'
@@ -8,14 +8,14 @@ const $message = {
     get el() {
         if (!this._el) {
             this._el = document.createElement('div')
-            dom.addClass(this._el, 'lv-message-containers')
+            dom.addClass(this._el, 'pl-message-containers')
             document.body.appendChild(this._el)
         }
         return this._el
     },
     containers: {},
     newInstance(horizontal, vertical) {
-        const instance = new Vue(LvMessageContainer).$mount()
+        const instance = new Vue(PlMessageContainer).$mount()
         instance.p_horizontal = horizontal
         instance.p_vertical = vertical
         this.el.appendChild(instance.$el)

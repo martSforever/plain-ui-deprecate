@@ -13,40 +13,40 @@ import {$message} from "./components/message";
 import {$notice} from "./components/notice";
 
 import ColumnComponents from './components/table-columns'
-import icon from './components/icon/lv-icon'
-import scroll from './components/scroll/lv-scroll'
-import box from './components/box/lv-box'
-import button from './components/button/lv-button'
-import buttonGroup from './components/button/lv-button-group'
-import input from './components/input/lv-input'
-import radio from './components/radio/lv-radio'
-import radioGroup from './components/radio/lv-radio-group'
-import number from './components/number/lv-number'
-import toggle from './components/toggle/lv-toggle'
-import loading from './components/loading/lv-loading'
-import popover from './components/popper/lv-popover'
-import dialog from './components/dialog/lv-dialog'
-import list from './components/list/lv-list'
-import item from './components/list/lv-item'
-import select from './components/select/lv-select'
-import selectText from './components/select/lv-select-text'
-import collapseTransition from './components/collapse/lv-collapse-transition'
-import collapse from './components/collapse/lv-collapse'
-import collapseGroup from './components/collapse/lv-collapse-group'
-import card from './components/card/lv-card'
-import cardHeader from './components/card/lv-card-header'
-import cardContent from './components/card/lv-card-content'
+import icon from './components/icon/pl-icon'
+import scroll from './components/scroll/pl-scroll'
+import box from './components/box/pl-box'
+import button from './components/button/pl-button'
+import buttonGroup from './components/button/pl-button-group'
+import input from './components/input/pl-input'
+import radio from './components/radio/pl-radio'
+import radioGroup from './components/radio/pl-radio-group'
+import number from './components/number/pl-number'
+import toggle from './components/toggle/pl-toggle'
+import loading from './components/loading/pl-loading'
+import popover from './components/popper/pl-popover'
+import dialog from './components/dialog/pl-dialog'
+import list from './components/list/pl-list'
+import item from './components/list/pl-item'
+import select from './components/select/pl-select'
+import selectText from './components/select/pl-select-text'
+import collapseTransition from './components/collapse/pl-collapse-transition'
+import collapse from './components/collapse/pl-collapse'
+import collapseGroup from './components/collapse/pl-collapse-group'
+import card from './components/card/pl-card'
+import cardHeader from './components/card/pl-card-header'
+import cardContent from './components/card/pl-card-content'
 import tooltip from './directives/tooltip'
-import carousel from './components/carousel/lv-carousel'
-import navigator from './components/navigator/lv-navigator'
-import badge from './components/badge/lv-badge'
-import mavon from './components/mavon/lv-mavon'
-import doc from './components/lv-doc/lv-doc'
-import baseTable from './components/table/lv-base-table'
-import tag from './components/tag/lv-tag'
-import step from './components/step/lv-step'
-import stepItem from './components/step/lv-step-item'
-import slider from './components/slider/lv-slider'
+import carousel from './components/carousel/pl-carousel'
+import navigator from './components/navigator/pl-navigator'
+import badge from './components/badge/pl-badge'
+import mavon from './components/mavon/pl-mavon'
+import doc from './components/doc/pl-doc'
+import baseTable from './components/table/pl-base-table'
+import tag from './components/tag/pl-tag'
+import step from './components/step/pl-step'
+import stepItem from './components/step/pl-step-item'
+import slider from './components/slider/pl-slider'
 
 const components = {
     icon,
@@ -87,11 +87,11 @@ const components = {
 }
 
 const TYPE = {
-    info: {icon: 'lv-info-circle-fill', color: 'primary'},
-    warn: {icon: 'lv-alert', color: 'warn'},
-    success: {icon: 'lv-checked-circle-fill', color: 'success'},
-    error: {icon: 'lv-close-circle-fill', color: 'error'},
-    help: {icon: 'lv-help-circle-fill', color: 'info'},
+    info: {icon: 'pl-info-circle-fill', color: 'primary'},
+    warn: {icon: 'pl-alert', color: 'warn'},
+    success: {icon: 'pl-checked-circle-fill', color: 'success'},
+    error: {icon: 'pl-close-circle-fill', color: 'error'},
+    help: {icon: 'pl-help-circle-fill', color: 'info'},
 }
 
 const PlainUI = {
@@ -101,7 +101,10 @@ const PlainUI = {
     $validate,
     $message,
     TYPE,
-    install(Vue, {prefix = 'lv', iconfont} = {}) {
+    install(Vue, {
+        prefix = 'lv',
+        iconfont
+    } = {}) {
         Vue.use(DomPortal)
         Vue.use(mavonEditor)
         Vue.prototype.$plain = PlainUI
@@ -110,7 +113,7 @@ const PlainUI = {
         Vue.prototype.$dialog = $dialog
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
-        $utils.addScript('https://at.alicdn.com/t/font_948159_o5ksim3qo1m.js')
+        $utils.addScript('https://at.alicdn.com/t/font_948159_ukep6sz7tw8.js')
         !!iconfont && $utils.addScript(iconfont)
     },
 }

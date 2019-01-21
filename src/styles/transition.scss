@@ -3,41 +3,41 @@
 }
 
 /*缩放*/
-.lv-transition-scale-enter-active, .lv-transition-scale-leave-active {
+.pl-transition-scale-enter-active, .pl-transition-scale-leave-active {
   transform: scale(1);
 }
 
-.lv-transition-scale-enter, .lv-transition-scale-leave-to {
+.pl-transition-scale-enter, .pl-transition-scale-leave-to {
   transform: scale(0.6);
   opacity: 0;
 }
 
 
 /*缩放过度*/
-.lv-popover-scale-enter-active, .lv-popover-scale-leave-active {
+.pl-popover-scale-enter-active, .pl-popover-scale-leave-active {
   transition: all .1s linear;
   opacity: 1;
 }
 
-.lv-popover-scale-enter, .lv-popover-scale-leave-to {
+.pl-popover-scale-enter, .pl-popover-scale-leave-to {
   opacity: 0;
   transform: scale(0.75, 0.75);
 }
 
 /*透明度*/
-.lv-transition-fade-enter-active, .lv-transition-fade-leave-active {
+.pl-transition-fade-enter-active, .pl-transition-fade-leave-active {
   opacity: 1;
 }
 
-.lv-transition-fade-enter, .lv-transition-fade-leave-to {
+.pl-transition-fade-enter, .pl-transition-fade-leave-to {
   opacity: 0;
 }
 
 /*移动*/
-.lv-transition-from-bottom-enter-active, .lv-transition-from-bottom-leave-active {
+.pl-transition-from-bottom-enter-active, .pl-transition-from-bottom-leave-active {
 }
 
-.lv-transition-from-bottom-enter, .lv-transition-from-bottom-leave-to {
+.pl-transition-from-bottom-enter, .pl-transition-from-bottom-leave-to {
   transform: translateY(36px);
   opacity: 0;
 }

@@ -1,5 +1,5 @@
-import LvDialog from './lv-dialog'
-import LvRenderFunc from '../render/lv-render-func'
+import PlDialog from './pl-dialog'
+import PlRenderFunc from '../render/pl-render-func'
 import Vue from 'vue'
 
 const DEFAULT_OPTION = {
@@ -8,7 +8,7 @@ const DEFAULT_OPTION = {
     shape: 'none',
     shadowColor: 'rgba(0,0,0,0.25)',
     disabledHideOnClickShadow: false,
-    transition: 'lv-dialog-animate-drop',
+    transition: 'pl-dialog-animate-drop',
     height: 88,
     width: 336,
     full: false,
@@ -45,10 +45,10 @@ const $dialog = {
     },
     newInstance() {
         const instance = new Vue({
-            components: {LvDialog, LvRenderFunc},
+            components: {PlDialog, PlRenderFunc},
             render(h) {
                 return (
-                    <lv-dialog
+                    <pl-dialog
                         ref="dialog"
                         type={this.type}
                         title={this.title}
@@ -87,8 +87,8 @@ const $dialog = {
                         }}
                     >
                         {this.message}
-                        {!!this.render && <lv-render-func render-func={this.render}/>}
-                    </lv-dialog>
+                        {!!this.render && <pl-render-func render-func={this.render}/>}
+                    </pl-dialog>
                 )
             },
             data() {

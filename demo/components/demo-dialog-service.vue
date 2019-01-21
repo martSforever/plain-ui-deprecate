@@ -24,7 +24,7 @@
             <link-button label="disabledHideOnClickShadow" @click="$dialog.show('Hello world',{disabledHideOnClickShadow:true})"/>
         </demo-row>
         <demo-row title="显隐动画">
-            <link-button label="transition" @click="$dialog.show('Hello world',{transition:'lv-dialog-scale'})"/>
+            <link-button label="transition" @click="$dialog.show('Hello world',{transition:'pl-dialog-scale'})"/>
         </demo-row>
         <demo-row title="高度以及宽度">
             <link-button label="宽高" @click="$dialog.show('Hello world',{height:100,width:400})"/>

@@ -38,7 +38,7 @@ export const BoxMixin = {
 
         prefixIcon: {type: String},                                     //前置图标
         suffixIcon: {type: String},                                     //后置图标
-        clearIcon: {type: String},                                      //清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示lv-close，否则显示clearIcon
+        clearIcon: {type: String},                                      //清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pl-close，否则显示clearIcon
         loading: {type: Boolean},                                       //loading 图标
         iconOnly: {type: Boolean},                                      //只有图标，设置为true则盒子宽高相等，并且为圆形
 

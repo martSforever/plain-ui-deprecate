@@ -60,7 +60,7 @@
 
         <demo-row title="前置图标以及后置图标">
             <demo-row title="前置后置icon">
-                <link-number v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="lv-date" suffix-icon="lv-search"/>
+                <link-number v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
             </demo-row>
         </demo-row>
         <demo-row title="加载图标">

@@ -30,12 +30,12 @@
     }
 '
                 scss='
-    .lv-mavon {
-        .lv-mavon-wrapper {
+    .pl-mavon {
+        .pl-mavon-wrapper {
             width: 100%;
             box-sizing: border-box;
             padding: 0 32px;
-            .lv-mavon-wrapper-collapse-button {
+            .pl-mavon-wrapper-collapse-button {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -72,7 +72,7 @@
             </demo-row>
         </link-mavon>
 
-        <link-doc :lv-props="lvProps" :lv-events="lvEvents" :lv-methods="lvMethods" :lv-slots="lvSlots"/>
+        <link-doc :pl-props="lvProps" :pl-events="lvEvents" :pl-methods="lvMethods" :pl-slots="lvSlots"/>
     </div>
 </template>
 

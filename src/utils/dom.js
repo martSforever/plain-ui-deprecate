@@ -135,7 +135,7 @@ function insertAfter(newEl, targetEl) {
  *  @datetime   2018/12/28 20:56
  */
 function enableSelectNone() {
-    addClass(window.document.body, 'lv-body-user-select-none')
+    addClass(window.document.body, 'pl-body-user-select-none')
 }
 
 /*
@@ -144,7 +144,7 @@ function enableSelectNone() {
  *  @datetime   2018/12/28 20:56
  */
 function disabledSelectNone() {
-    removeClass(window.document.body, 'lv-body-user-select-none')
+    removeClass(window.document.body, 'pl-body-user-select-none')
 }
 
 const $dom = {

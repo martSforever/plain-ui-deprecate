@@ -46,7 +46,7 @@
             </demo-row-item>
         </demo-row>
         <demo-row title="前置图标以及后置图标">
-            <link-input v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="lv-date" suffix-icon="lv-search"/>
+            <link-input v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
         </demo-row>
         <demo-row title="加载图标">
             <link-input v-for="(item,index) in colors" :box-color="item" :key="index" loading/>
@@ -89,12 +89,12 @@
         </demo-row>
         <demo-row title="前置插槽以及后置插槽">
             <link-input :width="null">
-                <div slot="prepend" class="lv-input-prepend">前置内容</div>
-                <div slot="append" class="lv-input-append">后置内容</div>
+                <div slot="prepend" class="pl-input-prepend">前置内容</div>
+                <div slot="append" class="pl-input-append">后置内容</div>
             </link-input>
             <link-input :width="null" placeholder="baidu" :clear-icon="null" :default-clear="false">
-                <div slot="prepend" class="lv-input-prepend">https://www.</div>
-                <div slot="append" class="lv-input-append">.com</div>
+                <div slot="prepend" class="pl-input-prepend">https://www.</div>
+                <div slot="append" class="pl-input-append">.com</div>
             </link-input>
         </demo-row>
     </div>

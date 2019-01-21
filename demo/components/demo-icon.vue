@@ -1,7 +1,7 @@
 <template>
     <div class="demo-icon">
         <demo-row title="默认图标">
-            <link-icon icon="lv-star"/>
+            <link-icon icon="pl-star"/>
         </demo-row>
         <demo-row title="自定义扩展图标">
             <link-icon icon="icon-youtubeplay"/>

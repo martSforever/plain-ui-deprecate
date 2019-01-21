@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import LvMessageContainer from "../../src/components/message/lv-message-container";
+    import LvMessageContainer from "../../src/components/message/pl-message-container";
 
     export default {
         name: "demo-message",

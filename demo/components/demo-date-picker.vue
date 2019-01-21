@@ -2,7 +2,7 @@
     <div class="demo-date-picker">
         demo-date-picker
         <div style="background-color: rebeccapurple;display: inline-flex">
-            <link-icon icon="lv-date"/>hello world<link-icon icon="lv-search"/>
+            <link-icon icon="pl-date"/>hello world<link-icon icon="pl-search"/>
         </div>
     </div>
 </template>

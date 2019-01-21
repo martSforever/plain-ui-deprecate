@@ -41,26 +41,26 @@
         </demo-row>
 
         <demo-row title="前置后置icon">
-            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="lv-date" suffix-icon="lv-search">{{item}}</link-box>
+            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search">{{item}}</link-box>
         </demo-row>
         <demo-row title="清除icon">
-            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" clear-icon="lv-date" value="111" @click="_click('click')" @clear="_click('clear')">{{item}}</link-box>
+            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" clear-icon="pl-date" value="111" @click="_click('click')" @clear="_click('clear')">{{item}}</link-box>
         </demo-row>
         <demo-row title="加载图标">
             <link-box v-for="(item,index) in colors" :box-color="item" :key="index" loading>{{item}}</link-box>
         </demo-row>
         <demo-row title="只有icon">
-            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" icon-only suffix-icon="lv-search">{{item}}</link-box>
+            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" icon-only suffix-icon="pl-search">{{item}}</link-box>
         </demo-row>
 
         <demo-row title="禁用样式">
-            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" disabled clear-icon="lv-date" value="111" @click="_click('click')" @clear="_click('clear')">{{item}}</link-box>
+            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" disabled clear-icon="pl-date" value="111" @click="_click('click')" @clear="_click('clear')">{{item}}</link-box>
         </demo-row>
         <demo-row title="只读">
-            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" readonly clear-icon="lv-date" value="111" @click="_click('click')" @clear="_click('clear')">{{item}}</link-box>
+            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" readonly clear-icon="pl-date" value="111" @click="_click('click')" @clear="_click('clear')">{{item}}</link-box>
         </demo-row>
         <demo-row title="去除默认padding">
-            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" :padding="false" suffix-icon="lv-search">{{item}}</link-box>
+            <link-box v-for="(item,index) in colors" :box-color="item" :key="index" :padding="false" suffix-icon="pl-search">{{item}}</link-box>
         </demo-row>
         <demo-row title="长按钮">
             <link-box long>long box</link-box>
@@ -96,7 +96,7 @@
 
 <style lang="scss">
     .demo-box {
-        .lv-box {
+        .pl-box {
             margin-right: 12px;
         }
     }

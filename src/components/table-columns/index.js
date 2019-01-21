@@ -1,7 +1,7 @@
-import column from './column/lv-column'
-import columnInput from './input/lv-column-input'
-import columnGroup from '../table/lv-column-group'
-import columnIndex from './index/lv-column-index'
+import column from './column/pl-column'
+import columnInput from './input/pl-column-input'
+import columnGroup from '../table/pl-column-group'
+import columnIndex from './index/pl-column-index'
 
 export default {
     column,

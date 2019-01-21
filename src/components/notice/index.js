@@ -1,4 +1,4 @@
-import LvNoticeContainer from './lv-notice-container'
+import PlNoticeContainer from './pl-notice-container'
 import Vue from 'vue'
 import utils from '../../utils/utils'
 import dom from '../../utils/dom'
@@ -8,14 +8,14 @@ const $notice = {
     get el() {
         if (!this._el) {
             this._el = document.createElement('div')
-            dom.addClass(this._el, 'lv-notice-containers')
+            dom.addClass(this._el, 'pl-notice-containers')
             document.body.appendChild(this._el)
         }
         return this._el
     },
     containers: {},
     newInstance(horizontal, vertical) {
-        const instance = new Vue(LvNoticeContainer).$mount()
+        const instance = new Vue(PlNoticeContainer).$mount()
         instance.p_horizontal = horizontal
         instance.p_vertical = vertical
         this.el.appendChild(instance.$el)
