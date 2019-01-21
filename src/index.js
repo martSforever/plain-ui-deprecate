@@ -101,10 +101,14 @@ const PlainUI = {
     $validate,
     $message,
     TYPE,
+    zIndex: null,
+    transitionTime: 150,
     install(Vue, {
         prefix = 'lv',
-        iconfont
+        iconfont,
+        zIndex = 2000,
     } = {}) {
+        this.zIndex = zIndex
         Vue.use(DomPortal)
         Vue.use(mavonEditor)
         Vue.prototype.$plain = PlainUI

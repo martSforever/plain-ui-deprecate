@@ -5,7 +5,8 @@
             <link-dialog v-model="val1">
                 一二三四五六七
                 <link-button label="关闭" @click="val1 = false" full/>
-                <demo-child/>
+                <demo-child title="i am child"/>
+                <link-button label="fillet" @click="$refs.filletDialog.show()"/>
             </link-dialog>
         </demo-row>
         <demo-row title="形状">

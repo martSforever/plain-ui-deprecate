@@ -16,7 +16,7 @@
                         <span>{{title}}</span>
                     </div>
                     <div class="pl-dialog-head-operator">
-                        <pl-icon icon="pl-minimize"/>
+                        <!--<pl-icon icon="pl-minimize"/>-->
                         <pl-icon icon="pl-maximize" v-show="!p_isFull && !!max" @click="p_isFull=true"/>
                         <pl-icon icon="pl-maxmin" v-show="!!p_isFull && !!max" @click="p_isFull=false"/>
                         <pl-icon icon="pl-close" @click="hide" class="pl-dialog-close-icon" v-if="!noClose"/>
@@ -46,7 +46,7 @@
         mixins: [ValueMixin],
         props: {
             type: {type: String, default: 'info'},                                              //标题类型 info|success|warn|error|help
-            title: {type: String, default: '提示'},                                              //标题
+            title: {type: String, default: '提示'},                                             //标题
             shape: {type: String, default: 'none'},                                             //形状 none|fillet
             shadowColor: {type: String, default: 'rgba(0,0,0,0.25)'},                           //遮罩层演策
             disabledHideOnClickShadow: {type: Boolean,},                                        //是否禁用点击遮罩关闭窗口功能
@@ -143,7 +143,8 @@
             },
             hide() {
                 this.currentValue = false
-                !!this.destroyOnHide && this.$nextTick(() => this.p_initialized = false)
+                !!this.destroyOnHide && setTimeout(() => this.p_initialized = false, this.$plain.transitionTime)
+                setTimeout(() => this.$plain.zIndex -= 3, this.$plain.transitionTime)
             },
             p_clickShadow(e) {
                 this.$emit('clickShadow', e)
@@ -153,7 +154,8 @@
                 this.$emit('clickContent', e)
             },
             p_getTopIndex() {
-                return this.$plain.$utils.dateFormat(new Date(), 'mmssSSS') - 0
+                this.$plain.zIndex += 3
+                return this.$plain.zIndex
             },
             p_confirm() {
                 this.$emit('confirm')
