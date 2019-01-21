@@ -10,7 +10,7 @@
             <table cellspacing="0" cellpadding="0" border="0">
                 <lv-table-column-space :columns="bodyColumns"/>
                 <lv-table-row v-for="(row,rowIndex) in data"
-                              :key="row.lv_id"
+                              :key="row.p_id"
                               :row="row"
                               :edit-row="editData[rowIndex]"
                               :row-index="rowIndex"
@@ -45,7 +45,7 @@
                 return this.bodyColumns.reduce((ret, item) => item.fixed === this.fixed ? ret + item.width : ret, 0)
             },
             styles() {
-                if (!this.lv_mounted) return null
+                if (!this.p_mounted) return null
                 const styles = {}
                 this.rowNum != null && (styles.height = `${this.rowNum * this.rowHeight + 9}px`)
                 styles.width = `${this.width}px`

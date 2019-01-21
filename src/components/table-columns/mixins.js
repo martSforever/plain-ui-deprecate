@@ -37,7 +37,7 @@ export const ColumnMixin = {
          * @author  韦胜健
          * @date    2019/1/10 17:45
          */
-        lv_clickItem(row, rowIndex, editRow) {
+        p_clickItem(row, rowIndex, editRow) {
             this.$emit('click', {row, rowIndex, editRow, field: this.field, editable: this.editable})
         },
     }
@@ -65,7 +65,7 @@ export const ColumnItemMixin = {
     data() {
         return {
             currentEditable: false,                                                                                     //当前行是否被设置为可编辑
-            _lv_row: null,
+            _p_row: null,
         }
     },
     computed: {
@@ -74,35 +74,35 @@ export const ColumnItemMixin = {
          * @author  韦胜健
          * @date    2019/1/8 10:21
          */
-        lv_row() {
-            if (!this._lv_row) this._lv_row = this.$plain.$dom.findComponentUpward(this, 'lv-table-row')
-            return this._lv_row
+        p_row() {
+            if (!this._p_row) this._p_row = this.$plain.$dom.findComponentUpward(this, 'lv-table-row')
+            return this._p_row
         },
         /**
          * 当前是否可编辑
          * @author  韦胜健
          * @date    2019/1/10 15:31
          */
-        lv_editable() {
+        p_editable() {
             if (this.rowIndex == null && this.colIndex == null) return
             const editable = this.currentEditable && this.editable
-            return editable && (!this.editableFunc || this.editableFunc(this.lv_data))
+            return editable && (!this.editableFunc || this.editableFunc(this.p_data))
         },
         /**
          * 当前是否必输
          * @author  韦胜健
          * @date    2019/1/18 15:59
          */
-        lv_required() {
+        p_required() {
             if (this.rowIndex == null && this.colIndex == null) return
-            return !!this.requiredFunc ? this.requiredFunc(this.lv_data) : this.required
+            return !!this.requiredFunc ? this.requiredFunc(this.p_data) : this.required
         },
         /**
          * 用于判断常用参数
          * @author  韦胜健
          * @date    2019/1/18 16:35
          */
-        lv_data() {
+        p_data() {
             return {
                 row: this.row,
                 editRow: this.editRow,
@@ -116,14 +116,14 @@ export const ColumnItemMixin = {
          * @date    2019/1/11 10:52
          */
         showRow() {
-            return this.lv_editable ? this.editRow : this.row
+            return this.p_editable ? this.editRow : this.row
         },
     },
     mounted() {
-        this.rowIndex != null && this.colIndex != null && this.lv_row.lv_add(this)
+        this.rowIndex != null && this.colIndex != null && this.p_row.p_add(this)
     },
     beforeDestroy() {
-        !!this.lv_row && this.lv_row.lv_remove(this)
+        !!this.p_row && this.p_row.p_remove(this)
     },
     methods: {
         /**

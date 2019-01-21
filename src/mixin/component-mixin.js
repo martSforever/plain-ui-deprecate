@@ -4,17 +4,17 @@ export const ValueMixin = {
     },
     watch: {
         value(val) {
-            this.lv_watchValue && val !== this.currentValue && (this.currentValue = val)
+            this.p_watchValue && val !== this.currentValue && (this.currentValue = val)
         },
         currentValue(val) {
-            this.lv_watchCurrentValue && this.$emit('input', val)
+            this.p_watchCurrentValue && this.$emit('input', val)
         },
     },
     data() {
         return {
             currentValue: this.value,
-            lv_watchValue: true,
-            lv_watchCurrentValue: true,
+            p_watchValue: true,
+            p_watchCurrentValue: true,
         }
     },
 }
@@ -57,14 +57,14 @@ export const BoxMixin = {
 export const MountedMixin = {
     data() {
         return {
-            lv_mounted: false
+            p_mounted: false
         }
     },
     mounted() {
-        this.lv_mounted = true
+        this.p_mounted = true
     },
     beforeDestroy() {
-        this.lv_mounted = false
+        this.p_mounted = false
     },
 }
 

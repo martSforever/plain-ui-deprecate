@@ -16,8 +16,8 @@ const $notice = {
     containers: {},
     newInstance(horizontal, vertical) {
         const instance = new Vue(LvNoticeContainer).$mount()
-        instance.lv_horizontal = horizontal
-        instance.lv_vertical = vertical
+        instance.p_horizontal = horizontal
+        instance.p_vertical = vertical
         this.el.appendChild(instance.$el)
         return instance
     },

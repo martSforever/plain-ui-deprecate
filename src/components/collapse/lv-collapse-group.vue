@@ -18,16 +18,16 @@
             };
         },
         methods: {
-            lv_add(collapse) {
+            p_add(collapse) {
                 this.items.push(collapse);
                 if (!!collapse.currentValue) {
                     this.stack.push(collapse);
                 }
             },
-            lv_remove(collapse) {
+            p_remove(collapse) {
                 this.items.splice(this.items.indexOf(collapse), 1);
             },
-            lv_click(val, collapse) {
+            p_click(val, collapse) {
                 if (!val) {
                     this.stack.push(collapse);
                     if (!!this.limit && this.limit > 0 && this.stack.length > this.limit) {

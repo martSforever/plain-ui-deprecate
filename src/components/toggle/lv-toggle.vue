@@ -1,5 +1,5 @@
 <template>
-    <div class="lv-toggle" :class="classes" @click="lv_click" @mousedown="lv_mousedown" @mouseup="lv_mouseup">
+    <div class="lv-toggle" :class="classes" @click="p_click" @mousedown="p_mousedown" @mouseup="p_mouseup">
         <div class="lv-toggle-circle"></div>
     </div>
 </template>
@@ -21,7 +21,7 @@
         },
         data() {
             return {
-                lv_active: false,
+                p_active: false,
             }
         },
         computed: {
@@ -34,7 +34,7 @@
                     `lv-toggle-size-${this.size}`,
                     {
                         'lv-toggle-on': !!this.on,
-                        'lv-toggle-active': this.lv_active,
+                        'lv-toggle-active': this.p_active,
                         'lv-toggle-readonly': this.readonly,
                         'lv-toggle-disabled': this.disabled,
                     }
@@ -42,15 +42,15 @@
             },
         },
         methods: {
-            lv_click() {
+            p_click() {
                 if (this.readonly || this.disabled) return
                 this.currentValue = !this.on ? this.trueValue : this.falseValue
             },
-            lv_mousedown() {
-                this.lv_active = true
+            p_mousedown() {
+                this.p_active = true
             },
-            lv_mouseup() {
-                this.lv_active = false
+            p_mouseup() {
+                this.p_active = false
             },
         },
     }

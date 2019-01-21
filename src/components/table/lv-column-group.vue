@@ -21,15 +21,15 @@
         },
         watch: {
             fixed(val) {
-                if (this.lv_fixed !== val) this.lv_fixed = val;
+                if (this.p_fixed !== val) this.p_fixed = val;
             },
-            lv_fixed(val) {
+            p_fixed(val) {
                 this.$emit('update:fixed', val);
             },
         },
         data() {
             return {
-                lv_fixed: this.fixed,
+                p_fixed: this.fixed,
                 group: true,
             }
         },
@@ -39,10 +39,10 @@
                 /*@formatter:off*/
                 const col = {
                     get title() {return that.title},
-                    get order() {return that.order+(that.lv_fixed === 'left'?999:that.lv_fixed === 'right'?-999:0)},
-                    get fixed() {return that.lv_fixed},
+                    get order() {return that.order+(that.p_fixed === 'left'?999:that.p_fixed === 'right'?-999:0)},
+                    get fixed() {return that.p_fixed},
 
-                    set fixed(val){that.lv_fixed = val},
+                    set fixed(val){that.p_fixed = val},
                 }
                 /*@formatter:on*/
                 const children = this.$children.reduce((ret, item) => {
@@ -52,7 +52,7 @@
                         })
                     } else {
                         const c = item.group ? item.getCol() : item.col
-                        !this.isCtrlGroup && (c.fixed = this.lv_fixed)
+                        !this.isCtrlGroup && (c.fixed = this.p_fixed)
                         ret.push(c)
                     }
                     return ret

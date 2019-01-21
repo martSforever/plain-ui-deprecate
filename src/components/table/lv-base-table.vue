@@ -1,30 +1,30 @@
 <template>
     <div class="lv-base-table"
          :class="classes"
-         @mouseleave="lv_hover=null">
-        <lv-table-column-controller @collect="lv_collect" ref="controller">
+         @mouseleave="p_hover=null">
+        <lv-table-column-controller @collect="p_collect" ref="controller">
             <slot></slot>
         </lv-table-column-controller>
         <lv-table-head
                 v-if="!noHeader"
                 ref="head"
-                :fixed-exist="lv_fixedExist"
-                :head-columns="lv_headColumns"
-                :body-columns="lv_bodyColumns"
-                :sort-field="lv_sortField"
-                :sort-desc="lv_sortDesc"
-                @mouseenter.native="lv_hover = 'head'"
-                @scroll="e=>lv_hover === 'head' && $refs.body.$refs.center[0].$refs.scroll.setScroll({x: e.target.scrollLeft})"/>
+                :fixed-exist="p_fixedExist"
+                :head-columns="p_headColumns"
+                :body-columns="p_bodyColumns"
+                :sort-field="p_sortField"
+                :sort-desc="p_sortDesc"
+                @mouseenter.native="p_hover = 'head'"
+                @scroll="e=>p_hover === 'head' && $refs.body.$refs.center[0].$refs.scroll.setScroll({x: e.target.scrollLeft})"/>
         <lv-table-body
                 ref="body"
                 :data="data"
-                :edit-data="lv_editData"
-                :body-columns="lv_bodyColumns"
-                :fixed-exist="lv_fixedExist"
+                :edit-data="p_editData"
+                :body-columns="p_bodyColumns"
+                :fixed-exist="p_fixedExist"
                 :row-height="rowHeight"
                 :row-num="rowNum"
-                @mouseenter.native="lv_hover = 'body'"
-                @scroll="e=>lv_hover !== 'head' && !!$refs.head && $refs.head.$refs.scroll.setScroll({x: e.target.scrollLeft})"/>
+                @mouseenter.native="p_hover = 'body'"
+                @scroll="e=>p_hover !== 'head' && !!$refs.head && $refs.head.$refs.scroll.setScroll({x: e.target.scrollLeft})"/>
     </div>
 </template>
 
@@ -52,15 +52,15 @@
         data() {
             return {
                 columns: [],                            //所有列
-                lv_editData: [],                        //编辑数据数组
-                lv_hoverIndex: null,                    //鼠标浮动所在的行索引
-                lv_selectedIndex: [],                   //选中的行索引数组
-                lv_hostWidth: null,                     //表格显示宽度
-                lv_hover: null,                         //鼠标是否覆盖在表格上
-                lv_scrollLeft: false,                   //内容是否滑动到左端
-                lv_scrollRight: false,                  //内容是否滑动到右端
-                lv_sortField: this.sortField,           //排序字段
-                lv_sortDesc: this.sortDesc,             //排序方式，先序降序
+                p_editData: [],                        //编辑数据数组
+                p_hoverIndex: null,                    //鼠标浮动所在的行索引
+                p_selectedIndex: [],                   //选中的行索引数组
+                p_hostWidth: null,                     //表格显示宽度
+                p_hover: null,                         //鼠标是否覆盖在表格上
+                p_scrollLeft: false,                   //内容是否滑动到左端
+                p_scrollRight: false,                  //内容是否滑动到右端
+                p_sortField: this.sortField,           //排序字段
+                p_sortDesc: this.sortDesc,             //排序方式，先序降序
                 content: {                              //各个表格的数据对象，rows：lv-table-row组件对象、timer排序定时器
                     left: {rows: [], timer: null},
                     center: {rows: [], timer: null},
@@ -79,15 +79,15 @@
                 handler(newVal) {
                     if (!newVal || newVal.length === 0) return
                     newVal.forEach((row, index) => {
-                        row.lv_id == null && (this.$set(row, 'lv_id', this.$plain.$utils.uuid()))
-                        const editRow = this.$plain.$utils.findOne(this.lv_editData, item => item.lv_id === row.lv_id)
-                        if (!editRow) this.lv_editData.splice(index, 0, deepCopy(row))
+                        row.p_id == null && (this.$set(row, 'p_id', this.$plain.$utils.uuid()))
+                        const editRow = this.$plain.$utils.findOne(this.p_editData, item => item.p_id === row.p_id)
+                        if (!editRow) this.p_editData.splice(index, 0, deepCopy(row))
                     })
 
-                    for (let i = 0; i < this.lv_editData.length; i++) {
-                        const editRow = this.lv_editData[i];
-                        if (newVal.every(row => row.lv_id !== editRow.lv_id)) {
-                            this.lv_editData.splice(i, 1)
+                    for (let i = 0; i < this.p_editData.length; i++) {
+                        const editRow = this.p_editData[i];
+                        if (newVal.every(row => row.p_id !== editRow.p_id)) {
+                            this.p_editData.splice(i, 1)
                             i--
                         }
                     }
@@ -106,10 +106,10 @@
         computed: {
             classes() {
                 return {
-                    'lv-base-table-hover': !!this.lv_hover,
-                    'lv-base-table-stretch': this.lv_stretchTable,
-                    'lv-base-table-left-shadow': !this.lv_scrollLeft,
-                    'lv-base-table-right-shadow': !this.lv_scrollRight,
+                    'lv-base-table-hover': !!this.p_hover,
+                    'lv-base-table-stretch': this.p_stretchTable,
+                    'lv-base-table-left-shadow': !this.p_scrollLeft,
+                    'lv-base-table-right-shadow': !this.p_scrollRight,
                 }
             },
             /*
@@ -117,7 +117,7 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 21:52
              */
-            lv_fixedExist() {
+            p_fixedExist() {
                 const ret = {left: false, center: false, right: false}
                 this.columns.forEach(col => Object.keys(ret).forEach(position => !ret[position] && (ret[position] = col.fixed === position)))
                 // console.log('==>>', ret)
@@ -128,8 +128,8 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 21:51
              */
-            lv_headColumns() {
-                if (!this.lv_mounted) return []
+            p_headColumns() {
+                if (!this.p_mounted) return []
                 let maxLevel = 1;
                 let columns = this.$plain.$utils.deepCopy(this.columns)
 
@@ -181,8 +181,8 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 21:51
              */
-            lv_bodyColumns() {
-                if (!this.lv_mounted) return []
+            p_bodyColumns() {
+                if (!this.p_mounted) return []
                 const itar = (columns, ret) => {
                     columns.forEach(item => {
                         if (!!item.group) {
@@ -202,28 +202,28 @@
              * @author  韦胜健
              * @date    2019/1/8 19:29
              */
-            lv_stretchTable() {
-                if (!this.lv_mounted) return false
-                const totalWidth = this.lv_bodyColumns.reduce((ret, item) => ret + item.width, 0)
+            p_stretchTable() {
+                if (!this.p_mounted) return false
+                const totalWidth = this.p_bodyColumns.reduce((ret, item) => ret + item.width, 0)
                 const hostWidth = this.$el.offsetWidth
                 return totalWidth < hostWidth
             },
         },
         created() {
-            this.$on('rowEnter', ({row, rowIndex, position}) => this.lv_rowIterate(row => row.lv_hover = true, rowIndex))       //监听行鼠标覆盖行事件
-            this.$on('rowLeave', ({row, rowIndex, position}) => this.lv_rowIterate(row => row.lv_hover = false, rowIndex))      //监听行鼠标覆盖行事件
-            // this.$on('rowDblClick',({row,rowIndex,position})=>this.lv_rowDblClick({row,rowIndex,position}))                  //监听行鼠标双击行事件
-            this.$on('rowClick', this.lv_click)                                                                                 //监听行鼠标单击行事件
-            this.$on('scrollLeft', (val) => this.lv_scrollLeft = val)                                                           //内容滑动到左端
-            this.$on('scrollRight', (val) => this.lv_scrollRight = val)                                                         //内容滑动到右端
-            this.$on('clickTitle', this.lv_clickTitle)                                                                          //点击标题动作
+            this.$on('rowEnter', ({row, rowIndex, position}) => this.p_rowIterate(row => row.p_hover = true, rowIndex))       //监听行鼠标覆盖行事件
+            this.$on('rowLeave', ({row, rowIndex, position}) => this.p_rowIterate(row => row.p_hover = false, rowIndex))      //监听行鼠标覆盖行事件
+            // this.$on('rowDblClick',({row,rowIndex,position})=>this.p_rowDblClick({row,rowIndex,position}))                  //监听行鼠标双击行事件
+            this.$on('rowClick', this.p_click)                                                                                 //监听行鼠标单击行事件
+            this.$on('scrollLeft', (val) => this.p_scrollLeft = val)                                                           //内容滑动到左端
+            this.$on('scrollRight', (val) => this.p_scrollRight = val)                                                         //内容滑动到右端
+            this.$on('clickTitle', this.p_clickTitle)                                                                          //点击标题动作
         },
         mounted() {
-            this.lv_calculateWidth()
-            window.addEventListener('resize', this.lv_calculateWidth)
+            this.p_calculateWidth()
+            window.addEventListener('resize', this.p_calculateWidth)
         },
         beforeDestroy() {
-            window.removeEventListener('resize', this.lv_calculateWidth)
+            window.removeEventListener('resize', this.p_calculateWidth)
         },
         methods: {
             /**
@@ -232,7 +232,7 @@
              * @date    2019/1/8 10:49
              */
             enableEdit(rowIndex) {
-                this.lv_rowIterate(row => row.enableEdit(), rowIndex)
+                this.p_rowIterate(row => row.enableEdit(), rowIndex)
             },
             /**
              * 关闭编辑状态
@@ -240,7 +240,7 @@
              * @date    2019/1/8 10:28
              */
             disableEdit(rowIndex) {
-                this.lv_rowIterate(row => row.disableEdit(), rowIndex)
+                this.p_rowIterate(row => row.disableEdit(), rowIndex)
             },
             /**
              * 开始编辑
@@ -250,11 +250,11 @@
             startEdit(rowIndex) {
                 if (rowIndex != null && rowIndex !== '') {
                     const row = this.data[rowIndex]
-                    const editRow = this.lv_editData[rowIndex]
+                    const editRow = this.p_editData[rowIndex]
                     Object.keys(row).forEach(key => editRow[key] = row[key])
                 } else {
                     this.data.forEach((row, index) => {
-                        Object.keys(row).forEach(key => this.lv_editData[index][key] = row[key])
+                        Object.keys(row).forEach(key => this.p_editData[index][key] = row[key])
                     })
                 }
                 this.enableEdit(rowIndex)
@@ -267,11 +267,11 @@
             cancelEdit(rowIndex) {
                 if (rowIndex != null && rowIndex !== '') {
                     const row = this.data[rowIndex]
-                    const editRow = this.lv_editData[rowIndex]
+                    const editRow = this.p_editData[rowIndex]
                     Object.keys(row).forEach(key => editRow[key] = row[key])
                 } else {
                     this.data.forEach((row, index) => {
-                        Object.keys(row).forEach(key => this.lv_editData[index][key] = row[key])
+                        Object.keys(row).forEach(key => this.p_editData[index][key] = row[key])
                     })
                 }
                 this.disableEdit(rowIndex)
@@ -283,7 +283,7 @@
              */
             getEdit() {
                 return this.content.center.rows.reduce((ret, item) => {
-                    !!item.lv_editing && ret.push({row: item.row, editRow: item.editRow})
+                    !!item.p_editing && ret.push({row: item.row, editRow: item.editRow})
                     return ret
                 }, [])
             },
@@ -316,7 +316,7 @@
              * @date    2019/1/11 16:37
              */
             selectRow(rowIndex) {
-                this.lv_rowIterate((row, index) => row.lv_selected = rowIndex === index)
+                this.p_rowIterate((row, index) => row.p_selected = rowIndex === index)
             },
             /**
              * 校验数据
@@ -329,8 +329,8 @@
                 /*输入不通过的提示消息*/
                 let validateMsg = null;
 
-                this.lv_rowIterate((row) => {
-                    if (!row.lv_editing || !!inValidField) return
+                this.p_rowIterate((row) => {
+                    if (!row.p_editing || !!inValidField) return
                     const {flag, validateMsg: msg, field} = row.validate()
                     if (!flag) {
                         inValidField = field
@@ -344,15 +344,15 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 23:09
              */
-            lv_calculateWidth() {
-                this.lv_hostWidth = this.$el.offsetWidth
+            p_calculateWidth() {
+                this.p_hostWidth = this.$el.offsetWidth
             },
             /*
              *  收集列数据信息
              *  @author     martsforever
              *  @datetime   2019/1/6 20:44
              */
-            lv_collect(columns) {
+            p_collect(columns) {
                 // console.log(columns)
                 // console.log(columns.map(item => item.title + item.order));
                 this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
@@ -365,7 +365,7 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 20:55
              */
-            lv_rowIterate(fn, index) {
+            p_rowIterate(fn, index) {
                 Object.keys(this.content).forEach(position => {
                     if (this.content[position].rows.length > 0) {
                         if (index != null && index !== '') {
@@ -387,21 +387,21 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 20:46
              */
-            lv_rowAdd({row, position}) {
+            p_rowAdd({row, position}) {
                 this.content[position].rows.push(row)
                 if (!!this.content[position].timer) {
                     clearTimeout(this.content[position].timer)
                     this.content[position].timer = null
                 }
                 /*如果rows的长度小于data的长度，表明还有row没有初始化完成，等待10毫秒再对row进行排序*/
-                this.content[position].rows.length < this.data.length ? (this.content[position].timer = setTimeout(() => this.lv_sortRows(position), 10)) : this.lv_sortRows(position)
+                this.content[position].rows.length < this.data.length ? (this.content[position].timer = setTimeout(() => this.p_sortRows(position), 10)) : this.p_sortRows(position)
             },
             /*
              *  删除行组件对象
              *  @author     martsforever
              *  @datetime   2019/1/6 20:46
              */
-            lv_rowRemove({row, position}) {
+            p_rowRemove({row, position}) {
                 !!this.content[position] && this.$plain.$utils.removeFromArray(this.content[position].rows, row)
             },
             /*
@@ -409,17 +409,17 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 21:00
              */
-            lv_rowHover({row, rowIndex, position}) {
-                this.lv_hoverIndex != null && (this.lv_rowIterate((row) => row.lv_hover = false, this.lv_hoverIndex))
-                this.lv_rowIterate((row) => row.lv_hover = true, rowIndex)
-                this.lv_hoverIndex = rowIndex
+            p_rowHover({row, rowIndex, position}) {
+                this.p_hoverIndex != null && (this.p_rowIterate((row) => row.p_hover = false, this.p_hoverIndex))
+                this.p_rowIterate((row) => row.p_hover = true, rowIndex)
+                this.p_hoverIndex = rowIndex
             },
             /**
              * 根據data中的顺序，对content中的row component进行排序
              * @author  韦胜健
              * @date    2019/1/9 10:32
              */
-            lv_sortRows(position) {
+            p_sortRows(position) {
                 this.content[position].rows.sort((a, b) => this.data.indexOf(a.row) - this.data.indexOf(b.row))
                 // console.log(this.content[position].rows.map(item => item.row.left))
             },
@@ -428,27 +428,27 @@
              * @author  韦胜健
              * @date    2019/1/9 14:39
              */
-            lv_clickTitle({col}) {
+            p_clickTitle({col}) {
                 /*派发排序事件*/
                 if (!col.sort) return
                 if (!col.children) {
-                    if (this.lv_sortField == null) {
-                        this.lv_sortField = col.field
-                        this.lv_sortDesc = true
+                    if (this.p_sortField == null) {
+                        this.p_sortField = col.field
+                        this.p_sortDesc = true
                     } else {
-                        if (this.lv_sortField === col.field) {
-                            if (col.field === this.lv_sortField && !this.lv_sortDesc) {
-                                this.lv_sortField = this.sortField
-                                this.lv_sortDesc = col.field === this.sortField ? !this.lv_sortDesc : this.sortDesc
+                        if (this.p_sortField === col.field) {
+                            if (col.field === this.p_sortField && !this.p_sortDesc) {
+                                this.p_sortField = this.sortField
+                                this.p_sortDesc = col.field === this.sortField ? !this.p_sortDesc : this.sortDesc
                             } else {
-                                this.lv_sortDesc = false
+                                this.p_sortDesc = false
                             }
                         } else {
-                            this.lv_sortField = col.field
-                            this.lv_sortDesc = true
+                            this.p_sortField = col.field
+                            this.p_sortDesc = true
                         }
                     }
-                    this.$emit('sortChange', {field: this.lv_sortField, desc: this.lv_sortDesc})
+                    this.$emit('sortChange', {field: this.p_sortField, desc: this.p_sortDesc})
                 }
             },
             /**
@@ -456,9 +456,9 @@
              * @author  韦胜健
              * @date    2019/1/9 18:05
              */
-            lv_click({row, rowIndex}) {
-                if (!this.multiSelect) this.lv_rowIterate(row => row.unselect())
-                this.lv_rowIterate(row => row.select(), this.selectIndex != null ? this.selectIndex : rowIndex)
+            p_click({row, rowIndex}) {
+                if (!this.multiSelect) this.p_rowIterate(row => row.unselect())
+                this.p_rowIterate(row => row.select(), this.selectIndex != null ? this.selectIndex : rowIndex)
             },
         }
     }

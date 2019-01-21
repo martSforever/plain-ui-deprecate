@@ -1,6 +1,6 @@
 <template>
     <div class="lv-carousel">
-        <div class="lv-carousel-content" :style="contentStyles" :class="{'lv-carousel-content-moving':!!lv_moving}">
+        <div class="lv-carousel-content" :style="contentStyles" :class="{'lv-carousel-content-moving':!!p_moving}">
             <div class="lv-carousel-item" v-for="(item,index) in data" :key="index">
                 <slot :item="item" :index="index"></slot>
             </div>
@@ -8,14 +8,14 @@
         <div class="lv-carousel-dot" v-if="!disabledDot">
             <div class="lv-carousel-dot-item"
                  v-for="(item,index) in data"
-                 @click.stop="lv_clickDot(item,index)"
+                 @click.stop="p_clickDot(item,index)"
                  :key="index" :class="{'lv-carousel-dot-item-active':index === currentValue}">
             </div>
         </div>
-        <div class="lv-carousel-prev-button" @click="lv_clickButton(false)" v-if="!disabledButton">
+        <div class="lv-carousel-prev-button" @click="p_clickButton(false)" v-if="!disabledButton">
             <lv-icon icon="lv-arrow-left-light"/>
         </div>
-        <div class="lv-carousel-next-button" @click="lv_clickButton(true)" v-if="!disabledButton">
+        <div class="lv-carousel-next-button" @click="p_clickButton(true)" v-if="!disabledButton">
             <lv-icon icon="lv-arrow-right-light"/>
         </div>
         <slot name="hover"></slot>
@@ -42,25 +42,25 @@
             value(val) {
                 if (this.currentValue !== val && val > -1 && val < this.data.length) {
                     this.currentValue = val
-                    this.lv_x = -val * this.lv_containerWidth
+                    this.p_x = -val * this.p_containerWidth
                 }
             },
         },
         data() {
             return {
-                lv_watchValue: false,
+                p_watchValue: false,
 
-                lv_containerWidth: 0,
-                lv_startX: 0,
-                lv_x: 0,
-                lv_tempX: 0,
-                lv_moving: false,
-                lv_timer: null,
+                p_containerWidth: 0,
+                p_startX: 0,
+                p_x: 0,
+                p_tempX: 0,
+                p_moving: false,
+                p_timer: null,
             }
         },
         mounted() {
-            this.lv_containerWidth = this.$el.offsetWidth
-            !this.disabledSwipe && this.$el.addEventListener('mousedown', this.lv_mousedown)
+            this.p_containerWidth = this.$el.offsetWidth
+            !this.disabledSwipe && this.$el.addEventListener('mousedown', this.p_mousedown)
             this.play()
 
             if (!this.data || this.data.length === 0) return
@@ -70,7 +70,7 @@
         computed: {
             contentStyles() {
                 return {
-                    transform: `translateX(${this.lv_x}px)`,
+                    transform: `translateX(${this.p_x}px)`,
                 }
             },
         },
@@ -89,76 +89,76 @@
                 this.update()
             },
             update() {
-                this.lv_x = -this.currentValue * this.lv_containerWidth
+                this.p_x = -this.currentValue * this.p_containerWidth
             },
             play() {
                 if (!this.autoPlay || !this.data || this.data.length === 0) return
                 if (this.currentValue === this.data.length - 1) this.currentValue = -1
-                this.lv_clearTimer()
+                this.p_clearTimer()
                 this.timer = setTimeout(() => {
                     this.next()
                     this.play()
                 }, this.autoPlayDuration)
             },
-            lv_clickButton(next = true) {
+            p_clickButton(next = true) {
                 this.play()
                 next ? this.next() : this.prev()
             },
-            lv_clearTimer() {
+            p_clearTimer() {
                 if (!!this.timer) {
                     clearTimeout(this.timer)
                     this.timer = null
                 }
             },
-            lv_clickDot(item, index) {
+            p_clickDot(item, index) {
                 this.currentValue = index
                 this.update()
             },
-            lv_mousedown(e) {
-                this.lv_clearTimer()
-                this.lv_moving = true
-                this.lv_tempX = this.lv_x
-                this.lv_startX = e.clientX
-                window.document.addEventListener('mousemove', this.lv_mousemove)
-                window.document.addEventListener('mouseup', this.lv_mouseup)
+            p_mousedown(e) {
+                this.p_clearTimer()
+                this.p_moving = true
+                this.p_tempX = this.p_x
+                this.p_startX = e.clientX
+                window.document.addEventListener('mousemove', this.p_mousemove)
+                window.document.addEventListener('mouseup', this.p_mouseup)
                 this.$plain.$dom.enableSelectNone()
             },
-            lv_mousemove(e) {
-                if (!this.lv_moving) return
-                let deltaX = e.clientX - this.lv_startX;
-                this.lv_x = deltaX + this.lv_tempX
+            p_mousemove(e) {
+                if (!this.p_moving) return
+                let deltaX = e.clientX - this.p_startX;
+                this.p_x = deltaX + this.p_tempX
             },
-            lv_mouseup(e) {
-                if (!this.lv_moving) return
-                this.lv_moving = false
-                if (this.lv_x > 0) {
-                    this.lv_x = 0
+            p_mouseup(e) {
+                if (!this.p_moving) return
+                this.p_moving = false
+                if (this.p_x > 0) {
+                    this.p_x = 0
                     this.currentValue = 0
                     return
                 }
-                const x = -this.lv_x
+                const x = -this.p_x
                 for (let i = 0; i < this.data.length - 1; i++) {
-                    const current = i * this.lv_containerWidth
-                    const next = (i + 1) * this.lv_containerWidth
+                    const current = i * this.p_containerWidth
+                    const next = (i + 1) * this.p_containerWidth
                     const half = (current + next) / 2
                     if (current <= x && x <= half) {
-                        this.lv_x = -current
+                        this.p_x = -current
                         this.currentValue = i
                         this.play()
                         return
                     }
                     if (half <= x && x <= next) {
-                        this.lv_x = -next
+                        this.p_x = -next
                         this.currentValue = i + 1
                         this.play()
                         return
                     }
                 }
-                this.lv_x = -(this.data.length - 1) * this.lv_containerWidth
+                this.p_x = -(this.data.length - 1) * this.p_containerWidth
                 this.currentValue = this.data.length - 1
                 this.$plain.$dom.disabledSelectNone()
-                window.document.removeEventListener('mousemove', this.lv_mousemove)
-                window.document.removeEventListener('mouseup', this.lv_mouseup)
+                window.document.removeEventListener('mousemove', this.p_mousemove)
+                window.document.removeEventListener('mouseup', this.p_mouseup)
                 this.play()
             },
         }

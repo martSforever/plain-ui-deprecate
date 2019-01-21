@@ -201,7 +201,7 @@
             rowDblClick({row, rowIndex, position}) {
                 this.checkStatus({
                     update() {
-                        if (this.multiUpdate && !row.lv_editing) this.baseTable.enableEdit(rowIndex)
+                        if (this.multiUpdate && !row.p_editing) this.baseTable.enableEdit(rowIndex)
                     },
                     normal() {
                         this.baseTable.enableEdit(rowIndex)

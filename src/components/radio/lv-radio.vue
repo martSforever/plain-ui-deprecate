@@ -1,10 +1,10 @@
 <template>
     <div class="lv-radio"
-         @click="lv_click"
+         @click="p_click"
          :class="classes"
          :style="styles">
-        <lv-icon :icon="lv_activeIcon" class="lv-radio-icon-active"/>
-        <lv-icon :icon="lv_inactiveIcon" class="lv-radio-icon-inactive"/>
+        <lv-icon :icon="p_activeIcon" class="lv-radio-icon-active"/>
+        <lv-icon :icon="p_inactiveIcon" class="lv-radio-icon-inactive"/>
         <span v-if="!!label">{{label}}</span>
     </div>
 </template>
@@ -32,7 +32,7 @@
         },
         data() {
             return {
-                lv_group: null,
+                p_group: null,
                 currentValue: this.value,
             }
         },
@@ -46,69 +46,69 @@
             },
         },
         computed: {
-            lv_size() {
-                return !!this.size ? this.size : (!!this.lv_group && !!this.lv_group.size) ? this.lv_group.size : 'default';
+            p_size() {
+                return !!this.size ? this.size : (!!this.p_group && !!this.p_group.size) ? this.p_group.size : 'default';
             },
-            lv_color() {
-                return !!this.color ? this.color : (!!this.lv_group && !!this.lv_group.color) ? this.lv_group.color : 'primary';
+            p_color() {
+                return !!this.color ? this.color : (!!this.p_group && !!this.p_group.color) ? this.p_group.color : 'primary';
             },
-            lv_activeIcon() {
-                return !this.lv_group ? !!this.activeIcon ? this.activeIcon : 'lv-check-square' : !!this.lv_group.activeIcon ? this.lv_group.activeIcon : !!this.lv_group.multiple ? 'lv-check-square' : 'lv-radio-on'
+            p_activeIcon() {
+                return !this.p_group ? !!this.activeIcon ? this.activeIcon : 'lv-check-square' : !!this.p_group.activeIcon ? this.p_group.activeIcon : !!this.p_group.multiple ? 'lv-check-square' : 'lv-radio-on'
             },
-            lv_inactiveIcon() {
-                return !this.lv_group ? !!this.inactiveIcon ? this.inactiveIcon : 'lv-square' : !!this.lv_group.inactiveIcon ? this.lv_group.inactiveIcon : !!this.lv_group.multiple ? 'lv-square' : 'lv-radio-off'
+            p_inactiveIcon() {
+                return !this.p_group ? !!this.inactiveIcon ? this.inactiveIcon : 'lv-square' : !!this.p_group.inactiveIcon ? this.p_group.inactiveIcon : !!this.p_group.multiple ? 'lv-square' : 'lv-radio-off'
             },
-            lv_activeColor() {
-                return !!this.activeColor ? this.activeColor : (!!this.lv_group && !!this.lv_group.activeColor) ? this.lv_group.activeColor : 'primary';
+            p_activeColor() {
+                return !!this.activeColor ? this.activeColor : (!!this.p_group && !!this.p_group.activeColor) ? this.p_group.activeColor : 'primary';
             },
-            lv_inactiveColor() {
-                return !!this.inactiveColor ? this.inactiveColor : (!!this.lv_group && !!this.lv_group.inactiveColor) ? this.lv_group.inactiveColor : 'primary';
+            p_inactiveColor() {
+                return !!this.inactiveColor ? this.inactiveColor : (!!this.p_group && !!this.p_group.inactiveColor) ? this.p_group.inactiveColor : 'primary';
             },
             classes() {
                 return [
                     `lv-radio-${!!this.currentValue ? 'active' : 'inactive'}`,
-                    `lv-radio-color-${!!this.disabled ? 'disabled' : this.lv_color}`,
-                    `lv-radio-size-${this.lv_size}`,
+                    `lv-radio-color-${!!this.disabled ? 'disabled' : this.p_color}`,
+                    `lv-radio-size-${this.p_size}`,
                 ]
             },
             styles() {
                 let styles = {};
-                !!this.lv_activeColor && (!!this.currentValue) && (styles.color = `${this.lv_activeColor} !important`);
-                !!this.lv_inactiveColor && (!this.currentValue) && (styles.color = `${this.lv_inactiveColor} !important`);
+                !!this.p_activeColor && (!!this.currentValue) && (styles.color = `${this.p_activeColor} !important`);
+                !!this.p_inactiveColor && (!this.currentValue) && (styles.color = `${this.p_inactiveColor} !important`);
                 return styles;
             },
         },
         mounted() {
-            this.lv_group = this.$plain.$dom.findComponentUpward(this, 'lv-radio-group');
-            if (!!this.lv_group) {
-                this.lv_group.lv_addRadio(this)
-                if (this.lv_group.multiple) {
+            this.p_group = this.$plain.$dom.findComponentUpward(this, 'lv-radio-group');
+            if (!!this.p_group) {
+                this.p_group.p_addRadio(this)
+                if (this.p_group.multiple) {
                     if (!this.id) {
-                        console.error(`radio must have id when radio-lv_group's multiple is true!`);
+                        console.error(`radio must have id when radio-p_group's multiple is true!`);
                         return;
                     }
-                    this.currentValue = this.$plain.$utils.oneOf(this.id, this.lv_group.multipleValue);
+                    this.currentValue = this.$plain.$utils.oneOf(this.id, this.p_group.multipleValue);
                 } else {
-                    this.currentValue = this.lv_group.singleValue === this.id;
+                    this.currentValue = this.p_group.singleValue === this.id;
                 }
             }
         },
         beforeDestroy() {
-            !!this.lv_group && (this.lv_group.lv_removeRadio(this))
+            !!this.p_group && (this.p_group.p_removeRadio(this))
         },
         methods: {
-            lv_click(e) {
+            p_click(e) {
                 if (!!this.disabled || !!this.readonly) return;
                 this.currentValue = !this.currentValue;
                 this.$emit('click', e);
                 this.$emit('change', this.currentValue);
-                if (!!this.lv_group) {
-                    if (!this.lv_group.multiple) {
-                        this.lv_group.lv_radios.forEach(radio => radio !== this && (radio.currentValue = false))
-                        this.lv_group.singleValue = !!this.currentValue ? this.id : null;
+                if (!!this.p_group) {
+                    if (!this.p_group.multiple) {
+                        this.p_group.p_radios.forEach(radio => radio !== this && (radio.currentValue = false))
+                        this.p_group.singleValue = !!this.currentValue ? this.id : null;
                     } else {
-                        if (!!this.currentValue) this.lv_group.multipleValue.push(this.id);
-                        else this.$plain.$utils.removeFromArray(this.lv_group.multipleValue, this.id);
+                        if (!!this.currentValue) this.p_group.multipleValue.push(this.id);
+                        else this.$plain.$utils.removeFromArray(this.p_group.multipleValue, this.id);
                     }
                 }
             },

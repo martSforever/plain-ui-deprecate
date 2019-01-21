@@ -120,7 +120,7 @@
                 return styles;
             },
             hostStyles() {
-                if (!this.lv_mounted) return
+                if (!this.p_mounted) return
                 const styles = {}
                 if (!!this.fitWidth) styles.width = `${this.contentWidth}px`;
                 if (!!this.fitHeight) styles.height = `${this.contentHeight}px`;

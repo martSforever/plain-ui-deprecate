@@ -29,7 +29,7 @@
                     :tooltip="tooltip"
                     :link="link"
                     :scope-slot-func="$scopedSlots.default"
-                    @click.native="lv_clickItem(row,rowIndex,editRow)"/>
+                    @click.native="p_clickItem(row,rowIndex,editRow)"/>
         </template>
     </lv-base-column>
 </template>

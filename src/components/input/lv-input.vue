@@ -20,7 +20,7 @@
             :required="required"
             :rules="rules"
             :valid-on-init="validOnInit"
-            @clear="lv_clear"
+            @clear="p_clear"
             @enter="()=>{$emit('enter');!!this.focusOnHover && this.$refs.input.focus()}"
     >
         <slot name="prepend"></slot>
@@ -31,9 +31,9 @@
                :disabled="disabled"
                :readonly="readonly"
                :placeholder="placeholder"
-               @input="lv_input"
-               @focus="lv_focus"
-               @blur="lv_blur"
+               @input="p_input"
+               @focus="p_focus"
+               @blur="p_blur"
                @click="e=>$emit('click', e)"
         >
         <slot name="append"></slot>
@@ -60,36 +60,36 @@
         props: {},
         data() {
             return {
-                lv_timer: null,
+                p_timer: null,
                 isFocus: false,
             }
         },
         methods: {
-            lv_clear() {
+            p_clear() {
                 this.$emit('clear')
                 !this.readonly && !this.disabled && !!this.defaultClear && (this.currentValue = null)
             },
-            lv_input({target: {value}}) {
+            p_input({target: {value}}) {
                 this.currentValue = value
-                !!this.replaceRegexp && this.lv_replaceRegexp(value)
+                !!this.replaceRegexp && this.p_replaceRegexp(value)
             },
-            lv_focus(e) {
+            p_focus(e) {
                 this.isFocus = true
                 this.$emit('focus', e)
             },
-            lv_blur(e) {
+            p_blur(e) {
                 this.isFocus = false
                 this.$emit('blur', e)
             },
-            lv_replaceRegexp(val) {
-                if (!!this.lv_timer) {
-                    clearTimeout(this.lv_timer)
-                    this.lv_timer = null
+            p_replaceRegexp(val) {
+                if (!!this.p_timer) {
+                    clearTimeout(this.p_timer)
+                    this.p_timer = null
                 }
-                this.lv_timer = setTimeout(() => {
+                this.p_timer = setTimeout(() => {
                     this.currentValue = val.replace(this.replaceRegexp, '');
-                    clearTimeout(this.lv_timer)
-                    this.lv_timer = null
+                    clearTimeout(this.p_timer)
+                    this.p_timer = null
                 }, 50)
             },
             resetValue(val) {

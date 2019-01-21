@@ -4,15 +4,15 @@
             <slot></slot>
         </div>
         <div class="lv-mavon-wrapper">
-            <lv-collapse :title="title" v-model="lv_show" disabledClickHead @clickHead="()=>!!lv_show?close():open()">
-                <div v-if="lv_initialized">
+            <lv-collapse :title="title" v-model="p_show" disabledClickHead @clickHead="()=>!!p_show?close():open()">
+                <div v-if="p_initialized">
                     <mavon-editor :value="val"
                                   :box-shadow="false"
                                   default-open="preview"
                                   :subfield="false"
                                   :toolbars-flag="false"
                     />
-                    <div class="lv-mavon-wrapper-collapse-button" @click="lv_show=false">
+                    <div class="lv-mavon-wrapper-collapse-button" @click="p_show=false">
                         <lv-icon icon="lv-arrow-up"/>
                     </div>
                 </div>
@@ -56,9 +56,9 @@
         },
         data() {
             return {
-                lv_markdown: null,
-                lv_show: this.show,
-                lv_initialized: this.show || this.initialized,
+                p_markdown: null,
+                p_show: this.show,
+                p_initialized: this.show || this.initialized,
             }
         },
         computed: {
@@ -67,29 +67,29 @@
                 !!this.html && (md = md + '```html ' + this.html + '\n```\n')
                 !!this.js && (md = md + '```javascript ' + this.js + '\n```\n')
                 !!this.scss && (md = md + '```scss ' + this.scss + '\n```\n')
-                !!this.lv_markdown && (md += this.lv_markdown)
+                !!this.p_markdown && (md += this.p_markdown)
 
                 return md
             },
         },
         methods: {
             open() {
-                const next = () => this.lv_show = true
-                if (!this.lv_initialized) this.lv_init(next)
+                const next = () => this.p_show = true
+                if (!this.p_initialized) this.p_init(next)
                 else next()
             },
             close() {
-                this.lv_show = false
+                this.p_show = false
             },
-            lv_init(next) {
+            p_init(next) {
                 if (!!this.markdown) {
                     import('demo/components/' + this.markdown + '.md').then((val) => {
-                        this.lv_markdown = val.default
-                        this.lv_initialized = true
+                        this.p_markdown = val.default
+                        this.p_initialized = true
                         this.$nextTick(() => next())
                     })
                 } else {
-                    this.lv_initialized = true
+                    this.p_initialized = true
                     next()
                 }
             },

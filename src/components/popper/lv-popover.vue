@@ -2,29 +2,29 @@
     <div class="lv-popover">
         <div ref="reference"
              class="lv-popover-reference"
-             @click="lv_clickReference"
-             @mouseenter="lv_enterReference"
-             @mouseleave="lv_leaveReference">
+             @click="p_clickReference"
+             @mouseenter="p_enterReference"
+             @mouseleave="p_leaveReference">
             <slot></slot>
         </div>
-        <div v-if="!!lv_initialized"
+        <div v-if="!!p_initialized"
              class="lv-popper"
              ref="popper"
-             @click="lv_clickPopper"
-             @mouseenter="lv_enterPopper"
-             @mouseleave="lv_leavePopper"
+             @click="p_clickPopper"
+             @mouseenter="p_enterPopper"
+             @mouseleave="p_leavePopper"
              v-dom-portal>
-            <div class="lv-popper-position" :class="lv_popperPositionClasses">
+            <div class="lv-popper-position" :class="p_popperPositionClasses">
                 <template v-if="!disabledDestroyOnHide && !initialized">
                     <transition :name="`lv-popover-animate-${animate}`">
-                        <div v-if="!!currentValue" class="lv-popover-content" :style="lv_contentStyles">
+                        <div v-if="!!currentValue" class="lv-popover-content" :style="p_contentStyles">
                             <slot name="popper"></slot>
                         </div>
                     </transition>
                 </template>
                 <template v-else>
                     <transition :name="`lv-popover-animate-${animate}`">
-                        <div v-show="!!currentValue" class="lv-popover-content" :style="lv_contentStyles">
+                        <div v-show="!!currentValue" class="lv-popover-content" :style="p_contentStyles">
                             <slot name="popper"></slot>
                         </div>
                     </transition>
@@ -76,12 +76,12 @@
         data() {
             return {
                 popper: null,
-                lv_initialized: this.initialized || this.value,
-                lv_watchValue: false,
-                lv_relateEL: [],
-                lv_timer: null,
-                lv_direction: this.direction,
-                lv_align: this.align,
+                p_initialized: this.initialized || this.value,
+                p_watchValue: false,
+                p_relateEL: [],
+                p_timer: null,
+                p_direction: this.direction,
+                p_align: this.align,
             }
         },
         watch: {
@@ -90,58 +90,58 @@
                 this.show(val)
             },
             direction(val) {
-                if (this.lv_direction === val) return
-                this.lv_direction = val
-                this.lv_destroyed()
+                if (this.p_direction === val) return
+                this.p_direction = val
+                this.p_destroyed()
             },
-            lv_direction(val) {
+            p_direction(val) {
                 this.$emit('update:direction', val)
             },
             align(val) {
-                if (this.lv_align === val) return
-                this.lv_align = val
-                this.lv_destroyed()
+                if (this.p_align === val) return
+                this.p_align = val
+                this.p_destroyed()
             },
-            lv_align(val) {
+            p_align(val) {
                 this.$emit('update:align', val)
             },
         },
         computed: {
-            lv_popperPositionClasses() {
+            p_popperPositionClasses() {
                 return [
                     {
                         'lv-popper-position-arrow': !!this.arrow,
                     },
-                    `lv-popper-position-${this.lv_direction}-${this.lv_align}`,
+                    `lv-popper-position-${this.p_direction}-${this.p_align}`,
                 ]
             },
-            lv_vertical() {
-                return this.$plain.$utils.oneOf(this.lv_direction, ['top', 'bottom'])
+            p_vertical() {
+                return this.$plain.$utils.oneOf(this.p_direction, ['top', 'bottom'])
             },
-            lv_contentStyles() {
+            p_contentStyles() {
                 const ret = {}
                 this.width != null && (ret.width = `${this.$plain.$utils.unit(this.width)}`)
                 this.height != null && (ret.height = `${this.$plain.$utils.unit(this.height)}`)
-                if (!this.disabledEqual && this.lv_mounted) {
-                    ret[this.lv_vertical ? 'width' : 'height'] = `${this.$refs.reference[this.lv_vertical ? 'offsetWidth' : 'offsetHeight']}px`
+                if (!this.disabledEqual && this.p_mounted) {
+                    ret[this.p_vertical ? 'width' : 'height'] = `${this.$refs.reference[this.p_vertical ? 'offsetWidth' : 'offsetHeight']}px`
                 }
                 return ret
             },
         },
         mounted() {
-            !!this.lv_initialized && this.lv_init()
+            !!this.p_initialized && this.p_init()
         },
         methods: {
             show(val = true) {
-                if (!!this.lv_timer) {
-                    clearTimeout(this.lv_timer)
-                    this.lv_timer = null
+                if (!!this.p_timer) {
+                    clearTimeout(this.p_timer)
+                    this.p_timer = null
                 }
-                if (!this.lv_initialized || !this.popper) {
-                    this.lv_initialized = true
+                if (!this.p_initialized || !this.popper) {
+                    this.p_initialized = true
                     this.$nextTick(() => {
                         this.currentValue = val
-                        this.lv_init()
+                        this.p_init()
                     })
                 } else {
                     this.currentValue = val
@@ -149,89 +149,89 @@
                 }
             },
             hide() {
-                this.lv_timer = setTimeout(() => {
+                this.p_timer = setTimeout(() => {
                     this.currentValue = false
-                    clearTimeout(this.lv_timer)
-                    this.lv_timer = null
+                    clearTimeout(this.p_timer)
+                    this.p_timer = null
                 }, 100)
             },
             addRelateEl(el) {
-                this.lv_relateEL.push(el)
+                this.p_relateEL.push(el)
             },
             removeRelateEl(el) {
-                this.lv_relateEL.splice(this.lv_relateEL.indexOf(el), 1)
+                this.p_relateEL.splice(this.p_relateEL.indexOf(el), 1)
             },
             update() {
                 if (!!this.popper) {
                     this.popper.update()
                     return
                 }
-                if (!this.lv_initialized) {
-                    this.lv_initialized = true
+                if (!this.p_initialized) {
+                    this.p_initialized = true
                 }
                 this.$nextTick(() => {
-                    this.lv_init()
+                    this.p_init()
                     this.popper.update()
                 })
             },
-            lv_init() {
-                if (!this.lv_initialized) return
-                if (!!this.popper) this.lv_destroyed()
-                window.addEventListener('click', this.lv_clickWindow)
+            p_init() {
+                if (!this.p_initialized) return
+                if (!!this.popper) this.p_destroyed()
+                window.addEventListener('click', this.p_clickWindow)
                 this.addRelateEl(this.$refs.reference)
                 this.addRelateEl(this.$refs.popper)
                 this.popper = new Popper(this.$refs.reference, this.$refs.popper, {
-                    placement: `${this.lv_direction}-${this.lv_align}`,
+                    placement: `${this.p_direction}-${this.p_align}`,
                     modifiers: {
                         offset: {offset: `0,${this.offset == null ? this.arrow ? 10 : '0' : this.offset}`,},
                         preventOverflow: this.windowBoundary ? {boundariesElement: 'window'} : null
                     },
-                    onUpdate: () => this.lv_refresh(),
-                    onCreate: () => this.lv_refresh(),
+                    onUpdate: () => this.p_refresh(),
+                    onCreate: () => this.p_refresh(),
                 })
             },
-            lv_destroyed() {
+            p_destroyed() {
                 if (!this.popper) return
                 this.popper.destroy()
                 this.popper = null
-                window.removeEventListener('click', this.lv_clickWindow)
+                window.removeEventListener('click', this.p_clickWindow)
                 this.removeRelateEl(this.$refs.reference)
                 this.removeRelateEl(this.$refs.popper)
             },
-            lv_clickWindow(e) {
-                if (!this.disabledHideOnClickOutside && !this.lv_relateEL.some(el => el.contains(e.target))) this.hide()
+            p_clickWindow(e) {
+                if (!this.disabledHideOnClickOutside && !this.p_relateEL.some(el => el.contains(e.target))) this.hide()
             },
-            lv_clickReference(e) {
+            p_clickReference(e) {
                 this.$emit('clickReference', e)
                 this.trigger === TRIGGER.CLICK && (this.show())
             },
-            lv_enterReference(e) {
+            p_enterReference(e) {
                 this.$emit('enterReference', e)
                 this.trigger === TRIGGER.HOVER && (this.show())
             },
-            lv_leaveReference(e) {
+            p_leaveReference(e) {
                 this.$emit('leaveReference', e)
                 this.trigger === TRIGGER.HOVER && (this.hide())
             },
-            lv_clickPopper() {
+            p_clickPopper() {
                 this.$emit('clickPopper')
             },
-            lv_enterPopper(e) {
+            p_enterPopper(e) {
                 this.$emit('enterReference', e)
                 this.trigger === TRIGGER.HOVER && (this.show())
             },
-            lv_leavePopper(e) {
+            p_leavePopper(e) {
                 this.$emit('leaveReference', e)
                 this.trigger === TRIGGER.HOVER && (this.hide())
             },
-            lv_refresh() {
+            p_refresh() {
                 let placement = this.popper.popper.getAttribute('x-placement').split('-');
-                this.lv_direction = placement[0];
-                this.lv_align = placement[1];
+                this.p_direction = placement[0];
+                this.p_align = placement[1];
             },
         },
         beforeDestroy() {
-            this.lv_destroyed()
+            this.p_destroyed()
             !!this.$refs.popper && document.body.removeChild(this.$refs.popper)
         },
     }

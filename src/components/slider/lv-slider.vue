@@ -1,8 +1,8 @@
 <template>
-    <div class="lv-slider" :class="lv_classes">
-        <div class="lv-slider-body" :style="lv_bodyStyles" ref="body">
-            <div class="lv-slider-progress" :style="lv_progressStyles">
-                <div class="lv-slider-dot-wrapper" :style="lv_dotWrapperStyles" @mousedown="dragStart">
+    <div class="lv-slider" :class="p_classes">
+        <div class="lv-slider-body" :style="p_bodyStyles" ref="body">
+            <div class="lv-slider-progress" :style="p_progressStyles">
+                <div class="lv-slider-dot-wrapper" :style="p_dotWrapperStyles" @mousedown="dragStart">
                     <div class="lv-slider-dot">
                         <div class="lv-slider-dot-inner"></div>
                     </div>
@@ -39,7 +39,7 @@
             return {
                 space: null,
                 startSpace: null,
-                lv_touching: false,
+                p_touching: false,
                 start: {
                     'vertical-start': 'top',
                     'vertical-end': 'bottom',
@@ -62,17 +62,17 @@
         },
         computed: {
             totalLength() {
-                if (!this.lv_mounted) return 0
+                if (!this.p_mounted) return 0
                 return this.$refs.body[!!this.vertical ? 'offsetHeight' : 'offsetWidth']
             },
-            lv_direction() {
+            p_direction() {
                 return this.start[`${!!this.vertical ? 'vertical' : 'horizontal'}-${!!this.alignEnd ? 'end' : 'start'}`]
             },
-            lv_classes() {
+            p_classes() {
                 return [
                     {
                         'lv-slider-full': !!this.full,
-                        'lv-slider-touching': this.lv_touching,
+                        'lv-slider-touching': this.p_touching,
                     },
                     `lv-slider-${!!this.vertical ? 'vertical' : 'horizontal'}`,
                     `lv-slider-align-${!!this.alignEnd ? 'end' : 'start'}`,
@@ -80,18 +80,18 @@
 
                 ]
             },
-            lv_bodyStyles() {
+            p_bodyStyles() {
                 return {
                     height: this.$plain.$utils.unit(!!this.vertical ? this.length : this.size),
                     width: this.$plain.$utils.unit(!!this.vertical ? this.size : this.length),
                 }
             },
-            lv_dotWrapperStyles() {
+            p_dotWrapperStyles() {
                 return {
                     transform: `translate${!!this.vertical ? 'Y' : 'X'}(${!!this.alignEnd ? '-' : ''}50%)`,
                 }
             },
-            lv_progressStyles() {
+            p_progressStyles() {
                 return {
                     height: !!this.vertical ? `${this.space}px` : this.$plain.$utils.unit(this.size),
                     width: !!this.vertical ? this.$plain.$utils.unit(this.size) : `${this.space}px`,
@@ -100,7 +100,7 @@
         },
         methods: {
             dragStart(e) {
-                this.lv_touching = true
+                this.p_touching = true
                 this.startSpace = this.space
                 document.addEventListener('mousemove', this.dragMove)
                 document.addEventListener('mouseup', this.dragEnd)
@@ -109,14 +109,14 @@
                 this.$plain.$dom.enableSelectNone()
             },
             dragMove(e) {
-                if (!this.lv_touching) return
+                if (!this.p_touching) return
                 const durX = e.clientX - this.startX
                 const durY = e.clientY - this.startY
                 this.space = Math.min(Math.max(0, this.startSpace + ((!!this.vertical ? durY : durX) * (!!this.alignEnd ? -1 : 1))), this.totalLength)
             },
             dragEnd(e) {
-                if (!this.lv_touching) return
-                this.lv_touching = false
+                if (!this.p_touching) return
+                this.p_touching = false
                 document.removeEventListener('mousemove', this.dragMove)
                 document.removeEventListener('mouseup', this.dragEnd)
                 this.$plain.$dom.disabledSelectNone()

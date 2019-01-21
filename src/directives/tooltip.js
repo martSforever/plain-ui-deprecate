@@ -10,13 +10,13 @@ const DEFAULT_OPTION = {
 };
 
 export default function (el, {value}) {
-    !!el.lv_tippy && el.lv_tippy.destroyAll();
+    !!el.p_tippy && el.p_tippy.destroyAll();
     if ($utils.typeOf(value) === 'object') {
         const {content, arrow = false, placement = 'bottom', trigger = 'mouseenter', theme = 'dark', tooltip = false} = value
-        !!content && tooltip && (el.lv_tippy = Tippy(el, {content, arrow, placement, trigger, theme}))
+        !!content && tooltip && (el.p_tippy = Tippy(el, {content, arrow, placement, trigger, theme}))
     }
     else if ($utils.typeOf(value) === 'string') {
         const content = value
-        !!content && (el.lv_tippy = Tippy(el, {content, ...DEFAULT_OPTION}))
+        !!content && (el.p_tippy = Tippy(el, {content, ...DEFAULT_OPTION}))
     }
 }

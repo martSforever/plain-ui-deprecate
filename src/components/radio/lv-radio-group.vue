@@ -25,7 +25,7 @@
             return {
                 singleValue: this.value,
                 multipleValue: this.$plain.$utils.deepCopy(this.value) || [],
-                lv_radios: [],
+                p_radios: [],
             };
         },
         watch: {
@@ -53,14 +53,14 @@
             },
         },
         methods: {
-            lv_addRadio(radio) {
-                this.lv_radios.push(radio);
+            p_addRadio(radio) {
+                this.p_radios.push(radio);
             },
-            lv_removeRadio(radio) {
-                this.$plain.$utils.removeFromArray(this.lv_radios, radio);
+            p_removeRadio(radio) {
+                this.$plain.$utils.removeFromArray(this.p_radios, radio);
             },
             updateRadios() {
-                this.lv_radios.forEach(radio => {
+                this.p_radios.forEach(radio => {
                     if (!!this.multiple) {
                         radio.currentValue = this.$plain.$utils.oneOf(radio.id, this.multipleValue);
                     } else {

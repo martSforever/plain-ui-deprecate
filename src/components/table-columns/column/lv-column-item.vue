@@ -6,7 +6,7 @@
                     :row="showRow"
                     :row-index="rowIndex"
                     :field="field"
-                    :editable="lv_editable"
+                    :editable="p_editable"
                     :data-type="dataType"
                     :tooltip="tooltip"/>
 </template>

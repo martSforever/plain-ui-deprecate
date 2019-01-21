@@ -24,15 +24,15 @@
               :default-clear="false"
               :placeholder="placeholder"
               keyboard
-              @up="lv_add"
-              @down="lv_subtract"
-              @input="lv_input"
+              @up="p_add"
+              @down="p_subtract"
+              @input="p_input"
               @clear="e=>$emit('clear',e)"
               @click="e=>$emit('click',e)"
     >
         <div slot="append" class="lv-number-controller" v-if="!noController">
-            <link-icon icon="lv-triangle-up-fill" @click.stop="e=>!disabled&&!readonly&&lv_add(e)"/>
-            <link-icon icon="lv-triangle-down-fill" @click.stop="e=>!disabled&&!readonly&&lv_subtract(e)"/>
+            <link-icon icon="lv-triangle-up-fill" @click.stop="e=>!disabled&&!readonly&&p_add(e)"/>
+            <link-icon icon="lv-triangle-down-fill" @click.stop="e=>!disabled&&!readonly&&p_subtract(e)"/>
         </div>
     </lv-input>
 </template>
@@ -62,33 +62,33 @@
         },
         data() {
             return {
-                lv_timer: null,
+                p_timer: null,
             }
         },
         methods: {
-            lv_add() {
+            p_add() {
                 let val = this.currentValue == null ? 0 : this.currentValue - 0
                 val += this.step
-                val = this.lv_validate(val)
+                val = this.p_validate(val)
                 this.currentValue = val
             },
-            lv_subtract() {
+            p_subtract() {
                 let val = this.currentValue == null ? 0 : this.currentValue - 0
                 val -= this.step
-                val = this.lv_validate(val)
+                val = this.p_validate(val)
                 this.currentValue = val
             },
-            lv_input(val) {
-                if (!!this.lv_timer) {
-                    clearTimeout(this.lv_timer)
-                    this.lv_timer = null
+            p_input(val) {
+                if (!!this.p_timer) {
+                    clearTimeout(this.p_timer)
+                    this.p_timer = null
                 }
-                this.lv_timer = setTimeout(() => {
-                    this.currentValue = this.lv_validate(val)
+                this.p_timer = setTimeout(() => {
+                    this.currentValue = this.p_validate(val)
                     this.$refs.input.resetValue(this.currentValue)
                 }, 200)
             },
-            lv_validate(val) {
+            p_validate(val) {
                 if (val == null || val === '') return null
                 if (this.max != null && val - 0 > this.max) return this.max
                 if (this.min != null && val - 0 < this.min) return this.min

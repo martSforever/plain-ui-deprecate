@@ -1,6 +1,6 @@
 <template>
     <div class="lv-collapse" :class="{'lv-collapse-active':currentValue}">
-        <div class="lv-collapse-head" @click="lv_click">
+        <div class="lv-collapse-head" @click="p_click">
             <slot name="head">
                 <span v-if="!!title">{{title}}</span>
             </slot>
@@ -41,23 +41,23 @@
         },
         data() {
             return {
-                lv_group: null,
+                p_group: null,
             };
         },
         methods: {
-            lv_click() {
+            p_click() {
                 this.$emit('clickHead')
                 if (this.disabledClickHead) return
-                if (!!this.lv_group) this.lv_group.lv_click(this.currentValue, this)
+                if (!!this.p_group) this.p_group.p_click(this.currentValue, this)
                 this.currentValue = !this.currentValue;
             },
         },
         mounted() {
-            this.lv_group = this.$plain.$dom.findComponentUpward(this, 'lv-collapse-lv_group');
-            if (!!this.lv_group) this.lv_group.lv_add(this)
+            this.p_group = this.$plain.$dom.findComponentUpward(this, 'lv-collapse-p_group');
+            if (!!this.p_group) this.p_group.p_add(this)
         },
         beforeDestroy() {
-            if (!!this.lv_group) this.lv_group.lv_remove(this)
+            if (!!this.p_group) this.p_group.p_remove(this)
         },
     };
 </script>

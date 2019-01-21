@@ -1,9 +1,9 @@
 <template>
     <keep-alive>
         <lv-input v-model="editRow[field]"
-                  v-if="lv_editable"
+                  v-if="p_editable"
 
-                  :required="lv_required"
+                  :required="p_required"
                   :rules="rules"
                   :valid-on-init="validOnInit"/>
         <template v-else>
@@ -14,7 +14,7 @@
                             :row-index="rowIndex"
                             :edit-row="editRow"
                             :field="field"
-                            :editable="lv_editable"
+                            :editable="p_editable"
                             :data-type="dataType"
                             :tooltip="tooltip"/>
         </template>

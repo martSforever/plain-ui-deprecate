@@ -34,7 +34,7 @@
 
                     :editable-func="editableFunc"
                     :required-func="requiredFunc"
-                    @click.native="lv_clickItem(row,rowIndex,editRow)"/>
+                    @click.native="p_clickItem(row,rowIndex,editRow)"/>
         </template>
     </lv-base-column>
 </template>

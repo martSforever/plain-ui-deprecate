@@ -5,10 +5,10 @@
              v-show="currentValue"
              v-dom-portal="transferDom"
              :style="styles"
-             @click="lv_clickShadow">
+             @click="p_clickShadow">
             <div class="lv-dialog-content"
-                 v-if="lv_initialized"
-                 @click.stop="lv_clickContent"
+                 v-if="p_initialized"
+                 @click.stop="p_clickContent"
                  :style="contentStyles">
                 <div class="lv-dialog-head" v-if="!noHeader">
                     <div class="lv-dialog-title">
@@ -17,8 +17,8 @@
                     </div>
                     <div class="lv-dialog-head-operator">
                         <lv-icon icon="lv-minimize"/>
-                        <lv-icon icon="lv-maximize" v-show="!lv_isFull && !!max" @click="lv_isFull=true"/>
-                        <lv-icon icon="lv-maxmin" v-show="!!lv_isFull && !!max" @click="lv_isFull=false"/>
+                        <lv-icon icon="lv-maximize" v-show="!p_isFull && !!max" @click="p_isFull=true"/>
+                        <lv-icon icon="lv-maxmin" v-show="!!p_isFull && !!max" @click="p_isFull=false"/>
                         <lv-icon icon="lv-close" @click="hide" class="lv-dialog-close-icon" v-if="!noClose"/>
                     </div>
                 </div>
@@ -26,8 +26,8 @@
                     <slot></slot>
                 </div>
                 <div class="lv-dialog-foot" v-if="!noFooter && (cancelButton || confirmButton)">
-                    <lv-button box-type="line" label="取消" @click="lv_cancel" v-if="!!confirmButton"/>
-                    <lv-button label="确认" @click="lv_confirm" v-if="!!cancelButton"/>
+                    <lv-button box-type="line" label="取消" @click="p_cancel" v-if="!!confirmButton"/>
+                    <lv-button label="确认" @click="p_confirm" v-if="!!cancelButton"/>
                 </div>
             </div>
         </div>
@@ -80,10 +80,10 @@
                     ret[key] = TYPE[key].icon
                     return ret
                 }, {}),
-                lv_index: 0,
-                lv_watchValue: false,
-                lv_isFull: this.full,
-                lv_initialized: this.initialized || this.value
+                p_index: 0,
+                p_watchValue: false,
+                p_isFull: this.full,
+                p_initialized: this.initialized || this.value
             }
         },
         watch: {
@@ -95,7 +95,7 @@
             classes() {
                 return [
                     {
-                        'lv-dialog-full-size': this.full || this.lv_isFull,
+                        'lv-dialog-full-size': this.full || this.p_isFull,
                         'lv-dialog-padding': !this.noPadding,
                     },
                     `lv-dialog-type-${this.type}`,
@@ -108,7 +108,7 @@
             styles() {
                 return {
                     backgroundColor: this.shadowColor,
-                    zIndex: this.lv_index,
+                    zIndex: this.p_index,
                 }
             },
             bodyStyles() {
@@ -131,11 +131,11 @@
         methods: {
             show(val = true) {
                 const next = () => {
-                    this.lv_index = this.lv_getTopIndex()
+                    this.p_index = this.p_getTopIndex()
                     this.currentValue = val
                 }
-                if (!this.lv_initialized) {
-                    this.lv_initialized = true
+                if (!this.p_initialized) {
+                    this.p_initialized = true
                     this.$nextTick(() => next())
                 }
                 else next()
@@ -143,22 +143,22 @@
             },
             hide() {
                 this.currentValue = false
-                !!this.destroyOnHide && this.$nextTick(() => this.lv_initialized = false)
+                !!this.destroyOnHide && this.$nextTick(() => this.p_initialized = false)
             },
-            lv_clickShadow(e) {
+            p_clickShadow(e) {
                 this.$emit('clickShadow', e)
                 !this.disabledHideOnClickShadow && this.hide()
             },
-            lv_clickContent(e) {
+            p_clickContent(e) {
                 this.$emit('clickContent', e)
             },
-            lv_getTopIndex() {
+            p_getTopIndex() {
                 return this.$plain.$utils.dateFormat(new Date(), 'mmssSSS') - 0
             },
-            lv_confirm() {
+            p_confirm() {
                 this.$emit('confirm')
             },
-            lv_cancel() {
+            p_cancel() {
                 this.$emit('cancel')
             },
         }

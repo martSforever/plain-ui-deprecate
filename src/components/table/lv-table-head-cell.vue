@@ -1,5 +1,5 @@
 <template>
-    <td class="lv-table-head-cell" :colspan="col.colspan" :rowspan="col.rowspan" @click="lv_click">
+    <td class="lv-table-head-cell" :colspan="col.colspan" :rowspan="col.rowspan" @click="p_click">
         <lv-table-cell
                 :is-fixed="fixed === col.fixed"
                 :scope-slot-func="col.titleScopedSlot"
@@ -16,7 +16,7 @@
         </lv-table-cell>
         <div v-if="col.fixed === fixed"
              class="lv-table-head-cell-drag"
-             @mousedown="lv_mousedown"></div>
+             @mousedown="p_mousedown"></div>
     </td>
 </template>
 
@@ -34,7 +34,7 @@
         },
         data() {
             return {
-                lv_baseTable: null,
+                p_baseTable: null,
                 indicator: null,
                 startX: null,
                 endX: null,
@@ -59,34 +59,34 @@
             },
         },
         mounted() {
-            this.lv_baseTable = this.$plain.$dom.findComponentUpward(this, 'lv-base-table')
+            this.p_baseTable = this.$plain.$dom.findComponentUpward(this, 'lv-base-table')
         },
         methods: {
-            lv_click() {
-                this.lv_baseTable.$emit('clickTitle', {col: this.col})
+            p_click() {
+                this.p_baseTable.$emit('clickTitle', {col: this.col})
             },
-            lv_mousedown(e) {
+            p_mousedown(e) {
                 this.startX = e.clientX
-                document.addEventListener('mousemove', this.lv_mousemove)
-                document.addEventListener('mouseup', this.lv_mouseup)
+                document.addEventListener('mousemove', this.p_mousemove)
+                document.addEventListener('mouseup', this.p_mouseup)
                 this.$plain.$dom.enableSelectNone()
                 this.indicator = document.createElement('div')
                 this.indicator.style.width = `${e.target.offsetWidth}px`
                 this.indicator.style.backgroundColor = '#ddd'
                 this.indicator.style.zIndex = 1
-                this.indicator.style.height = `${this.lv_baseTable.$el.offsetHeight}px`
+                this.indicator.style.height = `${this.p_baseTable.$el.offsetHeight}px`
                 this.indicator.style.display = 'inline-block'
                 this.indicator.style.position = 'absolute'
-                this.indicator.style.top = `${this.lv_baseTable.$el.getBoundingClientRect().top}px`
+                this.indicator.style.top = `${this.p_baseTable.$el.getBoundingClientRect().top}px`
                 this.indicator.style.left = `${e.clientX - e.target.offsetWidth / 2}px`
                 document.body.appendChild(this.indicator)
             },
-            lv_mousemove(e) {
+            p_mousemove(e) {
                 this.indicator.style.left = `${e.clientX}px`
             },
-            lv_mouseup(e) {
-                document.removeEventListener('mousemove', this.lv_mousemove)
-                document.removeEventListener('mouseup', this.lv_mouseup)
+            p_mouseup(e) {
+                document.removeEventListener('mousemove', this.p_mousemove)
+                document.removeEventListener('mouseup', this.p_mouseup)
                 this.$plain.$dom.disabledSelectNone()
                 document.body.removeChild(this.indicator)
                 this.endX = e.clientX

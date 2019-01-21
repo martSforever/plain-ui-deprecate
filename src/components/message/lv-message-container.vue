@@ -44,16 +44,16 @@
                 return styles;
             },
             targetVertical() {
-                return this.lv_vertical || this.vertical
+                return this.p_vertical || this.vertical
             },
             targetHorizontal() {
-                return this.lv_horizontal || this.horizontal
+                return this.p_horizontal || this.horizontal
             },
         },
         data() {
             return {
-                lv_vertical: null,
-                lv_horizontal: null,
+                p_vertical: null,
+                p_horizontal: null,
             }
         },
         methods: {

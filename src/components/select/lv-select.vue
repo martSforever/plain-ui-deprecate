@@ -20,7 +20,7 @@
                     :box-shape="boxShape"
                     :suffix-icon="suffixIcon"
                     :prefix-icon="prefixIcon"
-                    :clear-icon="lv_suffixIcon"
+                    :clear-icon="p_suffixIcon"
                     :loading="loading"
                     :readonly="inputReadonly"
                     :disabled="disabled"
@@ -34,11 +34,11 @@
 
                     :default-clear="false"
                     :placeholder="placeholder"
-                    @clear="e=>!readonly && !disabled && lv_clear(e)"
+                    @clear="e=>!readonly && !disabled && p_clear(e)"
             />
             <lv-scroll :scroll-x="false" slot="popper">
                 <div class="lv-select-content">
-                    <div class="link-select-item" v-for="(item,index) in lv_data" :label="item.label" :value="item.value" :key="index" @click="lv_click(item,index)">
+                    <div class="link-select-item" v-for="(item,index) in p_data" :label="item.label" :value="item.value" :key="index" @click="p_click(item,index)">
                         <slot :item="item.item" :index="index" :checked="item.checked">
                             <span>{{item.label}}</span>
                             <lv-icon icon="lv-check" v-if="item.checked"/>
@@ -86,14 +86,14 @@
         },
         watch: {
             value(val) {
-                if (!!this.multiple && this.lv_multipleValue !== val) this.lv_multipleValue = this.$plain.$utils.deepCopy(val)
-                else if (this.lv_singleValue !== val) this.lv_singleValue = val
-                this.lv_reset();
+                if (!!this.multiple && this.p_multipleValue !== val) this.p_multipleValue = this.$plain.$utils.deepCopy(val)
+                else if (this.p_singleValue !== val) this.p_singleValue = val
+                this.p_reset();
             },
-            lv_multipleValue(val) {
+            p_multipleValue(val) {
                 if (JSON.stringify(val) !== JSON.stringify(this.value)) this.$emit('input', val);
             },
-            lv_singleValue(val) {
+            p_singleValue(val) {
                 this.$emit('input', val);
             },
             show(val) {
@@ -103,68 +103,68 @@
                 this.$emit('update:show', val)
             },
             data() {
-                this.lv_reset()
+                this.p_reset()
             },
             labelKey() {
-                this.lv_reset()
+                this.p_reset()
             },
             valueKey() {
-                this.lv_reset()
+                this.p_reset()
             },
         },
         data() {
             return {
                 currentShow: this.show,
-                lv_selectItems: [],
-                lv_singleValue: this.value,
-                lv_multipleValue: this.$plain.$utils.deepCopy(this.value) || [],
-                lv_data: null,
+                p_selectItems: [],
+                p_singleValue: this.value,
+                p_multipleValue: this.$plain.$utils.deepCopy(this.value) || [],
+                p_data: null,
             }
         },
         computed: {
-            lv_suffixIcon() {
+            p_suffixIcon() {
                 return this.currentShow ? 'lv-arrow-up' : 'lv-arrow-down'
             },
             showValue() {
-                return this.lv_data.reduce((ret, item) => {
+                return this.p_data.reduce((ret, item) => {
                     !!item.checked && ret.push(item.label)
                     return ret
                 }, []).join(',')
             },
         },
         created() {
-            this.lv_reset()
+            this.p_reset()
         },
         methods: {
-            lv_clear() {
-                this.multiple ? (this.lv_multipleValue = []) : (this.lv_singleValue = null)
-                this.lv_data.forEach(item => item.checked = false)
+            p_clear() {
+                this.multiple ? (this.p_multipleValue = []) : (this.p_singleValue = null)
+                this.p_data.forEach(item => item.checked = false)
             },
-            lv_reset() {
+            p_reset() {
                 const list = this.data || []
-                this.lv_data = list.map((item, index) => {
+                this.p_data = list.map((item, index) => {
                     const label = !!this.labelKey ? item[this.labelKey] : item
                     const value = !!this.valueKey ? item[this.valueKey] : item
                     return {
                         item: list[index],
                         label,
                         value,
-                        checked: !this.multiple ? (value === this.lv_singleValue) : this.$plain.$utils.oneOf(value, this.lv_multipleValue),
+                        checked: !this.multiple ? (value === this.p_singleValue) : this.$plain.$utils.oneOf(value, this.p_multipleValue),
                     }
                 })
             },
-            lv_click(item, index) {
+            p_click(item, index) {
                 if (!this.multiple) {
-                    this.lv_data.forEach(i => i.checked = false)
-                    this.lv_singleValue = item.value;
+                    this.p_data.forEach(i => i.checked = false)
+                    this.p_singleValue = item.value;
                     item.checked = true
                     this.currentShow = false
                 } else {
                     item.checked = !item.checked
-                    !!item.checked ? this.lv_multipleValue.push(item.value) : this.$plain.$utils.removeFromArray(this.lv_multipleValue, item.value);
+                    !!item.checked ? this.p_multipleValue.push(item.value) : this.$plain.$utils.removeFromArray(this.p_multipleValue, item.value);
                 }
                 this.$emit('click', {item, index})
-                this.$emit('select', !!this.multiple ? this.lv_multipleValue : this.lv_singleValue)
+                this.$emit('select', !!this.multiple ? this.p_multipleValue : this.p_singleValue)
             },
         }
     }

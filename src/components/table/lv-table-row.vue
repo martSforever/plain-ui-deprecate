@@ -1,10 +1,10 @@
 <template>
     <tr class="lv-table-row"
-        @click="lv_click"
-        @dblclick="lv_dblclick"
-        @mouseenter="lv_enter"
-        @mouseleave="lv_leave"
-        :class="{'lv-table-row-hover':lv_hover,'lv-table-row-selected':lv_selected}">
+        @click="p_click"
+        @dblclick="p_dblclick"
+        @mouseenter="p_enter"
+        @mouseleave="p_leave"
+        :class="{'lv-table-row-hover':p_hover,'lv-table-row-selected':p_selected}">
         <td v-for="(col,colIndex) in columns" :key="colIndex">
             <lv-table-cell
                     :is-fixed="col.fixed === fixed"
@@ -34,19 +34,19 @@
         },
         data() {
             return {
-                lv_baseTable: null,
-                lv_hover: false,
-                lv_selected: false,
-                lv_editing: false,
+                p_baseTable: null,
+                p_hover: false,
+                p_selected: false,
+                p_editing: false,
                 items: [],
             }
         },
         mounted() {
-            this.lv_baseTable = this.$plain.$dom.findComponentUpward(this, 'lv-base-table')
-            this.lv_baseTable.lv_rowAdd({row: this, position: this.fixed})
+            this.p_baseTable = this.$plain.$dom.findComponentUpward(this, 'lv-base-table')
+            this.p_baseTable.p_rowAdd({row: this, position: this.fixed})
         },
         beforeDestroy() {
-            this.lv_baseTable.lv_rowRemove({row: this, position: this.fixed})
+            this.p_baseTable.p_rowRemove({row: this, position: this.fixed})
         },
         methods: {
             /**
@@ -55,7 +55,7 @@
              * @date    2019/1/9 18:04
              */
             select() {
-                this.lv_selected = true
+                this.p_selected = true
             },
             /**
              * 取消选中
@@ -63,7 +63,7 @@
              * @date    2019/1/9 18:04
              */
             unselect() {
-                this.lv_selected = false
+                this.p_selected = false
             },
             /**
              * 校验
@@ -95,9 +95,9 @@
              * @author  韦胜健
              * @date    2019/1/8 10:23
              */
-            lv_click() {
+            p_click() {
                 const param = {row: this, rowIndex: this.rowIndex, position: this.fixed}
-                this.lv_baseTable.$emit('rowClick', param)
+                this.p_baseTable.$emit('rowClick', param)
                 this.$emit('click', param)
             },
             /**
@@ -105,9 +105,9 @@
              * @author  韦胜健
              * @date    2019/1/8 10:23
              */
-            lv_dblclick() {
+            p_dblclick() {
                 const param = {row: this, rowIndex: this.rowIndex, position: this.fixed}
-                this.lv_baseTable.$emit('rowDblClick', param)
+                this.p_baseTable.$emit('rowDblClick', param)
                 this.$emit('dblclick', param)
             },
             /**
@@ -115,23 +115,23 @@
              * @author  韦胜健
              * @date    2019/1/8 10:23
              */
-            lv_enter() {
-                this.lv_baseTable.$emit('rowEnter', {row: this, rowIndex: this.rowIndex, position: this.fixed})
+            p_enter() {
+                this.p_baseTable.$emit('rowEnter', {row: this, rowIndex: this.rowIndex, position: this.fixed})
             },
             /**
              * 鼠标离开事件
              * @author  韦胜健
              * @date    2019/1/9 11:22
              */
-            lv_leave() {
-                this.lv_baseTable.$emit('rowLeave', {row: this, rowIndex: this.rowIndex, position: this.fixed})
+            p_leave() {
+                this.p_baseTable.$emit('rowLeave', {row: this, rowIndex: this.rowIndex, position: this.fixed})
             },
             /**
              * 添加子编辑组件
              * @author  韦胜健
              * @date    2019/1/8 10:23
              */
-            lv_add(item) {
+            p_add(item) {
                 this.items.push(item)
             },
             /**
@@ -139,7 +139,7 @@
              * @author  韦胜健
              * @date    2019/1/8 10:23
              */
-            lv_remove(item) {
+            p_remove(item) {
                 this.$plain.$utils.removeFromArray(this.items, item)
             },
 
@@ -151,7 +151,7 @@
              */
             enableEdit() {
                 this.items.forEach(item => item.enableEdit())
-                this.lv_editing = true
+                this.p_editing = true
             },
             /**
              * 关闭编辑状态
@@ -160,7 +160,7 @@
              */
             disableEdit() {
                 this.items.forEach(item => item.disableEdit())
-                this.lv_editing = false
+                this.p_editing = false
             },
         }
     }

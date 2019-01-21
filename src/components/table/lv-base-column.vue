@@ -10,22 +10,22 @@
         mixins: [ColumnMixin],
         watch: {
             width(val) {
-                if (this.lv_width !== val) this.lv_width = val;
+                if (this.p_width !== val) this.p_width = val;
             },
-            lv_width(val) {
+            p_width(val) {
                 this.$emit('update:width', val);
             },
             fixed(val) {
-                if (this.lv_fixed !== val) this.lv_fixed = val;
+                if (this.p_fixed !== val) this.p_fixed = val;
             },
-            lv_fixed(val) {
+            p_fixed(val) {
                 this.$emit('update:fixed', val);
             },
         },
         data() {
             return {
-                lv_width: this.width,
-                lv_fixed: this.fixed,
+                p_width: this.width,
+                p_fixed: this.fixed,
             }
         },
         computed: {
@@ -35,9 +35,9 @@
                 const col = {
                     get title() {return that.title},
                     get field() {return that.field},
-                    get width() {return that.lv_width},
-                    get order() {return that.order+(that.lv_fixed === 'left'?999:that.lv_fixed === 'right'?-999:0)},
-                    get fixed() {return that.lv_fixed},
+                    get width() {return that.p_width},
+                    get order() {return that.order+(that.p_fixed === 'left'?999:that.p_fixed === 'right'?-999:0)},
+                    get fixed() {return that.p_fixed},
                     get search() {return that.search},
                     get sort() {return that.sort},
                     get quickFilter() {return that.quickFilter},
@@ -51,8 +51,8 @@
                     get titleScopedSlot() {return that.$scopedSlots.title},
                     get colScopedSlot() {return that.$scopedSlots.default},
 
-                    set fixed(val){that.lv_fixed = val},
-                    update({width}){that.lv_width = width},
+                    set fixed(val){that.p_fixed = val},
+                    update({width}){that.p_width = width},
                 }
                 /*@formatter:on*/
                 return col
