@@ -1,0 +1,90 @@
+/**
+ * scss变量
+ * @author  韦胜健
+ * @date    2018/12/4 10:13
+ */
+
+/*@formatter:off*/
+
+/*---------------------------------------color-------------------------------------------*/
+$color-primary:#1076ca;                         //主色调
+$color-primary-light:#f0faff;                   //主色调：轻
+$color-primary-dark:#365D7E;                    //主色调：重
+
+$color-info:#C4C5C8;                            //提示
+$color-success:#02D173;                         //成功
+$color-warn:#FF9503;                            //警告
+$color-error:#FF4702;                           //失败
+
+$color-normal-title:#17233d;                    //标题
+$color-normal-content:#5c677b;                  //内容
+$color-normal-sub-color:#808695;                //辅助（图标）
+$color-normal-disabled:#EBEAE7;                 //失效
+$color-normal-placeholder:#d5d8de;              //占位符
+$color-normal-border:rgba(0, 0, 0, .05);        //边框
+$color-normal-divider:#e8eaec;                  //分割线
+$color-normal-background:#f2f2f2;               //背景色
+
+$list-color:(
+    primary:$color-primary,
+    info:$color-info,
+    success:$color-success,
+    warn:$color-warn,
+    error:$color-error,
+    disabled:$color-normal-disabled,
+);
+
+/*---------------------------------------size-------------------------------------------*/
+$size-large:36px;
+$size-default:28px;
+$size-small:22px;
+
+$list-size:(
+    large:$size-large,
+    default:$size-default,
+    small:$size-small,
+);
+/*---------------------------------------shape-------------------------------------------*/
+$shape-fillet:4px;
+$shape-round:3000px;
+$shape-none:0;
+
+$list-shape:(
+    fillet:$shape-fillet,
+    round:$shape-round,
+    none:$shape-none,
+);
+
+
+/*---------------------------------------global styles-------------------------------------------*/
+$animation-loop-time:1.5s;                      //css动画循环时长
+$transition-time:0.15s;                         //transition过渡动画时长
+$padding:16px;                                  //默认padding大小
+$margin:16px;                                   //默认margin大小
+$border-size:1px;                               //默认border大小,因为1px在不同浏览器下有不同的显示差别，这里使用2px
+$box-shadow: 0 0 12px rgba(0, 0, 0, .1);
+$border:$border-size $color-normal-border solid;
+$icon-size:1.1em;
+
+
+/*---------------------------------------auto-table-------------------------------------------*/
+
+$base-table-head-row-Height:40px;               //表格标题行高
+$base-table-font-size:13px;
+$base-table-font-weight:600;
+$base-table-border-color:#E2E7F1;
+$base-table-border-size:0.5px;
+$base-table-head-background:#F5F6FA;
+$base-table-head-color:#17233D;
+$base-table-head-hover-color:#E4E7EF;
+$base-table-head-icon-color: #b3b6bf;
+$base-table-head-icon-active-color: #17233d;
+$base-table-body-color:#515A6E;
+$base-table-hover-row-background:#ECF5FF;
+$base-table-cell-padding:9px;
+
+
+
+/*@formatter:on*/
+
+

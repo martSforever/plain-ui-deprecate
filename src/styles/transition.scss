@@ -1,0 +1,43 @@
+.collapse-transition {
+  transition: $transition-time height ease-in-out, $transition-time padding-top ease-in-out, $transition-time padding-bottom ease-in-out;
+}
+
+/*缩放*/
+.lv-transition-scale-enter-active, .lv-transition-scale-leave-active {
+  transform: scale(1);
+}
+
+.lv-transition-scale-enter, .lv-transition-scale-leave-to {
+  transform: scale(0.6);
+  opacity: 0;
+}
+
+
+/*缩放过度*/
+.lv-popover-scale-enter-active, .lv-popover-scale-leave-active {
+  transition: all .1s linear;
+  opacity: 1;
+}
+
+.lv-popover-scale-enter, .lv-popover-scale-leave-to {
+  opacity: 0;
+  transform: scale(0.75, 0.75);
+}
+
+/*透明度*/
+.lv-transition-fade-enter-active, .lv-transition-fade-leave-active {
+  opacity: 1;
+}
+
+.lv-transition-fade-enter, .lv-transition-fade-leave-to {
+  opacity: 0;
+}
+
+/*移动*/
+.lv-transition-from-bottom-enter-active, .lv-transition-from-bottom-leave-active {
+}
+
+.lv-transition-from-bottom-enter, .lv-transition-from-bottom-leave-to {
+  transform: translateY(36px);
+  opacity: 0;
+}
