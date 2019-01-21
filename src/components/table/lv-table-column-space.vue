@@ -1,7 +1,7 @@
 <template>
     <tr class="lv-table-column-space">
         <td v-for="(col,colIndex) in columns" :key="colIndex">
-            <span :style="{width:$lv.$utils.unit(col.width)}"></span>
+            <span :style="{width:$plain.$utils.unit(col.width)}"></span>
         </td>
     </tr>
 </template>

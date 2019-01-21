@@ -15,8 +15,8 @@
         computed: {
             styles() {
                 const styles = {}
-                this.width !== null && (styles.width = this.$lv.$utils.unit(this.width))
-                this.height !== null && (styles.height = this.$lv.$utils.unit(this.height))
+                this.width !== null && (styles.width = this.$plain.$utils.unit(this.width))
+                this.height !== null && (styles.height = this.$plain.$utils.unit(this.height))
                 return styles
             },
         },

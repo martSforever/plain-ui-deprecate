@@ -75,7 +75,7 @@ export const ColumnItemMixin = {
          * @date    2019/1/8 10:21
          */
         lv_row() {
-            if (!this._lv_row) this._lv_row = this.$lv.$dom.findComponentUpward(this, 'lv-table-row')
+            if (!this._lv_row) this._lv_row = this.$plain.$dom.findComponentUpward(this, 'lv-table-row')
             return this._lv_row
         },
         /**

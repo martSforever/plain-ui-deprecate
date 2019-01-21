@@ -104,7 +104,7 @@ const PlainUI = {
     install(Vue, {prefix = 'lv', iconfont} = {}) {
         Vue.use(DomPortal)
         Vue.use(mavonEditor)
-        Vue.prototype.$lv = PlainUI
+        Vue.prototype.$plain = PlainUI
         Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice
         Vue.prototype.$dialog = $dialog

@@ -86,7 +86,7 @@
         },
         watch: {
             value(val) {
-                if (!!this.multiple && this.lv_multipleValue !== val) this.lv_multipleValue = this.$lv.$utils.deepCopy(val)
+                if (!!this.multiple && this.lv_multipleValue !== val) this.lv_multipleValue = this.$plain.$utils.deepCopy(val)
                 else if (this.lv_singleValue !== val) this.lv_singleValue = val
                 this.lv_reset();
             },
@@ -117,7 +117,7 @@
                 currentShow: this.show,
                 lv_selectItems: [],
                 lv_singleValue: this.value,
-                lv_multipleValue: this.$lv.$utils.deepCopy(this.value) || [],
+                lv_multipleValue: this.$plain.$utils.deepCopy(this.value) || [],
                 lv_data: null,
             }
         },
@@ -149,7 +149,7 @@
                         item: list[index],
                         label,
                         value,
-                        checked: !this.multiple ? (value === this.lv_singleValue) : this.$lv.$utils.oneOf(value, this.lv_multipleValue),
+                        checked: !this.multiple ? (value === this.lv_singleValue) : this.$plain.$utils.oneOf(value, this.lv_multipleValue),
                     }
                 })
             },
@@ -161,7 +161,7 @@
                     this.currentShow = false
                 } else {
                     item.checked = !item.checked
-                    !!item.checked ? this.lv_multipleValue.push(item.value) : this.$lv.$utils.removeFromArray(this.lv_multipleValue, item.value);
+                    !!item.checked ? this.lv_multipleValue.push(item.value) : this.$plain.$utils.removeFromArray(this.lv_multipleValue, item.value);
                 }
                 this.$emit('click', {item, index})
                 this.$emit('select', !!this.multiple ? this.lv_multipleValue : this.lv_singleValue)

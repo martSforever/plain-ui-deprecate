@@ -79,8 +79,8 @@
                 handler(newVal) {
                     if (!newVal || newVal.length === 0) return
                     newVal.forEach((row, index) => {
-                        row.lv_id == null && (this.$set(row, 'lv_id', this.$lv.$utils.uuid()))
-                        const editRow = this.$lv.$utils.findOne(this.lv_editData, item => item.lv_id === row.lv_id)
+                        row.lv_id == null && (this.$set(row, 'lv_id', this.$plain.$utils.uuid()))
+                        const editRow = this.$plain.$utils.findOne(this.lv_editData, item => item.lv_id === row.lv_id)
                         if (!editRow) this.lv_editData.splice(index, 0, deepCopy(row))
                     })
 
@@ -131,7 +131,7 @@
             lv_headColumns() {
                 if (!this.lv_mounted) return []
                 let maxLevel = 1;
-                let columns = this.$lv.$utils.deepCopy(this.columns)
+                let columns = this.$plain.$utils.deepCopy(this.columns)
 
                 /*计算最大层数*/
                 const calculateLavel = (cols, level) => {
@@ -166,7 +166,7 @@
                 /*收集多级表头渲染数据*/
                 const calculateHeadColumns = (cols) => {
                     if (!!cols && cols.length > 0) {
-                        this.$lv.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
+                        this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
                         cols.forEach((col) => {
                             headColumns[col.level].push(col)
                             !!col.group && calculateHeadColumns(col.children)
@@ -355,7 +355,7 @@
             lv_collect(columns) {
                 // console.log(columns)
                 // console.log(columns.map(item => item.title + item.order));
-                this.$lv.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
+                this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
                 // console.log(columns.map(item => item.title + item.order));
                 this.columns = columns
                 this.$emit('collect', columns)
@@ -402,7 +402,7 @@
              *  @datetime   2019/1/6 20:46
              */
             lv_rowRemove({row, position}) {
-                !!this.content[position] && this.$lv.$utils.removeFromArray(this.content[position].rows, row)
+                !!this.content[position] && this.$plain.$utils.removeFromArray(this.content[position].rows, row)
             },
             /*
              *  处理行鼠标滑过事件

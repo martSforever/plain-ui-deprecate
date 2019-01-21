@@ -29,8 +29,8 @@
         },
         computed: {
             styles() {
-                const styles = {height: this.$lv.$utils.unit(this.rowHeight),}
-                this.width != null && (styles.width = this.$lv.$utils.unit(this.width))
+                const styles = {height: this.$plain.$utils.unit(this.rowHeight),}
+                this.width != null && (styles.width = this.$plain.$utils.unit(this.width))
                 return styles
             },
         },

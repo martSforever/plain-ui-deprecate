@@ -82,8 +82,8 @@
             },
             lv_bodyStyles() {
                 return {
-                    height: this.$lv.$utils.unit(!!this.vertical ? this.length : this.size),
-                    width: this.$lv.$utils.unit(!!this.vertical ? this.size : this.length),
+                    height: this.$plain.$utils.unit(!!this.vertical ? this.length : this.size),
+                    width: this.$plain.$utils.unit(!!this.vertical ? this.size : this.length),
                 }
             },
             lv_dotWrapperStyles() {
@@ -93,8 +93,8 @@
             },
             lv_progressStyles() {
                 return {
-                    height: !!this.vertical ? `${this.space}px` : this.$lv.$utils.unit(this.size),
-                    width: !!this.vertical ? this.$lv.$utils.unit(this.size) : `${this.space}px`,
+                    height: !!this.vertical ? `${this.space}px` : this.$plain.$utils.unit(this.size),
+                    width: !!this.vertical ? this.$plain.$utils.unit(this.size) : `${this.space}px`,
                 }
             },
         },
@@ -106,7 +106,7 @@
                 document.addEventListener('mouseup', this.dragEnd)
                 this.startX = e.clientX
                 this.startY = e.clientY
-                this.$lv.$dom.enableSelectNone()
+                this.$plain.$dom.enableSelectNone()
             },
             dragMove(e) {
                 if (!this.lv_touching) return
@@ -119,7 +119,7 @@
                 this.lv_touching = false
                 document.removeEventListener('mousemove', this.dragMove)
                 document.removeEventListener('mouseup', this.dragEnd)
-                this.$lv.$dom.disabledSelectNone()
+                this.$plain.$dom.disabledSelectNone()
             },
         },
     }

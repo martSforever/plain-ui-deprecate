@@ -17,7 +17,7 @@
         computed: {
             titleStyles() {
                 const styles = {}
-                !!this.width && (styles.width = this.$lv.$utils.unit(this.width))
+                !!this.width && (styles.width = this.$plain.$utils.unit(this.width))
                 return styles
             },
         },

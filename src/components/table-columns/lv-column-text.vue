@@ -32,16 +32,16 @@
                 let data;
                 switch (this.dataType) {
                     case 'tel':
-                        data = this.$lv.$utils.telFormat(text);
+                        data = this.$plain.$utils.telFormat(text);
                         break;
                     case 'cny':
-                        data = this.$lv.$utils.cnyFormat(text);
+                        data = this.$plain.$utils.cnyFormat(text);
                         break;
                     case 'money':
-                        data = this.$lv.$utils.moneyFormat(text);
+                        data = this.$plain.$utils.moneyFormat(text);
                         break;
                     case 'percent':
-                        data = this.$lv.$utils.percentNumFormat(text);
+                        data = this.$plain.$utils.percentNumFormat(text);
                         break;
                 }
                 return data || text;

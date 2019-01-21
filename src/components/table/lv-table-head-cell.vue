@@ -59,7 +59,7 @@
             },
         },
         mounted() {
-            this.lv_baseTable = this.$lv.$dom.findComponentUpward(this, 'lv-base-table')
+            this.lv_baseTable = this.$plain.$dom.findComponentUpward(this, 'lv-base-table')
         },
         methods: {
             lv_click() {
@@ -69,7 +69,7 @@
                 this.startX = e.clientX
                 document.addEventListener('mousemove', this.lv_mousemove)
                 document.addEventListener('mouseup', this.lv_mouseup)
-                this.$lv.$dom.enableSelectNone()
+                this.$plain.$dom.enableSelectNone()
                 this.indicator = document.createElement('div')
                 this.indicator.style.width = `${e.target.offsetWidth}px`
                 this.indicator.style.backgroundColor = '#ddd'
@@ -87,7 +87,7 @@
             lv_mouseup(e) {
                 document.removeEventListener('mousemove', this.lv_mousemove)
                 document.removeEventListener('mouseup', this.lv_mouseup)
-                this.$lv.$dom.disabledSelectNone()
+                this.$plain.$dom.disabledSelectNone()
                 document.body.removeChild(this.indicator)
                 this.endX = e.clientX
                 let durX = this.endX - this.startX

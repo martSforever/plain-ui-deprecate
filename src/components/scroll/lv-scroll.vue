@@ -149,7 +149,7 @@
                 this.dragStartY = e.clientY;
                 document.addEventListener('mousemove', this.vIndicatorDragMove);
                 document.addEventListener('mouseup', this.vIndicatorDragEnd);
-                this.$lv.$dom.enableSelectNone()
+                this.$plain.$dom.enableSelectNone()
             },
             vIndicatorDragMove(e) {
                 let deltaY = e.clientY - this.dragStartY;
@@ -160,7 +160,7 @@
                 this.draging = false
                 document.removeEventListener('mousemove', this.vIndicatorDragMove);
                 document.removeEventListener('mouseup', this.vIndicatorDragEnd);
-                this.$lv.$dom.disabledSelectNone()
+                this.$plain.$dom.disabledSelectNone()
             },
             hIndicatorDragStart(e) {
                 this.draging = true
@@ -168,7 +168,7 @@
                 this.dragStartX = e.clientX;
                 document.addEventListener('mousemove', this.hIndicatorDragMove);
                 document.addEventListener('mouseup', this.hIndicatorDragEnd);
-                this.$lv.$dom.enableSelectNone()
+                this.$plain.$dom.enableSelectNone()
             },
             hIndicatorDragMove(e) {
                 let deltaX = e.clientX - this.dragStartX;
@@ -179,7 +179,7 @@
                 this.draging = false
                 document.removeEventListener('mousemove', this.hIndicatorDragMove);
                 document.removeEventListener('mouseup', this.hIndicatorDragEnd);
-                this.$lv.$dom.disabledSelectNone()
+                this.$plain.$dom.disabledSelectNone()
             },
             _mouseenter() {
                 this.hover = true;

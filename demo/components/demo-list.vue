@@ -55,7 +55,7 @@
                 this.cities.splice(this.randomIndex(), 1);
             },
             shuffle() {
-                this.cities = this.$lv.$utils.shuffle(this.cities);
+                this.cities = this.$plain.$utils.shuffle(this.cities);
             },
         }
     }

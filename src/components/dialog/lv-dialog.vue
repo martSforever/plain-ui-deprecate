@@ -113,16 +113,16 @@
             },
             bodyStyles() {
                 return {
-                    minWidth: this.$lv.$utils.unit(this.width),
-                    minHeight: this.$lv.$utils.unit(this.height),
+                    minWidth: this.$plain.$utils.unit(this.width),
+                    minHeight: this.$plain.$utils.unit(this.height),
                 }
             },
             contentStyles() {
                 const styles = {}
                 styles.top = `${this.top != null ? this.top : !this.vertical && !this.horizontal ? -200 : 0}px`
-                this.left != null && (styles.left = this.$lv.$utils.unit(this.left))
-                this.bottom != null && (styles.bottom = this.$lv.$utils.unit(this.bottom))
-                this.right != null && (styles.right = this.$lv.$utils.unit(this.right))
+                this.left != null && (styles.left = this.$plain.$utils.unit(this.left))
+                this.bottom != null && (styles.bottom = this.$plain.$utils.unit(this.bottom))
+                this.right != null && (styles.right = this.$plain.$utils.unit(this.right))
                 return styles
             },
         },
@@ -153,7 +153,7 @@
                 this.$emit('clickContent', e)
             },
             lv_getTopIndex() {
-                return this.$lv.$utils.dateFormat(new Date(), 'mmssSSS') - 0
+                return this.$plain.$utils.dateFormat(new Date(), 'mmssSSS') - 0
             },
             lv_confirm() {
                 this.$emit('confirm')

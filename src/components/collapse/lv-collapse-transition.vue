@@ -17,7 +17,7 @@
         name: "lv-collapse-transition",
         methods: {
             beforeEnter(el) {
-                this.$lv.$dom.addClass(el, 'lv-collapse-transition');
+                this.$plain.$dom.addClass(el, 'lv-collapse-transition');
                 if (!el.dataset) el.dataset = {};
 
                 el.dataset.oldPaddingTop = el.style.paddingTop;
@@ -42,7 +42,7 @@
                 el.style.overflow = 'hidden';
             },
             afterEnter(el) {
-                this.$lv.$dom.removeClass(el, 'lv-collapse-transition');
+                this.$plain.$dom.removeClass(el, 'lv-collapse-transition');
                 el.style.height = '';
                 el.style.overflow = el.dataset.oldOverflow;
             },
@@ -57,14 +57,14 @@
             },
             leave(el) {
                 if (el.scrollHeight !== 0) {
-                    this.$lv.$dom.addClass(el, 'lv-collapse-transition');
+                    this.$plain.$dom.addClass(el, 'lv-collapse-transition');
                     el.style.height = 0;
                     el.style.paddingTop = 0;
                     el.style.paddingBottom = 0;
                 }
             },
             afterLeave(el) {
-                this.$lv.$dom.removeClass(el, 'lv-collapse-transition');
+                this.$plain.$dom.removeClass(el, 'lv-collapse-transition');
                 el.style.height = '';
                 el.style.overflow = el.dataset.oldOverflow;
                 el.style.paddingTop = el.dataset.oldPaddingTop;

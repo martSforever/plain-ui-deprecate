@@ -42,7 +42,7 @@
             }
         },
         mounted() {
-            this.lv_baseTable = this.$lv.$dom.findComponentUpward(this, 'lv-base-table')
+            this.lv_baseTable = this.$plain.$dom.findComponentUpward(this, 'lv-base-table')
             this.lv_baseTable.lv_rowAdd({row: this, position: this.fixed})
         },
         beforeDestroy() {
@@ -77,7 +77,7 @@
                 let field = null;                   //输入不通过字段
 
                 this.items.forEach(item => {
-                    const inputs = this.$lv.$dom.findComponentsDownward(item, 'link-input')
+                    const inputs = this.$plain.$dom.findComponentsDownward(item, 'link-input')
                     inputs.forEach(input => {
                         if (!flag) return
                         if (!input.validate()) {
@@ -140,7 +140,7 @@
              * @date    2019/1/8 10:23
              */
             lv_remove(item) {
-                this.$lv.$utils.removeFromArray(this.items, item)
+                this.$plain.$utils.removeFromArray(this.items, item)
             },
 
 

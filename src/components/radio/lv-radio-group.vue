@@ -24,14 +24,14 @@
         data() {
             return {
                 singleValue: this.value,
-                multipleValue: this.$lv.$utils.deepCopy(this.value) || [],
+                multipleValue: this.$plain.$utils.deepCopy(this.value) || [],
                 lv_radios: [],
             };
         },
         watch: {
             value(val) {
                 if (!!this.multiple) {
-                    if (this.multipleValue !== val) this.multipleValue = this.$lv.$utils.deepCopy(val);
+                    if (this.multipleValue !== val) this.multipleValue = this.$plain.$utils.deepCopy(val);
                 } else {
                     if (this.singleValue !== val) this.singleValue = val;
                 }
@@ -57,12 +57,12 @@
                 this.lv_radios.push(radio);
             },
             lv_removeRadio(radio) {
-                this.$lv.$utils.removeFromArray(this.lv_radios, radio);
+                this.$plain.$utils.removeFromArray(this.lv_radios, radio);
             },
             updateRadios() {
                 this.lv_radios.forEach(radio => {
                     if (!!this.multiple) {
-                        radio.currentValue = this.$lv.$utils.oneOf(radio.id, this.multipleValue);
+                        radio.currentValue = this.$plain.$utils.oneOf(radio.id, this.multipleValue);
                     } else {
                         radio.currentValue = (radio.id === this.singleValue);
                     }
@@ -70,7 +70,7 @@
             },
         },
         created() {
-            if (!!this.multiple && !!this.value && this.$lv.$utils.typeOf(this.value) !== 'array') {
+            if (!!this.multiple && !!this.value && this.$plain.$utils.typeOf(this.value) !== 'array') {
                 console.error('[radio-group] value must be instance of array when multiple is true!');
             }
         },

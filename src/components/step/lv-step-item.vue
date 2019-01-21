@@ -39,7 +39,7 @@
         computed: {
             styles() {
                 return {
-                    [!!this.vertical ? 'height' : 'width']: this.$lv.$utils.unit(this.size),
+                    [!!this.vertical ? 'height' : 'width']: this.$plain.$utils.unit(this.size),
                     color: this.activeIndex != null && this.activeIndex >= this.itemIndex ? this.activeColor : this.inactiveColor
                 }
             },

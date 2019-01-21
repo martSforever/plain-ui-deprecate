@@ -79,7 +79,7 @@
             },
         },
         mounted() {
-            this.lv_group = this.$lv.$dom.findComponentUpward(this, 'lv-radio-group');
+            this.lv_group = this.$plain.$dom.findComponentUpward(this, 'lv-radio-group');
             if (!!this.lv_group) {
                 this.lv_group.lv_addRadio(this)
                 if (this.lv_group.multiple) {
@@ -87,7 +87,7 @@
                         console.error(`radio must have id when radio-lv_group's multiple is true!`);
                         return;
                     }
-                    this.currentValue = this.$lv.$utils.oneOf(this.id, this.lv_group.multipleValue);
+                    this.currentValue = this.$plain.$utils.oneOf(this.id, this.lv_group.multipleValue);
                 } else {
                     this.currentValue = this.lv_group.singleValue === this.id;
                 }
@@ -108,7 +108,7 @@
                         this.lv_group.singleValue = !!this.currentValue ? this.id : null;
                     } else {
                         if (!!this.currentValue) this.lv_group.multipleValue.push(this.id);
-                        else this.$lv.$utils.removeFromArray(this.lv_group.multipleValue, this.id);
+                        else this.$plain.$utils.removeFromArray(this.lv_group.multipleValue, this.id);
                     }
                 }
             },

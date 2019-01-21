@@ -116,12 +116,12 @@
                 ]
             },
             lv_vertical() {
-                return this.$lv.$utils.oneOf(this.lv_direction, ['top', 'bottom'])
+                return this.$plain.$utils.oneOf(this.lv_direction, ['top', 'bottom'])
             },
             lv_contentStyles() {
                 const ret = {}
-                this.width != null && (ret.width = `${this.$lv.$utils.unit(this.width)}`)
-                this.height != null && (ret.height = `${this.$lv.$utils.unit(this.height)}`)
+                this.width != null && (ret.width = `${this.$plain.$utils.unit(this.width)}`)
+                this.height != null && (ret.height = `${this.$plain.$utils.unit(this.height)}`)
                 if (!this.disabledEqual && this.lv_mounted) {
                     ret[this.lv_vertical ? 'width' : 'height'] = `${this.$refs.reference[this.lv_vertical ? 'offsetWidth' : 'offsetHeight']}px`
                 }

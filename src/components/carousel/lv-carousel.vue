@@ -121,7 +121,7 @@
                 this.lv_startX = e.clientX
                 window.document.addEventListener('mousemove', this.lv_mousemove)
                 window.document.addEventListener('mouseup', this.lv_mouseup)
-                this.$lv.$dom.enableSelectNone()
+                this.$plain.$dom.enableSelectNone()
             },
             lv_mousemove(e) {
                 if (!this.lv_moving) return
@@ -156,7 +156,7 @@
                 }
                 this.lv_x = -(this.data.length - 1) * this.lv_containerWidth
                 this.currentValue = this.data.length - 1
-                this.$lv.$dom.disabledSelectNone()
+                this.$plain.$dom.disabledSelectNone()
                 window.document.removeEventListener('mousemove', this.lv_mousemove)
                 window.document.removeEventListener('mouseup', this.lv_mouseup)
                 this.play()

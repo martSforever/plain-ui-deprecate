@@ -53,7 +53,7 @@
             },
         },
         mounted() {
-            this.lv_group = this.$lv.$dom.findComponentUpward(this, 'lv-collapse-lv_group');
+            this.lv_group = this.$plain.$dom.findComponentUpward(this, 'lv-collapse-lv_group');
             if (!!this.lv_group) this.lv_group.lv_add(this)
         },
         beforeDestroy() {

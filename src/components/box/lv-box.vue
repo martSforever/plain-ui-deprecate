@@ -101,7 +101,7 @@
                 this.passValid = true
                 this.passValidMsg = null
                 if (!this._rules) return true;
-                const result = this.$lv.$validate.validate(this.value, this._rules)
+                const result = this.$plain.$validate.validate(this.value, this._rules)
                 if (!!result) {
                     this.passValid = false
                     this.passValidMsg = result.msg

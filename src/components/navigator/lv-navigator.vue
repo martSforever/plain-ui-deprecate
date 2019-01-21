@@ -51,13 +51,13 @@
             let currentValue = this.value;
             let tabsStorage, selfStorage;
             if (!!this.id) {
-                tabsStorage = this.$lv.$storage.get(TABS_STORAGE_KEY) || {}
+                tabsStorage = this.$plain.$storage.get(TABS_STORAGE_KEY) || {}
                 selfStorage = tabsStorage[this.id] || {}
                 if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                     selfStorage.index != null && (currentValue = selfStorage.index)
                     !!selfStorage.pageStack && selfStorage.pageStack.length > 0 && (pageStack = selfStorage.pageStack.map((item, index) => {
                         const re = this.getPageByName(item.path)
-                        return Object.assign({init: index === selfStorage.index, id: this.$lv.$utils.uuid()}, item, {component: re.component})
+                        return Object.assign({init: index === selfStorage.index, id: this.$plain.$utils.uuid()}, item, {component: re.component})
                     }))
                 }
             }
@@ -66,7 +66,7 @@
                     currentValue = 0;
                     pageStack = this.init.map(item => {
                         const re = this.getPageByName(item.path)
-                        return Object.assign({init: false, id: this.$lv.$utils.uuid()}, re)
+                        return Object.assign({init: false, id: this.$plain.$utils.uuid()}, re)
                     })
                     pageStack[0].init = true
                 }
@@ -99,7 +99,7 @@
                     return {title, path, icon, param}
                 })
                 this.tabsStorage[this.id] = this.selfStorage
-                this.$lv.$storage.set(TABS_STORAGE_KEY, this.tabsStorage)
+                this.$plain.$storage.set(TABS_STORAGE_KEY, this.tabsStorage)
             },
             getPageByName(path) {
                 for (let i = 0; i < this.register.length; i++) {
@@ -128,7 +128,7 @@
                     component: re.component,
                     param,
                     init: true,
-                    id: this.$lv.$utils.uuid()
+                    id: this.$plain.$utils.uuid()
                 })
                 this.currentValue = this.pageStack.length - 1
                 this.refresh();

@@ -36,7 +36,7 @@
             }
         },
         mounted() {
-            this.baseTable = this.$lv.$dom.findComponentUpward(this, 'lv-base-table')
+            this.baseTable = this.$plain.$dom.findComponentUpward(this, 'lv-base-table')
             this.lv_calculateScrollDuration()
         },
         methods: {

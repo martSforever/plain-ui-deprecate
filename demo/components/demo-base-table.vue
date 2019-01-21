@@ -216,7 +216,7 @@
              */
             add() {
                 const addNew = () => {
-                    const newRow = {right: 1, right1: 2, right2: 3, left: this.$lv.$utils.uuid(), left1: 5, left2: 6, center: 7, center1: 8, center2: 9}
+                    const newRow = {right: 1, right1: 2, right2: 3, left: this.$plain.$utils.uuid(), left1: 5, left2: 6, center: 7, center1: 8, center2: 9}
                     this.newData.push(newRow)
                     this.list.unshift(newRow)
                     this.$nextTick(() => this.baseTable.enableEdit(0))
@@ -302,8 +302,8 @@
              * @date    2019/1/9 11:14
              */
             requestSaveRow(row) {
-                const newRow = this.$lv.$utils.deepCopy(row)
-                newRow.left1 = this.$lv.$utils.uuid()
+                const newRow = this.$plain.$utils.deepCopy(row)
+                newRow.left1 = this.$plain.$utils.uuid()
                 return newRow
             },
             /**
@@ -313,8 +313,8 @@
              */
             requestSaveRows(rows) {
                 return rows.reduce((ret, item) => {
-                    const newRow = this.$lv.$utils.deepCopy(item)
-                    newRow.left1 = this.$lv.$utils.uuid()
+                    const newRow = this.$plain.$utils.deepCopy(item)
+                    newRow.left1 = this.$plain.$utils.uuid()
                     ret.push(newRow)
                     return ret
                 }, [])
