@@ -5,7 +5,7 @@
                            :scope-slot-func="scopeSlotFunc"
                            :data="data"/>
             <template v-else>
-                <span class="table-cell-default-text">{{text}}</span>
+                <span class="pl-table-cell-default-text">{{text}}</span>
                 <slot></slot>
             </template>
         </template>
