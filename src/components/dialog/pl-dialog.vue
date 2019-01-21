@@ -100,7 +100,7 @@
                     },
                     `pl-dialog-type-${this.type}`,
                     `pl-dialog-shape-${this.shape}`,
-                    `pl-dialog-vertical-${this.vertical || 'center'}`,
+                    `pl-dialog-vertical-${this.vertical || 'start'}`,
                     `pl-dialog-horizontal-${this.horizontal || 'center'}`,
                     this.dialogClass,
                 ]
@@ -119,7 +119,7 @@
             },
             contentStyles() {
                 const styles = {}
-                styles.top = `${this.top != null ? this.top : !this.vertical && !this.horizontal ? -200 : 0}px`
+                styles.top = `${this.top != null ? this.top : !this.vertical && !this.horizontal ? '10vh' : 0}`
                 this.left != null && (styles.left = this.$plain.$utils.unit(this.left))
                 this.bottom != null && (styles.bottom = this.$plain.$utils.unit(this.bottom))
                 this.right != null && (styles.right = this.$plain.$utils.unit(this.right))
