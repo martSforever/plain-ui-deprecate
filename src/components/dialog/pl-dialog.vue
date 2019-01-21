@@ -7,6 +7,7 @@
              :style="styles"
              @click="p_clickShadow">
             <div class="pl-dialog-content"
+                 ref="content"
                  v-if="p_initialized"
                  @click.stop="p_clickContent"
                  :style="contentStyles">
@@ -147,8 +148,10 @@
                 setTimeout(() => this.$plain.zIndex -= 3, this.$plain.transitionTime)
             },
             p_clickShadow(e) {
-                this.$emit('clickShadow', e)
-                !this.disabledHideOnClickShadow && this.hide()
+                if (!this.$refs.content.contains(e.target)) {
+                    this.$emit('clickShadow', e)
+                    !this.disabledHideOnClickShadow && this.hide()
+                }
             },
             p_clickContent(e) {
                 this.$emit('clickContent', e)
