@@ -1,4 +1,4 @@
-# lv-ui
+# plain-ui
 
 ## Project setup
 ```
