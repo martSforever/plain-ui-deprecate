@@ -1,6 +1,8 @@
 ## plain-ui
 
-[See online demo](http://193.112.75.134/plain-ui)
+[See online demo on coding](http://193.112.75.134/plain-ui)
+
+[See online demo on my server](http://martsforever.coding.me/plain-ui/page/demo.html)
 
 ## Install
 ```
