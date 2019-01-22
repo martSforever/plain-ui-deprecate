@@ -130,6 +130,9 @@
             }
             &.pl-table-cell-center {
                 justify-content: center;
+                span{
+                    text-align: center;
+                }
             }
             &.pl-table-cell-right {
                 justify-content: flex-end;
