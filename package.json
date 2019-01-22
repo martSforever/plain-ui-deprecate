@@ -11,7 +11,7 @@
     "ui",
     "framework"
   ],
-  "main": "dist/amvue.miin.js",
+  "main": "dist/plain-ui.umd.min.js",
   "files": [
     "dist"
   ],
