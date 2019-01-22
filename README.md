@@ -1,29 +1,17 @@
-# plain-ui
+## plain-ui
 
-## Project setup
-```
-npm install
-```
+[See online demo](http://193.112.75.134/plain-ui)
 
-### Compiles and hot-reloads for development
+## Install
 ```
-npm run serve
+npm i plain-ui -S
 ```
 
-### Compiles and minifies for production
+## Quick Start
 ```
-npm run build
-```
+import Vue from 'vue'
+import PlainUI from 'plain-ui/dist/plain-ui.umd'
+import 'plain-ui/dist/plain-ui.css'
 
-### Run your tests
+Vue.use(PlainUI)
 ```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
