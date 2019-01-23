@@ -21,7 +21,9 @@
             <link-slider v-model="val1" color="info"/>
         </demo-row>
         <demo-row title="范围选择">
-            <link-slider range v-model="val1"/>
+            <link-slider range :start.sync="start" :end.sync="end" :total="120"/>
+            <link-button>start:{{start}}</link-button>
+            <link-button>end:{{end}}</link-button>
         </demo-row>
     </div>
 </template>
@@ -32,7 +34,9 @@
         data() {
             return {
                 val1: 0,
-                val2:10,
+                val2: 10,
+                start: 20,
+                end: 80,
             }
         },
     }

@@ -15,6 +15,8 @@
         mixins: [MountedMixin],
         props: {
             value: {type: Number, default: 0},                          //
+            start: {type: Number, default: 0},                          //
+            end: {type: Number, default: 0},                          //
             total: {type: Number, default: 1},
             color: {type: String, default: 'primary'},
             alignEnd: {type: Boolean},                                  //
@@ -60,8 +62,10 @@
                 }
             },
             p_value(newVal) {
-                if (newVal === this.value) return
-                this.$emit('input', newVal)
+                this.$nextTick(() => {
+                    if (newVal === this.value) return
+                    this.$emit('input', newVal)
+                })
             },
         },
         mounted() {
@@ -107,10 +111,10 @@
         methods: {
             reset() {
                 this.p_start = !!this.range ? this.start : this.alignEnd ? (1 - this.p_percent) * this.totalLength : 0
-                this.p_end = !!this.range ? this.end : this.alignEnd ? 0 : (1 - this.p_percent) * this.totalLength
+                this.p_end = !!this.range ? (this.total - this.end) : this.alignEnd ? 0 : (1 - this.p_percent) * this.totalLength
             },
             dragStart(e, dragStart) {
-                if (!!this.alignEnd !== dragStart) return
+                if (!!this.alignEnd !== dragStart && !this.range) return
                 document.addEventListener('mousemove', this.dragMove)
                 document.addEventListener('mouseup', this.dragEnd)
                 this.p_dragStart = dragStart
@@ -125,12 +129,17 @@
                 if (!this.p_touching) return
                 const durX = e.clientX - this.startX
                 const durY = e.clientY - this.startY
-                // console.log(`p_${!!this.p_dragStart ? 'start' : 'end'}`, !!this.p_dragStart ? this.temp_start + durX : this.temp_end + durY)
                 let temp = !!this.p_dragStart ? this.temp_start : this.temp_end
-                let dur = (!!this.vertical ? durY : durX) * (!!this.alignEnd ? 1 : -1)
+                let dur = (!!this.vertical ? durY : durX) * (!!this.p_dragStart ? 1 : -1)
                 let ret = Math.min(Math.max(temp + dur, 0), this.totalLength)
+                // console.log(`p_${!!this.p_dragStart ? 'start' : 'end'}`, ret)
                 this[`p_${!!this.p_dragStart ? 'start' : 'end'}`] = ret
                 this.p_value = (this.total * (this.totalLength - ret) / this.totalLength).toFixed(2) - 0
+
+                if (!!this.p_dragStart && this.p_start > (this.total - this.p_end)) this.p_start = this.total - this.p_end
+                else if (this.p_end > (this.total - this.p_start)) this.p_end = this.total - this.p_start
+
+                if (!!this.range) this.$emit('update:' + (this.p_dragStart ? 'start' : 'end'), !!this.p_dragStart ? this.p_start : (this.total - this.p_end))
             },
             dragEnd(e) {
                 if (!this.p_touching) return
@@ -138,6 +147,12 @@
                 document.removeEventListener('mousemove', this.dragMove)
                 document.removeEventListener('mouseup', this.dragEnd)
                 this.$plain.$dom.disabledSelectNone()
+            },
+            transferValueToLength(value) {
+                return this.totalLength * this.total / value
+            },
+            transferLenthToValue(length) {
+                return this.totalLength * this.total / value
             },
         },
     }
@@ -229,7 +244,7 @@
                 opacity: 0;
                 z-index: 0;
             }
-            .pl-slider-dot-wrapper-end{
+            .pl-slider-dot-wrapper-end {
                 z-index: 1;
             }
         }
@@ -238,7 +253,7 @@
                 opacity: 0;
                 z-index: 0;
             }
-            .pl-slider-dot-wrapper-start{
+            .pl-slider-dot-wrapper-start {
                 z-index: 1;
             }
         }
