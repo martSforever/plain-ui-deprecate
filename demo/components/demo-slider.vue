@@ -3,6 +3,9 @@
         <demo-row title="基本用法">
             <link-slider v-model="val1"/>
             <link-button :label="val1"/>
+            <link-slider v-model="val2" :total="100"/>
+            <link-button :label="val2"/>
+
         </demo-row>
         <demo-row title="横向纵向，以及对其方式">
             <link-slider vertical v-model="val1"/>
@@ -17,6 +20,9 @@
             <link-slider v-model="val1" color="error"/>
             <link-slider v-model="val1" color="info"/>
         </demo-row>
+        <demo-row title="范围选择">
+            <link-slider range v-model="val1"/>
+        </demo-row>
     </div>
 </template>
 
@@ -25,7 +31,8 @@
         name: "demo-slider",
         data() {
             return {
-                val1: 0.25,
+                val1: 0,
+                val2:10,
             }
         },
     }

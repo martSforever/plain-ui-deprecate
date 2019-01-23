@@ -1,25 +1,21 @@
 <template>
-    <div class="pl-slider" :class="p_classes">
-        <div class="pl-slider-body" :style="p_bodyStyles" ref="body">
-            <div class="pl-slider-progress" :style="p_progressStyles">
-                <div class="pl-slider-dot-wrapper" :style="p_dotWrapperStyles" @mousedown="dragStart">
-                    <div class="pl-slider-dot">
-                        <div class="pl-slider-dot-inner"></div>
-                    </div>
-                </div>
-            </div>
+    <div class="pl-slider" :class="p_classes" :style="p_styles">
+        <div class="pl-slider-progress" :style="p_progressStyles">
+            <span class="pl-slider-dot-wrapper pl-slider-dot-wrapper-start" @mousedown="e=>dragStart(e,true)"><span class="pl-slider-dot"><span class="pl-slider-dot-inner"></span></span></span>
+            <span class="pl-slider-dot-wrapper pl-slider-dot-wrapper-end" @mousedown="e=>dragStart(e,false)"><span class="pl-slider-dot"><span class="pl-slider-dot-inner"></span></span></span>
         </div>
     </div>
 </template>
 
 <script>
-    import {MountedMixin, ValueMixin} from "../../mixin/component-mixin";
+    import {MountedMixin} from "../../mixin/component-mixin";
 
     export default {
         name: "pl-slider",
-        mixins: [ValueMixin, MountedMixin],
+        mixins: [MountedMixin],
         props: {
             value: {type: Number, default: 0},                          //
+            total: {type: Number, default: 1},
             color: {type: String, default: 'primary'},
             alignEnd: {type: Boolean},                                  //
             full: {type: Boolean},                                      //是否占满父元素大小
@@ -37,42 +33,69 @@
         },
         data() {
             return {
-                space: null,
-                startSpace: null,
+                p_value: this.value,
+                p_start: null,
+                p_end: null,
+                p_dragStart: null,
                 p_touching: false,
-                start: {
-                    'vertical-start': 'top',
-                    'vertical-end': 'bottom',
-                    'horizontal-start': 'left',
-                    'horizontal-end': 'right',
+                temp_start: null,
+                temp_end: null,
+
+                startX: null,
+                startY: null,
+
+                position: {
+                    'vertical-start': 'bottom',
+                    'vertical-end': 'top',
+                    'horizontal-start': 'right',
+                    'horizontal-end': 'left',
                 },
             }
         },
         watch: {
-            currentValue(newVal, oldVal) {
-                if (newVal === oldVal) return
-                this.space = newVal * this.totalLength
+            value(val) {
+                if (val !== this.p_value) {
+                    this.p_value = val
+                    this.reset()
+                }
             },
-            space(val) {
-                this.$emit('input', Number(val / this.totalLength).toFixed(2) - 0)
+            p_value(newVal) {
+                if (newVal === this.value) return
+                this.$emit('input', newVal)
             },
         },
         mounted() {
-            this.space = this.currentValue * this.totalLength
+            this.reset()
         },
         computed: {
+            p_percent() {
+                return this.p_value / this.total
+            },
+            p_styles() {
+                return {
+                    [this.vertical ? 'height' : 'width']: this.$plain.$utils.unit(this.length),
+                    [this.vertical ? 'width' : 'height']: this.$plain.$utils.unit(this.size),
+                }
+            },
+            p_progressStyles() {
+                const ret = {}
+                ret[this.vertical ? 'top' : 'left'] = `${this.p_start}px`
+                ret[this.vertical ? 'bottom' : 'right'] = `${this.p_end}px`
+                return ret
+            },
             totalLength() {
                 if (!this.p_mounted) return 0
-                return this.$refs.body[!!this.vertical ? 'offsetHeight' : 'offsetWidth']
+                return this.$el[!!this.vertical ? 'offsetHeight' : 'offsetWidth']
             },
             p_direction() {
-                return this.start[`${!!this.vertical ? 'vertical' : 'horizontal'}-${!!this.alignEnd ? 'end' : 'start'}`]
+                return this.position[`${!!this.vertical ? 'vertical' : 'horizontal'}-${!!this.alignEnd ? 'end' : 'start'}`]
             },
             p_classes() {
                 return [
                     {
                         'pl-slider-full': !!this.full,
                         'pl-slider-touching': this.p_touching,
+                        'pl-slider-range': this.range,
                     },
                     `pl-slider-${!!this.vertical ? 'vertical' : 'horizontal'}`,
                     `pl-slider-align-${!!this.alignEnd ? 'end' : 'start'}`,
@@ -80,39 +103,34 @@
 
                 ]
             },
-            p_bodyStyles() {
-                return {
-                    height: this.$plain.$utils.unit(!!this.vertical ? this.length : this.size),
-                    width: this.$plain.$utils.unit(!!this.vertical ? this.size : this.length),
-                }
-            },
-            p_dotWrapperStyles() {
-                return {
-                    transform: `translate${!!this.vertical ? 'Y' : 'X'}(${!!this.alignEnd ? '-' : ''}50%)`,
-                }
-            },
-            p_progressStyles() {
-                return {
-                    height: !!this.vertical ? `${this.space}px` : this.$plain.$utils.unit(this.size),
-                    width: !!this.vertical ? this.$plain.$utils.unit(this.size) : `${this.space}px`,
-                }
-            },
         },
         methods: {
-            dragStart(e) {
-                this.p_touching = true
-                this.startSpace = this.space
+            reset() {
+                this.p_start = !!this.range ? this.start : this.alignEnd ? (1 - this.p_percent) * this.totalLength : 0
+                this.p_end = !!this.range ? this.end : this.alignEnd ? 0 : (1 - this.p_percent) * this.totalLength
+            },
+            dragStart(e, dragStart) {
+                if (!!this.alignEnd !== dragStart) return
                 document.addEventListener('mousemove', this.dragMove)
                 document.addEventListener('mouseup', this.dragEnd)
+                this.p_dragStart = dragStart
+                this.p_touching = true
                 this.startX = e.clientX
                 this.startY = e.clientY
+                this.temp_start = this.p_start
+                this.temp_end = this.p_end
                 this.$plain.$dom.enableSelectNone()
             },
             dragMove(e) {
                 if (!this.p_touching) return
                 const durX = e.clientX - this.startX
                 const durY = e.clientY - this.startY
-                this.space = Math.min(Math.max(0, this.startSpace + ((!!this.vertical ? durY : durX) * (!!this.alignEnd ? -1 : 1))), this.totalLength)
+                // console.log(`p_${!!this.p_dragStart ? 'start' : 'end'}`, !!this.p_dragStart ? this.temp_start + durX : this.temp_end + durY)
+                let temp = !!this.p_dragStart ? this.temp_start : this.temp_end
+                let dur = (!!this.vertical ? durY : durX) * (!!this.alignEnd ? 1 : -1)
+                let ret = Math.min(Math.max(temp + dur, 0), this.totalLength)
+                this[`p_${!!this.p_dragStart ? 'start' : 'end'}`] = ret
+                this.p_value = (this.total * (this.totalLength - ret) / this.totalLength).toFixed(2) - 0
             },
             dragEnd(e) {
                 if (!this.p_touching) return
@@ -130,20 +148,27 @@
         @include public-style;
         cursor: pointer;
         display: inline-block;
+        position: relative;
+        background-color: rgba(black, 0.15);
+        border-radius: 100px;
 
-        .pl-slider-body {
-            display: flex;
-            background-color: rgba(0, 0, 0, 0.15);
+        .pl-slider-progress {
             border-radius: 100px;
-            position: relative;
-            .pl-slider-progress {
-                border-radius: 100px;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .pl-slider-dot-wrapper {
+                width: 0;
+                height: 0;
+                overflow: visible;
+                display: flex;
                 align-items: center;
+                justify-content: center;
                 .pl-slider-dot {
                     height: 16px;
                     width: 16px;
@@ -170,8 +195,10 @@
                 transform: scale(1.4);
             }
         }
-        .pl-slider-dot:hover{
+        .pl-slider-dot:hover {
             transform: scale(1.4);
+            transform-origin: center center;
+            transition: all 0.15s cubic-bezier(0, 1.55, 1, 1.52);
         }
 
         @each $key, $value in $list-color {
@@ -189,35 +216,35 @@
                 display: flex;
                 flex-direction: column;
             }
-            &.pl-slider-align-start {
-                .pl-slider-progress {
-                    bottom: auto;
-                    justify-content: flex-end;
-                }
-            }
-            &.pl-slider-align-end {
-                .pl-slider-progress {
-                    top: auto;
-                    justify-content: flex-start;
-                }
-            }
         }
         &.pl-slider-horizontal {
             .pl-slider-progress {
                 display: flex;
                 flex-direction: row;
             }
-            &.pl-slider-align-start {
-                .pl-slider-progress {
-                    right: auto;
-                    justify-content: flex-end;
-                }
+        }
+
+        &.pl-slider-align-start {
+            .pl-slider-dot-wrapper-start {
+                opacity: 0;
+                z-index: 0;
             }
-            &.pl-slider-align-end {
-                .pl-slider-progress {
-                    left: auto;
-                    justify-content: flex-start;
-                }
+            .pl-slider-dot-wrapper-end{
+                z-index: 1;
+            }
+        }
+        &.pl-slider-align-end {
+            .pl-slider-dot-wrapper-end {
+                opacity: 0;
+                z-index: 0;
+            }
+            .pl-slider-dot-wrapper-start{
+                z-index: 1;
+            }
+        }
+        &.pl-slider-range {
+            .pl-slider-dot-wrapper {
+                opacity: 1;
             }
         }
     }
