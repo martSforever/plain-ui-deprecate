@@ -1,12 +1,25 @@
 <template>
     <div class="demo-test crm-color">
-        <button>demo-test</button>
+        <button @click="demoTset">demo-test</button>
     </div>
 </template>
 
 <script>
     export default {
-        name: "demo-test"
+        name: "demo-test",
+        methods: {
+            demoTset() {
+                const render = function (h) {
+                    return (
+                        <div>
+                            <link-table-column></link-table-column>
+                            <ddd>222</ddd>
+                        </div>
+                    )
+                }
+                console.log(render(console.log))
+            },
+        }
     }
 </script>
 

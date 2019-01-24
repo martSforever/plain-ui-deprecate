@@ -130,6 +130,7 @@
             }
             &.pl-table-cell-center {
                 justify-content: center;
+                padding: 0;
                 span{
                     text-align: center;
                 }

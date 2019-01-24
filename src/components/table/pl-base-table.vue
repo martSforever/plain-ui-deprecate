@@ -486,6 +486,9 @@
         &.pl-base-table-stretch {
             table {
                 width: 100%;
+                .lv-table-cell {
+                    width: 100% !important;
+                }
             }
         }
         &.pl-base-table-hover {
