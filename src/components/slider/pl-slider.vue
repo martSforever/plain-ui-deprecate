@@ -1,27 +1,33 @@
 <template>
     <div class="pl-slider" :class="p_classes" :style="p_styles">
         <div class="pl-slider-progress" :style="p_progressStyles">
-            <span class="pl-slider-dot-wrapper pl-slider-dot-wrapper-start" @mousedown="e=>dragStart(e,true)"><span class="pl-slider-dot"><span class="pl-slider-dot-inner"></span></span></span>
-            <span class="pl-slider-dot-wrapper pl-slider-dot-wrapper-end" @mousedown="e=>dragStart(e,false)"><span class="pl-slider-dot"><span class="pl-slider-dot-inner"></span></span></span>
+            <span class="pl-slider-dot-wrapper pl-slider-dot-wrapper-start" @mousedown="e=>dragStart(e,true)"><span class="pl-slider-dot"><span class="pl-slider-dot-inner">
+                <span class="pl-slider-dot-tooltip" v-if="tooltip">{{startTooltip}}</span>
+            </span></span></span>
+            <span class="pl-slider-dot-wrapper pl-slider-dot-wrapper-end" @mousedown="e=>dragStart(e,false)"><span class="pl-slider-dot"><span class="pl-slider-dot-inner">
+                <span class="pl-slider-dot-tooltip" v-if="tooltip">{{endTooltip}}</span>
+            </span></span></span>
         </div>
     </div>
 </template>
 
 <script>
     import {MountedMixin} from "../../mixin/component-mixin";
+    import tooltip from '../../directives/tooltip'
 
     export default {
         name: "pl-slider",
+        directives: {tooltip},
         mixins: [MountedMixin],
         props: {
-            value: {type: Number, default: 0},                          //
-            start: {type: Number, default: 0},                          //
-            end: {type: Number, default: 0},                            //
-            total: {type: Number, default: 100},
-            color: {type: String, default: 'primary'},
-            alignEnd: {type: Boolean},                                  //
+            value: {type: Number, default: 0},                          //非范围选择时，双向绑定值
+            start: {type: Number, default: 0},                          //范围选择时，起始绑定值
+            end: {type: Number, default: 0},                            //范围选择时，末尾绑定值
+            total: {type: Number, default: 100},                        //总数，value,start以及end不应该超过total
+            color: {type: String, default: 'primary'},                  //颜色
+            alignEnd: {type: Boolean},                                  //是否末尾对其
             full: {type: Boolean},                                      //是否占满父元素大小
-            length: {type: Number | String, default: '100px'},          //滑动条长度
+            length: {type: Number | String, default: '156px'},          //滑动条长度
             size: {type: Number | String, default: '6px'},              //滑动条宽度
             vertical: {type: Boolean},                                  //是否纵向
             step: {type: Number, default: 1},                           //滑条分块的个数，默认是不分块
@@ -29,15 +35,15 @@
             max: {type: Number, default: 100},                          //最大值
             disabled: {type: Boolean},                                  //是否禁用
             showSteps: {type: Boolean},                                 //是否显示步骤点
-            tooltip: {type: Boolean},                                   //是否tooltip显示值
+            tooltip: {type: Boolean, default: true},                    //是否tooltip显示值
             tooltipFormatter: {type: Function},                         //tooltip显示格式化函数
             range: {type: Boolean},                                     //是否为范围选择
         },
         data() {
             return {
-                p_value: this.value,
-                p_start: this.start,
-                p_end: this.end,
+                p_value: this.value || 0,
+                p_start: this.start || 0,
+                p_end: this.end || 0,
                 p_dragStart: null,
                 p_touching: false,
                 temp_start: null,
@@ -111,6 +117,14 @@
                 ret[this.vertical ? 'bottom' : 'right'] = `${this.c_end}px`
                 return ret
             },
+            startTooltip() {
+                let ret = !!this.range ? !!this.p_start : this.p_value
+                return !!this.tooltipFormatter ? this.tooltipFormatter(ret) : ret
+            },
+            endTooltip() {
+                let ret = !!this.range ? !!this.p_end : this.p_value
+                return !!this.tooltipFormatter ? this.tooltipFormatter(ret) : ret
+            },
         },
         methods: {
             dragStart(e, dragStart) {
@@ -134,9 +148,22 @@
                 let ret = Math.min(Math.max(temp + dur, 0), this.totalLength)
                 this[`p_${!!this.p_dragStart ? 'start' : 'end'}`] = this.transferLengthToValue(ret)
 
-                if (!this.range) this.p_value = this.transferLengthToValue(this.totalLength - ret).toFixed(2) - 0
+                if (!this.range) {
+                    ret = this.transferLengthToValue(this.totalLength - ret).toFixed(2) - 0
+                    this.max != null && ret > this.max && (ret = this.max)
+                    this.min != null && ret < this.min && (ret = this.min)
+                    this.p_value = ret
+                }
                 else {
-                    this[this.p_dragStart ? 'p_start' : 'p_end'] = this.transferLengthToValue(this.p_dragStart ? ret : this.totalLength - ret).toFixed(2) - 0
+                    ret = this.transferLengthToValue(this.p_dragStart ? ret : this.totalLength - ret).toFixed(2) - 0
+                    this.max != null && ret > this.max && (ret = this.max)
+                    this.min != null && ret < this.min && (ret = this.min)
+                    if (!!this.p_dragStart) {
+                        if (ret > this.p_end) ret = this.p_end
+                    } else {
+                        if (ret < this.p_start) ret = this.p_start
+                    }
+                    this[this.p_dragStart ? 'p_start' : 'p_end'] = ret
                 }
             },
             dragEnd(e) {
@@ -199,6 +226,25 @@
                         width: 6px;
                         height: 6px;
                         border-radius: 100px;
+                        position: relative;
+                        .pl-slider-dot-tooltip {
+                            @include transition-all;
+                            opacity: 0;
+                            background-color: rgba(black, 0.8);
+                            color: white;
+                            padding: 3px 6px;
+                            position: absolute;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            bottom: calc(100% + 9px);
+                            border-radius: 4px;
+                            font-size: 12px;
+                        }
+                    }
+                    &:hover {
+                        .pl-slider-dot-tooltip {
+                            opacity: 1;
+                        }
                     }
                 }
             }
@@ -207,6 +253,9 @@
         &.pl-slider-touching {
             .pl-slider-dot {
                 transform: scale(1.4);
+                .pl-slider-dot-tooltip {
+                    opacity: 1 !important;
+                }
             }
         }
         .pl-slider-dot:hover {

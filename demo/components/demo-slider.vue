@@ -30,6 +30,16 @@
             <link-button>start:{{start}}</link-button>
             <link-button>end:{{end}}</link-button>
         </demo-row>
+        <demo-row title="禁用tooltip">
+            <link-slider :tooltip="false"></link-slider>
+        </demo-row>
+        <demo-row title="格式化tooltip">
+            <link-slider :tooltipFormatter="val=>val+'%'"></link-slider>
+        </demo-row>
+        <demo-row title="设置最大最小值">
+            <link-slider :value="50" :max="80" :min="40"/>
+            <link-slider range :start="60" :end="90" :max="150" :min="50" :total="200"/>
+        </demo-row>
     </div>
 </template>
 
