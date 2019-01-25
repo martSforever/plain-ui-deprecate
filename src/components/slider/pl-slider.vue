@@ -55,6 +55,7 @@
                 temp_end: null,
                 startX: null,
                 startY: null,
+                _totalLength: null,
                 position: {
                     'vertical-start': 'bottom',
                     'vertical-end': 'top',
@@ -108,7 +109,8 @@
             },
             totalLength() {
                 if (!this.p_mounted) return 0
-                return this.$el[!!this.vertical ? 'offsetHeight' : 'offsetWidth']
+                if (this._totalLength == null) this._totalLength = this.$el[!!this.vertical ? 'offsetHeight' : 'offsetWidth']
+                return this._totalLength
             },
             c_start() {
                 return !!this.range ? this.transferValueToLength(this.p_start) : this.alignEnd ? (this.totalLength - this.transferValueToLength(this.p_value)) : 0
