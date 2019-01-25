@@ -1,4 +1,5 @@
 import fecha from 'fecha'
+import keyboard from './keyboard'
 
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
 const MOZ_HACK_REGEXP = /^moz([A-Z])/;
@@ -387,6 +388,7 @@ const $utils = {
     moneyFormat,                                //金额格式化
     cnyFormat,                                  //人民币格式化
     percentNumFormat,                           //百分比格式化
+    keyboard,
 }
 
 export default $utils
