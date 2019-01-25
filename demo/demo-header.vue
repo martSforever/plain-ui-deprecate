@@ -1,6 +1,6 @@
 <template>
     <div class="demo-header">
-        plain-ui
+        Plain-UI DEMO
     </div>
 </template>
 
@@ -16,7 +16,19 @@
     .demo-header {
         height: 64px;
         width: 100%;
-        background-color: black;
-        color: white;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &::after {
+            box-shadow: 0 -5px 20px #ddd;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            content: '';
+            z-index: 2;
+        }
     }
 </style>
