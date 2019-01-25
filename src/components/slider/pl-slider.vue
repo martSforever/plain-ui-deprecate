@@ -36,8 +36,8 @@
             size: {type: Number | String, default: '6px'},              //滑动条宽度
             vertical: {type: Boolean},                                  //是否纵向
             step: {type: Number, default: 1},                           //滑条分块的个数，默认是不分块
-            min: {type: Number, default: 0},                            //最小值
-            max: {type: Number, default: 100},                          //最大值
+            min: {type: Number},                                        //最小值
+            max: {type: Number},                                        //最大值
             disabled: {type: Boolean},                                  //是否禁用
             showSteps: {type: Boolean, default: true},                  //是否显示步骤点
             tooltip: {type: Boolean, default: true},                    //是否tooltip显示值
@@ -100,10 +100,11 @@
                         'pl-slider-full': !!this.full,
                         'pl-slider-touching': this.p_touching,
                         'pl-slider-range': this.range,
+                        'pl-slider-place-end': this.p_start === this.p_end && this.p_start === this.total
                     },
                     `pl-slider-${!!this.vertical ? 'vertical' : 'horizontal'}`,
                     `pl-slider-align-${!!this.alignEnd ? 'end' : 'start'}`,
-                    `pl-slider-color-${this.color}`,
+                    `pl-slider-color-${!!this.disabled ? 'info' : this.color}`,
 
                 ]
             },
@@ -150,7 +151,7 @@
         },
         methods: {
             dragStart(e, dragStart) {
-                if (!!this.alignEnd !== dragStart && !this.range) return
+                if ((!!this.alignEnd !== dragStart && !this.range) || !!this.disabled) return
                 document.addEventListener('mousemove', this.dragMove)
                 document.addEventListener('mouseup', this.dragEnd)
                 this.p_dragStart = dragStart
@@ -358,6 +359,12 @@
         &.pl-slider-range {
             .pl-slider-dot-wrapper {
                 opacity: 1;
+            }
+        }
+
+        &.pl-slider-place-end {
+            .pl-slider-dot-wrapper-start {
+                z-index: 2;
             }
         }
     }

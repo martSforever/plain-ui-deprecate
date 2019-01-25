@@ -26,7 +26,7 @@
             <link-slider v-model="val4" full/>
         </demo-row>
         <demo-row title="范围选择">
-            <link-slider range :start.sync="start" :end.sync="end" :total="120" length="300px"/>
+            <link-slider range :start.sync="start" :end.sync="end" :total="200" length="300px"/>
             <link-button>start:{{start}}</link-button>
             <link-button>end:{{end}}</link-button>
         </demo-row>
@@ -40,10 +40,12 @@
             <link-slider :value="50" :max="80" :min="40"/>
             <link-slider range :start="60" :end="90" :max="150" :min="50" :total="200"/>
         </demo-row>
-
         <demo-row title="步骤分块">
             <link-slider :value="50" :step="10"/>
-            <link-slider range length="300px" :step="10"/>
+            <link-slider range length="300px" :step="10" :start.sync="start" :end.sync="end" :total="200"/>
+        </demo-row>
+        <demo-row title="禁用">
+            <link-slider :value="50" disabled/>
         </demo-row>
     </div>
 </template>
