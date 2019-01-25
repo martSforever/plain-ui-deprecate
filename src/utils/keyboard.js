@@ -73,7 +73,14 @@ const Keyboard = {
         123: 'F12',
     },
     listeners: [],
+    domListeners: [],
     addListener(listener) {
+        /*已经监听过了就不再监听*/
+        for (let i = 0; i < this.listeners.length; i++) {
+            const {listener: lstn} = this.listeners[i];
+            if (lstn === listener) return
+        }
+        /*当监听某个快捷键的情况下，默认阻止默认事件的发生*/
         const keydown = (e) => {
             const names = [];
             e.ctrlKey && names.push('ctrl')
@@ -93,6 +100,24 @@ const Keyboard = {
             if (listener === l) {
                 window.document.removeEventListener('keydown', keydown)
                 this.listeners.splice(i, 1)
+                return
+            }
+        }
+    },
+    listen(dom, listener) {
+        const mouseenter = () => this.addListener(listener)
+        const mouseleave = () => this.removeListener(listener)
+        dom.addEventListener('mouseenter', mouseenter)
+        dom.addEventListener('mouseleave', mouseleave)
+        this.domListeners.push({mouseenter, mouseleave, dom})
+    },
+    destroyed(dom) {
+        for (let i = 0; i < this.domListeners.length; i++) {
+            const {mouseenter, mouseleave, dom: d} = this.domListeners[i];
+            if (dom === d) {
+                dom.removeEventListener('mouseenter', mouseenter)
+                dom.removeEventListener('mouseleave', mouseleave)
+                this.domListeners.splice(i, 1)
                 return
             }
         }

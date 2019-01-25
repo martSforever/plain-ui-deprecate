@@ -1,15 +1,37 @@
 <template>
     <div class="demo-test crm-color">
-        <button @click="demoTset">demo-test</button>
-        <div class="content" @mouseenter="mouseenter" @mouseleave="mouseleave"></div>
+        <button @click="toggleVal = !toggleVal">toggle</button>
+
+        <child-component v-if="toggleVal"/>
     </div>
 </template>
 
 <script>
+
+    const childComponent = {
+        render(h) {
+            return (
+                <div class="child-component"></div>
+            )
+        },
+        mounted() {
+            this.$plain.$utils.keyboard.listen(this.$el, {
+                'ctrl+s': () => {
+                    console.log('ctrl+s')
+                }
+            })
+        },
+        beforeDestroy() {
+            console.log('beforeDestroy')
+        }
+    }
+
     export default {
         name: "demo-test",
+        components: {childComponent},
         data() {
             return {
+                toggleVal: true,
                 keyboardListener: {
                     'ctrl+u': (e, name) => {
                         console.log(name)
@@ -42,13 +64,7 @@
             }
         },
         methods: {
-            demoTset() {
-            },
-            mouseenter() {
-                this.$plain.$utils.keyboard.addListener(this.keyboardListener)
-            },
-            mouseleave() {
-                this.$plain.$utils.keyboard.removeListener(this.keyboardListener)
+            toggle() {
             },
         },
         mounted() {
@@ -71,7 +87,7 @@
         background-color: var(--color);
     }
 
-    .content {
+    .child-component {
         width: 300px;
         height: 200px;
         background-color: black;
