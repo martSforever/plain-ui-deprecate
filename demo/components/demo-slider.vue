@@ -1,13 +1,9 @@
 <template>
     <div class="demo-slider">
-        <demo-row title="基本用法">
-            <link-slider v-model="val1"/>
-            <link-button :label="val1"/>
-            <link-slider v-model="val2" :total="100"/>
-            <link-button :label="val2"/>
-
+        <demo-row :title="'基本用法'+val0">
+            <link-slider v-model="val0"/>
         </demo-row>
-        <demo-row title="横向纵向，以及对其方式">
+        <demo-row :title="'横向纵向，以及对其方式'+val1">
             <link-slider vertical v-model="val1"/>
             <link-slider vertical align-end v-model="val1"/>
             <link-slider v-model="val1"/>
@@ -20,8 +16,17 @@
             <link-slider v-model="val1" color="error"/>
             <link-slider v-model="val1" color="info"/>
         </demo-row>
+        <demo-row :title="'设置总数'+val3">
+            <link-slider v-model="val3" :total="1000"/>
+        </demo-row>
+        <demo-row :title="'设置滑块宽度'+val4">
+            <link-slider v-model="val4" length="100px"/>
+            <link-slider v-model="val4" length="200px"/>
+            <link-slider v-model="val4" length="300px"/>
+            <link-slider v-model="val4" full/>
+        </demo-row>
         <demo-row title="范围选择">
-            <link-slider range :start.sync="start" :end.sync="end" :total="120"/>
+            <link-slider range :start.sync="start" :end.sync="end" :total="120" length="300px"/>
             <link-button>start:{{start}}</link-button>
             <link-button>end:{{end}}</link-button>
         </demo-row>
@@ -33,10 +38,13 @@
         name: "demo-slider",
         data() {
             return {
-                val1: 0,
+                val0: 40,
+                val1: 20,
                 val2: 10,
+                val3: 200,
+                val4: 20,
                 start: 20,
-                end: 80,
+                end: 40,
             }
         },
     }

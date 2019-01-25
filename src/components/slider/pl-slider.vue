@@ -16,12 +16,12 @@
         props: {
             value: {type: Number, default: 0},                          //
             start: {type: Number, default: 0},                          //
-            end: {type: Number, default: 0},                          //
-            total: {type: Number, default: 1},
+            end: {type: Number, default: 0},                            //
+            total: {type: Number, default: 100},
             color: {type: String, default: 'primary'},
             alignEnd: {type: Boolean},                                  //
             full: {type: Boolean},                                      //是否占满父元素大小
-            length: {type: Number | String, default: '156px'},          //滑动条长度
+            length: {type: Number | String, default: '100px'},          //滑动条长度
             size: {type: Number | String, default: '6px'},              //滑动条宽度
             vertical: {type: Boolean},                                  //是否纵向
             step: {type: Number, default: 1},                           //滑条分块的个数，默认是不分块
@@ -36,16 +36,14 @@
         data() {
             return {
                 p_value: this.value,
-                p_start: null,
-                p_end: null,
+                p_start: this.start,
+                p_end: this.end,
                 p_dragStart: null,
                 p_touching: false,
                 temp_start: null,
                 temp_end: null,
-
                 startX: null,
                 startY: null,
-
                 position: {
                     'vertical-start': 'bottom',
                     'vertical-end': 'top',
@@ -56,43 +54,33 @@
         },
         watch: {
             value(val) {
-                if (val !== this.p_value) {
-                    this.p_value = val
-                    this.reset()
-                }
+                if (val === this.p_value) return
+                this.p_value = val
             },
-            p_value(newVal) {
-                this.$nextTick(() => {
-                    if (newVal === this.value) return
-                    this.$emit('input', newVal)
-                })
+            p_value(val) {
+                this.$emit('input', (val))
             },
-        },
-        mounted() {
-            this.reset()
+            start(val) {
+                if (val === this.p_start) return
+                this.p_start = val
+            },
+            p_start(val) {
+                this.$emit('update:start', (val))
+            },
+            end(val) {
+                if (val === this.p_end) return
+                this.p_end = val
+            },
+            p_end(val) {
+                this.$emit('update:end', (val))
+            },
         },
         computed: {
-            p_percent() {
-                return this.p_value / this.total
-            },
             p_styles() {
                 return {
-                    [this.vertical ? 'height' : 'width']: this.$plain.$utils.unit(this.length),
+                    [this.vertical ? 'height' : 'width']: !!this.full ? '100%' : this.$plain.$utils.unit(this.length),
                     [this.vertical ? 'width' : 'height']: this.$plain.$utils.unit(this.size),
                 }
-            },
-            p_progressStyles() {
-                const ret = {}
-                ret[this.vertical ? 'top' : 'left'] = `${this.p_start}px`
-                ret[this.vertical ? 'bottom' : 'right'] = `${this.p_end}px`
-                return ret
-            },
-            totalLength() {
-                if (!this.p_mounted) return 0
-                return this.$el[!!this.vertical ? 'offsetHeight' : 'offsetWidth']
-            },
-            p_direction() {
-                return this.position[`${!!this.vertical ? 'vertical' : 'horizontal'}-${!!this.alignEnd ? 'end' : 'start'}`]
             },
             p_classes() {
                 return [
@@ -107,12 +95,24 @@
 
                 ]
             },
+            totalLength() {
+                if (!this.p_mounted) return 0
+                return this.$el[!!this.vertical ? 'offsetHeight' : 'offsetWidth']
+            },
+            c_start() {
+                return !!this.range ? this.transferValueToLength(this.p_start) : this.alignEnd ? (this.totalLength - this.transferValueToLength(this.p_value)) : 0
+            },
+            c_end() {
+                return !!this.range ? this.totalLength - this.transferValueToLength(this.p_end) : this.alignEnd ? 0 : (this.totalLength - this.transferValueToLength(this.p_value))
+            },
+            p_progressStyles() {
+                const ret = {}
+                ret[this.vertical ? 'top' : 'left'] = `${this.c_start}px`
+                ret[this.vertical ? 'bottom' : 'right'] = `${this.c_end}px`
+                return ret
+            },
         },
         methods: {
-            reset() {
-                this.p_start = !!this.range ? this.start : this.alignEnd ? (1 - this.p_percent) * this.totalLength : 0
-                this.p_end = !!this.range ? (this.total - this.end) : this.alignEnd ? 0 : (1 - this.p_percent) * this.totalLength
-            },
             dragStart(e, dragStart) {
                 if (!!this.alignEnd !== dragStart && !this.range) return
                 document.addEventListener('mousemove', this.dragMove)
@@ -121,8 +121,8 @@
                 this.p_touching = true
                 this.startX = e.clientX
                 this.startY = e.clientY
-                this.temp_start = this.p_start
-                this.temp_end = this.p_end
+                this.temp_start = this.c_start
+                this.temp_end = this.c_end
                 this.$plain.$dom.enableSelectNone()
             },
             dragMove(e) {
@@ -132,14 +132,12 @@
                 let temp = !!this.p_dragStart ? this.temp_start : this.temp_end
                 let dur = (!!this.vertical ? durY : durX) * (!!this.p_dragStart ? 1 : -1)
                 let ret = Math.min(Math.max(temp + dur, 0), this.totalLength)
-                // console.log(`p_${!!this.p_dragStart ? 'start' : 'end'}`, ret)
-                this[`p_${!!this.p_dragStart ? 'start' : 'end'}`] = ret
-                this.p_value = (this.total * (this.totalLength - ret) / this.totalLength).toFixed(2) - 0
+                this[`p_${!!this.p_dragStart ? 'start' : 'end'}`] = this.transferLengthToValue(ret)
 
-                if (!!this.p_dragStart && this.p_start > (this.total - this.p_end)) this.p_start = this.total - this.p_end
-                else if (this.p_end > (this.total - this.p_start)) this.p_end = this.total - this.p_start
-
-                if (!!this.range) this.$emit('update:' + (this.p_dragStart ? 'start' : 'end'), !!this.p_dragStart ? this.p_start : (this.total - this.p_end))
+                if (!this.range) this.p_value = this.transferLengthToValue(this.totalLength - ret).toFixed(2) - 0
+                else {
+                    this[this.p_dragStart ? 'p_start' : 'p_end'] = this.transferLengthToValue(this.p_dragStart ? ret : this.totalLength - ret).toFixed(2) - 0
+                }
             },
             dragEnd(e) {
                 if (!this.p_touching) return
@@ -148,11 +146,12 @@
                 document.removeEventListener('mouseup', this.dragEnd)
                 this.$plain.$dom.disabledSelectNone()
             },
+
             transferValueToLength(value) {
-                return this.totalLength * this.total / value
+                return this.totalLength * value / this.total
             },
-            transferLenthToValue(length) {
-                return this.totalLength * this.total / value
+            transferLengthToValue(length) {
+                return this.total * length / this.totalLength
             },
         },
     }
