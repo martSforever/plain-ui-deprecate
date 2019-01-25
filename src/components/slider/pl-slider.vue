@@ -1,5 +1,10 @@
 <template>
     <div class="pl-slider" :class="p_classes" :style="p_styles">
+        <div class="pl-slider-step" v-if="showSteps&&step>1">
+            <span class="pl-slider-step-item-wrapper" v-for="(item) in steps" :key="item">
+                <div class="pl-slider-step-item" :style="stepItemStyles"></div>
+            </span>
+        </div>
         <div class="pl-slider-progress" :style="p_progressStyles">
             <span class="pl-slider-dot-wrapper pl-slider-dot-wrapper-start" @mousedown="e=>dragStart(e,true)"><span class="pl-slider-dot"><span class="pl-slider-dot-inner">
                 <span class="pl-slider-dot-tooltip" v-if="tooltip">{{startTooltip}}</span>
@@ -34,7 +39,7 @@
             min: {type: Number, default: 0},                            //最小值
             max: {type: Number, default: 100},                          //最大值
             disabled: {type: Boolean},                                  //是否禁用
-            showSteps: {type: Boolean},                                 //是否显示步骤点
+            showSteps: {type: Boolean, default: true},                  //是否显示步骤点
             tooltip: {type: Boolean, default: true},                    //是否tooltip显示值
             tooltipFormatter: {type: Function},                         //tooltip显示格式化函数
             range: {type: Boolean},                                     //是否为范围选择
@@ -64,21 +69,21 @@
                 this.p_value = val
             },
             p_value(val) {
-                this.$emit('input', (val))
+                this.$emit('input', val)
             },
             start(val) {
                 if (val === this.p_start) return
                 this.p_start = val
             },
             p_start(val) {
-                this.$emit('update:start', (val))
+                this.$emit('update:start', val)
             },
             end(val) {
                 if (val === this.p_end) return
                 this.p_end = val
             },
             p_end(val) {
-                this.$emit('update:end', (val))
+                this.$emit('update:end', val)
             },
         },
         computed: {
@@ -118,12 +123,27 @@
                 return ret
             },
             startTooltip() {
-                let ret = !!this.range ? !!this.p_start : this.p_value
+                let ret = !!this.range ? this.p_start : this.p_value
                 return !!this.tooltipFormatter ? this.tooltipFormatter(ret) : ret
             },
             endTooltip() {
-                let ret = !!this.range ? !!this.p_end : this.p_value
+                let ret = !!this.range ? this.p_end : this.p_value
                 return !!this.tooltipFormatter ? this.tooltipFormatter(ret) : ret
+            },
+            steps() {
+                const ret = []
+                let i = 0
+                while (i < this.step - 1) {
+                    ret.push(i)
+                    i++
+                }
+                return ret
+            },
+            stepItemStyles() {
+                return {
+                    ['height']: this.$plain.$utils.unit(this.$plain.$utils.removePx(this.size) / 2),
+                    ['width']: this.$plain.$utils.unit(this.$plain.$utils.removePx(this.size) / 2),
+                }
             },
         },
         methods: {
@@ -146,6 +166,14 @@
                 let temp = !!this.p_dragStart ? this.temp_start : this.temp_end
                 let dur = (!!this.vertical ? durY : durX) * (!!this.p_dragStart ? 1 : -1)
                 let ret = Math.min(Math.max(temp + dur, 0), this.totalLength)
+
+                if (this.step > 1) {
+                    const stepLength = this.totalLength / this.step
+                    const divisor = (ret / stepLength).toFixed(0) - 0 + 1
+                    if (ret > stepLength * divisor) ret = stepLength * divisor
+                    else ret = stepLength * (divisor - 1)
+                }
+
                 this[`p_${!!this.p_dragStart ? 'start' : 'end'}`] = this.transferLengthToValue(ret)
 
                 if (!this.range) {
@@ -192,7 +220,6 @@
         position: relative;
         background-color: rgba(black, 0.15);
         border-radius: 100px;
-
         .pl-slider-progress {
             border-radius: 100px;
             position: absolute;
@@ -249,7 +276,29 @@
                 }
             }
         }
-
+        .pl-slider-step {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            .pl-slider-step-item-wrapper {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 0;
+                height: 0;
+                overflow: visible;
+                .pl-slider-step-item {
+                    background-color: rgba(black, 0.3);
+                    border-radius: 100px;
+                    flex-shrink: 0;
+                }
+            }
+        }
         &.pl-slider-touching {
             .pl-slider-dot {
                 transform: scale(1.4);
@@ -263,7 +312,6 @@
             transform-origin: center center;
             transition: all 0.15s cubic-bezier(0, 1.55, 1, 1.52);
         }
-
         @each $key, $value in $list-color {
             &.pl-slider-color-#{$key} {
                 .pl-slider-progress {
@@ -275,13 +323,13 @@
         }
 
         &.pl-slider-vertical {
-            .pl-slider-progress {
+            .pl-slider-progress, .pl-slider-step {
                 display: flex;
                 flex-direction: column;
             }
         }
         &.pl-slider-horizontal {
-            .pl-slider-progress {
+            .pl-slider-progress, .pl-slider-step {
                 display: flex;
                 flex-direction: row;
             }

@@ -40,6 +40,11 @@
             <link-slider :value="50" :max="80" :min="40"/>
             <link-slider range :start="60" :end="90" :max="150" :min="50" :total="200"/>
         </demo-row>
+
+        <demo-row title="步骤分块">
+            <link-slider :value="50" :step="10"/>
+            <link-slider range length="300px" :step="10"/>
+        </demo-row>
     </div>
 </template>
 
