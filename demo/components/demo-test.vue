@@ -1,8 +1,8 @@
 <template>
     <div class="demo-test crm-color">
         <button @click="toggleVal = !toggleVal">toggle</button>
-
-        <child-component v-if="toggleVal"/>
+        <iframe width="100%" height="300" src="//jsfiddle.net/martsforever/vhq3d4oz/2/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+        <button @click="open">open in fiddle</button>
     </div>
 </template>
 
@@ -65,6 +65,9 @@
         },
         methods: {
             toggle() {
+            },
+            open() {
+                window.open("//jsfiddle.net/martsforever/vhq3d4oz/2/embedded/js,html,css,result/dark/")
             },
         },
         mounted() {
