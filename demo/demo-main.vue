@@ -35,10 +35,15 @@
     .demo-main {
         height: 100%;
         width: 100%;
+        position: relative;
         .demo-body {
             width: 100%;
             display: flex;
-            height: calc(100% - 64px);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 64px;
             .demo-left-side {
                 width: 256px;
             }
