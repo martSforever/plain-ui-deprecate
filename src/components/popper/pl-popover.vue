@@ -142,6 +142,7 @@
                     this.$nextTick(() => {
                         this.currentValue = val
                         this.p_init()
+                        this.$nextTick(()=>this.update())
                     })
                 } else {
                     this.currentValue = val
