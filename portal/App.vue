@@ -1,17 +1,13 @@
 <template>
     <div class="App">
-        <home/>
     </div>
 </template>
 
 <script>
-    import Home from "./home/home";
-
     export default {
         name: "App",
-        components: {Home},
         beforeCreate() {
-            // window.location.href = './demo.html'
+            window.location.href = './demo.html'
         },
     }
 </script>
