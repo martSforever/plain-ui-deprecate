@@ -155,6 +155,11 @@ const pages = [
         title: 'Slider滑块',
         icon: 'pl-sliders',
     },
+    {
+        path: 'rate',
+        title: 'Rate评分',
+        icon: 'pl-star',
+    },
 ]
 
 export default pages.reduce((ret, page) => {

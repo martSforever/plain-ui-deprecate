@@ -6,12 +6,12 @@
         <div class="pl-mavon-wrapper">
             <pl-collapse :title="title" v-model="p_show" disabledClickHead @clickHead="()=>!!p_show?close():open()">
                 <div v-if="p_initialized">
-                    <mavon-editor :value="val"
+                    <!--<mavon-editor :value="val"
                                   :box-shadow="false"
                                   default-open="preview"
                                   :subfield="false"
                                   :toolbars-flag="false"
-                    />
+                    />-->
                     <div class="pl-mavon-wrapper-collapse-button" @click="p_show=false">
                         <pl-icon icon="pl-arrow-up"/>
                     </div>

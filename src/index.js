@@ -1,6 +1,4 @@
 import DomPortal from 'vue-dom-portal';
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
 
 import 'src/styles/index.scss'
 
@@ -47,6 +45,7 @@ import tag from './components/tag/pl-tag'
 import step from './components/step/pl-step'
 import stepItem from './components/step/pl-step-item'
 import slider from './components/slider/pl-slider'
+import rate from './components/rate/pl-rate'
 
 const components = {
     icon,
@@ -82,6 +81,7 @@ const components = {
     step,
     stepItem,
     slider,
+    rate,
 
     ...ColumnComponents,
 }
@@ -110,7 +110,6 @@ const PlainUI = {
     } = {}) {
         this.zIndex = zIndex
         Vue.use(DomPortal)
-        Vue.use(mavonEditor)
         Vue.prototype.$plain = PlainUI
         Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice

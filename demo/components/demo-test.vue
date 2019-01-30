@@ -1,12 +1,32 @@
 <template>
     <div class="demo-test crm-color">
         <button @click="toggleVal = !toggleVal">toggle</button>
-        <iframe width="100%" height="300" src="//jsfiddle.net/martsforever/vhq3d4oz/2/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+        <iframe width="100%" height="300" src="//jsfiddle.net/martsforever/vhq3d4oz/embedded/result,js,html,css" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
         <button @click="open">open in fiddle</button>
+
+        <div v-highlight>
+            <pre>
+                <code v-html="content"></code>
+            </pre>
+        </div>
+
     </div>
 </template>
 
 <script>
+
+    import Vue from 'vue'
+    import hljs from 'highlight.js';
+    import 'highlight.js/styles/googlecode.css' //样式文件
+
+    Vue.directive('highlight',function (el) {
+        let blocks = el.querySelectorAll('pre code');
+        setTimeout(() =>{
+            blocks.forEach((block)=>{
+                hljs.highlightBlock(block)
+            })
+        }, 200)
+    })
 
     const childComponent = {
         render(h) {
@@ -60,7 +80,32 @@
                     'ctrl+a': (e, name) => {
                         console.log(name)
                     },
-                }
+                },
+                content:`
+                    export default {
+    data() {
+      return {
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
+      }
+    }
+  }
+                `
             }
         },
         methods: {
@@ -96,5 +141,7 @@
         background-color: black;
     }
 
-
+    body {
+        background-color: white;
+    }
 </style>

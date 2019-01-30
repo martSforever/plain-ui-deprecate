@@ -52,7 +52,7 @@
                             {name: 'TimePicker时间选择', icon: 'pl-time', page: 'icon', complete: false},
                             {name: 'DatePicker日期选择', icon: 'pl-date', page: 'date-picker', complete: false},
                             {name: 'DateTimePicker时间日期', icon: 'pl-datetime', page: 'icon', complete: false},
-                            {name: 'Rate评分', icon: 'pl-star', page: 'icon', complete: false},
+                            {name: 'Rate评分', icon: 'pl-star', page: 'rate', complete: true},
                             {name: 'ColorPicker颜色选择', icon: 'pl-color', page: 'icon', complete: false},
                             {name: 'Transform穿梭框', icon: 'pl-exchange', page: 'icon', complete: false},
                             {name: 'Form表单', icon: 'pl-form', page: 'icon', complete: false},
