@@ -1,10 +1,10 @@
 <template>
-    <div class="pl-rate" @mousedown="p_mousedown">
+    <div class="pl-rate" @mousedown="p_mousedown" :class="classes">
         <div class="pl-rate-active" :style="activeStyles">
-            <pl-icon v-for="(index) in data" icon="pl-star-fill" :key="index"/>
+            <pl-icon v-for="(index) in data" :icon="activeIcon||'pl-star-fill'" :key="index"/>
         </div>
         <div class="pl-rate-inactive">
-            <pl-icon v-for="(index) in data" icon="pl-star" :key="index"/>
+            <pl-icon v-for="(index) in data" :icon="inactiveIcon||'pl-star'" :key="index"/>
         </div>
     </div>
 </template>
@@ -18,9 +18,13 @@
         components: {PlIcon},
         mixins: [ValueMixin, MountedMixin],
         props: {
-            value: {type: Number, default: 0},
-            total: {type: Number, default: 5},
-            count: {type: Number, default: 5},
+            value: {type: Number, default: 0},                              //vModel双向绑定值
+            total: {type: Number, default: 5},                              //总分
+            count: {type: Number, default: 5},                              //显示图标的个数
+            mode: {type: String, default: 'normal'},                        //模式，normal，all整个图标为单位，half：半个图标为单位
+            color: {type: String, default: 'warn'},                         //标准颜色
+            activeIcon: {type: String},                                     //激活的时候的图标
+            inactiveIcon: {type: String},                                   //未激活的时候的图标
         },
         data() {
             return {
@@ -29,6 +33,11 @@
             }
         },
         computed: {
+            classes() {
+                return [
+                    `pl-rate-color-${this.color}`
+                ]
+            },
             data() {
                 let i = 0
                 let ret = []
@@ -69,7 +78,36 @@
                 this.$plain.$dom.disabledSelectNone()
             },
             reset(e) {
-                this.currentValue = (Math.max(0, Math.min((e.clientX - this.elLeft) / this.totalWidth, 1)) * this.total).toFixed(2) - 0
+                let dur = e.clientX - this.elLeft
+                let start = 0
+                let end = this.totalWidth
+                let step = end / this.count
+                switch (this.mode) {
+                    case 'all':
+                        for (; start < end; start += step) {
+                            if (start < dur && dur < start + step) {
+                                dur = start + step
+                                break
+                            }
+                        }
+                        break
+                    case 'half':
+                        for (; start < end; start += step) {
+                            let half = (start + start + step) / 2
+                            if (start < dur && dur < half) {
+                                dur = half
+                                break
+                            }
+                            if (half < dur && dur < start + step) {
+                                dur = start + step
+                                break
+                            }
+                        }
+                        break
+                }
+
+                let ret = (Math.max(0, Math.min((dur) / this.totalWidth, 1)) * this.total).toFixed(2) - 0
+                this.currentValue = ret
             },
         }
     }
@@ -88,6 +126,12 @@
             left: 0;
             top: 0;
             bottom: 0;
+        }
+
+        @each $key, $value in $list-color {
+            &.pl-rate-color-#{$key} {
+                color: $value;
+            }
         }
     }
 </style>
