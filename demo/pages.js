@@ -157,7 +157,7 @@ const pages = [
     },
     {
         path: 'progress',
-        title: 'Pagination分页',
+        title: 'Progress进度条',
         icon: 'pl-progress',
     },
     {
