@@ -1,14 +1,23 @@
 <template>
     <div class="demo-progress">
         <demo-row>
-            <link-progress/>
+            <link-progress :value="val1"/>
+            <div>
+                <link-button @click="val1+=0.1">add</link-button>
+                <link-button @click="val1-=0.1">subtract</link-button>
+            </div>
         </demo-row>
     </div>
 </template>
 
 <script>
     export default {
-        name: "demo-progress"
+        name: "demo-progress",
+        data() {
+            return {
+                val1: 0.4
+            }
+        },
     }
 </script>
 
