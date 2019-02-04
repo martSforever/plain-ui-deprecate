@@ -64,7 +64,7 @@
                             {name: 'BaseTable基础表格', icon: 'pl-table', page: 'base-table', complete: true},
                             {name: 'List列表', icon: 'pl-list', page: 'list', complete: true},
                             {name: 'Tag标签', icon: 'pl-icon-tag', page: 'tag', complete: true},
-                            {name: 'Progress进度条', icon: 'pl-progress', page: 'icon', complete: false},
+                            {name: 'Progress进度条', icon: 'pl-progress', page: 'progress', complete: true},
                             {name: 'Tree树形组件', icon: 'pl-tree', page: 'icon', complete: false},
                             {name: 'Pagination分页', icon: 'pl-book2', page: 'icon', complete: false},
                             {name: 'Badge标记', icon: 'pl-badge', page: 'badge', complete: true},

@@ -156,6 +156,11 @@ const pages = [
         icon: 'pl-sliders',
     },
     {
+        path: 'progress',
+        title: 'Pagination分页',
+        icon: 'pl-progress',
+    },
+    {
         path: 'rate',
         title: 'Rate评分',
         icon: 'pl-star',

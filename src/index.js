@@ -46,6 +46,7 @@ import step from './components/step/pl-step'
 import stepItem from './components/step/pl-step-item'
 import slider from './components/slider/pl-slider'
 import rate from './components/rate/pl-rate'
+import progress from './components/progress/pl-progress'
 
 const components = {
     icon,
@@ -82,6 +83,7 @@ const components = {
     stepItem,
     slider,
     rate,
+    progress,
 
     ...ColumnComponents,
 }
