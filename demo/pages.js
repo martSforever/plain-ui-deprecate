@@ -165,6 +165,11 @@ const pages = [
         title: 'Rate评分',
         icon: 'pl-star',
     },
+    {
+        path: 'page-bar',
+        title: 'Pagination分页',
+        icon: 'pl-book2',
+    },
 ]
 
 export default pages.reduce((ret, page) => {
