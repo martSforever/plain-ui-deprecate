@@ -47,6 +47,7 @@ import stepItem from './components/step/pl-step-item'
 import slider from './components/slider/pl-slider'
 import rate from './components/rate/pl-rate'
 import progress from './components/progress/pl-progress'
+import pageBar from './components/page-bar/pl-page-bar'
 
 const components = {
     icon,
@@ -84,6 +85,7 @@ const components = {
     slider,
     rate,
     progress,
+    pageBar,
 
     ...ColumnComponents,
 }
@@ -118,7 +120,7 @@ const PlainUI = {
         Vue.prototype.$dialog = $dialog
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
-        $utils.addScript('https://at.alicdn.com/t/font_948159_ukep6sz7tw8.js')
+        $utils.addScript('https://at.alicdn.com/t/font_948159_v1ttug4rbgf.js')
         !!iconfont && $utils.addScript(iconfont)
     },
 }
