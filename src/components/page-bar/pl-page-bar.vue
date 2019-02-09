@@ -30,7 +30,7 @@
                     </template>
                 </div>
                 <pl-icon icon="pl-arrow-right-light" class="pl-page-bar-operate-icon"/>
-                <pl-icon icon="pl-refresh" class="pl-page-bar-operate-icon pl-page-bar-operate-refresh-icon"/>
+                <pl-icon icon="pl-refresh" class="pl-page-bar-operate-icon pl-page-bar-operate-refresh-icon" :loading="loading"/>
             </div>
 
             <div class="pl-page-bar-jump-wrapper">
@@ -63,6 +63,7 @@
             total: {type: Number, default: 0},
             sizeData: {type: Array, default: () => [10, 20, 50]},
             availablePage: {type: Number, default: 3},
+            loading: {type: Boolean},
 
             boxSize: {type: String, default: 'default'},
         },
@@ -71,6 +72,20 @@
                 p_size: this.size || this.sizeData[0],
                 p_page: this.page,
             }
+        },
+        watch: {
+            size(val) {
+                if (this.p_size !== val) this.p_size = val
+            },
+            p_size(val) {
+                this.$emit('update:size', val)
+            },
+            page(val) {
+                if (this.p_page !== val) this.p_page = val
+            },
+            p_page(val) {
+                this.$emit('update:page', val)
+            },
         },
         computed: {
             totalPage() {
@@ -150,6 +165,9 @@
                 }
                 &.pl-page-bar-operate-refresh-icon {
                     margin-left: 2em;
+                }
+                &.pl-icon-loading {
+                    color: $color-primary;
                 }
             }
             .pl-page-bar-jump-wrapper {
