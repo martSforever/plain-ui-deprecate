@@ -1,29 +1,49 @@
 <template>
     <div class="pl-page-bar">
-        <pl-select
-                class="pl-page-bar-select"
-                :data="sizeData"
-                v-model="p_size"
-                :box-size="boxSize"
-                :input-width="80"/>
-        <div class="pl-page-bar-operation">
-            <pl-icon icon="pl-arrow-left-light" class="pl-page-bar-operate-icon"/>
-            <div class="pl-page-bar-operate-num-wrapper">
-                <div v-for="(item,index) in pages" :key="index"
-                     class="pl-page-bar-operate-num"
-                     :class="{'pl-page-bar-operate-num-active':item === p_page}"
-                     @click="p_clickPage(item)">
-                    {{item}}
+        <div class="pl-page-bar-left">
+            <pl-select
+                    class="pl-page-bar-select"
+                    :data="p_sizeData"
+                    label-key="label"
+                    value-key="value"
+                    v-model="p_size"
+                    :box-size="boxSize"
+                    :clearable="false"
+                    :input-width="100"
+                    :height="120"/>
+            <div class="pl-page-bar-operation">
+                <pl-icon icon="pl-arrow-left-light" class="pl-page-bar-operate-icon"/>
+                <div class="pl-page-bar-operate-num-wrapper">
+                    <template v-if="p_page-availablePage-1>0">
+                        <div class="pl-page-bar-operate-num" @click="p_clickPage(1)">1</div>
+                        <pl-icon icon="pl-more-solid"/>
+                    </template>
+                    <div v-for="(item,index) in pages" :key="index"
+                         class="pl-page-bar-operate-num"
+                         :class="{'pl-page-bar-operate-num-active':item === p_page}"
+                         @click="p_clickPage(item)">
+                        {{item}}
+                    </div>
+                    <template v-if="p_page+availablePage+1<=totalPage">
+                        <pl-icon icon="pl-more-solid"/>
+                        <div class="pl-page-bar-operate-num" @click="p_clickPage(totalPage)">{{totalPage}}</div>
+                    </template>
                 </div>
+                <pl-icon icon="pl-arrow-right-light" class="pl-page-bar-operate-icon"/>
+                <pl-icon icon="pl-refresh" class="pl-page-bar-operate-icon pl-page-bar-operate-refresh-icon"/>
             </div>
-            <pl-icon icon="pl-arrow-right-light" class="pl-page-bar-operate-icon"/>
-            <pl-icon icon="pl-refresh" class="pl-page-bar-operate-icon pl-page-bar-operate-refresh-icon"/>
+
+            <div class="pl-page-bar-jump-wrapper">
+                <span>前往</span>
+                <pl-input :width="40" :value="p_page" :placeholder="null" class="pl-page-bar-jump-input" :clear-icon="null"/>
+                <span>页</span>
+            </div>
         </div>
 
-        <div class="pl-page-bar-jump-wrapper">
-            <span>前往</span>
-            <pl-input :width="40" v-model="page" :placeholder="null" class="pl-page-bar-jump-input" :clear-icon="null"/>
-            <span>页</span>
+        <div class="pl-page-bar-right">
+            <pl-box box-type="none">
+                当前显示:{{(p_page-1)*p_size+1}}-{{(p_page)*p_size}}，总共{{total}}条记录
+            </pl-box>
         </div>
     </div>
 </template>
@@ -32,10 +52,11 @@
     import PlSelect from "../select/pl-select";
     import PlIcon from "../icon/pl-icon";
     import PlInput from "../input/pl-input";
+    import PlBox from "../box/pl-box";
 
     export default {
         name: "pl-page-bar",
-        components: {PlInput, PlIcon, PlSelect},
+        components: {PlBox, PlInput, PlIcon, PlSelect},
         props: {
             size: {type: Number, default: 10},
             page: {type: Number, default: 1},
@@ -53,14 +74,14 @@
         },
         computed: {
             totalPage() {
-                return Math.ceil(this.total / this.size);
+                return Math.ceil(this.total / this.p_size);
             },
             pages() {
-                if (!this.size) return [0];
+                if (!this.p_size) return [0];
                 const ret = []
 
-                let begin = this.page - this.availablePage
-                let end = this.page + this.availablePage
+                let begin = this.p_page - this.availablePage
+                let end = this.p_page + this.availablePage
                 if (begin < 1) {
                     end += (1 - begin + 1)
                     begin = 1
@@ -78,10 +99,16 @@
 
                 return ret
             },
+            p_sizeData() {
+                return this.sizeData.map(item => ({
+                    label: `${item}条/页`,
+                    value: item
+                }))
+            },
         },
         methods: {
             p_clickPage(page) {
-
+                this.p_page = page
             },
         }
     }
@@ -94,39 +121,53 @@
         width: 100%;
         flex-direction: row;
         align-items: center;
-        .pl-page-bar-operation {
-            padding: 0 2em;
-            display: flex;
+        justify-content: space-between;
+        .pl-page-bar-left {
+            display: inline-flex;
             align-items: center;
-            .pl-page-bar-operate-num-wrapper {
+            .pl-page-bar-operation {
+                padding: 0 2em;
                 display: flex;
                 align-items: center;
-                padding: 0 1em;
-                .pl-page-bar-operate-num {
-                    width: 30px;
-                    text-align: center;
+                .pl-page-bar-operate-num-wrapper {
+                    display: flex;
+                    align-items: center;
+                    padding: 0 1em;
+                    .pl-page-bar-operate-num {
+                        width: 30px;
+                        text-align: center;
+                    }
                 }
             }
-        }
-        .pl-page-bar-operate-icon, .pl-page-bar-operate-num {
-            cursor: pointer;
-            color: $color-info;
-            &:hover {
-                color: $color-primary;
+            .pl-page-bar-operate-icon, .pl-page-bar-operate-num {
+                cursor: pointer;
+                color: $color-info;
+                &:hover {
+                    color: $color-primary;
+                }
+                &.pl-page-bar-operate-num-active {
+                    color: $color-primary;
+                }
+                &.pl-page-bar-operate-refresh-icon {
+                    margin-left: 2em;
+                }
             }
-            &.pl-page-bar-operate-num-active {
-                color: $color-primary;
-            }
-            &.pl-page-bar-operate-refresh-icon {
-                margin-left: 2em;
+            .pl-page-bar-jump-wrapper {
+                .pl-page-bar-jump-input {
+                    border: none;
+                    .pl-input-el {
+                        text-align: center;
+                    }
+                }
             }
         }
 
-        .pl-page-bar-jump-wrapper {
-            .pl-page-bar-jump-input {
-                .pl-input-el {
-                    text-align: center;
-                }
+        .pl-page-bar-right {
+            height: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            .pl-box, .pl-box-content {
+                width: fit-content !important;
             }
         }
     }
