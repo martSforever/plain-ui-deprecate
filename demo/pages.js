@@ -170,6 +170,11 @@ const pages = [
         title: 'Pagination分页',
         icon: 'pl-book2',
     },
+    {
+        path: 'tree',
+        title: 'Tree树形组件',
+        icon: 'pl-tree',
+    },
 ]
 
 export default pages.reduce((ret, page) => {

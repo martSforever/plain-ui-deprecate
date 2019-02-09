@@ -65,7 +65,7 @@
                             {name: 'List列表', icon: 'pl-list', page: 'list', complete: true},
                             {name: 'Tag标签', icon: 'pl-icon-tag', page: 'tag', complete: true},
                             {name: 'Progress进度条', icon: 'pl-progress', page: 'progress', complete: true},
-                            {name: 'Tree树形组件', icon: 'pl-tree', page: 'icon', complete: false},
+                            {name: 'Tree树形组件', icon: 'pl-tree', page: 'tree', complete: true},
                             {name: 'Pagination分页', icon: 'pl-book2', page: 'page-bar', complete: true},
                             {name: 'Badge标记', icon: 'pl-badge', page: 'badge', complete: true},
                             {name: 'Mavon编辑器', icon: 'icon-code', page: 'mavon', complete: true},
