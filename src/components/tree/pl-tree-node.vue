@@ -8,10 +8,16 @@
             <div v-show="p_open">
                 <div class="pl-tree-node-wrapper">
                     <pl-tree-node v-for="(item,index) in data[childrenKey]"
+                                  ref="nodes"
                                   :key="index"
                                   :data="item"
                                   :label-key="labelKey"
-                                  :children-key="childrenKey"/>
+                                  :children-key="childrenKey"
+                                  :auto-close="autoClose"
+                                  @open="val=>$emit('open', val)"
+                                  @close="val=>$emit('close',val)"
+                                  @click="val=>$emit('click',val)"
+                                  @childToggle="p_childToggle"/>
                 </div>
             </div>
         </pl-collapse-transition>
@@ -29,6 +35,7 @@
             data: {type: Object, default: () => []},
             labelKey: {type: String, required: true},
             childrenKey: {type: String, required: true},
+            autoClose: {type: Boolean},
         },
         data() {
             return {
@@ -46,7 +53,26 @@
         },
         methods: {
             toggle() {
-                this.p_open = !this.p_open
+                this[!this.p_open ? 'open' : 'close']()
+                this.$emit('click', this.data)
+                this.$emit('childToggle', this)
+            },
+            p_childToggle(child) {
+                if (!this.autoClose) return
+                if (child.p_open) {
+                    this.$refs.nodes.forEach(item => {
+                        if (item === child) return
+                        if (item.p_open) item.close()
+                    })
+                }
+            },
+            open() {
+                this.p_open = true
+                this.$emit('open', this.data)
+            },
+            close() {
+                this.p_open = false
+                this.$emit('close', this.data)
             },
         },
     }

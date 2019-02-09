@@ -1,9 +1,13 @@
 <template>
     <div class="demo-tree">
         <div class="demo-tree-wrapper">
-            <link-tree :data="cities" label-key="name" children-key="children"/>
+            <link-tree :data="cities"
+                       label-key="name"
+                       children-key="children"
+                       @open="val=>$message.show('open:'+val.name)"
+                       @close="val=>$message.show('close:'+val.name)"
+                       :auto-close="true"/>
         </div>
-
     </div>
 </template>
 

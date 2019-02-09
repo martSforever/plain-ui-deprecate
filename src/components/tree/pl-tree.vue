@@ -1,10 +1,16 @@
 <template>
     <div class="pl-tree">
         <pl-tree-node v-for="(item,index) in data"
+                      ref="nodes"
                       :key="index"
                       :data="item"
                       :label-key="labelKey"
-                      :children-key="childrenKey"/>
+                      :children-key="childrenKey"
+                      :auto-close="autoClose"
+                      @open="val=>$emit('open',val)"
+                      @close="val=>$emit('close',val)"
+                      @click="val=>$emit('click',val)"
+                      @childToggle="p_childToggle"/>
     </div>
 </template>
 
@@ -18,8 +24,19 @@
             data: {type: Array, default: () => []},
             labelKey: {type: String, required: true},
             childrenKey: {type: String, required: true},
-
+            autoClose: {type: Boolean},
         },
+        methods: {
+            p_childToggle(child) {
+                if (!this.autoClose) return
+                if (child.p_open) {
+                    this.$refs.nodes.forEach(item => {
+                        if (item === child) return
+                        if (item.p_open) item.close()
+                    })
+                }
+            },
+        }
     }
 </script>
 
