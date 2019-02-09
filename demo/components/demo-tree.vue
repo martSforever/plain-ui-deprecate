@@ -6,7 +6,8 @@
                        children-key="children"
                        @open="val=>$message.show('open:'+val.name)"
                        @close="val=>$message.show('close:'+val.name)"
-                       :auto-close="true"/>
+                       :auto-close="false"
+                       :toggleOnClickContent="true"/>
         </div>
     </div>
 </template>

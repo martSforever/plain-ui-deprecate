@@ -7,6 +7,9 @@
                       :label-key="labelKey"
                       :children-key="childrenKey"
                       :auto-close="autoClose"
+                      :empty-text="emptyText"
+                      :toggle-on-click-content="toggleOnClickContent"
+                      :initialized-after-open="initializedAfterOpen"
                       @open="val=>$emit('open',val)"
                       @close="val=>$emit('close',val)"
                       @click="val=>$emit('click',val)"
@@ -21,10 +24,13 @@
         name: "pl-tree",
         components: {PlTreeNode},
         props: {
-            data: {type: Array, default: () => []},
-            labelKey: {type: String, required: true},
-            childrenKey: {type: String, required: true},
-            autoClose: {type: Boolean},
+            data: {type: Array, default: () => []},                                 //渲染的数据
+            labelKey: {type: String, required: true},                               //显示的文本key
+            childrenKey: {type: String, required: true},                            //子树渲染数据的key
+            autoClose: {type: Boolean},                                             //打开节点之后是否关闭兄弟节点
+            emptyText: {type: String, default: '无'},                                //无内容时显示的文本
+            toggleOnClickContent: {type: Boolean, default: true},                   //是否点击节点内容的时候打开|关闭节点
+            initializedAfterOpen: {type: Boolean, default: true},                   //是否在打开的时候才初始化内容
         },
         methods: {
             p_childToggle(child) {

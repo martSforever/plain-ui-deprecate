@@ -1,12 +1,12 @@
 <template>
     <div class="pl-tree-node" :class="classes">
-        <div class="pl-tree-node-content" @click="toggle">
-            <pl-icon icon="pl-triangle-right-fill" class="pl-tree-node-icon"/>
+        <div class="pl-tree-node-content" @click="p_clickContent">
+            <pl-icon icon="pl-triangle-right-fill" class="pl-tree-node-icon" @click.stop="toggle"/>
             <span>{{data[labelKey]}}</span>
         </div>
-        <pl-collapse-transition>
+        <pl-collapse-transition v-if="p_initialized">
             <div v-show="p_open">
-                <div class="pl-tree-node-wrapper">
+                <div class="pl-tree-node-wrapper" v-if="!!data[childrenKey] && data[childrenKey].length>0">
                     <pl-tree-node v-for="(item,index) in data[childrenKey]"
                                   ref="nodes"
                                   :key="index"
@@ -14,10 +14,18 @@
                                   :label-key="labelKey"
                                   :children-key="childrenKey"
                                   :auto-close="autoClose"
+                                  :empty-text="emptyText"
+                                  :toggle-on-click-content="toggleOnClickContent"
+                                  :initialized-after-open="initializedAfterOpen"
                                   @open="val=>$emit('open', val)"
                                   @close="val=>$emit('close',val)"
                                   @click="val=>$emit('click',val)"
                                   @childToggle="p_childToggle"/>
+                </div>
+                <div v-else>
+                    <div class="pl-tree-node-content pl-tree-node-empty-text">
+                        {{emptyText}}
+                    </div>
                 </div>
             </div>
         </pl-collapse-transition>
@@ -32,14 +40,18 @@
         name: "pl-tree-node",
         components: {PlCollapseTransition, PlIcon},
         props: {
-            data: {type: Object, default: () => []},
-            labelKey: {type: String, required: true},
-            childrenKey: {type: String, required: true},
-            autoClose: {type: Boolean},
+            data: {type: Object, default: () => []},                                //渲染的数据
+            labelKey: {type: String, required: true},                               //显示的文本key
+            childrenKey: {type: String, required: true},                            //子树渲染数据的key
+            autoClose: {type: Boolean},                                             //打开节点之后是否关闭兄弟节点
+            emptyText: {type: String, default: '无'},                                //无内容时显示的文本
+            toggleOnClickContent: {type: Boolean, default: true},                   //是否点击节点内容的时候打开|关闭节点
+            initializedAfterOpen: {type: Boolean, default: true},                   //是否在打开的时候才初始化内容
         },
         data() {
             return {
                 p_open: false,
+                p_initialized: !this.initializedAfterOpen
             }
         },
         computed: {
@@ -52,6 +64,9 @@
             },
         },
         methods: {
+            p_clickContent() {
+                !!this.toggleOnClickContent && this.toggle()
+            },
             toggle() {
                 this[!this.p_open ? 'open' : 'close']()
                 this.$emit('click', this.data)
@@ -67,8 +82,15 @@
                 }
             },
             open() {
-                this.p_open = true
-                this.$emit('open', this.data)
+                const next = () => {
+                    this.p_open = true
+                    this.$emit('open', this.data)
+                }
+                if (!!this.p_initialized) next()
+                else {
+                    this.p_initialized = true
+                    this.$nextTick(next)
+                }
             },
             close() {
                 this.p_open = false
@@ -91,6 +113,9 @@
             line-height: 28px;
             &:hover {
                 color: $color-primary;
+            }
+            &.pl-tree-node-empty-text {
+                padding-left: 1em;
             }
         }
         .pl-tree-node-wrapper {
