@@ -116,6 +116,7 @@ const PlainUI = {
     } = {}) {
         this.zIndex = zIndex
         Vue.use(DomPortal)
+        PlainUI.nextTick = () => new Promise((rs) => Vue.prototype.$nextTick(() => rs()))
         Vue.prototype.$plain = PlainUI
         Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice

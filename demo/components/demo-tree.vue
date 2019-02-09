@@ -7,7 +7,13 @@
                        @open="val=>$message.show('open:'+val.name)"
                        @close="val=>$message.show('close:'+val.name)"
                        :auto-close="false"
-                       :toggleOnClickContent="true"/>
+                       :toggleOnClickContent="true"
+                       :initializedAfterOpen="false"
+                       ref="tree"/>
+        </div>
+        <div>
+            <link-button @click="openSpecific">open specific</link-button>
+            <link-button @click="closeSpecific">close specific</link-button>
         </div>
     </div>
 </template>
@@ -47,6 +53,18 @@
                 ]
             }
         },
+        methods: {
+            async openSpecific() {
+                // this.$refs.tree.open(this.cities[1])
+                // await this.$plain.nextTick()
+                // this.$refs.tree.open(this.cities[1].children[0])
+                // await this.$plain.nextTick()
+                this.$refs.tree.open(this.cities[1].children[0].children[1])
+            },
+            async closeSpecific() {
+                this.$refs.tree.close(this.cities[1].children[0].children[1])
+            },
+        }
     }
 </script>
 

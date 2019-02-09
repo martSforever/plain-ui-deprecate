@@ -51,7 +51,13 @@
         data() {
             return {
                 p_open: false,
-                p_initialized: !this.initializedAfterOpen
+                p_initialized: !this.initializedAfterOpen,
+                p_parentNode: null,
+            }
+        },
+        mounted() {
+            if (this.$parent.$parent.$options.name === 'pl-tree-node') {
+                this.p_parentNode = this.$parent.$parent
             }
         },
         computed: {
@@ -64,27 +70,12 @@
             },
         },
         methods: {
-            p_clickContent() {
-                !!this.toggleOnClickContent && this.toggle()
-            },
-            toggle() {
-                this[!this.p_open ? 'open' : 'close']()
-                this.$emit('click', this.data)
-                this.$emit('childToggle', this)
-            },
-            p_childToggle(child) {
-                if (!this.autoClose) return
-                if (child.p_open) {
-                    this.$refs.nodes.forEach(item => {
-                        if (item === child) return
-                        if (item.p_open) item.close()
-                    })
-                }
-            },
             open() {
+                if (!!this.p_open) return
                 const next = () => {
                     this.p_open = true
                     this.$emit('open', this.data)
+                    if (!!this.p_parentNode && !this.p_parentNode.p_open) this.p_parentNode.open()
                 }
                 if (!!this.p_initialized) next()
                 else {
@@ -95,6 +86,23 @@
             close() {
                 this.p_open = false
                 this.$emit('close', this.data)
+            },
+            toggle() {
+                this[!this.p_open ? 'open' : 'close']()
+                this.$emit('click', this.data)
+                this.$emit('childToggle', this)
+            },
+            p_clickContent() {
+                !!this.toggleOnClickContent && this.toggle()
+            },
+            p_childToggle(child) {
+                if (!this.autoClose) return
+                if (child.p_open) {
+                    this.$refs.nodes.forEach(item => {
+                        if (item === child) return
+                        if (item.p_open) item.close()
+                    })
+                }
             },
         },
     }
