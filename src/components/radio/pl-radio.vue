@@ -5,7 +5,7 @@
          :style="styles">
         <pl-icon :icon="p_activeIcon" class="pl-radio-icon-active"/>
         <pl-icon :icon="p_inactiveIcon" class="pl-radio-icon-inactive"/>
-        <span v-if="!!label">{{label}}</span>
+        <span v-if="!!label" class="pl-radio-label">{{label}}</span>
     </div>
 </template>
 
@@ -29,6 +29,7 @@
             inactiveColor: {type: String},                      //未激活的时候的颜色
             trueValue: {default: true},                         //激活的时候的实际值
             falseValue: {default: false},                       //未激活的时候的实际值
+            isCheckAllRadio: {type: Boolean, default: false},   //是否为全选radio
         },
         data() {
             return {
@@ -79,6 +80,7 @@
             },
         },
         mounted() {
+            if (!!this.isCheckAllRadio) return
             this.p_group = this.$plain.$dom.findComponentUpward(this, 'pl-radio-group');
             if (!!this.p_group) {
                 this.p_group.p_addRadio(this)
@@ -162,7 +164,11 @@
         }
         @each $key, $value in $list-size {
             &.pl-radio-size-#{$key} {
-                font-size: $value/1.7;
+                font-size: $value/1.8;
+                .pl-radio-label {
+                    font-size: $value/1.6;
+                    margin-left: 0.25em;
+                }
             }
         }
 

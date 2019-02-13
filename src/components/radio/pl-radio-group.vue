@@ -1,12 +1,20 @@
 <template>
     <div class="pl-radio-group" :class="classes">
+        <pl-check-all v-if="multiple"
+                      :color="color"
+                      :size="size"
+                      :status="checkAllStatus"
+                      @click="p_clickCheckAll"/>
         <slot></slot>
     </div>
 </template>
 
 <script>
+    import PlCheckAll from "./pl-check-all";
+
     export default {
         name: "pl-radio-group",
+        components: {PlCheckAll},
         props: {
             value: {},                                                          //当前绑定至，多选的话为数组
             size: {type: String, default: 'default'},                           //大小
@@ -51,6 +59,11 @@
                     `pl-radio-group-${!!this.vertical ? 'vertical' : 'horizontal'}`
                 ];
             },
+            checkAllStatus() {
+                if (this.p_radios.every(radio => radio.currentValue)) return 'all'
+                if (this.p_radios.some(radio => radio.currentValue)) return 'some'
+                if (this.p_radios.every(radio => !radio.currentValue)) return 'none'
+            },
         },
         methods: {
             p_addRadio(radio) {
@@ -68,6 +81,29 @@
                     }
                 });
             },
+            p_clickCheckAll() {
+                let ret;
+                switch (this.checkAllStatus) {
+                    case 'all':
+                        ret = false
+                        break
+                    case 'some':
+                        ret = true
+                        break
+                    case 'none':
+                        ret = true
+                }
+                this.p_radios.forEach(radio => {
+                    radio.currentValue = ret
+                    console.log(radio.id, radio.currentValue)
+                })
+                setTimeout(()=>{
+                    this.p_radios.forEach(radio => {
+                        console.log(radio.id, radio.currentValue)
+                    })
+                },1000)
+                this.updateRadios()
+            },
         },
         created() {
             if (!!this.multiple && !!this.value && this.$plain.$utils.typeOf(this.value) !== 'array') {
@@ -82,13 +118,13 @@
         @include public-style;
         display: inline-flex;
         &.pl-radio-group-horizontal {
-            .link-radio:not(:last-child) {
+            .pl-radio:not(:last-child) {
                 margin-right: 1em;
             }
         }
         &.pl-radio-group-vertical {
             flex-direction: column;
-            .link-radio:not(:last-child) {
+            .pl-radio:not(:last-child) {
                 margin-bottom: 1em;
             }
         }
