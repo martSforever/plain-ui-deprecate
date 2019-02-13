@@ -27,6 +27,11 @@
         components: {PlTreeNode},
         mixins: [TreeMixin],
         methods: {
+            /*
+             *  触发树节点打开关闭动作
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:05
+             */
             p_childToggle(child) {
                 if (!this.autoClose) return
                 if (child.p_open) {
@@ -36,6 +41,11 @@
                     })
                 }
             },
+            /*
+             *  打开树节点
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:05
+             */
             async open(data) {
                 let dataArray = this.findParentDataArray(this.data, data, [])
                 for (let i = 0; i < dataArray.length; i++) {
@@ -47,10 +57,20 @@
                     }
                 }
             },
+            /*
+             *  关闭树节点
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:05
+             */
             close(data) {
                 const targetNode = this.findNode(data, this.$refs.nodes)
                 !!targetNode && targetNode.close()
             },
+            /*
+             *  找到数据的父级数据
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:06
+             */
             findParentDataArray(treeData, targetData, ret = []) {
                 if (!treeData || treeData.length === 0) return null
                 for (let i = 0; i < treeData.length; i++) {
@@ -63,6 +83,11 @@
                 }
                 return null
             },
+            /*
+             *  根据数据获取对应节点组件对象
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:06
+             */
             findNode(data, nodes) {
                 if (!nodes || nodes.length === 0) return null
                 for (let i = 0; i < nodes.length; i++) {
