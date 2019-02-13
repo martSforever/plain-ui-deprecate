@@ -23,6 +23,21 @@
             label: {type: String, default: '全选'},              //文本
             status: {type: String, default: 'none'},            //当前全选状态
         },
+        watch: {
+            status(val) {
+                switch (val) {
+                    case 'all':
+                        this.$emit('select-all')
+                        break;
+                    case 'some':
+                        this.$emit('select-some')
+                        break;
+                    case 'none':
+                        this.$emit('select-none')
+                        break;
+                }
+            },
+        },
         data() {
             return {
                 STATUS: {

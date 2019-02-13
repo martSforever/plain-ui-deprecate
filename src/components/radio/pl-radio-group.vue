@@ -4,7 +4,10 @@
                       :color="color"
                       :size="size"
                       :status="checkAllStatus"
-                      @click="p_clickCheckAll"/>
+                      @click="p_clickCheckAll"
+                      @select-all="$emit('select-all')"
+                      @select-some="$emit('select-some')"
+                      @select-none="$emit('select-none')"/>
         <slot></slot>
     </div>
 </template>
@@ -82,26 +85,17 @@
                 });
             },
             p_clickCheckAll() {
-                let ret;
+                const allIds = this.p_radios.map(item => item.id)
                 switch (this.checkAllStatus) {
                     case 'all':
-                        ret = false
+                        this.multipleValue = []
                         break
                     case 'some':
-                        ret = true
+                        this.multipleValue = allIds
                         break
                     case 'none':
-                        ret = true
+                        this.multipleValue = allIds
                 }
-                this.p_radios.forEach(radio => {
-                    radio.currentValue = ret
-                    console.log(radio.id, radio.currentValue)
-                })
-                setTimeout(()=>{
-                    this.p_radios.forEach(radio => {
-                        console.log(radio.id, radio.currentValue)
-                    })
-                },1000)
                 this.updateRadios()
             },
         },

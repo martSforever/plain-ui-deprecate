@@ -45,7 +45,10 @@
                 <link-button>val2:{{val2}}</link-button>
             </demo-row-item>
             <demo-row-item title="多选">
-                <link-radio-group v-model="val3" multiple>
+                <link-radio-group v-model="val3" multiple
+                                  @select-all="$message.show('select-all')"
+                                  @select-some="$message.show('select-some')"
+                                  @select-none="$message.show('select-none')">
                     <link-radio v-for="(color,index) in colors" :key="index" :color="color" :id="color" :label="color"/>
                 </link-radio-group>
                 <link-button>val3:{{val3}}</link-button>
