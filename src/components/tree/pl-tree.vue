@@ -36,13 +36,32 @@
                     })
                 }
             },
-            open(data) {
-                const targetNode = this.findNode(data, this.$refs.nodes)
-                !!targetNode && targetNode.open()
+            async open(data) {
+                let dataArray = this.findParentDataArray(this.data, data, [])
+                for (let i = 0; i < dataArray.length; i++) {
+                    const itemData = dataArray[i];
+                    const node = this.findNode(itemData, this.$refs.nodes)
+                    if (!!node) {
+                        node.open()
+                        await this.$plain.nextTick()
+                    }
+                }
             },
             close(data) {
                 const targetNode = this.findNode(data, this.$refs.nodes)
                 !!targetNode && targetNode.close()
+            },
+            findParentDataArray(treeData, targetData, ret = []) {
+                if (!treeData || treeData.length === 0) return null
+                for (let i = 0; i < treeData.length; i++) {
+                    const itemData = treeData[i];
+                    ret.push(itemData)
+                    if (targetData === itemData) return ret
+                    const itemRet = this.findParentDataArray(itemData[this.childrenKey], targetData, [...ret])
+                    if (itemRet != null) return itemRet
+                    ret.pop()
+                }
+                return null
             },
             findNode(data, nodes) {
                 if (!nodes || nodes.length === 0) return null
@@ -54,6 +73,7 @@
                 }
                 return null
             },
+
         }
     }
 </script>

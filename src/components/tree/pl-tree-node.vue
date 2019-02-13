@@ -1,8 +1,11 @@
 <template>
     <div class="pl-tree-node" :class="classes">
-        <div class="pl-tree-node-content" @click="p_clickContent">
+        <div class="pl-tree-node-content">
             <pl-icon icon="pl-triangle-right-fill" class="pl-tree-node-icon" @click.stop="toggle"/>
-            <span>{{data[labelKey]}}</span>
+            <pl-check-all :label="null" size="small"/>
+            <div @click="!!toggleOnClickContent && toggle()">
+                {{data[labelKey]}}
+            </div>
         </div>
         <pl-collapse-transition v-if="p_initialized">
             <div v-show="p_open">
@@ -36,10 +39,11 @@
     import PlIcon from "../icon/pl-icon";
     import PlCollapseTransition from "../collapse/pl-collapse-transition";
     import {TreeMixin} from "./index";
+    import PlCheckAll from "../radio/pl-check-all";
 
     export default {
         name: "pl-tree-node",
-        components: {PlCollapseTransition, PlIcon},
+        components: {PlCheckAll, PlCollapseTransition, PlIcon},
         mixins: [TreeMixin],
         props: {
             data: {type: Object, default: () => ({})},
@@ -88,9 +92,6 @@
                 this.$emit('click', this.data)
                 this.$emit('childToggle', this)
             },
-            p_clickContent() {
-                !!this.toggleOnClickContent && this.toggle()
-            },
             p_childToggle(child) {
                 if (!this.autoClose) return
                 if (child.p_open) {
@@ -114,12 +115,16 @@
         }
         .pl-tree-node-content {
             height: 28px;
-            line-height: 28px;
+            display: flex;
+            align-items: center;
             &:hover {
                 color: $color-primary;
             }
             &.pl-tree-node-empty-text {
                 padding-left: 1em;
+            }
+            .pl-check-all {
+                margin-right: 0.5em;
             }
         }
         .pl-tree-node-wrapper {
