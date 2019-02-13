@@ -53,11 +53,18 @@
                 p_open: false,
                 p_initialized: !this.initializedAfterOpen,
                 p_parentNode: null,
+                p_items: [],
             }
         },
         mounted() {
             if (this.$parent.$parent.$options.name === 'pl-tree-node') {
                 this.p_parentNode = this.$parent.$parent
+                this.p_parentNode.p_addItem(this)
+            }
+        },
+        beforeDestroy() {
+            if (!!this.p_parentNode) {
+                this.p_parentNode.p_removeItem(this)
             }
         },
         computed: {
@@ -70,6 +77,11 @@
             },
         },
         methods: {
+            /*
+             *  打开节点
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:20
+             */
             open() {
                 if (!!this.p_open) return
                 const next = () => {
@@ -83,15 +95,30 @@
                     this.$nextTick(next)
                 }
             },
+            /*
+             *  关闭节点
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:20
+             */
             close() {
                 this.p_open = false
                 this.$emit('close', this.data)
             },
+            /*
+             *  打开关闭节点
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:20
+             */
             toggle() {
                 this[!this.p_open ? 'open' : 'close']()
                 this.$emit('click', this.data)
                 this.$emit('childToggle', this)
             },
+            /*
+             *  处理子节点打开关闭事件
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:21
+             */
             p_childToggle(child) {
                 if (!this.autoClose) return
                 if (child.p_open) {
@@ -100,6 +127,22 @@
                         if (item.p_open) item.close()
                     })
                 }
+            },
+            /*
+             *  添加子节点组件对象
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:10
+             */
+            p_addItem(item) {
+                this.p_items.push(item)
+            },
+            /*
+             *  移除子节点对象
+             *  @author     martsforever
+             *  @datetime   2019/2/13 23:10
+             */
+            p_removeItem(item) {
+                this.$plain.$utils.removeFromArray(this.p_items, item)
             },
         },
     }
