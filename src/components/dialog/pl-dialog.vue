@@ -27,8 +27,8 @@
                     <slot></slot>
                 </div>
                 <div class="pl-dialog-foot" v-if="!noFooter && (cancelButton || confirmButton)">
-                    <pl-button box-type="line" label="取消" @click="p_cancel" v-if="!!confirmButton"/>
-                    <pl-button label="确认" @click="p_confirm" v-if="!!cancelButton"/>
+                    <pl-button box-type="line" label="取消" @click="p_cancel" v-if="!!cancelButton"/>
+                    <pl-button label="确认" @click="p_confirm" v-if="!!confirmButton"/>
                 </div>
             </div>
         </div>
