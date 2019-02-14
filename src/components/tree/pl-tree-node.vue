@@ -59,34 +59,52 @@
             }
         },
         mounted() {
+            /*寻找当前节点的父treeNode*/
             if (this.$parent.$parent.$options.name === 'pl-tree-node') {
                 this.p_parentNode = this.$parent.$parent
                 this.p_parentNode.p_addItem(this)
             }
-
+            /*检查checkbox以及checkKey*/
             if (this.checkbox && !this.checkKey) {
                 this.$dialog.show("Tree组件在使用checkbox功能时，必须指定checkKey")
             }
         },
         beforeDestroy() {
+            /*从父元素移除当前节点*/
             if (!!this.p_parentNode) {
                 this.p_parentNode.p_removeItem(this)
             }
         },
         computed: {
+            /*
+             *  当前组件绑定class
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:18
+             */
             classes() {
-                return [
-                    {
-                        'pl-tree-node-open': this.p_open,
-                    }
-                ]
+                return [{'pl-tree-node-open': this.p_open,}]
             },
+            /*
+             *  当前节点是否存在子节点
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:18
+             */
             hasChild() {
                 return this.p_dataHasChildren(this.data)
             },
+            /*
+             *  当前节点data的子数据
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:19
+             */
             childrenData() {
                 return !!this.data && this.childrenKey && !!this.data[this.childrenKey] ? this.data[this.childrenKey] : []
             },
+            /*
+             *  当前节点的选中状态
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:20
+             */
             checkStatus() {
                 if (this.hasChild) {
                     if (this.childrenData.every(data => data[this.checkKey])) this.p_setDataCheck(this.data, true)
@@ -135,12 +153,27 @@
                 this.$emit('click', this.data)
                 this.$emit('childToggle', this)
             },
+            /*
+             *  选中当前节点
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:14
+             */
             check() {
                 this.p_changeChildrenDataCheck(this.data, true)
             },
+            /*
+             *  取消选中当前节点
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:14
+             */
             unCheck() {
                 this.p_changeChildrenDataCheck(this.data, false)
             },
+            /*
+             *  切换当前节点选中|未选中状态
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:15
+             */
             toggleCheck() {
                 switch (this.checkStatus) {
                     case 'all':
@@ -191,44 +224,6 @@
              */
             p_clickCheck() {
                 this.toggleCheck()
-            },
-            /*
-             *  设置data中的checkKey选中状态
-             *  @author     martsforever
-             *  @datetime   2019/2/14 21:31
-             */
-            p_setDataCheck(data, check = false) {
-                !!data && this.checkKey && this.$set(data, this.checkKey, check)
-            },
-            /*
-             *  data是否有子节点数据
-             *  @author     martsforever
-             *  @datetime   2019/2/14 21:39
-             */
-            p_dataHasChildren(data) {
-                return !!data && this.childrenKey && !!data[this.childrenKey] && data[this.childrenKey].length > 0
-            },
-            /*
-             *  递归修改节点及其子节点的check状态
-             *  @author     martsforever
-             *  @datetime   2019/2/14 21:43
-             */
-            p_changeChildrenDataCheck(data, check = false) {
-                this.p_setDataCheck(data, check)
-                if (this.p_dataHasChildren(data)) data[this.childrenKey].forEach(itemData => this.p_changeChildrenDataCheck(itemData, check))
-            },
-            /*
-             *  根据data的checkKey及其子checkKey判断data节点当前checkbox的显示状态
-             *  @author     martsforever
-             *  @datetime   2019/2/14 21:54
-             */
-            p_getStatusFromData(data) {
-                /*没有子节点*/
-                if (!this.p_dataHasChildren(data)) return data[this.checkKey] ? 'all' : 'none'
-                /*有子节点*/
-                if (data[this.childrenKey].every(itemData => this.p_getStatusFromData(itemData) === 'all')) return 'all'
-                if (data[this.childrenKey].some(itemData => this.p_getStatusFromData(itemData) !== 'none')) return 'some'
-                return 'none'
             },
         },
     }
