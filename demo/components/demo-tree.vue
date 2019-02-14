@@ -12,10 +12,13 @@
                        check-key="_check"
                        ref="tree"/>
         </div>
-        <div>
-            <link-button @click="openSpecific">open specific</link-button>
-            <link-button @click="closeSpecific">close specific</link-button>
-        </div>
+        <link-button-group>
+            <link-button @click="openSpecific">打开特定节点</link-button>
+            <link-button @click="closeSpecific">关闭特定节点</link-button>
+            <link-button @click="checkSpecific">选中特定节点</link-button>
+            <link-button @click="uncheckSpecific">取消选中特定节点</link-button>
+            <link-button @click="getCheckSpecific">获取选中的节点</link-button>
+        </link-button-group>
     </div>
 </template>
 
@@ -60,6 +63,15 @@
             },
             async closeSpecific() {
                 this.$refs.tree.close(this.cities[0].children[0].children[2])
+            },
+            checkSpecific() {
+                this.$refs.tree.check(this.cities[0].children[0].children[2])
+            },
+            uncheckSpecific() {
+                this.$refs.tree.uncheck(this.cities[0])
+            },
+            getCheckSpecific() {
+
             },
         }
     }

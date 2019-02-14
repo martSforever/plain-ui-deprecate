@@ -54,6 +54,32 @@
                 !!targetNode && targetNode.close()
             },
             /*
+             *  选中节点
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:27
+             */
+            check(data) {
+                this.p_changeChildrenDataCheck(data, true)
+            },
+            /*
+             *  取消选中节点
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:27
+             */
+            uncheck(data) {
+                this.p_changeChildrenDataCheck(data, false)
+            },
+            /*
+             *  获取选中的data
+             *  @author     martsforever
+             *  @datetime   2019/2/14 22:33
+             */
+            getCheckData() {
+                const ret = []
+                if (!this.data || this.data.length === 0) return ret
+                this.data
+            },
+            /*
              *  找到数据的父级数据
              *  @author     martsforever
              *  @datetime   2019/2/13 23:06
@@ -84,6 +110,11 @@
                     if (!!ret) return ret
                 }
                 return null
+            },
+            p_getCheckDataWithChildren(data, ret) {
+                if (data[this.checkKey]) {
+
+                }
             },
         }
     }
