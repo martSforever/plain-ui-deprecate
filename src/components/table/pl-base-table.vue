@@ -487,7 +487,8 @@
             table {
                 width: 100%;
                 .lv-table-cell {
-                    width: 100% !important;
+                    /*设置了这个，会导致有时候表体编辑的时候表体宽度变宽，出现滚动条，而表头没有变宽也没有出现滚动条*/
+                    /*width: 100% !important;*/
                 }
             }
         }
