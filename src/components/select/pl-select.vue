@@ -21,6 +21,7 @@
                     :suffix-icon="suffixIcon"
                     :prefix-icon="prefixIcon"
                     :clear-icon="p_suffixIcon"
+                    :clearable="clearable"
                     :loading="loading"
                     :readonly="inputReadonly"
                     :disabled="disabled"

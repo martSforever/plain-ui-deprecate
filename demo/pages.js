@@ -156,9 +156,24 @@ const pages = [
         icon: 'pl-sliders',
     },
     {
+        path: 'progress',
+        title: 'Progress进度条',
+        icon: 'pl-progress',
+    },
+    {
         path: 'rate',
         title: 'Rate评分',
         icon: 'pl-star',
+    },
+    {
+        path: 'page-bar',
+        title: 'Pagination分页',
+        icon: 'pl-book2',
+    },
+    {
+        path: 'tree',
+        title: 'Tree树形组件',
+        icon: 'pl-tree',
     },
 ]
 

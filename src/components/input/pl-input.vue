@@ -113,7 +113,9 @@
         @include transition-all;
         .pl-box-content {
             display: inline-flex;
+            width: 100%;
             .pl-input-el {
+                width: 100%;
                 flex: 1;
                 border: none;
                 background: transparent;

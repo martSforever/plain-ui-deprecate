@@ -46,6 +46,9 @@ import step from './components/step/pl-step'
 import stepItem from './components/step/pl-step-item'
 import slider from './components/slider/pl-slider'
 import rate from './components/rate/pl-rate'
+import progress from './components/progress/pl-progress'
+import pageBar from './components/page-bar/pl-page-bar'
+import tree from './components/tree/pl-tree'
 
 const components = {
     icon,
@@ -82,6 +85,9 @@ const components = {
     stepItem,
     slider,
     rate,
+    progress,
+    pageBar,
+    tree,
 
     ...ColumnComponents,
 }
@@ -110,13 +116,14 @@ const PlainUI = {
     } = {}) {
         this.zIndex = zIndex
         Vue.use(DomPortal)
+        PlainUI.nextTick = () => new Promise((rs) => Vue.prototype.$nextTick(() => rs()))
         Vue.prototype.$plain = PlainUI
         Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice
         Vue.prototype.$dialog = $dialog
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
-        $utils.addScript('https://at.alicdn.com/t/font_948159_ukep6sz7tw8.js')
+        $utils.addScript('https://at.alicdn.com/t/font_948159_jyly37bmaj.js')
         !!iconfont && $utils.addScript(iconfont)
     },
 }

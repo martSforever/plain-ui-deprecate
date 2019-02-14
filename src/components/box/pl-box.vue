@@ -8,7 +8,7 @@
             <slot></slot>
         </div>
         <pl-icon v-if="!!suffixIcon" :icon="suffixIcon" class="pl-box-suffix-icon"/>
-        <pl-icon v-if="!!clearIcon" :icon="hovering&&value!=null ?'pl-close':clearIcon" @click.stop.prevent="e=>$emit('clear',e)" class="pl-box-clear-icon"/>
+        <pl-icon v-if="!!clearIcon" :icon="clearable&&hovering&&value!=null ?'pl-close':clearIcon" @click.stop.prevent="e=>clearable && $emit('clear',e)" class="pl-box-clear-icon"/>
         <div class="pl-box-tooltip" v-show="!!passValidMsg && passValidMsg!=='必填'">
             <span>{{passValidMsg}}</span>
         </div>
@@ -30,6 +30,7 @@
             prefixIcon: {type: String},                                     //前置图标
             suffixIcon: {type: String},                                     //后置图标
             clearIcon: {type: String},                                      //清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pl-close，否则显示clearIcon
+            clearable: {type: Boolean},                                     //是否可清除
             loading: {type: Boolean},                                       //loading 图标
             iconOnly: {type: Boolean},                                      //只有图标，设置为true则盒子宽高相等，并且为圆形
 
