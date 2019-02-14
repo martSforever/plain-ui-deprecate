@@ -85,20 +85,6 @@
                 }
                 return null
             },
-            /*
-            *  触发树节点打开关闭动作
-            *  @author     martsforever
-            *  @datetime   2019/2/13 23:05
-            */
-            p_childToggle(child) {
-                if (!this.autoClose) return
-                if (child.p_open) {
-                    this.$refs.nodes.forEach(item => {
-                        if (item === child) return
-                        if (item.p_open) item.close()
-                    })
-                }
-            },
         }
     }
 </script>
