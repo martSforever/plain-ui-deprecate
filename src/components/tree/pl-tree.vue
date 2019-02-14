@@ -6,6 +6,7 @@
                       :data="item"
                       :label-key="labelKey"
                       :children-key="childrenKey"
+                      :check-key="checkKey"
                       :auto-close="autoClose"
                       :empty-text="emptyText"
                       :toggle-on-click-content="toggleOnClickContent"

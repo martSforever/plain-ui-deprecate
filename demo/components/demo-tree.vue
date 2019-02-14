@@ -8,6 +8,8 @@
                        @close="val=>$message.show('close:'+val.name)"
                        :auto-close="false"
                        :toggleOnClickContent="true"
+                       checkbox
+                       check-key="_check"
                        ref="tree"/>
         </div>
         <div>

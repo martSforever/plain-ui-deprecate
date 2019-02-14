@@ -2,7 +2,7 @@
     <div class="pl-tree-node" :class="classes">
         <div class="pl-tree-node-content">
             <pl-icon icon="pl-triangle-right-fill" class="pl-tree-node-icon" @click.stop="toggle"/>
-            <pl-check-all :label="null" size="small" :status="checkStatus" @click="p_clickCheck"/>
+            <pl-check-all :label="null" size="small" :status="checkStatus" @click="p_clickCheck" v-if="checkbox"/>
             <div @click="!!toggleOnClickContent && toggle()">
                 {{data[labelKey]}}
             </div>
@@ -16,10 +16,12 @@
                                   :data="item"
                                   :label-key="labelKey"
                                   :children-key="childrenKey"
+                                  :check-key="checkKey"
                                   :auto-close="autoClose"
                                   :empty-text="emptyText"
                                   :toggle-on-click-content="toggleOnClickContent"
                                   :initialized-after-open="initializedAfterOpen"
+                                  :checkbox="checkbox"
                                   @open="val=>$emit('open', val)"
                                   @close="val=>$emit('close',val)"
                                   @click="val=>$emit('click',val)"
@@ -54,13 +56,16 @@
                 p_initialized: !this.initializedAfterOpen,
                 p_parentNode: null,
                 p_items: [],
-                p_check: false,
             }
         },
         mounted() {
             if (this.$parent.$parent.$options.name === 'pl-tree-node') {
                 this.p_parentNode = this.$parent.$parent
                 this.p_parentNode.p_addItem(this)
+            }
+
+            if (this.checkbox && !this.checkKey) {
+                this.$dialog.show("Tree组件在使用checkbox功能时，必须指定checkKey")
             }
         },
         beforeDestroy() {
@@ -76,24 +81,21 @@
                     }
                 ]
             },
-            checkStatus() {
-                /*没有子节点*/
-                if (!this.hasChild) return this.p_check ? 'all' : 'none'
-                /*有子节点*/
-                if (this.p_items.every(item => item.p_check)) {
-                    this.p_check = true
-                    return 'all'
-                }
-                if (this.p_items.some(item => item.p_check)) {
-                    this.p_check = true
-                    return 'some'
-                }
-                this.p_check = false
-                return 'none'
-            },
             hasChild() {
-                return !!this.p_items && this.p_items.length > 0
+                return this.p_dataHasChildren(this.data)
             },
+            childrenData() {
+                return !!this.data && this.childrenKey && !!this.data[this.childrenKey] ? this.data[this.childrenKey] : []
+            },
+            checkStatus() {
+                if (this.hasChild) {
+                    if (this.childrenData.every(data => data[this.checkKey])) this.p_setDataCheck(this.data, true)
+                    if (this.childrenData.some(data => data[this.checkKey])) this.p_setDataCheck(this.data, true)
+                    this.p_setDataCheck(this.data, false)
+                }
+                return this.p_getStatusFromData(this.data)
+            },
+
         },
         methods: {
             /*
@@ -134,18 +136,10 @@
                 this.$emit('childToggle', this)
             },
             check() {
-                if (this.hasChild) {
-                    this.p_items.forEach(item => item.check())
-                } else {
-                    this.p_check = true
-                }
+                this.p_changeChildrenDataCheck(this.data, true)
             },
             unCheck() {
-                if (this.hasChild) {
-                    this.p_items.forEach(item => item.unCheck())
-                } else {
-                    this.p_check = false
-                }
+                this.p_changeChildrenDataCheck(this.data, false)
             },
             toggleCheck() {
                 switch (this.checkStatus) {
@@ -197,6 +191,44 @@
              */
             p_clickCheck() {
                 this.toggleCheck()
+            },
+            /*
+             *  设置data中的checkKey选中状态
+             *  @author     martsforever
+             *  @datetime   2019/2/14 21:31
+             */
+            p_setDataCheck(data, check = false) {
+                !!data && this.checkKey && this.$set(data, this.checkKey, check)
+            },
+            /*
+             *  data是否有子节点数据
+             *  @author     martsforever
+             *  @datetime   2019/2/14 21:39
+             */
+            p_dataHasChildren(data) {
+                return !!data && this.childrenKey && !!data[this.childrenKey] && data[this.childrenKey].length > 0
+            },
+            /*
+             *  递归修改节点及其子节点的check状态
+             *  @author     martsforever
+             *  @datetime   2019/2/14 21:43
+             */
+            p_changeChildrenDataCheck(data, check = false) {
+                this.p_setDataCheck(data, check)
+                if (this.p_dataHasChildren(data)) data[this.childrenKey].forEach(itemData => this.p_changeChildrenDataCheck(itemData, check))
+            },
+            /*
+             *  根据data的checkKey及其子checkKey判断data节点当前checkbox的显示状态
+             *  @author     martsforever
+             *  @datetime   2019/2/14 21:54
+             */
+            p_getStatusFromData(data) {
+                /*没有子节点*/
+                if (!this.p_dataHasChildren(data)) return data[this.checkKey] ? 'all' : 'none'
+                /*有子节点*/
+                if (data[this.childrenKey].every(itemData => this.p_getStatusFromData(itemData) === 'all')) return 'all'
+                if (data[this.childrenKey].some(itemData => this.p_getStatusFromData(itemData) !== 'none')) return 'some'
+                return 'none'
             },
         },
     }

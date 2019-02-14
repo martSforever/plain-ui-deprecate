@@ -3,6 +3,7 @@ const TreeMixin = {
         data: {type: Array, default: () => []},                                 //渲染的数据
         labelKey: {type: String, required: true},                               //显示的文本key
         childrenKey: {type: String, required: true},                            //子树渲染数据的key
+        checkKey: {type: String},                                               //节点是否选中绑定的key
         autoClose: {type: Boolean},                                             //打开节点之后是否关闭兄弟节点
         emptyText: {type: String, default: '无'},                                //无内容时显示的文本
         toggleOnClickContent: {type: Boolean, default: true},                   //是否点击节点内容的时候打开|关闭节点
