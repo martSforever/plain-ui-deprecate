@@ -2,7 +2,7 @@
     <div class="pl-tree-node" :class="classes">
         <div class="pl-tree-node-content">
             <pl-icon icon="pl-triangle-right-fill" class="pl-tree-node-icon" @click.stop="toggle"/>
-            <pl-check-all :label="null" size="small"/>
+            <pl-check-all :label="null" size="small" :status="checkStatus" @click="p_clickCheck"/>
             <div @click="!!toggleOnClickContent && toggle()">
                 {{data[labelKey]}}
             </div>
@@ -54,6 +54,7 @@
                 p_initialized: !this.initializedAfterOpen,
                 p_parentNode: null,
                 p_items: [],
+                p_check: false,
             }
         },
         mounted() {
@@ -74,6 +75,24 @@
                         'pl-tree-node-open': this.p_open,
                     }
                 ]
+            },
+            checkStatus() {
+                /*没有子节点*/
+                if (!this.hasChild) return this.p_check ? 'all' : 'none'
+                /*有子节点*/
+                if (this.p_items.every(item => item.p_check)) {
+                    this.p_check = true
+                    return 'all'
+                }
+                if (this.p_items.some(item => item.p_check)) {
+                    this.p_check = true
+                    return 'some'
+                }
+                this.p_check = false
+                return 'none'
+            },
+            hasChild() {
+                return !!this.p_items && this.p_items.length > 0
             },
         },
         methods: {
@@ -114,6 +133,33 @@
                 this.$emit('click', this.data)
                 this.$emit('childToggle', this)
             },
+            check() {
+                if (this.hasChild) {
+                    this.p_items.forEach(item => item.check())
+                } else {
+                    this.p_check = true
+                }
+            },
+            unCheck() {
+                if (this.hasChild) {
+                    this.p_items.forEach(item => item.unCheck())
+                } else {
+                    this.p_check = false
+                }
+            },
+            toggleCheck() {
+                switch (this.checkStatus) {
+                    case 'all':
+                        this.unCheck()
+                        break
+                    case 'some':
+                        this.unCheck();
+                        break
+                    case 'none':
+                        this.check()
+                        break
+                }
+            },
             /*
              *  处理子节点打开关闭事件
              *  @author     martsforever
@@ -143,6 +189,14 @@
              */
             p_removeItem(item) {
                 this.$plain.$utils.removeFromArray(this.p_items, item)
+            },
+            /*
+             *  点击复选框
+             *  @author     martsforever
+             *  @datetime   2019/2/14 21:12
+             */
+            p_clickCheck() {
+                this.toggleCheck()
             },
         },
     }
