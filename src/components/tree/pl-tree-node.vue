@@ -1,7 +1,7 @@
 <template>
     <div class="pl-tree-node" :class="classes">
         <div class="pl-tree-node-content">
-            <pl-icon icon="pl-triangle-right-fill" class="pl-tree-node-icon" @click.stop="toggle"/>
+            <pl-radio active-icon="pl-square-minus-light" inactive-icon="pl-plus-square-light" :value="p_open" size="small" color="primary" @click.stop="toggle"/>
             <pl-check-all :label="null" size="small" :status="checkStatus" @click="p_clickCheck" v-if="checkbox"/>
             <div @click="!!toggleOnClickContent && toggle()">
                 {{data[labelKey]}}
@@ -42,10 +42,11 @@
     import PlCollapseTransition from "../collapse/pl-collapse-transition";
     import {TreeMixin} from "./index";
     import PlCheckAll from "../radio/pl-check-all";
+    import PlRadio from "../radio/pl-radio";
 
     export default {
         name: "pl-tree-node",
-        components: {PlCheckAll, PlCollapseTransition, PlIcon},
+        components: {PlRadio, PlCheckAll, PlCollapseTransition, PlIcon},
         mixins: [TreeMixin],
         props: {
             data: {type: Object, default: () => ({})},
@@ -82,7 +83,9 @@
              *  @datetime   2019/2/14 22:18
              */
             classes() {
-                return [{'pl-tree-node-open': this.p_open,}]
+                return [
+                    // {'pl-tree-node-open': this.p_open,}
+                ]
             },
             /*
              *  当前节点是否存在子节点
@@ -233,8 +236,9 @@
             &.pl-tree-node-empty-text {
                 padding-left: 1em;
             }
-            .pl-check-all {
-                margin-right: 0.5em;
+            .pl-radio {
+                margin-right: 5px;
+                color: $color-normal-content !important;
             }
         }
         .pl-tree-node-wrapper {
