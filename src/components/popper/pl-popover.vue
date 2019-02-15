@@ -142,7 +142,7 @@
                     this.$nextTick(() => {
                         this.currentValue = val
                         this.p_init()
-                        this.$nextTick(()=>this.update())
+                        this.$nextTick(() => this.update())
                     })
                 } else {
                     this.currentValue = val
@@ -181,11 +181,13 @@
                 window.addEventListener('click', this.p_clickWindow)
                 this.addRelateEl(this.$refs.reference)
                 this.addRelateEl(this.$refs.popper)
+                /*这个computeStyle中的gpuAcceleration药设置为false，不设置这个的话，在定位的时候使用的是transform：translateX进行定位，使用transform定位的时候，如果xy都是基数，则会出现字体的问题*/
                 this.popper = new Popper(this.$refs.reference, this.$refs.popper, {
                     placement: `${this.p_direction}-${this.p_align}`,
                     modifiers: {
                         offset: {offset: `0,${this.offset == null ? this.arrow ? 10 : '0' : this.offset}`,},
-                        preventOverflow: this.windowBoundary ? {boundariesElement: 'window'} : null
+                        preventOverflow: this.windowBoundary ? {boundariesElement: 'window'} : null,
+                        computeStyle: {gpuAcceleration: false},
                     },
                     onUpdate: () => this.p_refresh(),
                     onCreate: () => this.p_refresh(),
