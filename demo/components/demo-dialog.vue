@@ -37,6 +37,11 @@
             <link-button label="size" @click="$refs.sizeDialog.show()"/>
             <link-dialog ref="sizeDialog" width="500px" height="250px">width and height</link-dialog>
         </demo-row>
+        <demo-row title="设定最小宽度以及最小高度">
+            <link-button label="size" @click="$refs.minSizeDialog.show()"/>
+            <link-dialog ref="minSizeDialog" min-width="500px" min-height="250px">minWidth and minHeight</link-dialog>
+        </demo-row>
+
         <demo-row title="满屏">
             <link-button label="full" @click="$refs.fullDialog.show()"/>
             <link-dialog ref="fullDialog" full>full</link-dialog>
