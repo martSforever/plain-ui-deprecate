@@ -17,7 +17,8 @@
             <link-button @click="closeSpecific">关闭特定节点</link-button>
             <link-button @click="checkSpecific">选中特定节点</link-button>
             <link-button @click="uncheckSpecific">取消选中特定节点</link-button>
-            <link-button @click="getCheckSpecific">获取选中的节点</link-button>
+            <link-button @click="getCheckData">获取选中的节点（默认：格式化为一维数组结构数据）</link-button>
+            <link-button @click="getCheckDataToTree">获取选中的节点（格式化为树形结构数据）</link-button>
         </link-button-group>
     </div>
 </template>
@@ -70,8 +71,13 @@
             uncheckSpecific() {
                 this.$refs.tree.uncheck(this.cities[0])
             },
-            getCheckSpecific() {
-
+            getCheckData() {
+                const result = this.$refs.tree.getCheckData()
+                console.log(result)
+            },
+            getCheckDataToTree() {
+                const result = this.$refs.tree.getCheckData(false)
+                console.log(result)
             },
         }
     }

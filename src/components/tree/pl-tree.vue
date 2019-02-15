@@ -74,10 +74,14 @@
              *  @author     martsforever
              *  @datetime   2019/2/14 22:33
              */
-            getCheckData() {
-                const ret = []
-                if (!this.data || this.data.length === 0) return ret
-                this.data
+            getCheckData(formatArray = true) {
+                if (!this.data || this.data.length === 0) return []
+                if (formatArray) {
+                    return (this.data || []).reduce((ret, item) => {
+                        this.p_getCheckDataToArray(item, ret)
+                        return ret
+                    }, [])
+                } else return this.data.map(item => this.p_getCheckDataWithChildren(item)).filter(item => item != null)
             },
             /*
              *  找到数据的父级数据
@@ -111,11 +115,30 @@
                 }
                 return null
             },
-            p_getCheckDataWithChildren(data, ret) {
-                if (data[this.checkKey]) {
-
-                }
+            /*
+             *  递归获取被选中的节点数据
+             *  @author     martsforever
+             *  @datetime   2019/2/15 22:38
+             */
+            p_getCheckDataWithChildren(data) {
+                if (!data[this.checkKey]) return null
+                const childrenData = (data[this.childrenKey] || []).map(itemData => this.p_getCheckDataWithChildren(itemData)).filter(item => item != null)
+                return {data, childrenData}
             },
+            /*
+             *  获取被选中的节点数据，最后转化为一个一维的数组
+             *  @author     martsforever
+             *  @datetime   2019/2/15 22:41
+             */
+            p_getCheckDataToArray(data, array) {
+                if (!data[this.checkKey]) return
+                array.push(data)
+                if (!data[this.childrenKey] || data[this.childrenKey].length === 0) return
+                for (let i = 0; i < data[this.childrenKey].length; i++) {
+                    const itemData = data[this.childrenKey][i];
+                    this.p_getCheckDataToArray(itemData, array)
+                }
+            }
         }
     }
 </script>

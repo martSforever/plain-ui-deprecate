@@ -110,9 +110,8 @@
              */
             checkStatus() {
                 if (this.hasChild) {
-                    if (this.childrenData.every(data => data[this.checkKey])) this.p_setDataCheck(this.data, true)
-                    if (this.childrenData.some(data => data[this.checkKey])) this.p_setDataCheck(this.data, true)
-                    this.p_setDataCheck(this.data, false)
+                    if (this.childrenData.every(data => !data[this.checkKey])) this.p_setDataCheck(this.data, false)
+                    else this.p_setDataCheck(this.data, true)
                 }
                 return this.p_getStatusFromData(this.data)
             },
