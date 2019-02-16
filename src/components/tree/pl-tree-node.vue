@@ -1,6 +1,6 @@
 <template>
     <div class="pl-tree-node" :class="classes">
-        <div class="pl-tree-node-content">
+        <div class="pl-tree-node-content" :style="styles">
             <pl-radio active-icon="pl-square-minus-light" inactive-icon="pl-plus-square-light" :value="p_open" size="small" color="primary" @click.stop="toggle"/>
             <pl-check-all :label="null" size="small" :status="checkStatus" @click="p_clickCheck" v-if="checkbox"/>
             <div @click="!!toggleOnClickContent && toggle()">
@@ -17,6 +17,7 @@
                                   :label-key="labelKey"
                                   :children-key="childrenKey"
                                   :check-key="checkKey"
+                                  :width="width"
                                   :auto-close="autoClose"
                                   :empty-text="emptyText"
                                   :toggle-on-click-content="toggleOnClickContent"
@@ -233,6 +234,8 @@
             height: 28px;
             display: flex;
             align-items: center;
+            padding-left: 6px;
+            box-sizing: border-box;
             &:hover {
                 color: $color-primary;
             }

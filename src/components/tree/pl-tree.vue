@@ -1,38 +1,43 @@
 <template>
-    <div class="pl-tree">
-        <pl-tree-node v-for="(item,index) in data"
-                      ref="nodes"
-                      :key="index"
-                      :data="item"
-                      :label-key="labelKey"
-                      :children-key="childrenKey"
-                      :check-key="checkKey"
-                      :auto-close="autoClose"
-                      :empty-text="emptyText"
-                      :toggle-on-click-content="toggleOnClickContent"
-                      :initialized-after-open="initializedAfterOpen"
-                      :checkbox="checkbox"
-                      @open="val=>$emit('open',val)"
-                      @close="val=>$emit('close',val)"
-                      @click="val=>$emit('click',val)"
-                      @childToggle="p_childToggle">
-            <template slot-scope="{data:nodeData}">
-                <slot :data="nodeData">
-                    {{nodeData[labelKey]}}
-                </slot>
-            </template>
-        </pl-tree-node>
+    <div class="pl-tree" :style="styles">
+        <pl-scroll :scroll-x="scrollX" :scroll-y="true">
+            <pl-tree-node v-for="(item,index) in data"
+                          ref="nodes"
+                          :key="index"
+                          :data="item"
+                          :label-key="labelKey"
+                          :children-key="childrenKey"
+                          :check-key="checkKey"
+                          :width="width"
+                          :auto-close="autoClose"
+                          :empty-text="emptyText"
+                          :toggle-on-click-content="toggleOnClickContent"
+                          :initialized-after-open="initializedAfterOpen"
+                          :checkbox="checkbox"
+                          @open="val=>$emit('open',val)"
+                          @close="val=>$emit('close',val)"
+                          @click="val=>$emit('click',val)"
+                          @childToggle="p_childToggle">
+                <template slot-scope="{data:nodeData}">
+                    <slot :data="nodeData">
+                        {{nodeData[labelKey]}}
+                    </slot>
+                </template>
+            </pl-tree-node>
+        </pl-scroll>
     </div>
 </template>
 
 <script>
     import PlTreeNode from "./pl-tree-node";
     import {TreeMixin} from "./index";
+    import PlScroll from "../scroll/pl-scroll";
 
     export default {
         name: "pl-tree",
-        components: {PlTreeNode},
+        components: {PlScroll, PlTreeNode},
         mixins: [TreeMixin],
+
         methods: {
             /*
              *  打开树节点
@@ -152,8 +157,7 @@
 <style lang="scss">
     .pl-tree {
         @include public-style;
-        width: 100%;
         height: 100%;
-        cursor: pointer;
+        background-color: #f2f2f2;
     }
 </style>
