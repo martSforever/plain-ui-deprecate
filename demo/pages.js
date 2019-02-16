@@ -175,6 +175,11 @@ const pages = [
         title: 'Tree树形组件',
         icon: 'pl-tree',
     },
+    {
+        path: 'color-picker',
+        title: 'ColorPicker颜色选择',
+        icon: 'pl-color',
+    },
 ]
 
 export default pages.reduce((ret, page) => {
