@@ -15,7 +15,13 @@
                       @open="val=>$emit('open',val)"
                       @close="val=>$emit('close',val)"
                       @click="val=>$emit('click',val)"
-                      @childToggle="p_childToggle"/>
+                      @childToggle="p_childToggle">
+            <template slot-scope="{data:nodeData}">
+                <slot :data="nodeData">
+                    {{nodeData[labelKey]}}
+                </slot>
+            </template>
+        </pl-tree-node>
     </div>
 </template>
 

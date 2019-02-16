@@ -4,7 +4,7 @@
             <pl-radio active-icon="pl-square-minus-light" inactive-icon="pl-plus-square-light" :value="p_open" size="small" color="primary" @click.stop="toggle"/>
             <pl-check-all :label="null" size="small" :status="checkStatus" @click="p_clickCheck" v-if="checkbox"/>
             <div @click="!!toggleOnClickContent && toggle()">
-                {{data[labelKey]}}
+                <slot :data="data"></slot>
             </div>
         </div>
         <pl-collapse-transition v-if="p_initialized">
@@ -25,7 +25,11 @@
                                   @open="val=>$emit('open', val)"
                                   @close="val=>$emit('close',val)"
                                   @click="val=>$emit('click',val)"
-                                  @childToggle="p_childToggle"/>
+                                  @childToggle="p_childToggle">
+                        <template slot-scope="{data:nodeData}">
+                            <slot :data="nodeData"></slot>
+                        </template>
+                    </pl-tree-node>
                 </div>
                 <div v-else>
                     <div class="pl-tree-node-content pl-tree-node-empty-text">

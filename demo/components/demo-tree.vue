@@ -1,5 +1,13 @@
 <template>
     <div class="demo-tree">
+        <link-button-group>
+            <link-button @click="openSpecific">打开特定节点</link-button>
+            <link-button @click="closeSpecific">关闭特定节点</link-button>
+            <link-button @click="checkSpecific">选中特定节点</link-button>
+            <link-button @click="uncheckSpecific">取消选中特定节点</link-button>
+            <link-button @click="getCheckData">获取选中的节点（默认：格式化为一维数组结构数据）</link-button>
+            <link-button @click="getCheckDataToTree">获取选中的节点（格式化为树形结构数据）</link-button>
+        </link-button-group>
         <div class="demo-tree-wrapper">
             <link-tree :data="cities"
                        label-key="name"
@@ -10,16 +18,12 @@
                        :toggleOnClickContent="true"
                        checkbox
                        check-key="_check"
-                       ref="tree"/>
+                       ref="tree">
+                <template slot-scope="{data}">
+                    hello, {{data.name}}
+                </template>
+            </link-tree>
         </div>
-        <link-button-group>
-            <link-button @click="openSpecific">打开特定节点</link-button>
-            <link-button @click="closeSpecific">关闭特定节点</link-button>
-            <link-button @click="checkSpecific">选中特定节点</link-button>
-            <link-button @click="uncheckSpecific">取消选中特定节点</link-button>
-            <link-button @click="getCheckData">获取选中的节点（默认：格式化为一维数组结构数据）</link-button>
-            <link-button @click="getCheckDataToTree">获取选中的节点（格式化为树形结构数据）</link-button>
-        </link-button-group>
     </div>
 </template>
 
