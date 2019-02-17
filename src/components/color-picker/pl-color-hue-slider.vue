@@ -43,7 +43,10 @@
             mousedown(e) {
                 document.body.addEventListener('mousemove', this.mousemove)
                 document.body.addEventListener('mouseup', this.mouseup)
-                this.p_left = e.offsetX - this.p_thumbWidth / 2
+                if (e.target === this.$el) {
+                    this.p_left = e.offsetX - this.p_thumbWidth / 2
+                    this.emitValue()
+                }
                 this.$plain.$dom.enableSelectNone()
                 this.p_startX = e.clientX
                 this.p_tempLeft = this.p_left
