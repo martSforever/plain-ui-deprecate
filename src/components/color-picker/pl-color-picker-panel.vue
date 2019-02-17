@@ -12,7 +12,7 @@
         <pl-color-sv-picker :hue.sync="color.hue" :saturation.sync="color.saturation" :value.sync="color.value" @change="color.updateByHsv()"/>
         <pl-color-hue-slider v-model="color.hue" @change="color.updateByHsv()"/>
         <pl-color-opacity-slider :color="color.hex" v-model="color.alpha" v-if="color.enableAlpha" @change="color.updateByAlpha()"/>
-        <pl-color-history :current="color.color"/>
+        <pl-color-history :current="color.color" ref="history" @select="p_selectHistory"/>
         <div class="pl-color-picker-panel-operate">
             <pl-input :value="color._value" :width="195" @enter="p_enter" @clear="val=>color._value = null" keyboard/>
             <pl-button label="确认" @click="p_confirm"/>
@@ -54,10 +54,14 @@
             p_confirm() {
                 this.$message.show(this.color.color)
                 this.currentValue = this.color.color
+                this.$refs.history.save(this.color.color)
             },
             p_enter(e) {
                 const val = e.target.value
-                this.color.updateByString(val === '' ? null : val, false)
+                this.color.updateByString(val === '' ? null : val)
+            },
+            p_selectHistory(color) {
+                this.color.updateByString(color)
             },
         }
     }

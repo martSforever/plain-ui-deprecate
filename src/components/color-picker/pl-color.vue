@@ -1,5 +1,5 @@
 <template>
-    <div class="pl-color" :style="styles">
+    <div class="pl-color" :style="styles" @click="$emit('click',color)">
         <div class="pl-color-inner" :style="innerStyles"></div>
     </div>
 </template>
@@ -23,7 +23,7 @@
                 const styles = {
                     width: this.$plain.$utils.unit(this.length),
                     height: this.$plain.$utils.unit(this.length),
-                    backgroundImage:`url(${this.backgroundImage})`
+                    backgroundImage: `url(${this.backgroundImage})`
                 }
                 this.round && (styles.borderRadius = this.$plain.$utils.unit(this.length))
                 return styles

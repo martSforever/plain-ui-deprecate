@@ -18,7 +18,7 @@
         components: {PlColorPickerPanel},
         data() {
             return {
-                val:'#ff0000'
+                val:'rgba(161,40,79,0.87)'
             }
         },
         mounted() {

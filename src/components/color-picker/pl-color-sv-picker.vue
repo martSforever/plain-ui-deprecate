@@ -95,7 +95,6 @@
     .pl-color-sv-picker {
         width: 100%;
         position: relative;
-        overflow: hidden;
         .pl-color-sv-picker-layer {
             position: absolute;
             top: 0;

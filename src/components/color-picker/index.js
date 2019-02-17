@@ -148,7 +148,7 @@ class Color {
         this.updateByString(value, true, enableAlpha)
     }
 
-    updateByString(value, needInitializedEnableAlpha, enableAlpha) {
+    updateByString(value, needInitializedEnableAlpha = false, enableAlpha) {
 
         this._value = value
 
