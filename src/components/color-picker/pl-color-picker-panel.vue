@@ -4,12 +4,18 @@
             <div>hue:{{color.hue}}</div>
             <div>saturation:{{color.saturation}}</div>
             <div>value:{{color.value}}</div>
-            <div>opacity:{{color.opacity}}</div>
+            <div>alpha:{{color.alpha}}</div>
+            <div>hex:{{color.hex}}</div>
+            <div>color:{{color.color}}</div>
         </div>
-        <pl-color-sv-picker :hue.sync="color.hue" :saturation.sync="color.saturation" :value.sync="color.value"/>
-        <pl-color-hue-slider v-model="color.hue"/>
-        <pl-color-opacity-slider :color="simpleColor" v-model="color.opacity"/>
-        <pl-color-history :current="simpleColor"/>
+        <pl-color-sv-picker :hue.sync="color.hue" :saturation.sync="color.saturation" :value.sync="color.value" @change="color.updateByHsv()"/>
+        <pl-color-hue-slider v-model="color.hue" @change="color.updateByHsv()"/>
+        <pl-color-opacity-slider :color="color.color" v-model="color.alpha" v-if="color.enableAlpha"/>
+        <pl-color-history :current="color.color"/>
+        <div class="pl-color-picker-panel-operate">
+            <pl-input :value="color.color" :width="195"/>
+            <pl-button label="确认"/>
+        </div>
     </div>
 </template>
 
@@ -17,36 +23,25 @@
     import PlColorHueSlider from "./pl-color-hue-slider";
     import PlColorSvPicker from "./pl-color-sv-picker";
     import PlColorHistory from "./pl-color-history";
-    import {hsv2rgb} from "./index";
+    import {Color} from "./index";
     import PlColorOpacitySlider from "./pl-color-opacity-slider";
+    import PlInput from "../input/pl-input";
+    import PlButton from "../button/pl-button";
+    import PlButtonGroup from "../button/pl-button-group";
 
     export default {
         name: "pl-color-picker-panel",
-        components: {PlColorOpacitySlider, PlColorHistory, PlColorSvPicker, PlColorHueSlider},
+        components: {PlButtonGroup, PlButton, PlInput, PlColorOpacitySlider, PlColorHistory, PlColorSvPicker, PlColorHueSlider},
         props: {
             value: {type: String,},
+            enableAlpha: {},
         },
         data() {
+            const color = new Color(this.value || '#0000FFAA', this.enableAlpha)
             return {
-                color: {
-                    hue: 100,
-                    saturation: 50,
-                    value: 50,
-                    opacity: 50,
-                }
+                color,
             }
         },
-        computed: {
-            currentRgb() {
-                return hsv2rgb(this.color.hue, this.color.saturation, this.color.value)
-            },
-            simpleColor() {
-                return `rgb(${this.currentRgb.r},${this.currentRgb.g},${this.currentRgb.b})`
-            },
-        },
-        methods: {
-            hsv2rgb,
-        }
     }
 </script>
 
@@ -58,6 +53,15 @@
         width: 250px;
         & > *:not(last-child) {
             margin-bottom: 6px;
+        }
+        .pl-color-picker-panel-operate {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .pl-button {
+                min-width: initial;
+                padding: 0 12px;
+            }
         }
     }
 </style>

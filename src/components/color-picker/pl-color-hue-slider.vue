@@ -63,6 +63,7 @@
             },
             emitValue() {
                 this.$emit('input', (this.p_left / this.p_dragWidth * 360).toFixed(0) - 0)
+                this.$emit('change')
             },
         }
     }

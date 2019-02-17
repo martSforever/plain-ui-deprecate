@@ -8,6 +8,7 @@
             :prefix-icon="prefixIcon"
             :suffix-icon="suffixIcon"
             :clear-icon="clearIcon"
+            :clearable="clearable"
             :loading="loading"
             :icon-only="iconOnly"
             :readonly="readonly"

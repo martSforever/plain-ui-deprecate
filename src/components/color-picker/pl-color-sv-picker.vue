@@ -77,6 +77,7 @@
                 this.p_value = Math.max(0, Math.min(100, this.p_value))
                 this.$emit('update:saturation', this.p_saturation)
                 this.$emit('update:value', 100 - this.p_value)
+                this.$emit('change')
             },
         }
     }
