@@ -63,6 +63,7 @@
             return {
                 p_timer: null,
                 isFocus: false,
+                p_watchCurrentValue: false,
             }
         },
         methods: {
@@ -73,6 +74,7 @@
             p_input({target: {value}}) {
                 this.currentValue = value
                 !!this.replaceRegexp && this.p_replaceRegexp(value)
+                this.$emit('input', value)
             },
             p_focus(e) {
                 this.isFocus = true
