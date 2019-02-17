@@ -1,13 +1,13 @@
 <template>
-    <div class="pl-hue-slider">
-        <div class="pl-hue-slider-thumb" :style="thumbStyles" @mousedown="mousedown" ref="thumb"></div>
+    <div class="pl-color-hue-slider">
+        <div class="pl-color-hue-slider-thumb" :style="thumbStyles" @mousedown="mousedown" ref="thumb"></div>
     </div>
 </template>
 
 <script>
 
     export default {
-        name: "pl-hue-slider",
+        name: "pl-color-hue-slider",
         props: {
             value: {type: Number, default: 0},
         },
@@ -63,13 +63,13 @@
 </script>
 
 <style lang="scss">
-    .pl-hue-slider {
+    .pl-color-hue-slider {
         background: linear-gradient(90deg, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red);
         width: 100%;
         height: 10px;
         position: relative;
         cursor: pointer;
-        .pl-hue-slider-thumb {
+        .pl-color-hue-slider-thumb {
             display: inline-block;
             height: 100%;
             width: 8px;

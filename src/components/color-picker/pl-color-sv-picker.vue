@@ -1,12 +1,12 @@
 <template>
-    <div class="pl-opacity-slider">
-        pl-opacity-slider
+    <div class="pl-color-sv-picker">
+        pl-color-sv-picker
     </div>
 </template>
 
 <script>
     export default {
-        name: "pl-opacity-slider"
+        name: "pl-color-sv-picker"
     }
 </script>
 
