@@ -23,7 +23,7 @@
         data() {
             return {
                 p_saturation: this.saturation,
-                p_value: this.value,
+                p_value: 100 - (this.value || 0),
                 p_length: null,
                 p_startX: null,
                 p_startY: null,

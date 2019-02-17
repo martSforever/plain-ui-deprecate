@@ -7,7 +7,8 @@
         </div>
         <pl-color-sv-picker :hue.sync="color.hue" :saturation.sync="color.saturation" :value.sync="color.value"/>
         <pl-color-hue-slider v-model="color.hue"/>
-        <pl-color-history :current="`rgb(${currentRgb.r},${currentRgb.g},${currentRgb.b})`"/>
+        <pl-color-opacity-slider :color="simpleColor"/>
+        <pl-color-history :current="simpleColor"/>
     </div>
 </template>
 
@@ -16,10 +17,11 @@
     import PlColorSvPicker from "./pl-color-sv-picker";
     import PlColorHistory from "./pl-color-history";
     import {hsv2rgb} from "./index";
+    import PlColorOpacitySlider from "./pl-color-opacity-slider";
 
     export default {
         name: "pl-color-picker-panel",
-        components: {PlColorHistory, PlColorSvPicker, PlColorHueSlider},
+        components: {PlColorOpacitySlider, PlColorHistory, PlColorSvPicker, PlColorHueSlider},
         props: {
             value: {type: String,},
         },
@@ -27,14 +29,17 @@
             return {
                 color: {
                     hue: 100,
-                    saturation: 0,
-                    value: 0,
+                    saturation: 50,
+                    value: 50,
                 }
             }
         },
         computed: {
             currentRgb() {
                 return hsv2rgb(this.color.hue, this.color.saturation, this.color.value)
+            },
+            simpleColor() {
+                return `rgb(${this.currentRgb.r},${this.currentRgb.g},${this.currentRgb.b})`
             },
         },
         methods: {
