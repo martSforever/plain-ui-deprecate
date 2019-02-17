@@ -1,13 +1,13 @@
 <template>
-    <div class="pl-color-opacity-slider" :style="styles" @mousedown="mousedown">
-        <div class="pl-color-opacity-slider-shadow" :style="shadowStyles"></div>
-        <div class="pl-color-opacity-slider-thumb" :style="thumbStyles" ref="thumb"></div>
+    <div class="pl-color-alpha-slider" :style="styles" @mousedown="mousedown">
+        <div class="pl-color-alpha-slider-shadow" :style="shadowStyles"></div>
+        <div class="pl-color-alpha-slider-thumb" :style="thumbStyles" ref="thumb"></div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "pl-color-opacity-slider",
+        name: "pl-color-alpha-slider",
         props: {
             color: {},
             value: {type: Number, default: 0},
@@ -82,16 +82,16 @@
 </script>
 
 <style lang="scss">
-    .pl-color-opacity-slider {
+    .pl-color-alpha-slider {
         width: 100%;
         height: 10px;
         position: relative;
         cursor: pointer;
         background-size: 10px 10px;
-        .pl-color-opacity-slider-shadow {
+        .pl-color-alpha-slider-shadow {
             height: 100%;
         }
-        .pl-color-opacity-slider-thumb {
+        .pl-color-alpha-slider-thumb {
             display: inline-block;
             height: 100%;
             width: 8px;

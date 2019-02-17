@@ -3,6 +3,7 @@
         <demo-row>
             <!-- :enable-alpha="true" -->
             <pl-color-picker-panel v-model="val" enable-alpha/>
+            <pl-color-picker-panel v-model="val" />
             <!--<pl-color-picker-panel v-model="val" enable-alpha/>-->
         </demo-row>
     </div>
@@ -11,8 +12,6 @@
 <script>
 
     import PlColorPickerPanel from "../../src/components/color-picker/pl-color-picker-panel";
-
-
     export default {
         name: "demo-color-picker",
         components: {PlColorPickerPanel},
