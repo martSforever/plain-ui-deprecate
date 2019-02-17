@@ -7,13 +7,14 @@
             <div>alpha:{{color.alpha}}</div>
             <div>hex:{{color.hex}}</div>
             <div>color:{{color.color}}</div>
+            <div>_value:{{color._value}}</div>
         </div>
         <pl-color-sv-picker :hue.sync="color.hue" :saturation.sync="color.saturation" :value.sync="color.value" @change="color.updateByHsv()"/>
         <pl-color-hue-slider v-model="color.hue" @change="color.updateByHsv()"/>
         <pl-color-opacity-slider :color="color.color" v-model="color.alpha" v-if="color.enableAlpha"/>
         <pl-color-history :current="color.color"/>
         <div class="pl-color-picker-panel-operate">
-            <pl-input :value="color.color" :width="195"/>
+            <pl-input :value="color._value" :width="195" @input="val=>color.updateByString(val,false)"/>
             <pl-button label="确认"/>
         </div>
     </div>
@@ -34,10 +35,11 @@
         components: {PlButtonGroup, PlButton, PlInput, PlColorOpacitySlider, PlColorHistory, PlColorSvPicker, PlColorHueSlider},
         props: {
             value: {type: String,},
-            enableAlpha: {},
+            enableAlpha: {type: Boolean,},
+            format: {type: String, default: 'hex'},
         },
         data() {
-            const color = new Color(this.value || '#0000FFAA', this.enableAlpha)
+            const color = new Color(this.value, this.enableAlpha, this.format)
             return {
                 color,
             }

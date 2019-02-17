@@ -124,24 +124,45 @@ class Color {
     alpha;                  //透明度
     hex;                    //十六进制颜色值
     enableAlpha;            //是否启用透明度设置
+    format = 'hex';         //结果格式化方式，hex为16进制格式，rgb为rgb格式
+    _value;
 
     get color() {
-        return this.enableAlpha ? `rgba(${this.red},${this.green},${this.blue},${(this.alpha / 100).toFixed(2)})` : this.hex
+        /*如果是带透明度的，强制使用rgb格式*/
+        return this.enableAlpha || this.format === 'rgb' ? this.rgbColor : this.hex
     }
 
-    constructor(value, enableAlpha) {
+    get rgbColor() {
+        return `rgb${this.enableAlpha ? 'a' : ''}(${this.red},${this.green},${this.blue}${this.enableAlpha ? ',' + (this.alpha / 100).toFixed(2) : ''})`
+    }
+
+    constructor(value, enableAlpha, format) {
+        format != null && (this.format = format)
         /*如果开发者指定启用|禁用透明度，则使用开发者的设置，否则根据初始化的值自动判断是否需要透明度*/
         if (enableAlpha != null) this.enableAlpha = enableAlpha
+        this.updateByString(value, true, enableAlpha)
+    }
+
+    updateByString(value, needInitializedEnableAlpha, enableAlpha) {
+
+        this._value = value
+
+        if (value == null || value === '') {
+            this.hue = 0
+            this.saturation = 0
+            this.value = 100
+            return
+        }
 
         /*如果输入值是rgb格式*/
         if (value.indexOf('rgb') !== -1) {
             const parts = value.replace(/rgba|rgb|\(|\)/gm, '').split(/\s|,/g).filter((val) => val !== '').map((val, index) => index > 2 ? parseFloat(val) : parseInt(val, 10));
             if (parts.length === 4) {
                 this.alpha = Math.floor(parseFloat(`${parts[3]}`) * 100);
-                this.enableAlpha == null && (this.enableAlpha = true)
+                needInitializedEnableAlpha && (enableAlpha == null) && (this.enableAlpha = true)
             } else if (parts.length === 3) {
                 this.alpha = 100;
-                this.enableAlpha == null && (this.enableAlpha = false)
+                needInitializedEnableAlpha && (enableAlpha == null) && (this.enableAlpha = false)
             }
             if (parts.length >= 3) {
                 this.setRgb(parts[0], parts[1], parts[2])
@@ -154,10 +175,10 @@ class Color {
             const hex = value.replace('#', '').trim();
             if (hex.length === 8) {
                 this.alpha = Math.floor(parseHexChannel(hex.substring(6)) / 255 * 100);
-                this.enableAlpha == null && (this.enableAlpha = true)
+                needInitializedEnableAlpha && (enableAlpha == null) && (this.enableAlpha = true)
             } else if (hex.length === 3 || hex.length === 6) {
                 this.alpha = 100;
-                this.enableAlpha == null && (this.enableAlpha = false)
+                needInitializedEnableAlpha && (enableAlpha == null) && (this.enableAlpha = false)
             }
             this.setHex(value)
         }
@@ -181,6 +202,8 @@ class Color {
 
         /*设置hex*/
         this.hex = rgb2hex(r, g, b)
+
+        this._value = this.color
     }
 
     /*
@@ -222,6 +245,8 @@ class Color {
         this.hue = h
         this.saturation = s
         this.value = v
+
+        this._value = this.color
     }
 
     /*
@@ -239,7 +264,6 @@ class Color {
      *  @datetime   2019/2/17 19:14
      */
     setHsv(hue, saturation, value) {
-
         this.hue = hue
         this.saturation = saturation
         this.value = value
@@ -252,6 +276,8 @@ class Color {
 
         /*设置hex*/
         this.hex = rgb2hex(r, g, b)
+
+        this._value = this.color
     }
 
     /*
@@ -261,10 +287,6 @@ class Color {
      */
     updateByHsv() {
         this.setHsv(this.hue, this.saturation, this.value)
-    }
-
-    updateByAlpha() {
-
     }
 }
 

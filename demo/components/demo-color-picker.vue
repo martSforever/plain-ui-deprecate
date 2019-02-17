@@ -1,7 +1,8 @@
 <template>
     <div class="demo-color-picker">
         <demo-row>
-            <pl-color-picker-panel/>
+            <!-- :enable-alpha="true" -->
+            <pl-color-picker-panel v-model="val"/>
         </demo-row>
     </div>
 </template>
@@ -11,12 +12,12 @@
     import PlColorPickerPanel from "../../src/components/color-picker/pl-color-picker-panel";
 
 
-
     export default {
         name: "demo-color-picker",
         components: {PlColorPickerPanel},
         data() {
             return {
+                val:'#ff0000'
             }
         },
         mounted() {

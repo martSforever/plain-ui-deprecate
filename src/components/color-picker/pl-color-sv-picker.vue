@@ -20,6 +20,14 @@
             saturation: {type: Number},
             value: {type: Number},
         },
+        watch: {
+            saturation(val) {
+                if (this.p_saturation !== val) this.p_saturation = val
+            },
+            value(val) {
+                if (this.p_value !== 100 - val) this.p_value = (100 - val)
+            },
+        },
         data() {
             return {
                 p_saturation: this.saturation,
