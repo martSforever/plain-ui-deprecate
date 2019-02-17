@@ -1,32 +1,21 @@
 <template>
     <div class="pl-color-picker-panel">
-        <div>
-            hue:{{hue}}
-        </div>
-        <div style="width: 250px;height: 250px" :style="hsvStyle"></div>
+        <pl-color-sv-picker :hue.sync="hue"/>
         <pl-color-hue-slider v-model="hue"/>
     </div>
 </template>
 
 <script>
-    import {hsv2rgb} from "./index";
     import PlColorHueSlider from "./pl-color-hue-slider";
+    import PlColorSvPicker from "./pl-color-sv-picker";
 
     export default {
         name: "pl-color-picker-panel",
-        components: {PlColorHueSlider},
+        components: {PlColorSvPicker, PlColorHueSlider},
         data() {
             return {
                 hue: 100,
             }
-        },
-        computed: {
-            hsvStyle() {
-                const color = hsv2rgb(this.hue, 100, 100)
-                return {
-                    backgroundColor: `rgb(${color.r},${color.g},${color.b})`
-                }
-            },
         },
     }
 </script>

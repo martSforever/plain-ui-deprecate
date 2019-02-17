@@ -1,6 +1,6 @@
 <template>
-    <div class="pl-color-hue-slider">
-        <div class="pl-color-hue-slider-thumb" :style="thumbStyles" @mousedown="mousedown" ref="thumb"></div>
+    <div class="pl-color-hue-slider" @mousedown="mousedown">
+        <div class="pl-color-hue-slider-thumb" :style="thumbStyles" ref="thumb"></div>
     </div>
 </template>
 
@@ -16,6 +16,7 @@
                 p_left: 0,
                 p_tempLeft: 0,
                 p_dragWidth: null,
+                p_thumbWidth: null,
                 P_startX: null,
             }
         },
@@ -29,6 +30,7 @@
         },
         mounted() {
             this.p_dragWidth = this.$el.offsetWidth - this.$refs.thumb.offsetWidth
+            this.p_thumbWidth = this.$refs.thumb.offsetWidth
         },
         computed: {
             thumbStyles() {
@@ -41,6 +43,7 @@
             mousedown(e) {
                 document.body.addEventListener('mousemove', this.mousemove)
                 document.body.addEventListener('mouseup', this.mouseup)
+                this.p_left = e.offsetX - this.p_thumbWidth / 2
                 this.$plain.$dom.enableSelectNone()
                 this.p_startX = e.clientX
                 this.p_tempLeft = this.p_left
