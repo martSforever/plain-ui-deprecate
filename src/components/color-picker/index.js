@@ -128,6 +128,11 @@ class Color {
     _value;
 
     get color() {
+        if (this._value == null) return null
+        return this.currentColor
+    }
+
+    get currentColor() {
         /*如果是带透明度的，强制使用rgb格式*/
         return this.enableAlpha || this.format === 'rgb' ? this.rgbColor : this.hex
     }
@@ -147,7 +152,7 @@ class Color {
 
         this._value = value
 
-        if (value == null || value === '') {
+        if (value == null) {
             this.hue = 0
             this.saturation = 0
             this.value = 100
@@ -203,7 +208,7 @@ class Color {
         /*设置hex*/
         this.hex = rgb2hex(r, g, b)
 
-        this._value = this.color
+        this._value = this.currentColor
     }
 
     /*
@@ -246,7 +251,7 @@ class Color {
         this.saturation = s
         this.value = v
 
-        this._value = this.color
+        this._value = this.currentColor
     }
 
     /*
@@ -277,7 +282,7 @@ class Color {
         /*设置hex*/
         this.hex = rgb2hex(r, g, b)
 
-        this._value = this.color
+        this._value = this.currentColor
     }
 
     /*
@@ -287,6 +292,10 @@ class Color {
      */
     updateByHsv() {
         this.setHsv(this.hue, this.saturation, this.value)
+    }
+
+    updateByAlpha() {
+        this._value = this.currentColor
     }
 }
 

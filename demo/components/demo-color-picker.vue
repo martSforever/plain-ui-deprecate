@@ -2,7 +2,8 @@
     <div class="demo-color-picker">
         <demo-row>
             <!-- :enable-alpha="true" -->
-            <pl-color-picker-panel v-model="val"/>
+            <pl-color-picker-panel v-model="val" enable-alpha/>
+            <pl-color-picker-panel v-model="val" enable-alpha/>
         </demo-row>
     </div>
 </template>

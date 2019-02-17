@@ -55,7 +55,7 @@
             mousedown(e) {
                 document.body.addEventListener('mousemove', this.mousemove)
                 document.body.addEventListener('mouseup', this.mouseup)
-                if (e.target === this.$el) {
+                if (e.target !== this.$refs.thumb) {
                     this.p_left = e.offsetX - this.p_thumbWidth / 2
                     this.emitValue()
                 }
@@ -75,6 +75,7 @@
             },
             emitValue() {
                 this.$emit('input', (this.p_left / this.p_dragWidth * 100).toFixed(0) - 0)
+                this.$emit('change')
             },
         }
     }

@@ -22,7 +22,7 @@
             :rules="rules"
             :valid-on-init="validOnInit"
             @clear="p_clear"
-            @enter="()=>{$emit('enter');!!this.focusOnHover && this.$refs.input.focus()}"
+            @enter="()=>{$emit('enter-box');!!this.focusOnHover && this.$refs.input.focus()}"
     >
         <slot name="prepend"></slot>
         <input ref="input"
@@ -101,7 +101,7 @@
         },
         mounted() {
             if (!!this.keyboard) {
-                this.$refs.input._keydown = e => keyMap[event.keyCode] != null && this.$emit(keyMap[event.keyCode])
+                this.$refs.input._keydown = e => keyMap[event.keyCode] != null && this.$emit(keyMap[event.keyCode], e)
                 this.$refs.input.addEventListener('keydown', this.$refs.input._keydown)
             }
         },
