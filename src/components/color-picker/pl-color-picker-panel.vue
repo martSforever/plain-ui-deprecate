@@ -4,10 +4,11 @@
             <div>hue:{{color.hue}}</div>
             <div>saturation:{{color.saturation}}</div>
             <div>value:{{color.value}}</div>
+            <div>opacity:{{color.opacity}}</div>
         </div>
         <pl-color-sv-picker :hue.sync="color.hue" :saturation.sync="color.saturation" :value.sync="color.value"/>
         <pl-color-hue-slider v-model="color.hue"/>
-        <pl-color-opacity-slider :color="simpleColor"/>
+        <pl-color-opacity-slider :color="simpleColor" v-model="color.opacity"/>
         <pl-color-history :current="simpleColor"/>
     </div>
 </template>
@@ -31,6 +32,7 @@
                     hue: 100,
                     saturation: 50,
                     value: 50,
+                    opacity: 50,
                 }
             }
         },

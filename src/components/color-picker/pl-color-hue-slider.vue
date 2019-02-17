@@ -17,7 +17,7 @@
                 p_tempLeft: 0,
                 p_dragWidth: null,
                 p_thumbWidth: null,
-                P_startX: null,
+                p_startX: null,
             }
         },
         watch: {
