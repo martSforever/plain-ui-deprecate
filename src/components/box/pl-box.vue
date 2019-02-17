@@ -9,7 +9,7 @@
         </div>
         <pl-icon v-if="!!suffixIcon" :icon="suffixIcon" class="pl-box-suffix-icon"/>
         <pl-icon v-if="!!clearIcon" :icon="clearable&&hovering&&value!=null ?'pl-close':clearIcon" @click.stop.prevent="e=>clearable && $emit('clear',e)" class="pl-box-clear-icon"/>
-        <div class="pl-box-tooltip" v-show="!!passValidMsg && passValidMsg!=='必填'">
+        <div class="pl-box-tooltip" v-if="!!passValidMsg && passValidMsg!=='必填'">
             <span>{{passValidMsg}}</span>
         </div>
     </div>

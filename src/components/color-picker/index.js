@@ -42,8 +42,9 @@ const rgb2hsv = function (r, g, b) {
         }
         h /= 6;
     }
-
-    return {h: h * 360, s: s * 100, v: v * 100};
+    const ret = {h: h * 360, s: s * 100, v: v * 100}
+    Object.keys(ret).forEach(key => ret[key] = ret[key].toFixed(0) - 0)
+    return ret;
 };
 
 /*转化16进制*/

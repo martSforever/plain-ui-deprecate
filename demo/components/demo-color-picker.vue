@@ -3,7 +3,7 @@
         <demo-row>
             <!-- :enable-alpha="true" -->
             <pl-color-picker-panel v-model="val" enable-alpha/>
-            <pl-color-picker-panel v-model="val" enable-alpha/>
+            <!--<pl-color-picker-panel v-model="val" enable-alpha/>-->
         </demo-row>
     </div>
 </template>
@@ -28,17 +28,13 @@
 
 <style lang="scss">
     .demo-color-picker {
-
         .box {
             width: 300px;
             height: 30px;
         }
-
         .hue {
-
             background: linear-gradient(90deg, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red);
         }
-
         .hsl {
             background-color: hsl(360, 100%, 40%);
         }

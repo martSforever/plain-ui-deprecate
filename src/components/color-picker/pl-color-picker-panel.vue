@@ -14,8 +14,8 @@
         <pl-color-opacity-slider :color="color.hex" v-model="color.alpha" v-if="color.enableAlpha" @change="color.updateByAlpha()"/>
         <pl-color-history :current="color.color" ref="history" @select="p_selectHistory"/>
         <div class="pl-color-picker-panel-operate">
-            <pl-input :value="color._value" :width="195" @enter="p_enter" @clear="val=>color._value = null" keyboard/>
-            <pl-button label="确认" @click="p_confirm"/>
+            <pl-input :value="color._value" :width="210" @enter="p_enter" @clear="val=>color._value = null" keyboard box-shape="round"/>
+            <pl-button icon-only suffix-icon="pl-check" @click="p_confirm"/>
         </div>
     </div>
 </template>
@@ -80,10 +80,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            .pl-button {
-                min-width: initial;
-                padding: 0 12px;
-            }
         }
     }
 </style>
