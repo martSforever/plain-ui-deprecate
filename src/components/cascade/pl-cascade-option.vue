@@ -7,7 +7,7 @@
                  :class="p_itemClass(item)"
                  @click="p_click(item)">
                 <span class="pl-cascade-option-item-label">{{item[labelKey]}}</span>
-                <pl-icon icon="pl-arrow-right" v-if="p_hasChildren(item)"/>
+                <pl-icon class="pl-cascade-option-item-icon" icon="pl-arrow-right-light" v-if="p_hasChildren(item)"/>
             </div>
         </pl-scroll>
     </div>
@@ -66,6 +66,10 @@
             font-size: 12px;
             padding: 0 6px;
             cursor: pointer;
+            .pl-cascade-option-item-icon {
+                transform: scale(0.9);
+                color: #AAA;
+            }
             &:hover, &.pl-cascade-option-item-active {
                 background-color: $color-primary-light;
             }
