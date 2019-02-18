@@ -1,7 +1,7 @@
 <template>
     <div class="pl-color-history">
         <pl-color class="pl-color-history-item pl-color-history-current" :color="current" :length="30"/>
-        <pl-color class="pl-color-history-item" v-for="color in p_colors" :color="color" @click="p_clickItem(color)"/>
+        <pl-color class="pl-color-history-item" v-for="(color,index) in p_colors" :key="index" :color="color" @click="p_clickItem(color)"/>
     </div>
 </template>
 

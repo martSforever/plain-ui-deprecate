@@ -103,10 +103,10 @@
             bottom: 0;
         }
         .pl-color-sv-picker-white {
-            background: linear-gradient(to right, white, #ffffff00);
+            background: linear-gradient(to right, white, rgba(255,255,255,0));
         }
         .pl-color-sv-picker-black {
-            background: linear-gradient(to top, black, #ffffff00);
+            background: linear-gradient(to top, black, rgba(255,255,255,0));
         }
         .pl-color-sv-picker-thumb-panel {
             background: transparent;

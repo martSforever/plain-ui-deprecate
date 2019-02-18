@@ -42,7 +42,7 @@
             },
             shadowStyles() {
                 return {
-                    background: `linear-gradient(to left, ${this.color}, #ffffff00)`,
+                    background: `linear-gradient(to left, ${this.color}, rgba(255,255,255,0))`,
                 }
             },
             thumbStyles() {
