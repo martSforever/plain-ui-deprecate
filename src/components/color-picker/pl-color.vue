@@ -43,6 +43,7 @@
     .pl-color {
         overflow: hidden;
         background-size: 10px;
+        cursor: pointer;
         .pl-color-inner {
             height: 100%;
             width: 100%;
