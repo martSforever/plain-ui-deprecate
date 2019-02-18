@@ -24,6 +24,7 @@
         </demo-row>
         <demo-row title="支持设置盒子样式">
             <link-color-picker v-model="hexVal" box-shape="round"/>
+            <link-color-picker v-model="hexVal" box-shape="round" box-type="fill" box-color="primary"/>
         </demo-row>
     </div>
 </template>
