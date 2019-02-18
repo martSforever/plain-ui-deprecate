@@ -142,11 +142,17 @@
                     this.$nextTick(() => {
                         this.currentValue = val
                         this.p_init()
-                        this.$nextTick(() => this.update())
+                        this.$nextTick(() => {
+                            this.update()
+                            this.$emit('show')
+                        })
                     })
                 } else {
                     this.currentValue = val
-                    this.$nextTick(() => this.popper.update())
+                    this.$nextTick(() => {
+                        this.popper.update()
+                        this.$emit('show')
+                    })
                 }
             },
             hide() {
@@ -154,6 +160,7 @@
                     this.currentValue = false
                     clearTimeout(this.p_timer)
                     this.p_timer = null
+                    this.$emit('hide')
                 }, 100)
             },
             addRelateEl(el) {

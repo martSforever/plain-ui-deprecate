@@ -4,7 +4,7 @@
             <div class="pl-cascade-option-item"
                  v-for="(item,index) in data"
                  :key="index"
-                 :class="{'pl-cascade-option-item-active':p_isSelected(item)}"
+                 :class="p_itemClass(item)"
                  @click="p_click(item)">
                 <span class="pl-cascade-option-item-label">{{item[labelKey]}}</span>
                 <pl-icon icon="pl-arrow-right" v-if="p_hasChildren(item)"/>
@@ -25,12 +25,15 @@
             labelKey: {type: String},
             childrenKey: {type: String},
             valueKey: {type: String, required: true},
+            disabledKey: {type: String},
             cascadeWidth: {type: Number},
             current: {required: true},
         },
         methods: {
             p_click(itemData) {
+                if (!!this.disabledKey && !!itemData[this.disabledKey]) return
                 this.$emit('select', itemData)
+                if (!this.p_hasChildren(itemData)) this.$emit('done', itemData)
             },
             p_hasChildren(item) {
                 return item[this.childrenKey] && item[this.childrenKey].length > 0
@@ -38,6 +41,12 @@
             p_isSelected(item) {
                 if (!this.current) return false
                 return item[this.valueKey] === this.current[this.valueKey]
+            },
+            p_itemClass(item) {
+                return {
+                    'pl-cascade-option-item-active': this.p_isSelected(item),
+                    'pl-cascade-option-item-disabled': !!this.disabledKey && item[this.disabledKey]
+                }
             },
         },
 
@@ -59,6 +68,10 @@
             cursor: pointer;
             &:hover, &.pl-cascade-option-item-active {
                 background-color: $color-primary-light;
+            }
+            &.pl-cascade-option-item-disabled {
+                background-color: $color-normal-disabled;
+                color: #AAA;
             }
         }
     }

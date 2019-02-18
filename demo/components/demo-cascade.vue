@@ -1,7 +1,16 @@
 <template>
     <div class="demo-cascade">
-        <demo-row>
+        <demo-row title="基本用法">
             <link-cascade :data="cascadeData" label-key="label" children-key="children" value-key="value"/>
+        </demo-row>
+        <demo-row title="只显示最后一级数据">
+            <link-cascade :data="cascadeData" label-key="label" children-key="children" value-key="value" :show-all-levels="false"/>
+        </demo-row>
+        <demo-row title="禁用选项">
+            <link-cascade :data="cascadeData" label-key="label" children-key="children" value-key="value" disabled-key="disabled"/>
+        </demo-row>
+        <demo-row title="选中的时候就改变数据，而不是选择最后一级数据的时候才改变数据">
+            <link-cascade :data="cascadeData" label-key="label" children-key="children" value-key="value" changeOnSelect/>
         </demo-row>
     </div>
 </template>
@@ -17,6 +26,7 @@
                     children: [
                         {
                             value: 'gugong',
+                            disabled: true,
                             label: '故宫'
                         },
                         {
