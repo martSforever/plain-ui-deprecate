@@ -46,7 +46,7 @@
                             {name: 'InputNumber数字输入', icon: 'pl-number', page: 'number', complete: true},
                             {name: 'Loading加载', icon: 'pl-loading', page: 'loading', complete: true},
                             {name: 'Select下拉选择', icon: 'pl-arrow-down', page: 'select', complete: true},
-                            {name: 'Cascade级联选择', icon: 'pl-cascade', page: 'icon', complete: false},
+                            {name: 'Cascade级联选择', icon: 'pl-cascade', page: 'cascade', complete: true},
                             {name: 'Toggle开关切换', icon: 'pl-toggle', page: 'toggle', complete: true},
                             {name: 'Slider滑块', icon: 'pl-sliders', page: 'slider', complete: true},
                             {name: 'TimePicker时间选择', icon: 'pl-time', page: 'icon', complete: false},

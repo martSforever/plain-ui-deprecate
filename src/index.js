@@ -50,6 +50,7 @@ import progress from './components/progress/pl-progress'
 import pageBar from './components/page-bar/pl-page-bar'
 import tree from './components/tree/pl-tree'
 import colorPicker from './components/color-picker/pl-color-picker'
+import cascade from './components/cascade/pl-cascade'
 
 const components = {
     icon,
@@ -90,6 +91,7 @@ const components = {
     pageBar,
     tree,
     colorPicker,
+    cascade,
 
     ...ColumnComponents,
 }

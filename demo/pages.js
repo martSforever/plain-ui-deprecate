@@ -180,6 +180,11 @@ const pages = [
         title: 'ColorPicker颜色选择',
         icon: 'pl-color',
     },
+    {
+        path: 'cascade',
+        title: 'Cascade级联选择',
+        icon: 'pl-cascade',
+    },
 ]
 
 export default pages.reduce((ret, page) => {
