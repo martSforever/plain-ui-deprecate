@@ -157,6 +157,7 @@ class Color {
             this.hue = 0
             this.saturation = 0
             this.value = 100
+            this.alpha = 100
             return
         }
 

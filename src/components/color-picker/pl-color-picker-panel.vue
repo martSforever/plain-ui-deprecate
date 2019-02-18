@@ -51,8 +51,11 @@
             }
         },
         methods: {
+            update(val) {
+                this.color.updateByString(val === '' ? null : val)
+            },
             p_confirm() {
-                this.$message.show(this.color.color)
+                // this.$message.show(this.color.color)
                 this.currentValue = this.color.color
                 this.$refs.history.save(this.color.color)
             },

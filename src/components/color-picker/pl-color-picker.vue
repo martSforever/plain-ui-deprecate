@@ -1,8 +1,18 @@
 <template>
     <div class="pl-color-picker">
         <pl-popover v-model="p_show" arrow disabledEqual :width="250" :height="enableAlpha?358:342" trigger="none">
-            <pl-input :clearable="false" :value="currentValue">
-                <pl-color :color="currentValue" :round="false" slot="append" @click="p_show = true">
+            <pl-input :clearable="false"
+                      :value="currentValue"
+                      @enter="e => currentValue = e.target.value"
+                      keyboard
+                      :box-type="boxType"
+                      :box-shape="boxShape"
+                      :box-size="boxSize"
+                      :box-color="boxColor"
+                      :readonly="readonly"
+                      :disabled="disabled">
+
+                <pl-color :color="currentValue" :round="boxShape === 'round'" slot="append" @click="!readonly&&!disabled && (p_show = true)">
                     <pl-icon icon="pl-arrow-down"/>
                 </pl-color>
             </pl-input>
@@ -24,8 +34,16 @@
         components: {PlIcon, PlColorPickerPanel, PlPopover, PlColor, PlInput},
         mixins: [ValueMixin],
         props: {
-            enableAlpha: {type: Boolean, default: true},
+            enableAlpha: {type: Boolean,},
             format: {type: String, default: 'hex'},
+
+            boxType: {type: String, default: 'line',},                      //盒子类型
+            boxColor: {type: String, default: 'info'},                      //盒子颜色
+            boxShape: {type: String, default: 'none'},                      //盒子形状
+            boxSize: {type: String, default: 'default'},                    //盒子大小
+
+            readonly: {type: Boolean},                                      //只读
+            disabled: {type: Boolean},                                      //禁用（颜色变为disabled）
         },
         data() {
             return {
