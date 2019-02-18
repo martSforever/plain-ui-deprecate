@@ -110,6 +110,27 @@
                 </div>
             </link-popover>
         </demo-row>
+
+        <demo-row title="自动宽高（设置width以及height为null时，可实现自动增高，但是）">
+            <link-button label="add horizontal" @click="horizontalData.push(horizontalData.length+1)"/>
+            <link-button label="remove horizontal" @click="horizontalData.pop()"/>
+            <link-button label="add vertical" @click="verticalData.push(verticalData.length+1)"/>
+            <link-button label="remove vertical" @click="verticalData.pop()"/>
+            <link-popover :width="null" :height="null" disabled-equal disabledHideOnClickOutside>
+                <link-button label="reference"/>
+                <div slot="popper">
+                    <div>
+                        <div style="width: 50px;height: 30px;margin-right: 10px;display:inline-block;background-color: blueviolet" v-for="(item,index) in horizontalData" :key="index">
+                            {{item}}
+                        </div>
+                    </div>
+                    <div style="margin-top:10px;width: 100%;height: 30px;margin-right: 10px;background-color: blueviolet" v-for="(item,index) in verticalData" :key="index">
+                        {{item}}
+                    </div>
+                </div>
+            </link-popover>
+        </demo-row>
+
     </div>
 </template>
 
@@ -124,6 +145,9 @@
                 align: 'start',
                 animate: 'drop',
                 arrow: true,
+
+                horizontalData: [1],
+                verticalData: [1],
             }
         },
     }
