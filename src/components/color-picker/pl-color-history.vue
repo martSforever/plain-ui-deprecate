@@ -42,6 +42,7 @@
         @include public-style;
         display: flex;
         align-items: center;
+        padding: 0 6px;
         .pl-color-history-item {
             $itemSize: 24px;
             width: $itemSize;

@@ -3,8 +3,12 @@
         <demo-row>
             <!-- :enable-alpha="true" -->
             <pl-color-picker-panel v-model="val" enable-alpha/>
-            <pl-color-picker-panel v-model="val" />
+            <pl-color-picker-panel v-model="val"/>
             <!--<pl-color-picker-panel v-model="val" enable-alpha/>-->
+        </demo-row>
+        <demo-row>
+            <link-color-picker value="rgba(0,0,0,0.5)" :enable-alpha="false"/>
+            <link-color-picker value="rgba(0,0,0,0.5)"/>
         </demo-row>
     </div>
 </template>
@@ -12,12 +16,13 @@
 <script>
 
     import PlColorPickerPanel from "../../src/components/color-picker/pl-color-picker-panel";
+
     export default {
         name: "demo-color-picker",
         components: {PlColorPickerPanel},
         data() {
             return {
-                val:'rgba(161,40,79,0.87)'
+                val: 'rgba(161,40,79,0.87)'
             }
         },
         mounted() {

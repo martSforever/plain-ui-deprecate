@@ -1,6 +1,8 @@
 <template>
     <div class="pl-color" :style="styles" @click="$emit('click',color)">
-        <div class="pl-color-inner" :style="innerStyles"></div>
+        <div class="pl-color-inner" :style="innerStyles">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -44,6 +46,9 @@
         .pl-color-inner {
             height: 100%;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 </style>

@@ -14,8 +14,8 @@
         <pl-color-alpha-slider :color="color.hex" v-model="color.alpha" v-if="color.enableAlpha" @change="color.updateByAlpha()"/>
         <pl-color-history :current="color.color" ref="history" @select="p_selectHistory"/>
         <div class="pl-color-picker-panel-operate">
-            <pl-input :value="color._value" :width="210" @enter="p_enter" @clear="val=>color._value = null" keyboard box-shape="round"/>
-            <pl-button icon-only suffix-icon="pl-check" @click="p_confirm"/>
+            <pl-input :value="color._value" :width="178" @enter="p_enter" @clear="val=>color._value = null" keyboard box-shape="round"/>
+            <pl-button label="确定" box-shape="round" @click="p_confirm"/>
         </div>
     </div>
 </template>
@@ -36,12 +36,12 @@
         components: {PlColorAlphaSlider, PlButtonGroup, PlButton, PlInput, PlColorHistory, PlColorSvPicker, PlColorHueSlider},
         mixins: [ValueMixin],
         props: {
-            enableAlpha: {type: Boolean,},
-            format: {type: String, default: 'hex'},
+            enableAlpha: {type: Boolean},
+            format: {type: String},
         },
         watch: {
             value(val) {
-                this.color.updateByString(val)
+                this.color.updateByString(val, true, this.enableAlpha)
             },
         },
         data() {
@@ -77,9 +77,14 @@
             margin-bottom: 6px;
         }
         .pl-color-picker-panel-operate {
+            padding: 0 6px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            .pl-button {
+                padding: 0 12px;
+                min-width: initial;
+            }
         }
     }
 </style>
