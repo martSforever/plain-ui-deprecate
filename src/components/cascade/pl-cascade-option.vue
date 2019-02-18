@@ -1,9 +1,13 @@
 <template>
-    <div class="pl-cascade-option" :style="{width:`${cascadeWidth}px`}">
+    <div class="pl-cascade-option" :style="{width:`${cascadeWidth}px`}" v-if="!!data && data.length>0">
         <pl-scroll>
-            <div class="pl-cascade-option-item" v-for="(item,index) in data" :key="index">
+            <div class="pl-cascade-option-item"
+                 v-for="(item,index) in data"
+                 :key="index"
+                 :class="{'pl-cascade-option-item-active':p_isSelected(item)}"
+                 @click="p_click(item)">
                 <span class="pl-cascade-option-item-label">{{item[labelKey]}}</span>
-                <pl-icon icon="pl-arrow-right"/>
+                <pl-icon icon="pl-arrow-right" v-if="p_hasChildren(item)"/>
             </div>
         </pl-scroll>
     </div>
@@ -22,13 +26,29 @@
             childrenKey: {type: String},
             valueKey: {type: String, required: true},
             cascadeWidth: {type: Number},
+            current: {required: true},
         },
+        methods: {
+            p_click(itemData) {
+                this.$emit('select', itemData)
+            },
+            p_hasChildren(item) {
+                return item[this.childrenKey] && item[this.childrenKey].length > 0
+            },
+            p_isSelected(item) {
+                if (!this.current) return false
+                return item[this.valueKey] === this.current[this.valueKey]
+            },
+        },
+
     }
 </script>
 
 <style lang="scss">
     .pl-cascade-option {
         height: 100%;
+        display: inline-block;
+        vertical-align: top;
         .pl-cascade-option-item {
             min-height: 28px;
             display: flex;
