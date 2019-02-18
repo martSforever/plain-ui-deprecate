@@ -127,7 +127,7 @@ const PlainUI = {
         Vue.prototype.$dialog = $dialog
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
-        $utils.addScript('https://at.alicdn.com/t/font_948159_j8c2osmjjo.js')
+        $utils.addScript('https://at.alicdn.com/t/font_948159_laa7q3138wg.js')
         !!iconfont && $utils.addScript(iconfont)
     },
 }
