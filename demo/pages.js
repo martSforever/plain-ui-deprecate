@@ -185,6 +185,11 @@ const pages = [
         title: 'BaseTable基础表格',
         icon: 'pl-table',
     },
+    {
+        path: 'table/demo-base-table-test',
+        title: 'BaseTable基础表格测试',
+        icon: 'pl-table',
+    },
 ]
 
 export default pages.reduce((ret, page) => {
