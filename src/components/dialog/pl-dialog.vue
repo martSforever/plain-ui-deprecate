@@ -234,6 +234,7 @@
             }
             .pl-dialog-body {
                 box-sizing: border-box;
+                overflow: auto;
             }
             .pl-dialog-foot {
                 justify-content: flex-end;
