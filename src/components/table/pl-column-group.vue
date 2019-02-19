@@ -46,10 +46,8 @@
                 }
                 /*@formatter:on*/
                 const children = this.$children.reduce((ret, item) => {
-                    if (item.$options._componentTag === 'link-rendering-render-func') {
-                        item.$children.forEach(c => {
-                            ret.push(c.group ? c.getCol() : c.col)
-                        })
+                    if (item.$options._componentTag === 'pl-render-func') {
+                        item.$children.forEach(c => ret.push(c.group ? c.getCol() : c.col))
                     } else {
                         const c = item.group ? item.getCol() : item.col
                         !this.isCtrlGroup && (c.fixed = this.p_fixed)
