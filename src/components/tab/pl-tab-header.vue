@@ -6,7 +6,7 @@
             </div>
         </pl-item>
         <pl-item v-for="(item,index) in data"
-                 :key="index">
+                 :key="item">
             <div class="pl-tab-header-item"
                  :class="{'pl-tab-header-item-active':index === currentValue}"
                  @click="currentValue = index"
