@@ -20,19 +20,12 @@
     import PlScroll from "../scroll/pl-scroll";
     import PlIcon from "../icon/pl-icon";
     import PlCascadeOptionItem from "./pl-cascade-option-item";
+    import {CascadeMixin} from "./index";
 
     export default {
         name: "pl-cascade-option",
         components: {PlCascadeOptionItem, PlIcon, PlScroll},
-        props: {
-            data: {type: Array},
-            labelKey: {type: String},
-            childrenKey: {type: String},
-            valueKey: {type: String, required: true},
-            disabledKey: {type: String},
-            cascadeWidth: {type: Number},
-            current: {required: true},
-        },
+        mixins:[CascadeMixin],
         methods: {
             p_click(itemData, component) {
                 if (!!this.disabledKey && !!itemData[this.disabledKey]) return
