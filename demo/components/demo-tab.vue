@@ -1,6 +1,8 @@
 <template>
     <div class="demo-tab">
-        <link-tab/>
+        <demo-row title="基本用法">
+            <link-tab/>
+        </demo-row>
     </div>
 </template>
 

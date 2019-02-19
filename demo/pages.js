@@ -195,6 +195,11 @@ const pages = [
         title: 'Tabs页签',
         icon: 'pl-tab',
     },
+    {
+        path: 'demo-tab-header',
+        title: 'TabsHeader页签标题',
+        icon: 'pl-tab',
+    },
 ]
 
 export default pages.reduce((ret, page) => {
