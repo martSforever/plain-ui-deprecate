@@ -195,6 +195,11 @@ const pages = [
         title: 'BaseTable基础表格列组件测试',
         icon: 'pl-table',
     },
+    {
+        path: 'demo-tab',
+        title: 'Tabs页签',
+        icon: 'pl-navigator',
+    },
 ]
 
 export default pages.reduce((ret, page) => {

@@ -89,7 +89,7 @@
                     {
                         name: 'Navigation',
                         menus: [
-                            {name: 'Tabs页签', icon: 'pl-tab', page: 'demo-navigator', complete: true},
+                            {name: 'Tabs页签', icon: 'pl-tab', page: 'demo-tab', complete: true},
                             {name: 'Navigator页面导航', icon: 'pl-tab', page: 'demo-navigator', complete: true},
                             {name: 'Steps步骤条', icon: 'pl-number-list', page: 'demo-step', complete: true},
                         ],
