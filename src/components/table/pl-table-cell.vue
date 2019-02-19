@@ -53,9 +53,6 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        &.pl-table-cell-costume {
-            padding: 0;
-        }
         .pl-scope-slot {
             width: 100%;
             height: 100%;

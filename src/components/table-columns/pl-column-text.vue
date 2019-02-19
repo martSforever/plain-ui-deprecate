@@ -57,7 +57,6 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        padding: 0 $base-table-cell-padding;
         overflow-x: hidden;
         text-overflow: ellipsis;
         box-sizing: border-box;

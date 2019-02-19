@@ -63,6 +63,50 @@
                 <link-column field="age" title="年龄(align=right)" align="right"/>
             </link-base-table>
         </demo-row>
+        <demo-row title="数据格式化显示">
+            <link-base-table :data="getData()">
+                <link-column field="id" title="编号"/>
+                <link-column field="name" title="姓名"/>
+                <link-column field="age" title="年龄"/>
+                <link-column field="id" title="id(dataType=tel)" dataType="tel"/>
+                <link-column field="id" title="id(dataType=cny)" dataType="cny"/>
+                <link-column field="id" title="id(dataType=money)" dataType="money"/>
+                <link-column field="id" title="id(dataType=percent)" dataType="percent"/>
+            </link-base-table>
+        </demo-row>
+        <demo-row title="浮动显示文本">
+            <link-base-table :data="getData()">
+                <link-column field="id" title="编号(tooltip)" tooltip/>
+                <link-column field="name" title="姓名(tooltip)" tooltip/>
+                <link-column field="age" title="年龄"/>
+            </link-base-table>
+        </demo-row>
+        <demo-row title="超链接样式，并且监听点击事件">
+            <link-base-table :data="getData()">
+                <link-column field="id" title="编号"/>
+                <link-column field="name" title="姓名(link)" link @click="({row})=>$message.show(row.name)"/>
+                <link-column field="age" title="年龄"/>
+            </link-base-table>
+        </demo-row>
+        <demo-row title="点击之后弹框显示文本">
+            <link-base-table :data="getData()">
+                <link-column field="id" title="编号"/>
+                <link-column field="name" title="姓名(showInDialog)" showInDialog link/>
+                <link-column field="age" title="年龄"/>
+            </link-base-table>
+        </demo-row>
+        <demo-row title="自定义列内容">
+            <link-base-table :data="getData()">
+                <link-column field="id" title="编号"/>
+                <link-column field="name" title="姓名">
+                    <template slot-scope="{row}">
+                        <link-icon icon="pl-check-square"/>
+                        <span>hello:{{row.name}}</span>
+                    </template>
+                </link-column>
+                <link-column field="age" title="年龄"/>
+            </link-base-table>
+        </demo-row>
     </div>
 </template>
 
@@ -77,7 +121,7 @@
                     list.push({
                         id: time + i,
                         name: '小明' + i,
-                        age: 20 + i
+                        age: 20 + i,
                     })
                 }
                 return list
