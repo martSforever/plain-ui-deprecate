@@ -12,8 +12,8 @@ const DEFAULT_OPTION = {
 export default function (el, {value}) {
     !!el.p_tippy && el.p_tippy.destroyAll();
     if ($utils.typeOf(value) === 'object') {
-        const {content, arrow = false, placement = 'bottom', trigger = 'mouseenter', theme = 'dark', tooltip = false} = value
-        console.log(content,tooltip)
+        const {content, arrow = false, placement = 'bottom', trigger = 'mouseenter', theme = 'dark', tooltip = true} = value
+        // console.log(content,tooltip)
         !!content && tooltip && (el.p_tippy = Tippy(el, {content, arrow, placement, trigger, theme}))
     }
     else if ($utils.typeOf(value) === 'string') {
