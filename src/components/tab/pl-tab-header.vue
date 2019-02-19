@@ -1,5 +1,5 @@
 <template>
-    <pl-list class="pl-tab-header">
+    <pl-list class="pl-tab-header" direction="right">
         <pl-item v-if="!data || data.length === 0" key="empty">
             <div class="pl-tab-header-item pl-tab-header-item-active">
                 <span>无</span>
