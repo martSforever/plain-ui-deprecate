@@ -1,7 +1,8 @@
 <template>
     <div class="pl-cascade-option-item" @click="p_click" :class="classes">
         <span class="pl-cascade-option-item-label">{{data[labelKey]}}</span>
-        <pl-icon class="pl-cascade-option-item-icon" icon="pl-arrow-right-light" v-if="p_hasChildren"/>
+        <!--[{{!p_dataLoaded}}-{{p_hasChildren}}-->
+        <pl-icon class="pl-cascade-option-item-icon" icon="pl-arrow-right-light" v-if="!p_dataLoaded || p_hasChildren"/>
     </div>
 </template>
 
@@ -15,7 +16,7 @@
         mixins: [CascadeMixin],
         data() {
             return {
-                p_dataLoaded: false,
+                p_dataLoaded: !this.loadDataFunc || (!!this.data[this.childrenKey] && this.data[this.childrenKey].length > 0)
             }
         },
         computed: {
@@ -30,11 +31,16 @@
                 return this.data[this.valueKey] === this.current[this.valueKey]
             },
             p_hasChildren() {
-                return this.data[this.childrenKey] && this.data[this.childrenKey].length > 0
+                return !!this.data[this.childrenKey] && this.data[this.childrenKey].length > 0
             },
         },
         methods: {
-            p_click() {
+            async p_click() {
+                if (!this.p_dataLoaded) {
+                    const childrenData = await this.loadDataFunc(this.data)
+                    this.$set(this.data, this.childrenKey, childrenData)
+                    this.p_dataLoaded = true
+                }
                 this.$emit('click', this)
             },
         }

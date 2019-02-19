@@ -2,7 +2,7 @@
     <div class="pl-cascade-option" :style="{width:`${cascadeWidth}px`}" v-if="!!data && data.length>0">
         <pl-scroll>
             <pl-cascade-option-item v-for="(item,index) in data"
-                                    :key="index"
+                                    :key="item[valueKey]+index"
 
                                     :data="item"
                                     :label-key="labelKey"
@@ -10,6 +10,7 @@
                                     :value-key="valueKey"
                                     :disabled-key="disabledKey"
                                     :current="current"
+                                    :load-data-func="loadDataFunc"
 
                                     @click="component=>p_click(item,component)"/>
         </pl-scroll>
@@ -25,7 +26,7 @@
     export default {
         name: "pl-cascade-option",
         components: {PlCascadeOptionItem, PlIcon, PlScroll},
-        mixins:[CascadeMixin],
+        mixins: [CascadeMixin],
         methods: {
             p_click(itemData, component) {
                 if (!!this.disabledKey && !!itemData[this.disabledKey]) return

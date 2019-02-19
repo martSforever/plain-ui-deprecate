@@ -7,7 +7,9 @@
                                :label-key="labelKey"
                                :children-key="childrenKey"
                                :value-key="valueKey"
+                               :disabled-key="disabledKey"
                                :current="p_tempValue[0]"
+                               :load-data-func="loadDataFunc"
                                @select="itemData => p_select(itemData,0)"
                                @done="itemData => p_done(itemData)"/>
             <pl-cascade-option
@@ -20,6 +22,7 @@
                     :value-key="valueKey"
                     :disabled-key="disabledKey"
                     :current="p_tempValue[index+1]"
+                    :load-data-func="loadDataFunc"
                     @select="itemData => p_select(itemData,index+1)"
                     @done="itemData => p_done(itemData)"/>
         </div>

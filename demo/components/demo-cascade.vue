@@ -12,6 +12,9 @@
         <demo-row title="选中的时候就改变数据，而不是选择最后一级数据的时候才改变数据">
             <link-cascade :data="cascadeData" label-key="label" children-key="children" value-key="value" changeOnSelect/>
         </demo-row>
+        <demo-row title="动态加载数据">
+            <link-cascade :data="cascadeData" label-key="label" children-key="children" value-key="value" :loadDataFunc="loadDataFunc"/>
+        </demo-row>
     </div>
 </template>
 
@@ -20,6 +23,7 @@
         name: "demo-cascade",
         data() {
             return {
+                count: 0,
                 cascadeData: [{
                     value: 'beijing',
                     label: '北京',
@@ -106,6 +110,16 @@
                 }]
             }
         },
+        methods: {
+            loadDataFunc(data) {
+                console.log('loadDataFunc-->>', this.count)
+                return [
+                    {value: `zone-${this.count++}`, label: `${data.label}-${this.count++}`},
+                    {value: `zone-${this.count++}`, label: `${data.label}-${this.count++}`},
+                    {value: `zone-${this.count++}`, label: `${data.label}-${this.count++}`},
+                ]
+            },
+        }
     }
 </script>
 

@@ -9,6 +9,7 @@ const CascadeMixin = {
 
         showAllLevels: {type: Boolean, default: true},                          //显示所有选中的文本，false的话，只会显示最后一级的文本
         changeOnSelect: {type: Boolean,},                                       //在选中的时候就改变值，默认是选中最后一级的时候才改变值
+        loadDataFunc: {type: Function},                                         //当没有子数据以及存在该属性时
 
         /*cascade不能配置的属性*/
         current: {},
