@@ -73,6 +73,8 @@
             border: solid 1px transparent;
             border-bottom-color: $tab-color;
             border-top: solid 3px white;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
 
             .pl-tab-header-item-close {
                 position: absolute;
@@ -87,7 +89,7 @@
 
             &.pl-tab-header-item-active {
                 border-bottom: solid 1px white;
-                border-top-color: $tab-color;
+                border-top-color: $color-primary-dark;
                 border-left-color: $tab-color;
                 border-right-color: $tab-color;
             }
