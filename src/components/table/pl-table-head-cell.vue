@@ -123,7 +123,7 @@
         .pl-table-cell {
             display: inline-flex;
             width: 100%;
-            min-width: initial;
+            /*min-width: initial;*/
             vertical-align: middle;
             &.pl-table-cell-left {
                 justify-content: flex-start;
