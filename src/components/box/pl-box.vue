@@ -223,7 +223,7 @@
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
                     border: solid $border-size $value;
-                    background: transparent;
+                    background: white;
                     &, & div {
                         color: $value;
                     }
