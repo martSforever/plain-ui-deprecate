@@ -1,14 +1,17 @@
 <template>
     <div class="pl-cascade-option" :style="{width:`${cascadeWidth}px`}" v-if="!!data && data.length>0">
         <pl-scroll>
-            <div class="pl-cascade-option-item"
-                 v-for="(item,index) in data"
-                 :key="index"
-                 :class="p_itemClass(item)"
-                 @click="p_click(item)">
-                <span class="pl-cascade-option-item-label">{{item[labelKey]}}</span>
-                <pl-icon class="pl-cascade-option-item-icon" icon="pl-arrow-right-light" v-if="p_hasChildren(item)"/>
-            </div>
+            <pl-cascade-option-item v-for="(item,index) in data"
+                                    :key="index"
+
+                                    :data="item"
+                                    :label-key="labelKey"
+                                    :children-key="childrenKey"
+                                    :value-key="valueKey"
+                                    :disabled-key="disabledKey"
+                                    :current="current"
+
+                                    @click="component=>p_click(item,component)"/>
         </pl-scroll>
     </div>
 </template>
@@ -16,10 +19,11 @@
 <script>
     import PlScroll from "../scroll/pl-scroll";
     import PlIcon from "../icon/pl-icon";
+    import PlCascadeOptionItem from "./pl-cascade-option-item";
 
     export default {
         name: "pl-cascade-option",
-        components: {PlIcon, PlScroll},
+        components: {PlCascadeOptionItem, PlIcon, PlScroll},
         props: {
             data: {type: Array},
             labelKey: {type: String},
@@ -30,23 +34,10 @@
             current: {required: true},
         },
         methods: {
-            p_click(itemData) {
+            p_click(itemData, component) {
                 if (!!this.disabledKey && !!itemData[this.disabledKey]) return
                 this.$emit('select', itemData)
-                if (!this.p_hasChildren(itemData)) this.$emit('done', itemData)
-            },
-            p_hasChildren(item) {
-                return item[this.childrenKey] && item[this.childrenKey].length > 0
-            },
-            p_isSelected(item) {
-                if (!this.current) return false
-                return item[this.valueKey] === this.current[this.valueKey]
-            },
-            p_itemClass(item) {
-                return {
-                    'pl-cascade-option-item-active': this.p_isSelected(item),
-                    'pl-cascade-option-item-disabled': !!this.disabledKey && item[this.disabledKey]
-                }
+                if (!component.p_hasChildren) this.$emit('done', itemData)
             },
         },
 
