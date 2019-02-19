@@ -1,194 +1,194 @@
 const pages = [
     {
-        path: 'color',
+        path: 'demo-color',
         title: 'Color颜色',
         icon: 'pl-color',
 
     },
     {
-        path: 'icon',
+        path: 'demo-icon',
         title: 'Icon图标',
         icon: 'pl-fontsize',
     },
     {
-        path: 'button',
+        path: 'demo-button',
         title: 'Button按钮',
         icon: 'pl-play',
     },
     {
-        path: 'box',
+        path: 'demo-box',
         title: 'Box盒子',
         icon: 'pl-box',
     },
     {
-        path: 'date-picker',
+        path: 'demo-date-picker',
         title: 'DatePicker日期选择',
         icon: 'pl-date',
     },
     {
-        path: 'input',
+        path: 'demo-input',
         title: 'Input输入框',
         icon: 'pl-keyboard',
     },
     {
-        path: 'radio',
+        path: 'demo-radio',
         title: 'Radio单选复选框',
         icon: 'pl-radio-on',
     },
     {
-        path: 'number',
+        path: 'demo-number',
         title: 'Number数字输入框',
         icon: 'pl-number',
     },
     {
-        path: 'toggle',
+        path: 'demo-toggle',
         title: 'Toggle开关按钮',
         icon: 'pl-toggle',
     },
     {
-        path: 'loading',
+        path: 'demo-loading',
         title: 'Loading加载图标',
         icon: 'pl-loading',
     },
     {
-        path: 'popover',
+        path: 'demo-popover',
         title: 'Popover弹出层',
         icon: 'pl-message1',
     },
     {
-        path: 'dialog',
+        path: 'demo-dialog',
         title: 'Dialog对话框',
         icon: 'pl-dialog',
     },
     {
-        path: 'dialog-service',
+        path: 'demo-dialog-service',
         title: '$dialog对话框服务',
         icon: 'pl-message4',
     },
     {
-        path: 'list',
+        path: 'demo-list',
         title: 'List列表',
         icon: 'pl-list',
     },
     {
-        path: 'message',
+        path: 'demo-message',
         title: '$message消息服务',
         icon: 'pl-message3',
     },
     {
-        path: 'notice',
+        path: 'demo-notice',
         title: '$notice提示服务',
         icon: 'pl-sound-4',
     },
     {
-        path: 'select',
+        path: 'demo-select',
         title: 'Select下拉框',
         icon: 'pl-arrow-down',
     },
     {
-        path: 'tabs',
+        path: 'demo-tabs',
         title: 'Tabs页签',
         icon: 'pl-tab',
     },
     {
-        path: 'collapse',
+        path: 'demo-collapse',
         title: 'Collapse折叠面板',
         icon: 'pl-collapse',
     },
     {
-        path: 'card',
+        path: 'demo-card',
         title: 'Card卡片',
         icon: 'pl-card',
     },
     {
-        path: 'tooltip',
+        path: 'demo-tooltip',
         title: 'Tooltip文字提示',
         icon: 'pl-message2',
     },
     {
-        path: 'carousel',
+        path: 'demo-carousel',
         title: 'Carousel轮播',
         icon: 'pl-carousel',
     },
     {
-        path: 'navigator',
+        path: 'demo-navigator',
         title: 'Navigator页面导航',
         icon: 'pl-carousel',
     },
     {
-        path: 'badge',
+        path: 'demo-badge',
         title: 'Badge标记',
         icon: 'pl-badge',
     },
     {
-        path: 'mavon',
+        path: 'demo-mavon',
         title: 'Mavon编辑器',
         icon: 'icon-code',
     },
     {
-        path: 'base-table',
-        title: 'BaseTable基础表格',
-        icon: 'pl-table',
-    },
-    {
-        path: 'scroll',
+        path: 'demo-scroll',
         title: 'Scroll滚动条',
         icon: 'pl-scroll',
     },
     {
-        path: 'tag',
+        path: 'demo-tag',
         title: 'Tag标签',
         icon: 'pl-icon-tag',
     },
     {
-        path: 'step',
+        path: 'demo-step',
         title: 'Steps步骤条',
         icon: 'pl-number-list',
     },
     {
-        path: 'test',
+        path: 'demo-test',
         title: 'Test测试',
         icon: 'pl-tools',
     },
     {
-        path: 'slider',
+        path: 'demo-slider',
         title: 'Slider滑块',
         icon: 'pl-sliders',
     },
     {
-        path: 'progress',
+        path: 'demo-progress',
         title: 'Progress进度条',
         icon: 'pl-progress',
     },
     {
-        path: 'rate',
+        path: 'demo-rate',
         title: 'Rate评分',
         icon: 'pl-star',
     },
     {
-        path: 'page-bar',
+        path: 'demo-page-bar',
         title: 'Pagination分页',
         icon: 'pl-book2',
     },
     {
-        path: 'tree',
+        path: 'demo-tree',
         title: 'Tree树形组件',
         icon: 'pl-tree',
     },
     {
-        path: 'color-picker',
+        path: 'demo-color-picker',
         title: 'ColorPicker颜色选择',
         icon: 'pl-color',
     },
     {
-        path: 'cascade',
+        path: 'demo-cascade',
         title: 'Cascade级联选择',
         icon: 'pl-cascade',
+    },
+    {
+        path: 'table/demo-base-table',
+        title: 'BaseTable基础表格',
+        icon: 'pl-table',
     },
 ]
 
 export default pages.reduce((ret, page) => {
-    page.component = resolve => import('./components/demo-' + page.path + '.vue').then(resolve)
+    page.component = resolve => import('./components/' + page.path + '.vue').then(resolve)
     ret.push(page)
     return ret
 }, [])
