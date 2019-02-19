@@ -53,9 +53,11 @@
             disabledHideOnClickShadow: {type: Boolean,},                                        //是否禁用点击遮罩关闭窗口功能
             transition: {type: String, default: 'pl-dialog-animate-drop'},                      //对话框显隐动画
             height: {type: String | Number,},                                                   //对话框内容高度
-            width: {type: String | Number,},                                                    //对话框内容宽度
             minHeight: {type: String | Number},                                                 //对话框内容最小高度
+            maxHeight: {type: String | Number},                                                 //对话框内容最大高度
+            width: {type: String | Number,},                                                    //对话框内容宽度
             minWidth: {type: String | Number},                                                  //对话框内容最小宽度
+            maxWidth: {type: String | Number},                                                  //对话框内容最大宽度
             full: {type: Boolean},                                                              //对话框是否沾满全屏
             confirmButton: {type: Boolean},                                                     //是否带确认按钮
             cancelButton: {type: Boolean},                                                      //是否带取消按钮
@@ -116,8 +118,11 @@
             },
             bodyStyles() {
                 const styles = {};
-                ['width', 'height', 'minWidth', 'minHeight'].forEach(prop => !!this[prop] && (styles[prop] = this.$plain.$utils.unit(this[prop])))
-                if (!this.width && !this.minWidth) styles.minWidth = '336px'
+                ['width', 'height', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight'].forEach(prop => !!this[prop] && (styles[prop] = this.$plain.$utils.unit(this[prop])))
+                if (!this.width && !this.minWidth && !this.maxWidth) {
+                    styles.minWidth = '336px'
+                    styles.maxWidth = '500px'
+                }
                 if (!this.height && !this.minHeight) styles.minHeight = '88px'
                 return styles
             },
