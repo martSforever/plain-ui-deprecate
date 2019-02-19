@@ -155,7 +155,7 @@
         .pl-navigator-content {
             flex: 1;
             position: relative;
-            overflow-y: auto;
+            overflow: hidden;
             .pl-navigator-content-empty {
                 position: absolute;
                 left: 0;
@@ -183,6 +183,10 @@
                 &, & .pl-navigator-page {
                     height: 100%;
                     width: 100%;
+                }
+                .pl-navigator-page {
+                    overflow: auto;
+                    box-sizing: border-box;
                 }
             }
         }

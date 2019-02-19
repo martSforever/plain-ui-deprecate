@@ -466,6 +466,7 @@
 
 <style lang="scss">
     .pl-base-table {
+        @include public-style;
         width: 100%;
         position: relative;
         border: solid 1px $base-table-border-color;
