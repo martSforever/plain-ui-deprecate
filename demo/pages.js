@@ -86,11 +86,6 @@ const pages = [
         icon: 'pl-arrow-down',
     },
     {
-        path: 'demo-tabs',
-        title: 'Tabs页签',
-        icon: 'pl-tab',
-    },
-    {
         path: 'demo-collapse',
         title: 'Collapse折叠面板',
         icon: 'pl-collapse',
@@ -113,7 +108,7 @@ const pages = [
     {
         path: 'demo-navigator',
         title: 'Navigator页面导航',
-        icon: 'pl-carousel',
+        icon: 'pl-tab',
     },
     {
         path: 'demo-badge',
@@ -198,7 +193,7 @@ const pages = [
     {
         path: 'demo-tab',
         title: 'Tabs页签',
-        icon: 'pl-navigator',
+        icon: 'pl-tab',
     },
 ]
 
