@@ -11,7 +11,7 @@ const DEFAULT_OPTION = {
     transition: 'pl-dialog-animate-drop',
     height: null,
     minHeight: null,
-    maxHeight: null,
+    maxHeight: '600px',
     width: null,
     minWidth: null,
     maxWidth: null,
@@ -62,6 +62,10 @@ const $dialog = {
                         transition={this.transition}
                         height={this.height}
                         width={this.width}
+                        minHeight={this.minHeight}
+                        minWidth={this.minWidth}
+                        maxHeight={this.maxHeight}
+                        maxWidth={this.maxWidth}
                         full={this.full}
                         confirmButton={this.confirmButton}
                         cancelButton={this.cancelButton}
