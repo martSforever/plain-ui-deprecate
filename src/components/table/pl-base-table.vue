@@ -13,6 +13,7 @@
                 :body-columns="p_bodyColumns"
                 :sort-field="p_sortField"
                 :sort-desc="p_sortDesc"
+                :head-row-height="headRowHeight"
                 @mouseenter.native="p_hover = 'head'"
                 @scroll="e=>p_hover === 'head' && $refs.body.$refs.center[0].$refs.scroll.setScroll({x: e.target.scrollLeft})"/>
         <pl-table-body

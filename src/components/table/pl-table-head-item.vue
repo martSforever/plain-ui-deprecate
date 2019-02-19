@@ -7,7 +7,8 @@
                                     :key="colIndex"
                                     :col="col"
                                     :sort-field="sortField"
-                                    :sort-desc="sortDesc"/>
+                                    :sort-desc="sortDesc"
+                                    :head-row-height="headRowHeight"/>
             </tr>
             <pl-table-column-space :columns="bodyColumns"/>
         </table>
