@@ -68,12 +68,21 @@
         }
         &.pl-column-text-left {
             justify-content: flex-start;
+            .pl-column-text-default-text {
+                text-align: left;
+            }
         }
         &.pl-column-text-center {
             justify-content: center;
+            .pl-column-text-default-text {
+                text-align: center;
+            }
         }
         &.pl-column-text-right {
             justify-content: flex-end;
+            .pl-column-text-default-text {
+                text-align: right;
+            }
         }
     }
 </style>
