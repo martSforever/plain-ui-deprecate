@@ -191,7 +191,7 @@ const pages = [
         icon: 'pl-table',
     },
     {
-        path: 'demo-tab',
+        path: 'demo-tabs',
         title: 'Tabs页签',
         icon: 'pl-tab',
     },

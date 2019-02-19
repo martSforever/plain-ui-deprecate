@@ -52,6 +52,7 @@ import tree from './components/tree/pl-tree'
 import colorPicker from './components/color-picker/pl-color-picker'
 import cascade from './components/cascade/pl-cascade'
 import tab from './components/tab/pl-tab'
+import tabs from './components/tab/pl-tabs'
 import tabHeader from './components/tab/pl-tab-header'
 
 const components = {
@@ -95,6 +96,7 @@ const components = {
     colorPicker,
     cascade,
     tab,
+    tabs,
     tabHeader,
 
     ...ColumnComponents,

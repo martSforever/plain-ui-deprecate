@@ -9,7 +9,7 @@
                  :key="item">
             <div class="pl-tab-header-item"
                  :class="{'pl-tab-header-item-active':index === currentValue}"
-                 @click="currentValue = index"
+                 @click="p_click(item,index)"
                  @contextmenu.prevent.stop="p_contextmenu(item,index)">
                 <span>{{item}}</span>
                 <div class="pl-tab-header-item-close" @click.stop="p_close(item,index)" v-if="clearIcon">
@@ -36,6 +36,10 @@
             clearIcon: {type: Boolean,},
         },
         methods: {
+            p_click(item, index) {
+                this.currentValue = index
+                this.$emit('click', {item, index})
+            },
             p_close(item, index) {
                 this.$emit('close', {item, index})
             },
