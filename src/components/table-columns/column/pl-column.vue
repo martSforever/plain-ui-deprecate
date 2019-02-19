@@ -29,7 +29,7 @@
                     :tooltip="tooltip"
                     :link="link"
                     :scope-slot-func="$scopedSlots.default"
-                    @click.native="p_clickItem(row,rowIndex,editRow)"/>
+                    @click="p_clickItem"/>
         </template>
     </pl-base-column>
 </template>
@@ -45,3 +45,9 @@
         mixins: [ColumnMixin],
     }
 </script>
+
+<style lang="scss">
+    .pl-column-edit-item {
+        width: 100%;
+    }
+</style>

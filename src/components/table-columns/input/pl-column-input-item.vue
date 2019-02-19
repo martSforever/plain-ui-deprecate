@@ -1,24 +1,26 @@
 <template>
-    <keep-alive>
-        <pl-input v-model="editRow[field]"
-                  v-if="p_editable"
+    <div class="pl-column-edit-item" @click="$emit('click',{row,editRow,rowIndex,field,editable:p_editable})">
+        <keep-alive>
+            <pl-input v-model="editRow[field]"
+                      v-if="p_editable"
 
-                  :required="p_required"
-                  :rules="rules"
-                  :valid-on-init="validOnInit"/>
-        <template v-else>
-            <pl-scope-slot :scope-slot-func="scopeSlotFunc" :data="{row,rowIndex,editRow,field,editable}" v-if="!!scopeSlotFunc"/>
-            <pl-column-text v-else
-                            :align="align"
-                            :row="row"
-                            :row-index="rowIndex"
-                            :edit-row="editRow"
-                            :field="field"
-                            :editable="p_editable"
-                            :data-type="dataType"
-                            :tooltip="tooltip"/>
-        </template>
-    </keep-alive>
+                      :required="p_required"
+                      :rules="rules"
+                      :valid-on-init="validOnInit"/>
+            <template v-else>
+                <pl-scope-slot :scope-slot-func="scopeSlotFunc" :data="{row,rowIndex,editRow,field,editable}" v-if="!!scopeSlotFunc"/>
+                <pl-column-text v-else
+                                :align="align"
+                                :row="row"
+                                :row-index="rowIndex"
+                                :edit-row="editRow"
+                                :field="field"
+                                :editable="p_editable"
+                                :data-type="dataType"
+                                :tooltip="tooltip"/>
+            </template>
+        </keep-alive>
+    </div>
 </template>
 
 <script>

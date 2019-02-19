@@ -48,7 +48,7 @@
             >
                 <link-column-index v-if="indexing"/>
                 <link-column-group title="右大组" fixed="right">
-                    <link-column-input field="right" title="右" fixed="right"/>
+                    <link-column field="right" title="右" fixed="right" showInDialog/>
                     <link-column-group title="右组" fixed="right">
                         <link-column-input field="right1" title="右1"/>
                         <link-column-input field="right2" title="右2"/>
@@ -191,7 +191,7 @@
              * @date    2019/1/9 11:13
              */
             rowClick({row, rowIndex, position}) {
-                console.log(rowIndex)
+                console.log('rowClick', rowIndex)
             },
             /**
              * 监听行双击事件

@@ -27,14 +27,16 @@
                     :align="align"
                     :data-type="dataType"
                     :tooltip="tooltip"
+                    :link="link"
                     :scope-slot-func="$scopedSlots.default"
+
                     :required="required"
                     :rules="rules"
                     :valid-on-init="validOnInit"
 
                     :editable-func="editableFunc"
                     :required-func="requiredFunc"
-                    @click.native="p_clickItem(row,rowIndex,editRow)"/>
+                    @click="p_clickItem"/>
         </template>
     </pl-base-column>
 </template>

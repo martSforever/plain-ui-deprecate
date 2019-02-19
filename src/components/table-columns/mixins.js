@@ -22,6 +22,8 @@ export const ColumnMixin = {
         dataType: {type: String},                                                                                       //数据格式化方式:tel,cny,money,percent
         tooltip: {type: Boolean},                                                                                       //是否tooltip显示文本
         link: {type: Boolean},                                                                                          //是否以超链接的形式展示文本，并且点击的时候回派发事件
+        clickWhenIneditable: {type: Boolean, default: true},                                                            //只有非编辑状态下才能出发点击事件，否则任何状态都会触发点击事件
+        showInDialog: {type: Boolean},                                                                                  //非编辑状态下是否点击后再dialog中显示
 
         editableFunc: {type: Function},                                                                                 //是否可编辑判断函数
         requiredFunc: {type: Function},                                                                                 //是否必输
@@ -37,8 +39,10 @@ export const ColumnMixin = {
          * @author  韦胜健
          * @date    2019/1/10 17:45
          */
-        p_clickItem(row, rowIndex, editRow) {
-            this.$emit('click', {row, rowIndex, editRow, field: this.field, editable: this.editable})
+        p_clickItem({row, editRow, rowIndex, field, editable}) {
+            if (!editable && this.showInDialog) this.$dialog.show(row[field])
+            if (!!this.clickWhenIneditable && !!editable) return
+            this.$emit('click', {row, editRow, rowIndex, field, editable})
         },
     }
 }
