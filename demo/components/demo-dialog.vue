@@ -41,6 +41,21 @@
             <link-button label="size" @click="$refs.minSizeDialog.show()"/>
             <link-dialog ref="minSizeDialog" min-width="500px" min-height="250px">minWidth and minHeight</link-dialog>
         </demo-row>
+        <demo-row title="设定最大宽度以及最大高度">
+            <link-button label="size" @click="$refs.maxSizeDialog.show()"/>
+            <link-dialog ref="maxSizeDialog" max-width="500px" max-height="250px">
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+                maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,maxWidth and maxHeight,
+            </link-dialog>
+        </demo-row>
 
         <demo-row title="满屏">
             <link-button label="full" @click="$refs.fullDialog.show()"/>
