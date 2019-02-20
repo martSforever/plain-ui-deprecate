@@ -5,3 +5,9 @@
 .pl-body-user-select-none {
   user-select: none;
 }
+
+.pl-column-edit-item {
+  .pl-box {
+    width: 100% !important;
+  }
+}
