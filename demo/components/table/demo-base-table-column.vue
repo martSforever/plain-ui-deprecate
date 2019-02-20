@@ -1,6 +1,6 @@
 <template>
     <div class="demo-base-table-column">
-        <demo-row title="基础列(order)排序">
+        <!--<demo-row title="基础列(order)排序">
             <link-base-table :data="getData()">
                 <link-column field="id" title="编号"/>
                 <link-column field="id" title="编号(order=-1)" :order="-1"/>
@@ -121,10 +121,13 @@
                 </link-column>
                 <link-column field="age" title="年龄"/>
             </link-base-table>
-        </demo-row>
+        </demo-row>-->
         <demo-row title="列隐藏以及显示(disabled-config为true的列无法配置)">
             <demo-row title="操作">
-                <link-button label="refreshRender" @click="$refs.hideDemoTable.refreshRender()"/>
+                <link-button-group>
+                    <link-button label="refreshRender" @click="$refs.hideDemoTable.refreshRender()"/>
+                    <link-button label="get columns" @click="columns = $refs.hideDemoTable.originalColumns"></link-button>
+                </link-button-group>
                 <link-button-group>
                     <link-button label="show name column" @click="hideNameCol = false"/>
                     <link-button label="hide name column" @click="hideNameCol = true"/>
@@ -134,16 +137,23 @@
                     <link-button label="subtract age column width" @click="ageColWidth -= 10"/>
                 </link-button-group>
                 <link-button-group>
-
+                    <link-button label="add name column order" @click="nameColumnOrder += 1"/>
+                    <link-button label="subtract name column order" @click="nameColumnOrder -= 1"/>
                 </link-button-group>
+                <link-number v-model="checkNumber"/>
             </demo-row>
-            <link-base-table :data="getData()" ref="hideDemoTable">
+            <link-base-table :data="getData()" ref="hideDemoTable" :configColumnFunc="configColumnFunc">
                 <link-column-index/>
                 <link-column field="id" title="编号"/>
-                <link-column field="name" title="姓名(:hide=hideName)" :hide="hideNameCol"/>
+                <link-column field="name" :title="`姓名(:hide=hideName,nameColumnOrder=${nameColumnOrder})`" :hide="hideNameCol" :order="nameColumnOrder"/>
                 <link-column field="name2" title="姓名2(:hide=hideName,disabled-config)" :hide="hideNameCol" disabled-config/>
                 <link-column field="age" :title="`年龄(width=${ageColWidth})`" :width.sync="ageColWidth"/>
             </link-base-table>
+            <demo-row>
+                <div v-for="(col,index) in columns" :key="index">
+                    {{col}}
+                </div>
+            </demo-row>
         </demo-row>
     </div>
 </template>
@@ -154,7 +164,10 @@
         data() {
             return {
                 hideNameCol: false,
-                ageColWidth: 250
+                ageColWidth: 250,
+                nameColumnOrder: 0,
+                columns: [],
+                checkNumber: 10,
             }
         },
         methods: {
@@ -170,6 +183,11 @@
                     })
                 }
                 return list
+            },
+            configColumnFunc(col, isGroup) {
+                if (isGroup) return
+                col.title = col.title + '<!!>'
+                if (col.field === 'age' && this.checkNumber > 10) col.hide = true
             },
         }
     }

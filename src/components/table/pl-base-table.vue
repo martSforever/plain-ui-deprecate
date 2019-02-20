@@ -47,8 +47,9 @@
         components: {PlTableBody, PlTableHead, PlTableColumnController},
         mixins: [MountedMixin, TableMixin],
         props: {
-            multiSelect: {type: Boolean},               //是否多选
+            multiSelect: {type: Boolean},              //是否多选
             selectIndex: {},
+            configColumnFunc: {type: Function},        //配置column的函数
         },
         data() {
             return {
@@ -364,6 +365,8 @@
                 /*配置列*/
                 this.p_colIterate(columns, (col, isGroup, cols) => {
                     if (col.disabledConfig) return
+                    col.reset()
+                    !!this.configColumnFunc && this.configColumnFunc(col, isGroup, cols)
                     if (isGroup) return
                     if (col.hide) cols.splice(cols.indexOf(col), 1)
                 })
