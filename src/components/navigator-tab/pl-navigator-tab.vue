@@ -40,19 +40,19 @@
             let currentValue = this.value;
             let tabsStorage, selfStorage;
 
+            let hasStorage = false;
+
             if (!!this.id) {
                 tabsStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
                 selfStorage = tabsStorage[this.id] || {}
                 if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
-                    currentValue = selfStorage.index
-                    pageStack = selfStorage.pageStack.map((item, index) => {
-                        const page = this.getRegisterPageByPath(item.path)
-                        return Object.assign({init: index === selfStorage.index, id: this.$plain.$utils.uuid()}, item, {component: page.component})
-                    })
+                    hasStorage = true
+                    pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false, id: this.$plain.$utils.uuid()}, item))
+                    this.$nextTick(() => this.p_clickMenu(selfStorage.index))
                 }
             }
             else {
-                if (!!this.initPages && this.initPages.length > 0) {
+                if (!hasStorage && !!this.initPages && this.initPages.length > 0) {
                     for (let i = 0; i < this.initPages.length; i++) pageStack.push(Object.assign({init: false, id: this.$plain.$utils.uuid()}, this.initPages[i]))
                     this.$nextTick(() => this.p_clickMenu(0))
                 }
@@ -60,6 +60,8 @@
             return {
                 pageStack,
                 currentValue,
+                tabsStorage,
+                selfStorage,
             }
         },
         methods: {
@@ -92,7 +94,7 @@
                     return {title, path, param}
                 })
                 this.tabsStorage[this.id] = this.selfStorage
-                this.$plain.$storage.set(TABS_STORAGE_KEY, this.tabsStorage)
+                this.$plain.$storage.set(STORAGE_KEY, this.tabsStorage)
             },
             async push(path, title, param) {
                 if (!this.multiple) {
