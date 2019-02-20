@@ -365,7 +365,7 @@
                 /*配置列*/
                 this.p_colIterate(columns, (col, isGroup, cols) => {
                     if (col.disabledConfig) return
-                    col.reset()
+                    !isGroup && col.reset()
                     !!this.configColumnFunc && this.configColumnFunc(col, isGroup, cols)
                     if (isGroup) return
                     if (col.hide) cols.splice(cols.indexOf(col), 1)
