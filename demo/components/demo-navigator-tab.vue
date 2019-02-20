@@ -16,12 +16,28 @@
                                 {title:'Radio单选复选',path:'/demo-radio'},
                             ]"/>
         </demo-row>
+
+        <demo-row title="同一個页面是否可以打开多次">
+            <demo-row-item title="操作按钮">
+                <link-button label="打开【Color推荐】" @click="$refs.tabs2.push('/demo-color','Color推荐')"/>
+                <link-button label="打开【Icon图标设置】" @click="$refs.tabs2.push('/demo-icon','Icon图标设置')"/>
+                <link-button label="打开【Radio单选复选】" @click="$refs.tabs2.push('/demo-radio','Radio单选复选',count++)"/>
+                <link-button label="打开【Test测试页面】" @click="$refs.tabs2.push('/demo-test-page','Test测试页面',count++)"/>
+            </demo-row-item>
+            <link-navigator-tab height="300px" ref="tabs2" multiple/>
+        </demo-row>
+
     </div>
 </template>
 
 <script>
     export default {
-        name: "demo-navigator-tab"
+        name: "demo-navigator-tab",
+        data() {
+            return {
+                count: 1,
+            }
+        },
     }
 </script>
 

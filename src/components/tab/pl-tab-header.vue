@@ -6,7 +6,7 @@
             </div>
         </pl-item>
         <pl-item v-for="(item,index) in data"
-                 :key="item">
+                 :key="!!ids&&ids[index]?ids[index]:item">
             <div class="pl-tab-header-item"
                  :class="{'pl-tab-header-item-active':index === currentValue}"
                  @click="p_click(item,index)"
@@ -33,6 +33,7 @@
         props: {
             value: {type: Number, default: 0},
             data: {type: Array, default: () => []},
+            ids: {type: Array, default: () => []},
             clearIcon: {type: Boolean,},
         },
         methods: {

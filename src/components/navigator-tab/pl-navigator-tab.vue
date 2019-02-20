@@ -2,6 +2,7 @@
     <div class="pl-navigator-tab" :style="{height:$plain.$utils.unit(height)}">
         <pl-tab-header clear-icon
                        :data="pageStack.map(page=>page.title)"
+                       :ids="pageStack.map(page=>page.id)"
                        :value="currentValue"
                        @input="p_clickMenu"
                        @close="p_close"
@@ -79,6 +80,7 @@
             async p_clickMenu(index) {
                 this.currentValue = index
                 const page = this.pageStack[index]
+                if (!page) return
                 if (!page.component) page.component = (await this.getRegisterPageByPath(page.path)).component
                 if (!!page && !page.init) page.init = true
                 this.p_save()
