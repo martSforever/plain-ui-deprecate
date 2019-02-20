@@ -3,10 +3,10 @@
         <demo-header/>
         <div class="demo-body">
             <div class="demo-left-side">
-                <demo-side-menu @clickMenu="menu=>$refs.tabs.push(menu.page)"/>
+                <demo-side-menu @clickMenu="menu=>$refs.tabs.push(menu.page,menu.title)"/>
             </div>
             <div class="demo-right-side">
-                <link-navigator :register="pages" ref="tabs" id="1544529635688" :init="init"/>
+                <link-navigator-tab ref="tabs" id="1544529635688" :initPages="[{title:'Button按钮',path:'/demo-button'}]"/>
             </div>
         </div>
     </div>
@@ -15,19 +15,10 @@
 <script>
     import DemoHeader from "./demo-header";
     import DemoSideMenu from "./demo-side-menu";
-    import pages from './pages'
 
     export default {
         name: "demo-main",
         components: {DemoSideMenu, DemoHeader},
-        data() {
-            return {
-                pages,
-                init: [
-                    {path: 'button'}
-                ],
-            }
-        },
     }
 </script>
 

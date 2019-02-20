@@ -51,12 +51,12 @@
                     this.$nextTick(() => this.p_clickMenu(selfStorage.index))
                 }
             }
-            else {
-                if (!hasStorage && !!this.initPages && this.initPages.length > 0) {
-                    for (let i = 0; i < this.initPages.length; i++) pageStack.push(Object.assign({init: false, id: this.$plain.$utils.uuid()}, this.initPages[i]))
-                    this.$nextTick(() => this.p_clickMenu(0))
-                }
+
+            if (!hasStorage && !!this.initPages && this.initPages.length > 0) {
+                for (let i = 0; i < this.initPages.length; i++) pageStack.push(Object.assign({init: false, id: this.$plain.$utils.uuid()}, this.initPages[i]))
+                this.$nextTick(() => this.p_clickMenu(0))
             }
+
             return {
                 pageStack,
                 currentValue,
@@ -135,6 +135,8 @@
     .pl-navigator-tab {
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
+        padding: 12px;
         .pl-navigator-tab-content {
             flex: 1;
             width: 100%;

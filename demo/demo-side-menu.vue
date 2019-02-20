@@ -2,12 +2,12 @@
     <div class="demo-side-menu">
         <link-scroll>
             <div class="demo-menu-group" v-for="(group,groupIndex) in menuGroups" :key="groupIndex">
-                <div class="demo-menu-group-title">{{group.name}}</div>
+                <div class="demo-menu-group-title">{{group.title}}</div>
                 <div class="demo-menu-list">
                     <div class="demo-menu-list-item" v-for="(menu,menuIndex) in group.menus" :key="menuIndex" @click="$emit('clickMenu',menu)">
                         <div>
                             <link-icon :icon="menu.icon"/>
-                            {{menu.name}}
+                            {{menu.title}}
                         </div>
                         <link-icon icon="pl-check" v-if="menu.complete"/>
                     </div>
@@ -24,88 +24,88 @@
             return {
                 menuGroups: [
                     {
-                        name: 'Table相关',
+                        title: 'Table相关',
                         menus: [
-                            {name: 'BaseTable基础表格', icon: 'pl-table', page: 'table/demo-base-table', complete: true},
-                            {name: 'BaseTable基础表格测试', icon: 'pl-table', page: 'table/demo-base-table-test', complete: true},
-                            {name: 'BaseTable基础表格列组件测试', icon: 'pl-table', page: 'table/demo-base-table-column', complete: true},
+                            {title: 'BaseTable基础表格', icon: 'pl-table', page: '/table/demo-base-table', complete: true},
+                            {title: 'BaseTable基础表格测试', icon: 'pl-table', page: '/table/demo-base-table-test', complete: true},
+                            {title: 'BaseTable基础表格列组件测试', icon: 'pl-table', page: '/table/demo-base-table-column', complete: true},
                         ],
                     },
                     {
-                        name: 'Basic',
+                        title: 'Basic',
                         menus: [
-                            {name: 'Test测试', icon: 'pl-tools', page: 'demo-test', complete: true},
+                            {title: 'Test测试', icon: 'pl-tools', page: '/demo-test', complete: true},
                         ],
                     },
                     {
-                        name: 'Basic',
+                        title: 'Basic',
                         menus: [
-                            {name: 'Color颜色', icon: 'pl-color', page: 'demo-color', complete: true},
-                            {name: 'Icon图标', icon: 'pl-fontsize', page: 'demo-icon', complete: true},
-                            {name: 'Button按钮', icon: 'pl-play', page: 'demo-button', complete: true},
-                            {name: 'Box盒子', icon: 'pl-box', page: 'demo-box', complete: true},
+                            {title: 'Color颜色', icon: 'pl-color', page: '/demo-color', complete: true},
+                            {title: 'Icon图标', icon: 'pl-fontsize', page: '/demo-icon', complete: true},
+                            {title: 'Button按钮', icon: 'pl-play', page: '/demo-button', complete: true},
+                            {title: 'Box盒子', icon: 'pl-box', page: '/demo-box', complete: true},
                         ],
                     },
                     {
-                        name: 'Form',
+                        title: 'Form',
                         menus: [
-                            {name: 'Input输入框', icon: 'pl-keyboard', page: 'demo-input', complete: true},
-                            {name: 'Radio单复选框', icon: 'pl-radio-on', page: 'demo-radio', complete: true},
-                            {name: 'InputNumber数字输入', icon: 'pl-number', page: 'demo-number', complete: true},
-                            {name: 'Loading加载', icon: 'pl-loading', page: 'demo-loading', complete: true},
-                            {name: 'Select下拉选择', icon: 'pl-arrow-down', page: 'demo-select', complete: true},
-                            {name: 'Cascade级联选择', icon: 'pl-cascade', page: 'demo-cascade', complete: true},
-                            {name: 'Toggle开关切换', icon: 'pl-toggle', page: 'demo-toggle', complete: true},
-                            {name: 'Slider滑块', icon: 'pl-sliders', page: 'demo-slider', complete: true},
-                            {name: 'TimePicker时间选择', icon: 'pl-time', page: 'demo-icon', complete: false},
-                            {name: 'DatePicker日期选择', icon: 'pl-date', page: 'demo-date-picker', complete: false},
-                            {name: 'DateTimePicker时间日期', icon: 'pl-datetime', page: 'demo-icon', complete: false},
-                            {name: 'Rate评分', icon: 'pl-star', page: 'demo-rate', complete: true},
-                            {name: 'ColorPicker颜色选择', icon: 'pl-color', page: 'demo-color-picker', complete: true},
-                            {name: 'Transform穿梭框', icon: 'pl-exchange', page: 'demo-icon', complete: false},
-                            {name: 'Form表单', icon: 'pl-form', page: 'demo-icon', complete: false},
+                            {title: 'Input输入框', icon: 'pl-keyboard', page: '/demo-input', complete: true},
+                            {title: 'Radio单复选框', icon: 'pl-radio-on', page: '/demo-radio', complete: true},
+                            {title: 'InputNumber数字输入', icon: 'pl-number', page: '/demo-number', complete: true},
+                            {title: 'Loading加载', icon: 'pl-loading', page: '/demo-loading', complete: true},
+                            {title: 'Select下拉选择', icon: 'pl-arrow-down', page: '/demo-select', complete: true},
+                            {title: 'Cascade级联选择', icon: 'pl-cascade', page: '/demo-cascade', complete: true},
+                            {title: 'Toggle开关切换', icon: 'pl-toggle', page: '/demo-toggle', complete: true},
+                            {title: 'Slider滑块', icon: 'pl-sliders', page: '/demo-slider', complete: true},
+                            {title: 'TimePicker时间选择', icon: 'pl-time', page: '/demo-icon', complete: false},
+                            {title: 'DatePicker日期选择', icon: 'pl-date', page: '/demo-date-picker', complete: false},
+                            {title: 'DateTimePicker时间日期', icon: 'pl-datetime', page: '/demo-icon', complete: false},
+                            {title: 'Rate评分', icon: 'pl-star', page: '/demo-rate', complete: true},
+                            {title: 'ColorPicker颜色选择', icon: 'pl-color', page: '/demo-color-picker', complete: true},
+                            {title: 'Transform穿梭框', icon: 'pl-exchange', page: '/demo-icon', complete: false},
+                            {title: 'Form表单', icon: 'pl-form', page: '/demo-icon', complete: false},
                         ],
                     },
                     {
-                        name: 'Data',
+                        title: 'Data',
                         menus: [
-                            {name: 'List列表', icon: 'pl-list', page: 'demo-list', complete: true},
-                            {name: 'Tag标签', icon: 'pl-icon-tag', page: 'demo-tag', complete: true},
-                            {name: 'Progress进度条', icon: 'pl-progress', page: 'demo-progress', complete: true},
-                            {name: 'Tree树形组件', icon: 'pl-tree', page: 'demo-tree', complete: true},
-                            {name: 'Pagination分页', icon: 'pl-book2', page: 'demo-page-bar', complete: true},
-                            {name: 'Badge标记', icon: 'pl-badge', page: 'demo-badge', complete: true},
-                            {name: 'Mavon编辑器', icon: 'icon-code', page: 'demo-mavon', complete: true},
+                            {title: 'List列表', icon: 'pl-list', page: '/demo-list', complete: true},
+                            {title: 'Tag标签', icon: 'pl-icon-tag', page: '/demo-tag', complete: true},
+                            {title: 'Progress进度条', icon: 'pl-progress', page: '/demo-progress', complete: true},
+                            {title: 'Tree树形组件', icon: 'pl-tree', page: '/demo-tree', complete: true},
+                            {title: 'Pagination分页', icon: 'pl-book2', page: '/demo-page-bar', complete: true},
+                            {title: 'Badge标记', icon: 'pl-badge', page: '/demo-badge', complete: true},
+                            {title: 'Mavon编辑器', icon: 'icon-code', page: '/demo-mavon', complete: true},
                         ],
                     },
                     {
-                        name: 'Service',
+                        title: 'Service',
                         menus: [
-                            {name: '$message消息服务', icon: 'pl-message3', page: 'demo-message', complete: true},
-                            {name: '$dialog对话框服务', icon: 'pl-message4', page: 'demo-dialog-service', complete: true},
-                            {name: '$notice通知', icon: 'pl-sound-4', page: 'demo-notice', complete: true},
+                            {title: '$message消息服务', icon: 'pl-message3', page: '/demo-message', complete: true},
+                            {title: '$dialog对话框服务', icon: 'pl-message4', page: '/demo-dialog-service', complete: true},
+                            {title: '$notice通知', icon: 'pl-sound-4', page: '/demo-notice', complete: true},
                         ],
                     },
                     {
-                        name: 'Navigation',
+                        title: 'Navigation',
                         menus: [
-                            {name: 'Tabs页签', icon: 'pl-tab', page: 'demo-tabs', complete: true},
-                            {name: 'TabsHeader页签标题', icon: 'pl-tab', page: 'demo-tab-header', complete: true},
-                            {name: 'Navigator页面导航', icon: 'pl-tab', page: 'demo-navigator', complete: true},
-                            {name: 'NavigatorTab页签导航', icon: 'pl-tab', page: 'demo-navigator-tab', complete: true},
-                            {name: 'Steps步骤条', icon: 'pl-number-list', page: 'demo-step', complete: true},
+                            {title: 'Tabs页签', icon: 'pl-tab', page: '/demo-tabs', complete: true},
+                            {title: 'TabsHeader页签标题', icon: 'pl-tab', page: '/demo-tab-header', complete: true},
+                            {title: 'Navigator页面导航', icon: 'pl-tab', page: '/demo-navigator', complete: true},
+                            {title: 'NavigatorTab页签导航', icon: 'pl-tab', page: '/demo-navigator-tab', complete: true},
+                            {title: 'Steps步骤条', icon: 'pl-number-list', page: '/demo-step', complete: true},
                         ],
                     },
                     {
-                        name: 'Others',
+                        title: 'Others',
                         menus: [
-                            {name: 'Scroll滚动条', icon: 'icon-scroll', page: 'demo-scroll', complete: true},
-                            {name: 'Dialog对话框', icon: 'pl-dialog', page: 'demo-dialog', complete: true},
-                            {name: 'Tooltip文字提示', icon: 'pl-message2', page: 'demo-tooltip', complete: true},
-                            {name: 'Popover弹出框', icon: 'pl-message1', page: 'demo-popover', complete: true},
-                            {name: 'Card卡片', icon: 'pl-card', page: 'demo-card', complete: true},
-                            {name: 'Carousel轮播', icon: 'pl-carousel', page: 'demo-carousel', complete: true},
-                            {name: 'Collapse折叠面板', icon: 'pl-collapse', page: 'demo-collapse', complete: true},
+                            {title: 'Scroll滚动条', icon: 'icon-scroll', page: '/demo-scroll', complete: true},
+                            {title: 'Dialog对话框', icon: 'pl-dialog', page: '/demo-dialog', complete: true},
+                            {title: 'Tooltip文字提示', icon: 'pl-message2', page: '/demo-tooltip', complete: true},
+                            {title: 'Popover弹出框', icon: 'pl-message1', page: '/demo-popover', complete: true},
+                            {title: 'Card卡片', icon: 'pl-card', page: '/demo-card', complete: true},
+                            {title: 'Carousel轮播', icon: 'pl-carousel', page: '/demo-carousel', complete: true},
+                            {title: 'Collapse折叠面板', icon: 'pl-collapse', page: '/demo-collapse', complete: true},
                         ],
                     },
                 ],
