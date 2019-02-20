@@ -38,7 +38,7 @@ const $message = {
         id,
         horizontal = 'center',
         vertical = 'start',
-        type = 'white',
+        type = 'black',
         time = 3000,
         done,
         click,

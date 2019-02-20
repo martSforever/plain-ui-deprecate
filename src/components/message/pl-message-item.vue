@@ -46,17 +46,16 @@
                 background-color: rgba($value, 0.8);
                 color: white;
             }
-
-            &.pl-message-item-color-black {
-                background-color: rgba(black, 0.75);
-                color: white;
-                box-shadow: 0 0 15px 3px #999;
-            }
-            &.pl-message-item-color-white {
-                background-color: white;
-                color: $color-normal-content;
-                box-shadow: 0 0 15px 3px #ddd;
-            }
+        }
+        &.pl-message-item-color-black {
+            background-color: rgba(black, 0.75);
+            color: white;
+            box-shadow: 0 0 15px 1px #999;
+        }
+        &.pl-message-item-color-white {
+            background-color: white;
+            color: $color-normal-content;
+            box-shadow: 0 0 15px 3px #ddd;
         }
     }
 </style>
