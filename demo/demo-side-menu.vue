@@ -92,6 +92,7 @@
                             {name: 'Tabs页签', icon: 'pl-tab', page: 'demo-tabs', complete: true},
                             {name: 'TabsHeader页签标题', icon: 'pl-tab', page: 'demo-tab-header', complete: true},
                             {name: 'Navigator页面导航', icon: 'pl-tab', page: 'demo-navigator', complete: true},
+                            {name: 'NavigatorTab页签导航', icon: 'pl-tab', page: 'demo-navigator-tab', complete: true},
                             {name: 'Steps步骤条', icon: 'pl-number-list', page: 'demo-step', complete: true},
                         ],
                     },

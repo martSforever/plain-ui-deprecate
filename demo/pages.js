@@ -200,6 +200,11 @@ const pages = [
         title: 'TabsHeader页签标题',
         icon: 'pl-tab',
     },
+    {
+        path: 'demo-navigator-tab',
+        title: 'NavigatorTab页签导航',
+        icon: 'pl-tab',
+    },
 ]
 
 export default pages.reduce((ret, page) => {
