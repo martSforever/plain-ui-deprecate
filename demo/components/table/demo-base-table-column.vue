@@ -10,6 +10,21 @@
                 <link-column field="age" title="年龄"/>
             </link-base-table>
         </demo-row>
+        <demo-row title="多级表头列排序">
+            <link-base-table :data="getData()">
+                <link-column-group title="用户信息">
+                    <link-column field="id" title="编号(order=1,position=1)" :order="1"/>
+                    <link-column field="name" title="姓名(order=2,position=2)" :order="2"/>
+                    <link-column field="id" title="编号(order=1,position=3)" :order="1"/>
+                    <link-column field="name" title="姓名(order=2,position=4)" :order="2"/>
+                </link-column-group>
+                <link-column field="age" title="年龄"/>
+                <link-column-group title="用户信息">
+                    <link-column field="id" title="编号"/>
+                    <link-column field="name" title="姓名"/>
+                </link-column-group>
+            </link-base-table>
+        </demo-row>
         <demo-row title="基础列：宽度">
             <demo-row title="列宽不足">
                 <link-base-table :data="getData()">
