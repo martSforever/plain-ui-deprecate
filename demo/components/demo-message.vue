@@ -4,6 +4,8 @@
             <link-button @click="$message.show('操作成功！')" label="basically"/>
         </demo-row>
         <demo-row title="提示类型">
+            <link-button @click="$message.show('操作成功！',{type:'white'})" label="white" box-color="primary"/>
+            <link-button @click="$message.show('操作成功！',{type:'black'})" label="black" box-color="primary"/>
             <link-button @click="$message.show('操作成功！',{type:'info'})" label="info" box-color="primary"/>
             <link-button @click="$message.show('操作成功！',{type:'success'})" label="success" box-color="success"/>
             <link-button @click="$message.show('操作成功！',{type:'warn'})" label="warn" box-color="warn"/>

@@ -105,6 +105,8 @@ const components = {
 }
 
 const TYPE = {
+    white: {icon: 'pl-info-circle-fill', color: 'white'},
+    black: {icon: 'pl-info-circle-fill', color: 'black'},
     info: {icon: 'pl-info-circle-fill', color: 'primary'},
     warn: {icon: 'pl-alert', color: 'warn'},
     success: {icon: 'pl-checked-circle-fill', color: 'success'},
