@@ -29,7 +29,7 @@
         components: {PlTabHeader},
         props: {
             value: {type: Number},                                              //当前显示的页面索引
-            initPage: {type: Array, default: () => []},                         //初始化就要显示的页面
+            initPages: {type: Array, default: () => []},                         //初始化就要显示的页面
             multiple: {type: Boolean},                                          //同一个页面是否只能同时存在一个
             id: {type: String,},                                                //页签id，用来存储当前页签页面页面栈数据的key
             height: {type: Number | String, default: '100%'},                   //高度
@@ -51,13 +51,9 @@
                 }
             }
             else {
-                if (!!this.initPage && this.initPage.length > 0) {
-                    currentValue = 0;
-                    pageStack = this.initPage.map(item => {
-                        const page = this.getRegisterPageByPath(item.path)
-                        return Object.assign({init: false, id: this.$plain.$utils.uuid()}, page)
-                    })
-                    pageStack[0].init = true
+                if (!!this.initPages && this.initPages.length > 0) {
+                    for (let i = 0; i < this.initPages.length; i++) pageStack.push(Object.assign({init: false, id: this.$plain.$utils.uuid()}, this.initPages[i]))
+                    this.$nextTick(() => this.p_clickMenu(0))
                 }
             }
             return {
@@ -80,9 +76,10 @@
                 if (this.currentValue < 0 && this.pageStack.length > 0) this.currentValue = 0
                 this.refresh();
             },
-            p_clickMenu(index) {
+            async p_clickMenu(index) {
                 this.currentValue = index
                 const page = this.pageStack[index]
+                if (!page.component) page.component = (await this.getRegisterPageByPath(page.path)).component
                 if (!!page && !page.init) page.init = true
                 this.p_save()
             },

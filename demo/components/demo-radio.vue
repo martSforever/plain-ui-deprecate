@@ -75,6 +75,12 @@
                 val4: 'Y',
             }
         },
+        mounted() {
+            console.log('demo radio mounted')
+        },
+        destroyed() {
+            console.log('demo radio destroyed')
+        },
     }
 </script>
 

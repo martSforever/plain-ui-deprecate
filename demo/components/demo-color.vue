@@ -51,6 +51,12 @@
                 ],
             }
         },
+        mounted() {
+            console.log('demo color mounted')
+        },
+        destroyed() {
+            console.log('demo color destroyed')
+        },
     }
 </script>
 
