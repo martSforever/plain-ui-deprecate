@@ -356,10 +356,30 @@
             p_collect(columns) {
                 // console.log(columns)
                 // console.log(columns.map(item => item.title + item.order));
-                this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
                 // console.log(columns.map(item => item.title + item.order));
+
+                /*递归遍历子节点，如果是多级表头，则对子列进行插入排序*/
+                this.p_colIterate(columns, (col, isGroup) => (isGroup && !!col.children && col.children.length > 0) && this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order))
+                /*对最外层列或者列组进行插入排序*/
+                this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
+
                 this.columns = columns
                 this.$emit('collect', columns)
+            },
+            /**
+             * 递归遍历所有列以及列组
+             * @author  韦胜健
+             * @date    2019/2/20 09:45
+             */
+            p_colIterate(columns, fn) {
+                if (!columns || columns.length === 0) return
+                else {
+                    for (let i = 0; i < columns.length; i++) {
+                        const col = columns[i];
+                        fn(col, !!col.group)
+                        if (!!col.group) this.p_colIterate(col.children, fn)
+                    }
+                }
             },
             /*
              *  触发Row组件对象的方法

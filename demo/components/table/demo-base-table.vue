@@ -71,10 +71,23 @@
                 <link-column field="name" title="姓名"/>
                 <link-column field="age" title="年龄"/>
             </link-base-table>
-        </demo-row>-->
+        </demo-row>
         <demo-row title="使用渲染【渲染函数】组件渲染列内容">
             <link-base-table :data="getData()">
                 <pl-render-func :render-func="renderFunc"/>
+            </link-base-table>
+        </demo-row>-->
+        <demo-row title="多级表头">
+            <link-base-table :data="getData()">
+                <link-column-group title="用户信息">
+                    <link-column field="id" title="编号"/>
+                    <link-column field="name" title="姓名"/>
+                </link-column-group>
+                <link-column field="age" title="年龄"/>
+                <link-column-group title="用户信息">
+                    <link-column field="id" title="编号"/>
+                    <link-column field="name" title="姓名"/>
+                </link-column-group>
             </link-base-table>
         </demo-row>
     </div>
