@@ -136,6 +136,10 @@
             <link-button label="no head and not foot" @click="$refs.noHeadAndFootDialog.show()"/>
             <link-dialog ref="noHeadAndFootDialog" no-header no-footer>no head and not foot</link-dialog>
         </demo-row>
+        <demo-row title="底部栏对其方式">
+            <link-button label="foot align" @click="$refs.footAlignDialog.show()"/>
+            <link-dialog ref="footAlignDialog" foot-align="right" confirm-button cancel-button>foot align right</link-dialog>
+        </demo-row>
         <!--<link-button label="open" @click="val1=!val1" :active="val1"/>
         <link-dialog v-model="val1" title="基本对话框" @confirm="log('confirm')" @cancel="log('cancel')">
             <div>

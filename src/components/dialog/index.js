@@ -1,6 +1,7 @@
 import PlDialog from './pl-dialog'
 import PlRenderFunc from '../render/pl-render-func'
 import Vue from 'vue'
+import $utils from 'src/utils/utils'
 
 const DEFAULT_OPTION = {
     type: 'info',
@@ -33,6 +34,7 @@ const DEFAULT_OPTION = {
     bottom: 0,
     left: 0,
     right: 0,
+    footAlign: 'right',
 
     onConfirm: null,
     onCancel: null,
@@ -84,6 +86,7 @@ const $dialog = {
                         bottom={this.bottom}
                         left={this.left}
                         right={this.right}
+                        footAlign={this.footAlign}
 
                         onConfirm={e => {
                             !!this.onConfirm && this.onConfirm();
@@ -118,8 +121,20 @@ const $dialog = {
         return instance;
     },
     show(message, option) {
-        Object.assign(this.instance, DEFAULT_OPTION, option)
-        this.instance.message = message
+        let msg, opt;
+        const firstArgType = $utils.typeOf(message)
+        switch (firstArgType) {
+            case 'string':
+                msg = message
+                opt = option
+                break;
+            case 'object':
+                msg = message.message
+                opt = message
+                break
+        }
+        Object.assign(this.instance, DEFAULT_OPTION, opt)
+        this.instance.message = msg
         this.instance.show()
     },
 }

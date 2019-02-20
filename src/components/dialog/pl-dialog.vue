@@ -26,7 +26,7 @@
                 <div class="pl-dialog-body" :style="bodyStyles">
                     <slot></slot>
                 </div>
-                <div class="pl-dialog-foot" v-if="!noFooter && (cancelButton || confirmButton)">
+                <div class="pl-dialog-foot" :class="[`pl-dialog-foot-align-${footAlign}`]" v-if="!noFooter && (cancelButton || confirmButton)">
                     <pl-button box-type="line" label="取消" @click="p_cancel" v-if="!!cancelButton"/>
                     <pl-button label="确认" @click="p_confirm" v-if="!!confirmButton"/>
                 </div>
@@ -78,6 +78,8 @@
             bottom: {type: Number | String},                                                    //对话框偏移底部位置
             left: {type: Number | String},                                                      //对话框偏移左边界位置
             right: {type: Number | String},                                                     //对话框偏移右边界位置
+            footAlign: {type: String, default: 'center'},                                       //对话框底部对其方式left|center|right
+
         },
         data() {
             return {
@@ -242,6 +244,15 @@
                 padding-bottom: $padding/4*3;
                 .pl-button {
                     margin-left: $padding/4*3;
+                }
+                &.pl-dialog-foot-align-left {
+                    justify-content: flex-start;
+                }
+                &.pl-dialog-foot-align-center {
+                    justify-content: center;
+                }
+                &.pl-dialog-foot-align-right {
+                    justify-content: flex-end;
                 }
             }
         }

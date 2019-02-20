@@ -69,6 +69,9 @@
             <link-button label="hide head and foot" @click="customeRender"/>
             <link-input v-model="input"/>
         </demo-row>
+        <demo-row title="以option的形式调用">
+            <link-button label="option param" @click="$dialog.show({message:'Hello world',noHeader:true,noFooter:true})"/>
+        </demo-row>
     </div>
 </template>
 
