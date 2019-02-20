@@ -122,12 +122,41 @@
                 <link-column field="age" title="年龄"/>
             </link-base-table>
         </demo-row>
+        <demo-row title="列隐藏以及显示(disabled-config为true的列无法配置)">
+            <demo-row title="操作">
+                <link-button label="refreshRender" @click="$refs.hideDemoTable.refreshRender()"/>
+                <link-button-group>
+                    <link-button label="show name column" @click="hideNameCol = false"/>
+                    <link-button label="hide name column" @click="hideNameCol = true"/>
+                </link-button-group>
+                <link-button-group>
+                    <link-button label="add age column width" @click="ageColWidth += 10"/>
+                    <link-button label="subtract age column width" @click="ageColWidth -= 10"/>
+                </link-button-group>
+                <link-button-group>
+
+                </link-button-group>
+            </demo-row>
+            <link-base-table :data="getData()" ref="hideDemoTable">
+                <link-column-index/>
+                <link-column field="id" title="编号"/>
+                <link-column field="name" title="姓名(:hide=hideName)" :hide="hideNameCol"/>
+                <link-column field="name2" title="姓名2(:hide=hideName,disabled-config)" :hide="hideNameCol" disabled-config/>
+                <link-column field="age" :title="`年龄(width=${ageColWidth})`" :width.sync="ageColWidth"/>
+            </link-base-table>
+        </demo-row>
     </div>
 </template>
 
 <script>
     export default {
         name: "demo-base-table-column",
+        data() {
+            return {
+                hideNameCol: false,
+                ageColWidth: 250
+            }
+        },
         methods: {
             getData(num = 5) {
                 const list = []
@@ -136,6 +165,7 @@
                     list.push({
                         id: time + i,
                         name: '小明' + i,
+                        name2: '小明' + i,
                         age: 20 + i,
                     })
                 }

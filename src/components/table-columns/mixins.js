@@ -15,10 +15,13 @@ export const ColumnMixin = {
         filterName: {type: String, default: 'input'},                                                                   //筛选组件名称
         filterOption: {type: Object},                                                                                   //筛选参数
         lov: {type: String},                                                                                            //值列表类型
-        editable: {type: Boolean, default: true},                                                                       //是否可编辑
         placeLeft: {type: Boolean},                                                                                     //当出现左滚动列的时候，是否自动设置为左固定列
         placeRight: {type: Boolean},                                                                                    //当出现右滚动列的时候，是否自动设置为右固定列
         align: {type: String, default: 'left'},                                                                         //非编辑状态下文本对其方式
+        editable: {type: Boolean, default: true},                                                                       //是否可编辑
+        hide: {type: Boolean},                                                                                          //是否隐藏
+        disabledConfig: {type: Boolean},                                                                                //禁止配置改列
+
         dataType: {type: String},                                                                                       //数据格式化方式:tel,cny,money,percent
         tooltip: {type: Boolean},                                                                                       //是否tooltip显示文本
         link: {type: Boolean},                                                                                          //是否以超链接的形式展示文本，并且点击的时候回派发事件

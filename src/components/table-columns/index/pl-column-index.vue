@@ -14,10 +14,9 @@
             :lov="lov"
             :place-left="placeLeft"
             :place-right="placeRight"
-            :align="align">
-        <template slot-scope="data" slot="title">
-            <pl-column-text :align="align" label="#"/>
-        </template>
+            :align="align"
+            :hide="hide"
+            :disabled-config="disabledConfig">
         <template slot-scope="{row,rowIndex,col,colIndex,editRow}">
             <pl-column-text :align="align"
                             :label="(page-1)*pageSize + (rowIndex+1)"/>
@@ -35,7 +34,7 @@
         components: {PlBaseColumn, PlColumnText},
         mixins: [ColumnMixin],
         props: {
-            order:{default:101},
+            order: {default: 101},
             page: {type: Number, default: 1},
             pageSize: {type: Number, default: 1},
             width: {type: Number, default: 30},
@@ -43,7 +42,9 @@
             sort: {type: Boolean, default: false},
             search: {type: Boolean, default: false},
 
+            title: {default: '#'},
             align: {default: 'center'},
+            disabledConfig: {default: true},
         },
     }
 </script>

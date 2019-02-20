@@ -13,7 +13,7 @@
                 if (this.p_width !== val) this.p_width = val;
             },
             p_width(val) {
-                this.$emit('update:width', val);
+                this.$parent.$emit('update:width', val);
             },
             fixed(val) {
                 if (this.p_fixed !== val) this.p_fixed = val;
@@ -26,6 +26,7 @@
             return {
                 p_width: this.width,
                 p_fixed: this.fixed,
+                p_order: this.order,
             }
         },
         computed: {
@@ -36,7 +37,7 @@
                     get title() {return that.title},
                     get field() {return that.field},
                     get width() {return that.p_width},
-                    get order() {return that.order+(that.p_fixed === 'left'?999:that.p_fixed === 'right'?-999:0)},
+                    get order() {return that.p_order+(that.p_fixed === 'left'?999:that.p_fixed === 'right'?-999:0)},
                     get fixed() {return that.p_fixed},
                     get search() {return that.search},
                     get sort() {return that.sort},
@@ -47,12 +48,18 @@
                     get placeLeft() {return that.placeLeft},
                     get placeRight() {return that.placeRight},
                     get align() {return that.align},
+                    get hide(){return that.hide},
+                    get disabledConfig(){return that.disabledConfig},
+                    get editable(){return that.editable},
 
                     get titleScopedSlot() {return that.$scopedSlots.title},
                     get colScopedSlot() {return that.$scopedSlots.default},
 
                     set fixed(val){that.p_fixed = val},
-                    update({width}){that.p_width = width},
+                    set order(val){that.p_order = val},
+                    update({width}){
+                        that.p_width = width
+                    },
                 }
                 /*@formatter:on*/
                 return col

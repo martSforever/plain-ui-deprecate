@@ -14,7 +14,9 @@
             :lov="lov"
             :place-left="placeLeft"
             :place-right="placeRight"
-            :align="align">
+            :align="align"
+            :hide="hide"
+            :disabled-config="disabledConfig">
         <template slot-scope="{row,rowIndex,col,colIndex,editRow}">
             <pl-column-item
                     :row="row"

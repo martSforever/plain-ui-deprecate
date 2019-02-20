@@ -52,7 +52,9 @@
         },
         data() {
             return {
-                columns: [],                            //所有列
+                columns: [],                           //所有列（去除hide的列）
+                originalColumns: [],                   //所有列（原本的列）
+
                 p_editData: [],                        //编辑数据数组
                 p_hoverIndex: null,                    //鼠标浮动所在的行索引
                 p_selectedIndex: [],                   //选中的行索引数组
@@ -62,7 +64,7 @@
                 p_scrollRight: false,                  //内容是否滑动到右端
                 p_sortField: this.sortField,           //排序字段
                 p_sortDesc: this.sortDesc,             //排序方式，先序降序
-                content: {                              //各个表格的数据对象，rows：pl-table-row组件对象、timer排序定时器
+                content: {                             //各个表格的数据对象，rows：pl-table-row组件对象、timer排序定时器
                     left: {rows: [], timer: null},
                     center: {rows: [], timer: null},
                     right: {rows: [], timer: null},
@@ -132,7 +134,7 @@
             p_headColumns() {
                 if (!this.p_mounted) return []
                 let maxLevel = 1;
-                let columns = this.$plain.$utils.deepCopy(this.columns)
+                let columns = this.p_copyColumns(this.columns)
 
                 /*计算最大层数*/
                 const calculateLavel = (cols, level) => {
@@ -353,10 +355,18 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 20:44
              */
-            p_collect(columns) {
-                // console.log(columns)
-                // console.log(columns.map(item => item.title + item.order));
-                // console.log(columns.map(item => item.title + item.order));
+            async p_collect(columns) {
+                /*等待属性变化完成*/
+                await this.$plain.nextTick()
+                /*保存原本的列信息*/
+                this.originalColumns = this.p_copyColumns(columns)
+
+                /*配置列*/
+                this.p_colIterate(columns, (col, isGroup, cols) => {
+                    if (col.disabledConfig) return
+                    if (isGroup) return
+                    if (col.hide) cols.splice(cols.indexOf(col), 1)
+                })
 
                 /*递归遍历子节点，如果是多级表头，则对子列进行插入排序*/
                 this.p_colIterate(columns, (col, isGroup) => (isGroup && !!col.children && col.children.length > 0) && this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order))
@@ -365,6 +375,21 @@
 
                 this.columns = columns
                 this.$emit('collect', columns)
+            },
+            /**
+             * 复制columns
+             * @author  韦胜健
+             * @date    2019/2/20 16:13
+             */
+            p_copyColumns(columns) {
+                const ret = []
+                if (!columns || columns.length === 0) return ret
+                for (let i = 0; i < columns.length; i++) {
+                    const col = columns[i];
+                    if (col.group) col.children = this.p_copyColumns(col.children)
+                    ret.push(col)
+                }
+                return ret
             },
             /**
              * 递归遍历所有列以及列组
@@ -376,7 +401,7 @@
                 else {
                     for (let i = 0; i < columns.length; i++) {
                         const col = columns[i];
-                        fn(col, !!col.group)
+                        fn(col, !!col.group, columns)
                         if (!!col.group) this.p_colIterate(col.children, fn)
                     }
                 }
