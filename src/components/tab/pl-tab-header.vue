@@ -84,7 +84,7 @@
                 display: flex;
                 align-items: center;
                 height: 100%;
-                color: $tab-color;
+                color: #aaa;
                 opacity: 0;
             }
 

@@ -54,6 +54,7 @@ import cascade from './components/cascade/pl-cascade'
 import tab from './components/tab/pl-tab'
 import tabs from './components/tab/pl-tabs'
 import tabHeader from './components/tab/pl-tab-header'
+import navigatorTab from './components/navigator-tab/pl-navigator-tab'
 
 const components = {
     icon,
@@ -98,6 +99,7 @@ const components = {
     tab,
     tabs,
     tabHeader,
+    navigatorTab,
 
     ...ColumnComponents,
 }
@@ -123,8 +125,10 @@ const PlainUI = {
         prefix = 'lv',
         iconfont,
         zIndex = 2000,
+        pageRegistry = null,
     } = {}) {
         this.zIndex = zIndex
+        this.pageRegistry = pageRegistry
         Vue.use(DomPortal)
         PlainUI.nextTick = () => new Promise((rs) => Vue.prototype.$nextTick(() => rs()))
         Vue.prototype.$plain = PlainUI
