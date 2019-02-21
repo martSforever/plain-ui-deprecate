@@ -123,6 +123,15 @@ const PlainUI = {
     TYPE,
     zIndex: null,
     transitionTime: 150,
+    _pageRegistry: null,
+    async pageRegistry(path) {
+        if (!this._pageRegistry) {
+            console.error('plain ui need pageRegistry function when installed.')
+            return null
+        } else {
+            return await this._pageRegistry(path)
+        }
+    },
     install(Vue, {
         prefix = 'lv',
         iconfont,
@@ -130,7 +139,7 @@ const PlainUI = {
         pageRegistry = null,
     } = {}) {
         this.zIndex = zIndex
-        this.pageRegistry = pageRegistry
+        this._pageRegistry = pageRegistry
         Vue.use(DomPortal)
         PlainUI.nextTick = () => new Promise((rs) => Vue.prototype.$nextTick(() => rs()))
         Vue.prototype.$plain = PlainUI

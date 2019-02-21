@@ -46,7 +46,7 @@
                     this.p_clickMenu(val)
                 }
             },
-            currentValue(val){
+            currentValue(val) {
                 this.$emit('input', val)
             },
         },
@@ -81,10 +81,6 @@
         },
         methods: {
             async getRegisterPageByPath(path) {
-                if (!this.$plain.pageRegistry) {
-                    console.error('plain ui need pageRegistry function when installed.')
-                    return
-                }
                 const component = await this.$plain.pageRegistry(path)
                 return {component, path}
             },

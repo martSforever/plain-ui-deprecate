@@ -10,7 +10,7 @@
                        :param="page.param"
                        :is="page.component"
                        v-if="page.init"
-                       v-show="currentValue === index"/>
+                       v-show="index === pageStack.length-1"/>
         </div>
     </div>
 </template>
@@ -27,6 +27,11 @@
                 pageStack: [],
             }
         },
+        methods: {
+            push(path, param) {
+
+            },
+        }
 
     }
 </script>
