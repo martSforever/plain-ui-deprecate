@@ -106,11 +106,6 @@ const pages = [
         icon: 'pl-carousel',
     },
     {
-        path: 'demo-navigator',
-        title: 'Navigator页面导航',
-        icon: 'pl-tab',
-    },
-    {
         path: 'demo-badge',
         title: 'Badge标记',
         icon: 'pl-badge',

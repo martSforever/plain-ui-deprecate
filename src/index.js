@@ -36,7 +36,6 @@ import cardHeader from './components/card/pl-card-header'
 import cardContent from './components/card/pl-card-content'
 import tooltip from './directives/tooltip'
 import carousel from './components/carousel/pl-carousel'
-import navigator from './components/navigator/pl-navigator'
 import badge from './components/badge/pl-badge'
 import mavon from './components/mavon/pl-mavon'
 import doc from './components/doc/pl-doc'
@@ -81,7 +80,6 @@ const components = {
     cardHeader,
     cardContent,
     carousel,
-    navigator,
     badge,
     mavon,
     doc,
