@@ -48,6 +48,7 @@
                 /*@formatter:off*/
                 const col = {
                     get title() {return that.p_title},
+                    get previousTitle(){return that.title},
                     get field() {return that.field},
                     get width() {return that.p_width},
                     get order() {return that.p_order+(that.p_fixed === 'left'?999:that.p_fixed === 'right'?-999:0)},

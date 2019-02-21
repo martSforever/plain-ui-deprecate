@@ -142,7 +142,7 @@
                 </link-button-group>
                 <link-number v-model="checkNumber"/>
             </demo-row>
-            <link-base-table :data="getData()" ref="hideDemoTable" :configColumnFunc="configColumnFunc">
+            <link-base-table :data="getData()" ref="hideDemoTable" :configColumnFunc="configColumnFunc" :beforeConfigColumnFunc="beforeConfigColumnFunc">
                 <link-column-index/>
                 <link-column field="id" title="编号"/>
                 <link-column field="name" :title="`姓名(:hide=hideName,nameColumnOrder=${nameColumnOrder})`" :hide="hideNameCol" :order="nameColumnOrder"/>
@@ -188,6 +188,13 @@
                 if (isGroup) return
                 col.title = col.title + '<!!>'
                 if (col.field === 'age' && this.checkNumber > 10) col.hide = true
+            },
+            beforeConfigColumnFunc(columns, colIterateFunc) {
+                let id = ''
+                colIterateFunc(columns, (col, isGroup) => {
+                    !isGroup && (id = `${id}[${col.field}-${col.previousTitle}]`)
+                })
+                console.log(id)
             },
         }
     }

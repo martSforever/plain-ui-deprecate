@@ -50,6 +50,7 @@
             multiSelect: {type: Boolean},              //是否多选
             selectIndex: {},
             configColumnFunc: {type: Function},        //配置column的函数
+            beforeConfigColumnFunc: {type: Function},  //在配置column之前触发的函数
         },
         data() {
             return {
@@ -361,7 +362,7 @@
                 await this.$plain.nextTick()
                 /*保存原本的列信息*/
                 this.originalColumns = this.p_copyColumns(columns)
-
+                !!this.beforeConfigColumnFunc && this.beforeConfigColumnFunc(columns, this.p_colIterate)
                 /*配置列*/
                 this.p_colIterate(columns, (col, isGroup, cols) => {
                     if (col.disabledConfig) return
