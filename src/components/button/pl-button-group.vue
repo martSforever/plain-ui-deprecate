@@ -34,6 +34,7 @@
 
 <style lang="scss">
     .pl-button-group {
+        @include public-style;
         display: inline-flex;
         box-sizing: border-box;
         &.pl-button-group-vertical {

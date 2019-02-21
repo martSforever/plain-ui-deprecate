@@ -126,8 +126,7 @@ const PlainUI = {
     _pageRegistry: null,
     async pageRegistry(path) {
         if (!this._pageRegistry) {
-            console.error('plain ui need pageRegistry function when installed.')
-            return null
+            return Promise.reject('plain ui need pageRegistry function when installed.')
         } else {
             return await this._pageRegistry(path)
         }

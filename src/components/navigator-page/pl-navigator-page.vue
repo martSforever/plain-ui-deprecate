@@ -5,9 +5,9 @@
                 <slot></slot>
             </div>
             <component v-for="(page,index) in pageStack"
-                       class="pl-navigator-page"
+                       class="pl-navigator-page-item"
                        :key="page.id"
-                       :param="page.param"
+                       :param="page.param || {}"
                        :is="page.component"
                        v-if="page.init"
                        v-show="index === pageStack.length-1"/>
@@ -28,8 +28,18 @@
             }
         },
         methods: {
-            push(path, param) {
-
+            async push(path, param) {
+                const component = await this.$plain.pageRegistry(path)
+                this.pageStack.push({
+                    id: this.$plain.$utils.uuid(),
+                    init: true,
+                    path,
+                    param,
+                    component
+                })
+            },
+            async back() {
+                this.pageStack.pop()
             },
         }
 
@@ -43,10 +53,19 @@
             height: 100%;
             width: 100%;
         }
-        .pl-navigator-page-item {
-            width: 100%;
-            height: 100%;
-            overflow: auto;
+        .pl-navigator-page-content {
+            position: relative;
+            .pl-navigator-page-item {
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: white;
+                padding: 12px;
+                box-sizing: border-box;
+            }
         }
     }
 </style>

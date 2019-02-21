@@ -12,7 +12,7 @@
             <component v-for="(page,index) in pageStack"
                        class="pl-navigator-page"
                        :key="page.id"
-                       :param="page.param"
+                       :param="page.param || {}"
                        :is="page.component"
                        v-if="page.init"
                        v-show="currentValue === index"/>
