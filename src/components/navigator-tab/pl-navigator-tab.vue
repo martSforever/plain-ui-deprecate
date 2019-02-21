@@ -16,18 +16,23 @@
                        :is="page.component"
                        v-if="page.init"
                        v-show="currentValue === index"/>
+            <div class="pl-navigator-tab-content-empty" :class="{'pl-navigator-tab-content-empty-hide':!!pageStack && pageStack.length>0}">
+                <pl-icon icon="pl-nothing"/>
+                <span>空空如也</span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import PlTabHeader from "../tab/pl-tab-header";
+    import PlIcon from "../icon/pl-icon";
 
     const STORAGE_KEY = 'navigator-tab';
 
     export default {
         name: "pl-navigator-tab",
-        components: {PlTabHeader},
+        components: {PlIcon, PlTabHeader},
         props: {
             value: {type: Number},                                              //当前显示的页面索引
             initPages: {type: Array, default: () => []},                         //初始化就要显示的页面
@@ -74,10 +79,11 @@
                 return {component, path}
             },
             p_close({index}) {
-                if (index <= this.currentValue) this.currentValue--;
+                let nextIndex = this.currentValue
+                if (index <= this.currentValue) nextIndex--;
                 this.pageStack.splice(index, 1)
-                if (this.currentValue < 0 && this.pageStack.length > 0) this.currentValue = 0
-                this.refresh();
+                if (nextIndex < 0 && this.pageStack.length > 0) nextIndex = 0
+                this.p_clickMenu(nextIndex)
             },
             async p_clickMenu(index) {
                 this.currentValue = index
@@ -117,15 +123,7 @@
                     id: this.$plain.$utils.uuid()
                 })
                 this.currentValue = this.pageStack.length - 1
-                this.refresh();
-            },
-            refresh() {
-                this.$nextTick(() => {
-                    const target = this.pageStack[this.currentValue]
-                    !!target && !target.init && (target.init = true)
-                    // this.$refs.header.refresh()
-                    this.p_save()
-                })
+                this.p_save()
             },
         }
     }
@@ -141,6 +139,30 @@
             flex: 1;
             width: 100%;
             overflow: auto;
+            position: relative;
+            .pl-navigator-tab-content-empty {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                @include transition-all;
+                .pl-icon {
+                    font-size: 50px;
+                    margin-bottom: 12px;
+                }
+                span {
+                    font-size: 12px;
+                }
+                &.pl-navigator-tab-content-empty-hide {
+                    opacity: 0;
+                    z-index: -1;
+                }
+            }
         }
     }
 </style>
