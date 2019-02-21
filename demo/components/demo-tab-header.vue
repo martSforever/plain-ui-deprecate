@@ -7,11 +7,11 @@
             <link-tab-header :data="['Color颜色','Icon图标','Button按钮']" v-model="val[0]" clear-icon/>
         </demo-row>
         <demo-row title="监听删除事件以及右击删除">
-            <link-tab-header :data="data" v-model="val[0]" clear-icon @close="p_remove" @contextmenu="p_remove"/>
+            <link-tab-header :data="data" clear-icon @close="p_remove" @contextmenu="p_remove"/>
             <demo-row>
                 <link-button-group>
                     <link-button label="add" @click="p_add"/>
-                    <link-button label="shuffle" @click="p_shuffle"/>
+                    <link-button label="substract" @click="p_substract"/>
                 </link-button-group>
             </demo-row>
         </demo-row>
@@ -36,8 +36,8 @@
             p_add() {
                 this.data.push(new Date().getTime())
             },
-            p_shuffle() {
-                this.$plain.$utils.shuffle(this.data)
+            p_substract() {
+                this.data.pop()
             },
         }
     }
