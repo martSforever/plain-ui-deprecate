@@ -9,22 +9,44 @@
                        :key="page.id"
                        :param="page.param || {}"
                        :is="page.component"
-                       v-if="page.init"
+                       v-if="index===pageStack.length-1"
                        v-show="index === pageStack.length-1"/>
         </div>
     </div>
 </template>
 
 <script>
+
+    const STORAGE_KEY = 'navigator-page';
+
     export default {
         name: "pl-navigator-page",
         props: {
-            value: {},
+            id: {},
         },
         data() {
+
+            let pageStack = []
+            let tabsStorage, selfStorage;
+
+            if (!!this.id) {
+                tabsStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
+                selfStorage = tabsStorage[this.id] || {}
+                if (!!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
+                    pageStack = selfStorage.pageStack.map((item) => Object.assign({id: this.$plain.$utils.uuid()}, item))
+                }
+            }
+
             return {
-                currentValue: this.value,
-                pageStack: [],
+                pageStack,
+                tabsStorage,
+                selfStorage,
+            }
+        },
+        created() {
+            if (this.pageStack.length > 0) {
+                const {path, param} = this.pageStack.pop()
+                this.push(path, param)
             }
         },
         methods: {
@@ -32,14 +54,21 @@
                 const component = await this.$plain.pageRegistry(path)
                 this.pageStack.push({
                     id: this.$plain.$utils.uuid(),
-                    init: true,
                     path,
                     param,
                     component
                 })
+                this.p_save()
             },
             async back() {
                 this.pageStack.pop()
+                this.p_save()
+            },
+            p_save() {
+                if (!this.id) return
+                this.selfStorage.pageStack = this.pageStack.map(({path, param}) => ({path, param}))
+                this.tabsStorage[this.id] = this.selfStorage
+                this.$plain.$storage.set(STORAGE_KEY, this.tabsStorage)
             },
         }
 

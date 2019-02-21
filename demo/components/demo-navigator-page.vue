@@ -2,7 +2,7 @@
     <div class="demo-navigator-page">
         <demo-row title="基本用法">
             <div class="demo-navigator-page-box">
-                <link-navigator-page ref="baseNavigator">
+                <link-navigator-page ref="baseNavigator" id="abc">
                     <link-button label="打开页面1" @click="$refs.baseNavigator.push('/demo-navigator-page-1',{msg})"/>
                     <link-input v-model="msg"/>
                 </link-navigator-page>
