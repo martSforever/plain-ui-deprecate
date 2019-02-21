@@ -49,7 +49,6 @@
         cursor: pointer;
         user-select: none;
         min-width: 65px;
-        width: inherit;
 
         .pl-box-content {
             display: flex;
