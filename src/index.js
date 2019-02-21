@@ -54,6 +54,7 @@ import tab from './components/tab/pl-tab'
 import tabs from './components/tab/pl-tabs'
 import tabHeader from './components/tab/pl-tab-header'
 import navigatorTab from './components/navigator-tab/pl-navigator-tab'
+import navigatorPage from './components/navigator-page/pl-navigator-page'
 
 const components = {
     icon,
@@ -98,6 +99,7 @@ const components = {
     tabs,
     tabHeader,
     navigatorTab,
+    navigatorPage,
 
     ...ColumnComponents,
 }
