@@ -40,6 +40,16 @@
             id: {type: String,},                                                //页签id，用来存储当前页签页面页面栈数据的key
             height: {type: Number | String, default: '100%'},                   //高度
         },
+        watch: {
+            value(val) {
+                if (this.currentValue !== val && val >= 0 && val < this.pageStack.length) {
+                    this.p_clickMenu(val)
+                }
+            },
+            currentValue(val){
+                this.$emit('input', val)
+            },
+        },
         data() {
             let pageStack = []
             let currentValue = this.value;
