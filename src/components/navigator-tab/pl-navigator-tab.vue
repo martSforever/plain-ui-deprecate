@@ -10,7 +10,7 @@
                        ref="header"/>
         <div class="pl-navigator-tab-content">
             <component v-for="(page,index) in pageStack"
-                       class="pl-navigator-page"
+                       class="pl-navigator-tab-item"
                        :key="page.id"
                        :param="page.param || {}"
                        :is="page.component"

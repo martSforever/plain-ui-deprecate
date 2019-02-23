@@ -1,22 +1,13 @@
 <template>
     <div class="pl-navigator-page">
-        <div class="pl-navigator-page-header">
-            <div class="pl-navigator-page-header-content">
-                <link-button label="返回" prefix-icon="pl-arrow-left" box-type="none" @click="this.back" v-show="pageStack.length>0"/>
-            </div>
-        </div>
-        <div class="pl-navigator-page-content">
-            <div class="pl-navigator-page-item">
-                <slot></slot>
-            </div>
-            <component v-for="(page,index) in pageStack"
-                       class="pl-navigator-page-item"
-                       :key="page.id"
-                       :param="page.param || {}"
-                       :is="page.component"
-                       v-if="index===pageStack.length-1"
-                       v-show="index === pageStack.length-1"/>
-        </div>
+        <component ref="pages"
+                   v-for="(page) in pageStack"
+                   :key="page.id"
+                   :id="page.id"
+                   :path="page.path"
+                   :is="page.component"
+                   :param="page.param || {}"
+                   v-if="page.initialized"/>
     </div>
 </template>
 
@@ -27,32 +18,47 @@
     export default {
         name: "pl-navigator-page",
         props: {
+            root: {},
             id: {},
         },
+        watch: {
+            pageStack: {
+                immediate: true,
+                async handler(val) {
+                    await this.$plain.nextTick()
+                    for (let i = 0; i < this.$children.length; i++) {
+                        const $child = this.$children[i];
+                        if ($child.$children[0].$options.name !== 'pl-page') {
+                            console.error('page must be wrapped by page component, path:', $child.$attrs.path)
+                            return
+                        }
+                    }
+                },
+            }
+        },
         data() {
-
             let pageStack = []
             let tabsStorage, selfStorage;
-
             if (!!this.id) {
                 tabsStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
                 selfStorage = tabsStorage[this.id] || {}
                 if (!!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
-                    pageStack = selfStorage.pageStack.map((item) => Object.assign({id: this.$plain.$utils.uuid()}, item))
+                    pageStack = selfStorage.pageStack.map((item, index) => Object.assign({
+                        id: this.$plain.$utils.uuid(),
+                        component: null,
+                        initialized: index >= selfStorage.pageStack.length - 2
+                    }, item))
                 }
             }
-
+            this.$nextTick(() => this.p_initComponent())
             return {
                 pageStack,
                 tabsStorage,
                 selfStorage,
             }
         },
-        created() {
-            if (this.pageStack.length > 0) {
-                const {path, param} = this.pageStack.pop()
-                this.push(path, param)
-            }
+        mounted() {
+            this.pageStack.length === 0 && !!this.root && this.push(this.root.path, this.root.param)
         },
         methods: {
             async push(path, param) {
@@ -61,19 +67,73 @@
                     id: this.$plain.$utils.uuid(),
                     path,
                     param,
-                    component
+                    component,
+                    initialized: true,
                 })
-                this.p_save()
+                await this.p_save()
+                this.$emit('push', {path, param})
             },
-            async back() {
+            async redirect(path, param) {
+                const component = await this.$plain.pageRegistry(path)
+                this.pageStack.push({
+                    id: this.$plain.$utils.uuid(),
+                    path,
+                    param,
+                    component,
+                    initialized: true,
+                })
+                await this.$plain.nextTick()
+                await this.$plain.$utils.delay(500)
+                this.pageStack.splice(this.pageStack.length - 2, 1)
+                this.p_save()
+                this.$emit('push', {path, param})
+                this.$emit('redirect', {path, param})
+            },
+            async back(num = 1) {
+                if (this.pageStack.length === 1) {
+                    console.info("is last page!!!")
+                    return
+                }
+                /*页面退回，将最后一页之前需要删除的页移除*/
+                while (num - 1 > 0) {
+                    this.pageStack.length > 2 && this.pageStack.splice(this.pageStack.length - 2, 1)
+                    num--
+                }
+                /*初始化需要初始化的页面*/
+                this.pageStack.forEach((page, index) => !page.initialized && index >= (this.pageStack.length - 2 - num) && (page.initialized = true))
+                await this.$plain.nextTick()
+
+                /*获取最后一个pageInstance实例，调用退出动画*/
+                const lastPage = this.pageStack[this.pageStack.length - 1]
+                const {path, param} = lastPage;
+                let lastPageInstance = this.p_getPageInstance(lastPage)
+                await lastPageInstance.hide()
+
+                /*弹出页面*/
                 this.pageStack.pop()
-                this.p_save()
+
+                /*保存*/
+                await this.p_save()
+                this.$emit('back', {path, param})
+                return {path, param}
             },
-            p_save() {
+            async p_save() {
                 if (!this.id) return
                 this.selfStorage.pageStack = this.pageStack.map(({path, param}) => ({path, param}))
                 this.tabsStorage[this.id] = this.selfStorage
                 this.$plain.$storage.set(STORAGE_KEY, this.tabsStorage)
+            },
+            async p_initComponent() {
+                for (let i = 0; i < this.pageStack.length; i++) {
+                    const page = this.pageStack[i];
+                    if (!page.component) page.component = await this.$plain.pageRegistry(page.path)
+                }
+            },
+            p_getPageInstance(page) {
+                for (let i = 0; i < this.$children.length; i++) {
+                    const $child = this.$children[i];
+                    if ($child.$attrs.id === page.id) return $child.$children[0]
+                }
             },
         }
 
@@ -83,51 +143,8 @@
 <style lang="scss">
     .pl-navigator-page {
         @include public-style;
-        display: flex;
         height: 100%;
         width: 100%;
-        flex-direction: column;
-        .pl-navigator-page-header {
-            height: 40px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            .pl-navigator-page-header-content {
-                position: relative;
-                z-index: 1;
-                background-color: white;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                padding: 0 6px;
-                box-sizing: border-box;
-            }
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                height: 1px;
-                box-shadow: 0 0 15px 1px #ddd;
-            }
-        }
-        .pl-navigator-page-content {
-            position: relative;
-            width: 100%;
-            flex: 1;
-            .pl-navigator-page-item {
-                top: 0;
-                left: 0;
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                background-color: white;
-                padding: 12px;
-                box-sizing: border-box;
-            }
-        }
+        position: relative;
     }
 </style>
