@@ -25,19 +25,21 @@
         },
         mounted() {
             this.page = this.$plain.$dom.findComponentUpward(this, 'pl-page')
-            this.pageLeft = this.totalWidth = this.page.$el.offsetWidth
-            console.log(this.pageLeft, this.totalWidth)
+            this.totalWidth = this.page.$el.offsetWidth
+            this.pageLeft = 0
             this.page.$on('move', (left) => {
                 this.pageLeft = left
             })
         },
         computed: {
             wrapperStyles() {
+                if (this.pageLeft == null) return null
                 return {
                     left: `${this.pageLeft / 5}px`,
                 }
             },
             styles() {
+                if (this.pageLeft == null) return null
                 return {
                     opacity: 1 - ((this.pageLeft / this.totalWidth).toFixed(2) - 0)
                 }
@@ -53,6 +55,7 @@
         z-index: 1;
         background-color: white;
         transition: $page-transition;
+        opacity: 0.2;
         .pl-header-content-wrapper {
             height: 100%;
             width: 100%;
@@ -64,6 +67,7 @@
             box-sizing: border-box;
             background-color: white;
             transition: $page-transition;
+            left: 20%;
             .pl-back-button {
                 margin-right: $padding;
             }

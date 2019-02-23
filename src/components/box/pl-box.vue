@@ -160,6 +160,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        width: fit-content;
 
         .pl-box-clear-icon {
             cursor: pointer;

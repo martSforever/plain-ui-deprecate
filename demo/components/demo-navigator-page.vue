@@ -30,5 +30,9 @@
             height: 200px;
             box-shadow: 0 0 15px 1px #ddd;
         }
+        .demo-navigator-page-1, .demo-navigator-page-2, .demo-navigator-page-3 {
+            display: flex;
+            flex-direction: column;
+        }
     }
 </style>

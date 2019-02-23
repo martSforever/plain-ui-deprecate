@@ -3,16 +3,11 @@
         <link-header title="页面二"/>
         <link-content>
             <div class="demo-navigator-page-2">
-                <link-button-group>
-                    <link-button label="返回" prefix-icon="pl-arrow-left" @click="baseNavigator.back()"/>
-                    <link-button label="打开页面3" @click="baseNavigator.push('/demo-navigator-page-3',{msg})"/>
-                </link-button-group>
-                <div>
-                    <link-input :value="param.msg"/>
-                </div>
-                <div>
-                    <link-input v-model="msg"/>
-                </div>
+                <link-button label="返回" prefix-icon="pl-arrow-left" @click="baseNavigator.back()"/>
+                <link-button label="重定向到页面3" prefix-icon="pl-arrow-left" @click="baseNavigator.redirect('/demo-navigator-page-3',{msg})"/>
+                <link-button label="打开页面3" @click="baseNavigator.push('/demo-navigator-page-3',{msg})"/>
+                <link-input :value="param.msg"/>
+                <link-input v-model="msg"/>
             </div>
         </link-content>
     </link-page>
