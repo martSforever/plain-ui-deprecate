@@ -1,2 +1,2 @@
-(("undefined"!==typeof self?self:this)["webpackJsonpplain_ui"]=("undefined"!==typeof self?self:this)["webpackJsonpplain_ui"]||[]).push([[1],{"0b62":function(n,e){n.exports='```html\r\n<link-button label="按钮11"/>\r\n<link-button label="按钮22"/>\r\n<link-button label="按钮33"/>\r\n```'}}]);
+(("undefined"!==typeof self?self:this)["webpackJsonpplain_ui"]=("undefined"!==typeof self?self:this)["webpackJsonpplain_ui"]||[]).push([[1],{"0b62":function(n,e){n.exports='```html\n<link-button label="按钮11"/>\n<link-button label="按钮22"/>\n<link-button label="按钮33"/>\n```'}}]);
 //# sourceMappingURL=plain-ui.umd.min.1.js.map
