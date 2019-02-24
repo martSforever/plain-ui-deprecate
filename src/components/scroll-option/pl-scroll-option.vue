@@ -1,9 +1,13 @@
 <template>
     <div class="pl-scroll-option" :style="styles">
-        <div class="pl-scroll-option-wrapper" @scroll="p_scroll">
+        <div class="pl-scroll-option-wrapper" @scroll="p_scroll" ref="wrapper">
             <div class="pl-scroll-option-item" v-for="(item) in [1,2,3]" :key="`_${item}`" :style="itemStyles"></div>
-            <div class="pl-scroll-option-item" v-for="(item,index) in data" :key="index" :style="itemStyles">
-                {{!!labelKey ? item[labelKey] : item}}
+            <div class="pl-scroll-option-item"
+                 v-for="(item,index) in data"
+                 :key="index"
+                 :style="itemStyles"
+                 @click="p_click(item,index)">
+                {{index}},{{!!labelKey ? item[labelKey] : item}}
             </div>
             <div class="pl-scroll-option-item" v-for="(item) in [1,2,3]" :key="`${item}_`" :style="itemStyles"></div>
         </div>
@@ -30,6 +34,7 @@
                 scrollTop: 0,
                 timer: null,
                 listenScroll: true,
+                p_index: 0,
             }
         },
         computed: {
@@ -50,17 +55,26 @@
                 this.$emit('scroll', this.scrollTop)
                 this.listenScroll && this.p_scrollEnd(e)
             },
+            p_click(item, index) {
+                this.p_scrollTo(index)
+            },
             p_scrollEnd(e) {
                 this.p_clearTimer()
                 this.timer = setTimeout(() => {
-                    if (this.scrollTop % this.itemHeight === 0) return
+                    if (this.scrollTop % this.itemHeight === 0) {
+                        this.p_updateIndex()
+                        return
+                    }
                     this.listenScroll = false
                     for (let i = 0; i < this.data.length + (this.itemNum * 2); i++) {
                         let start = this.itemHeight * i
                         let end = this.itemHeight * (i + 1)
                         if (start < this.scrollTop && this.scrollTop < end) {
                             scroll.top(e.target, start);
-                            setTimeout((() => this.listenScroll = true), 300)
+                            setTimeout((() => {
+                                this.listenScroll = true
+                                this.p_updateIndex()
+                            }), 300)
                         }
                     }
                 }, 300)
@@ -70,6 +84,16 @@
                     clearTimeout(this.timer)
                     this.timer = null
                 }
+            },
+            p_updateIndex() {
+                this.p_index = Math.floor((this.scrollTop / this.itemHeight))
+                console.log(this.p_index)
+            },
+            p_scrollTo(index) {
+                this.listenScroll = false
+                this.p_index = index
+                scroll.top(this.$refs.wrapper, (index) * this.itemHeight);
+                setTimeout((() => this.listenScroll = true), 300)
             },
         }
     }
@@ -98,6 +122,12 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 box-sizing: border-box;
+                cursor: pointer;
+                user-select: none;
+
+                transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+                transition-duration: 0ms;
+
                 &:not(:last-child) {
                     font-size: 12px;
                     color: $color-normal-sub-color;
