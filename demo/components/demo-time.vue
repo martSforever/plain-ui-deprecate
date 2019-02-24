@@ -1,14 +1,17 @@
 <template>
     <div class="demo-time">
         <demo-row>
-            <link-time/>
+            <pl-time-panel/>
         </demo-row>
     </div>
 </template>
 
 <script>
+    import PlTimePanel from "../../src/components/time/pl-time-panel";
+
     export default {
-        name: "demo-time"
+        name: "demo-time",
+        components: {PlTimePanel}
     }
 </script>
 
