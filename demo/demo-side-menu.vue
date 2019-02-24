@@ -75,6 +75,7 @@
                             {title: 'Tree树形组件', icon: 'pl-tree', page: '/demo-tree', complete: true},
                             {title: 'Pagination分页', icon: 'pl-book2', page: '/demo-page-bar', complete: true},
                             {title: 'Badge标记', icon: 'pl-badge', page: '/demo-badge', complete: true},
+                            {title: 'ScrollOption滚动选择', icon: 'icon-scroll', page: '/demo-scroll-option', complete: true},
                             {title: 'Mavon编辑器', icon: 'icon-code', page: '/demo-mavon', complete: true},
                         ],
                     },

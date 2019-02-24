@@ -60,6 +60,7 @@ import content from './components/navigator-page/pl-content'
 import header from './components/navigator-page/pl-header'
 import backButton from './components/navigator-page/pl-back-button'
 import time from './components/time/pl-time'
+import scrollOption from './components/scroll-option/pl-scroll-option'
 
 const components = {
     icon,
@@ -110,6 +111,7 @@ const components = {
     header,
     backButton,
     time,
+    scrollOption,
 
     ...ColumnComponents,
 }
