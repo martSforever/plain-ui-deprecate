@@ -138,7 +138,7 @@
                 return !!this.valueKey ? item[this.valueKey] : item
             },
             p_scrollTop(scrollTop) {
-                scroll.top(this.$refs.wrapper, scrollTop, {duration: 100});
+                scroll.top(this.$refs.wrapper, scrollTop);
             },
         }
     }
