@@ -96,14 +96,14 @@
                         let start = this.itemHeight * i
                         let end = this.itemHeight * (i + 1)
                         if (start < this.scrollTop && this.scrollTop < end) {
-                            scroll.top(e.target, start);
+                            this.p_scrollTop(start)
                             setTimeout((() => {
                                 this.listenScroll = true
                                 this.p_updateIndex()
                             }), 300)
                         }
                     }
-                }, 300)
+                }, 100)
             },
             p_clearTimer() {
                 if (this.timer != null) {
@@ -119,7 +119,7 @@
                 this.listenScroll = false
                 this.p_index = index
                 this.p_emitValue();
-                scroll.top(this.$refs.wrapper, (index) * this.itemHeight);
+                this.p_scrollTop((index) * this.itemHeight)
                 setTimeout((() => this.listenScroll = true), 300)
             },
             p_emitValue() {
@@ -130,12 +130,15 @@
                 for (let i = 0; i < this.data.length; i++) {
                     const item = this.data[i];
                     if (this.p_getValue(item) === this.value) {
-                        scroll.top(this.$refs.wrapper, (i) * this.itemHeight);
+                        this.p_scrollTop((i) * this.itemHeight)
                     }
                 }
             },
             p_getValue(item) {
                 return !!this.valueKey ? item[this.valueKey] : item
+            },
+            p_scrollTop(scrollTop) {
+                scroll.top(this.$refs.wrapper, scrollTop, {duration: 100});
             },
         }
     }
