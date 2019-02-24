@@ -7,6 +7,8 @@
             </div>
             <div class="pl-scroll-option-item" v-for="(item) in [1,2,3]" :key="`${item}_`" :style="itemStyles"></div>
         </div>
+        <div class="pl-scroll-option-shadow-top" :style="{height:`${itemNum*itemHeight}px`}"></div>
+        <div class="pl-scroll-option-shadow-bottom" :style="{height:`${itemNum*itemHeight}px`}"></div>
     </div>
 </template>
 
@@ -51,7 +53,6 @@
             p_scrollEnd(e) {
                 this.p_clearTimer()
                 this.timer = setTimeout(() => {
-                    console.log('p_scrollEnd')
                     if (this.scrollTop % this.itemHeight === 0) return
                     this.listenScroll = false
                     for (let i = 0; i < this.data.length + (this.itemNum * 2); i++) {
@@ -81,10 +82,13 @@
         height: 100%;
         overflow: hidden;
         border: solid 1px #ddd;
+        position: relative;
         .pl-scroll-option-wrapper {
             width: calc(100% + 17px);
             height: 100%;
             overflow-y: scroll;
+            position: absolute;
+            top: 0;
             .pl-scroll-option-item {
                 width: 100%;
                 display: flex;
@@ -95,11 +99,26 @@
                 white-space: nowrap;
                 box-sizing: border-box;
                 &:not(:last-child) {
-                    border-bottom: solid #f2f2f2 1px;
                     font-size: 12px;
-                    color: $color-normal-content;
+                    color: $color-normal-sub-color;
                 }
             }
+        }
+        .pl-scroll-option-shadow-top, .pl-scroll-option-shadow-bottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: -1;
+        }
+        .pl-scroll-option-shadow-top {
+            top: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), transparent);
+            border-bottom: solid #ddd 1px;
+        }
+        .pl-scroll-option-shadow-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.15), transparent);
+            border-top: solid #ddd 1px;
         }
     }
 </style>
