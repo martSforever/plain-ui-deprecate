@@ -57,7 +57,7 @@
                             {title: 'Cascade级联选择', icon: 'pl-cascade', page: '/demo-cascade', complete: true},
                             {title: 'Toggle开关切换', icon: 'pl-toggle', page: '/demo-toggle', complete: true},
                             {title: 'Slider滑块', icon: 'pl-sliders', page: '/demo-slider', complete: true},
-                            {title: 'TimePicker时间选择', icon: 'pl-time', page: '/demo-icon', complete: false},
+                            {title: 'TimePicker时间选择', icon: 'pl-time', page: '/demo-time', complete: true},
                             {title: 'DatePicker日期选择', icon: 'pl-date', page: '/demo-date-picker', complete: false},
                             {title: 'DateTimePicker时间日期', icon: 'pl-datetime', page: '/demo-icon', complete: false},
                             {title: 'Rate评分', icon: 'pl-star', page: '/demo-rate', complete: true},

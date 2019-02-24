@@ -59,6 +59,7 @@ import page from './components/navigator-page/pl-page'
 import content from './components/navigator-page/pl-content'
 import header from './components/navigator-page/pl-header'
 import backButton from './components/navigator-page/pl-back-button'
+import time from './components/time/pl-time'
 
 const components = {
     icon,
@@ -108,6 +109,7 @@ const components = {
     content,
     header,
     backButton,
+    time,
 
     ...ColumnComponents,
 }
