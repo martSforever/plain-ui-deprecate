@@ -2,13 +2,7 @@
     <div class="demo-navigator-page">
         <demo-row title="基本用法">
             <div class="demo-navigator-page-box">
-                <link-navigator-page ref="baseNavigator" id="abc">
-                    <link-button label="打开页面：Icon图标" @click="$refs.baseNavigator.push('/demo-icon')"/>
-
-                    <link-button label="打开页面1" @click="$refs.baseNavigator.push('/demo-navigator-page-1',{msg})"/>
-                    <link-input v-model="msg"/>
-
-                </link-navigator-page>
+                <link-navigator-page ref="baseNavigator" id="abc" :root="{path:'/demo-navigator-page-1'}"/>
             </div>
         </demo-row>
     </div>
@@ -35,6 +29,10 @@
         .demo-navigator-page-box {
             height: 200px;
             box-shadow: 0 0 15px 1px #ddd;
+        }
+        .demo-navigator-page-1, .demo-navigator-page-2, .demo-navigator-page-3 {
+            display: flex;
+            flex-direction: column;
         }
     }
 </style>

@@ -3,7 +3,7 @@
 /***/ "0b62":
 /***/ (function(module, exports) {
 
-module.exports = "```html\r\n<link-button label=\"按钮11\"/>\r\n<link-button label=\"按钮22\"/>\r\n<link-button label=\"按钮33\"/>\r\n```"
+module.exports = "```html\n<link-button label=\"按钮11\"/>\n<link-button label=\"按钮22\"/>\n<link-button label=\"按钮33\"/>\n```"
 
 /***/ })
 

@@ -55,6 +55,12 @@ import tabs from './components/tab/pl-tabs'
 import tabHeader from './components/tab/pl-tab-header'
 import navigatorTab from './components/navigator-tab/pl-navigator-tab'
 import navigatorPage from './components/navigator-page/pl-navigator-page'
+import page from './components/navigator-page/pl-page'
+import content from './components/navigator-page/pl-content'
+import header from './components/navigator-page/pl-header'
+import backButton from './components/navigator-page/pl-back-button'
+import time from './components/time/pl-time'
+import scrollOption from './components/scroll-option/pl-scroll-option'
 
 const components = {
     icon,
@@ -100,6 +106,12 @@ const components = {
     tabHeader,
     navigatorTab,
     navigatorPage,
+    page,
+    content,
+    header,
+    backButton,
+    time,
+    scrollOption,
 
     ...ColumnComponents,
 }
