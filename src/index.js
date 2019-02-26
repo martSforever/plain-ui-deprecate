@@ -61,6 +61,7 @@ import header from './components/navigator-page/pl-header'
 import backButton from './components/navigator-page/pl-back-button'
 import time from './components/time/pl-time'
 import scrollOption from './components/scroll-option/pl-scroll-option'
+import navigatorMain from './components/navigator-main/pl-navigator-main'
 
 const components = {
     icon,
@@ -112,6 +113,7 @@ const components = {
     backButton,
     time,
     scrollOption,
+    navigatorMain,
 
     ...ColumnComponents,
 }
@@ -153,6 +155,7 @@ const PlainUI = {
         this._pageRegistry = pageRegistry
         Vue.use(DomPortal)
         PlainUI.nextTick = () => new Promise((rs) => Vue.prototype.$nextTick(() => rs()))
+        PlainUI.Vue = Vue
         Vue.prototype.$plain = PlainUI
         Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice
