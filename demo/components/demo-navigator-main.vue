@@ -6,7 +6,7 @@
                 <link-button label="Icon图标" @click="openTab('Icon图标','/demo-icon')"/>
                 <link-button label="Button按钮" @click="openTab('Button按钮','/demo-button')"/>
                 <link-button label="Radio单选复选" @click="openTab('Radio单选复选','/demo-radio')"/>
-                <link-button label="Test测试" @click="openTab('Test测试','/demo-test')"/>
+                <link-button label="Message消息提示" @click="openTab('Message消息提示','/demo-message')"/>
             </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">
