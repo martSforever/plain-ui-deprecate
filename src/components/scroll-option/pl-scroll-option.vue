@@ -76,14 +76,29 @@
             },
         },
         methods: {
+            /**
+             * 处理滚动事件
+             * @author  韦胜健
+             * @date    2019/2/26 09:15
+             */
             p_scroll(e) {
                 this.scrollTop = e.target.scrollTop
                 this.$emit('scroll', this.scrollTop)
                 this.listenScroll && this.p_scrollEnd(e)
             },
+            /**
+             * 处理点击事件
+             * @author  韦胜健
+             * @date    2019/2/26 09:15
+             */
             p_click(item, index) {
                 this.p_scrollTo(index)
             },
+            /**
+             * 滚动结束之后，触发动作
+             * @author  韦胜健
+             * @date    2019/2/26 09:16
+             */
             p_scrollEnd(e) {
                 this.p_clearTimer()
                 this.timer = setTimeout(() => {
@@ -105,16 +120,31 @@
                     }
                 }, 100)
             },
+            /**
+             * 清除滚动结束触发动作延时器
+             * @author  韦胜健
+             * @date    2019/2/26 09:16
+             */
             p_clearTimer() {
                 if (this.timer != null) {
                     clearTimeout(this.timer)
                     this.timer = null
                 }
             },
+            /**
+             * 更新当前居中选中的索引
+             * @author  韦胜健
+             * @date    2019/2/26 09:16
+             */
             p_updateIndex() {
                 this.p_index = Math.floor((this.scrollTop / this.itemHeight))
                 this.p_emitValue()
             },
+            /**
+             * 滚动到目标索引
+             * @author  韦胜健
+             * @date    2019/2/26 09:17
+             */
             p_scrollTo(index) {
                 this.listenScroll = false
                 this.p_index = index
@@ -122,10 +152,20 @@
                 this.p_scrollTop((index) * this.itemHeight)
                 setTimeout((() => this.listenScroll = true), 300)
             },
+            /**
+             * 派发当前选中值事件
+             * @author  韦胜健
+             * @date    2019/2/26 09:17
+             */
             p_emitValue() {
                 this.p_value = this.p_getValue(this.data[this.p_index])
                 this.$emit('input', this.p_value)
             },
+            /**
+             * 根据新值更新位置，滚动到指定位置
+             * @author  韦胜健
+             * @date    2019/2/26 09:17
+             */
             p_updateByValue() {
                 for (let i = 0; i < this.data.length; i++) {
                     const item = this.data[i];
@@ -134,9 +174,19 @@
                     }
                 }
             },
+            /**
+             * 获取当前值
+             * @author  韦胜健
+             * @date    2019/2/26 09:17
+             */
             p_getValue(item) {
                 return !!this.valueKey ? item[this.valueKey] : item
             },
+            /**
+             * 滚动到指定高度位置
+             * @author  韦胜健
+             * @date    2019/2/26 09:18
+             */
             p_scrollTop(scrollTop) {
                 scroll.top(this.$refs.wrapper, scrollTop);
             },
