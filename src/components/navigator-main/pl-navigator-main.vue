@@ -8,6 +8,9 @@
                      :class="{'pl-navigator-main-header-item-active':index === currentValue}"
                      @click="p_clickTabTitle(item,index)">
                     <span>{{item.title}}</span>
+                    <div class="pl-navigator-main-header-item-close" @click.stop="p_close(item.title,item.path)">
+                        <pl-icon icon="pl-close-circle-fill"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,10 +28,11 @@
 
 <script>
     import PlNavigatorMainTab from "./pl-navigator-main-tab";
+    import PlIcon from "../icon/pl-icon";
 
     export default {
         name: "pl-navigator-main",
-        components: {PlNavigatorMainTab},
+        components: {PlIcon, PlNavigatorMainTab},
         data() {
             const pageStack = []
             return {
@@ -52,13 +56,12 @@
         },
         methods: {
             async open(title, path, param) {
-                for (let i = 0; i < this.pageStack.length; i++) {
-                    const page = this.pageStack[i];
-                    if (page.path === path && page.title === title) {
-                        this.currentValue = i
-                        return
-                    }
+                const findPage = this.p_findPage(title, path)
+                if (!!findPage) {
+                    this.currentValue = findPage.index
+                    return
                 }
+
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
                 this.pageStack.push({
@@ -77,6 +80,25 @@
             },
             async p_clickTabTitle(item) {
                 await this.open(item.title, item.path, item.param)
+            },
+            async p_close(title, path) {
+                const findPage = this.p_findPage(title, path)
+                if (!findPage) return
+                let index = findPage.index
+                let nextIndex = this.currentValue
+                if (index <= this.currentValue) nextIndex--;
+                this.pageStack.splice(index, 1)
+                if (nextIndex < 0 && this.pageStack.length > 0) nextIndex = 0
+                nextIndex > -1 && this.p_clickTabTitle(this.pageStack[nextIndex])
+            },
+            p_findPage(title, path) {
+                for (let i = 0; i < this.pageStack.length; i++) {
+                    const page = this.pageStack[i];
+                    if (page.path === path && page.title === title) {
+                        return {page, index: i}
+                    }
+                }
+                return null
             },
         },
         beforeDestroy() {
@@ -123,11 +145,30 @@
                     font-size: 13px;
                     color: $navigator-main-tab-border-color;
                     border-bottom-color: transparent;
+                    position: relative;
+                    .pl-navigator-main-header-item-close {
+                        box-sizing: border-box;
+                        position: absolute;
+                        right: 0.5em;
+                        top: 0;
+                        bottom: 0;
+                        display: flex;
+                        align-items: center;
+                        padding-top: 2px;
+                        color: $navigator-main-tab-border-color;
+                        opacity: 0;
+                    }
                     &.pl-navigator-main-header-item-active {
                         border: $navigator-main-tab-border;
                         border-bottom-color: white;
                         color: $color-normal-title;
                     }
+                    &.pl-navigator-main-header-item:hover {
+                        .pl-navigator-main-header-item-close {
+                            opacity: 1;
+                        }
+                    }
+
                 }
             }
         }
