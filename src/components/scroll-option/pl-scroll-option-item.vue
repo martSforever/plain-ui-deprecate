@@ -1,5 +1,11 @@
 <template>
-    <div class="pl-scroll-option-item" @click="!disabled && $emit('click')" :style="styles" :class="{'pl-scroll-option-item-disabled':disabled}">
+    <div class="pl-scroll-option-item"
+         @click="!disabled && $emit('click')"
+         :style="styles"
+         :class="{
+            'pl-scroll-option-item-disabled':disabled,
+            'pl-scroll-option-item-active':currentIndex === index
+         }">
         <slot></slot>
     </div>
 </template>
@@ -15,6 +21,7 @@
             itemNum: {type: Number, default: 3},
 
             index: {},
+            currentIndex: {},
             itemData: {},
             scrollTop: {},
         },
@@ -35,6 +42,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-</style>
