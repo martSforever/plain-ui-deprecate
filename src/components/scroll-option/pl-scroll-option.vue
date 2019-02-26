@@ -8,9 +8,11 @@
                     v-bind="{
                         labelKey:labelKey,
                         valueKey:valueKey,
+                        disabledKey:disabledKey,
                         itemNum:itemNum,
                         itemHeight:itemHeight,
                         index:index,
+                        itemData:item,
                         scrollTop:scrollTop,
                     }"
                     @click="p_click(item,index)">
@@ -37,6 +39,7 @@
             data: {type: Array, required: true},
             labelKey: {type: String},
             valueKey: {type: String},
+            disabledKey: {type: String},
             itemHeight: {type: Number, default: 24},
             itemNum: {type: Number, default: 3},
             width: {type: Number, default: 100},
@@ -104,7 +107,12 @@
                 this.p_clearTimer()
                 this.timer = setTimeout(() => {
                     if (this.scrollTop % this.itemHeight === 0) {
-                        this.p_updateIndex()
+                        let i = (this.scrollTop / this.itemHeight).toFixed(0) - 0
+                        this.p_scrollTop((this.p_getValidIndex(i)) * this.itemHeight)
+                        setTimeout((() => {
+                            this.listenScroll = true
+                            this.p_updateIndex()
+                        }), 200)
                         return
                     }
                     this.listenScroll = false
@@ -112,11 +120,11 @@
                         let start = this.itemHeight * i
                         let end = this.itemHeight * (i + 1)
                         if (start < this.scrollTop && this.scrollTop < end) {
-                            this.p_scrollTop(start)
+                            this.p_scrollTop((this.p_getValidIndex(i)) * this.itemHeight)
                             setTimeout((() => {
                                 this.listenScroll = true
                                 this.p_updateIndex()
-                            }), 300)
+                            }), 100)
                         }
                     }
                 }, 100)
@@ -191,6 +199,35 @@
             p_scrollTop(scrollTop) {
                 scroll.top(this.$refs.wrapper, scrollTop);
             },
+            /**
+             * 判断是否禁用
+             * @author  韦胜健
+             * @date    2019/2/26 10:52
+             */
+            p_isDisabled(index) {
+                return !!this.disabledKey && !!this.data[index][this.disabledKey]
+            },
+            /**
+             * 获取index上一个有效item的index值
+             * @author  韦胜健
+             * @date    2019/2/26 11:10
+             */
+            p_getValidIndex(index) {
+                let target = index
+                if (!this.disabledKey) return target
+                if (this.p_isDisabled(target)) {
+                    while (this.p_isDisabled(target)) {
+                        target--
+                        if (target === -1) {
+                            target = this.data.length - 1
+                        }
+                        if (target === index) {
+                            return 0
+                        }
+                    }
+                }
+                return target
+            },
         }
     }
 </script>
@@ -229,6 +266,9 @@
                 }
                 &:hover {
                     color: black;
+                }
+                &.pl-scroll-option-item-disabled {
+                    color: #ddd;
                 }
             }
         }

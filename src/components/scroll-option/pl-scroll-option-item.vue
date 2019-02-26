@@ -1,5 +1,5 @@
 <template>
-    <div class="pl-scroll-option-item" @click="$emit('click')" :style="styles">
+    <div class="pl-scroll-option-item" @click="!disabled && $emit('click')" :style="styles" :class="{'pl-scroll-option-item-disabled':disabled}">
         <slot></slot>
     </div>
 </template>
@@ -10,10 +10,12 @@
         props: {
             labelKey: {type: String},
             valueKey: {type: String},
+            disabledKey: {type: String},
             itemHeight: {type: Number, default: 24},
             itemNum: {type: Number, default: 3},
 
             index: {},
+            itemData: {},
             scrollTop: {},
         },
         computed: {
@@ -27,10 +29,12 @@
                 }
                 return styles
             },
+            disabled() {
+                return (!!this.disabledKey && !!this.itemData[this.disabledKey])
+            },
         },
     }
 </script>
 
 <style lang="scss">
-
 </style>

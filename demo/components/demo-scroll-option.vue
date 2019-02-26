@@ -1,11 +1,13 @@
 <template>
     <div class="demo-scroll-option">
-        <demo-row title="基本用法">
-            <link-scroll-option :data="data" labelKey="name" valueKey="value" @scroll="val=>scrollTop = val" v-model="scrollVal1"/>
+        <demo-row :title="`基本用法:${val[0]}`">
+            <link-scroll-option :data="data" labelKey="name" valueKey="value" @scroll="val=>scrollTop = val" v-model="val[0]"/>
             &nbsp;
-            <link-scroll-option :data="data" labelKey="name" valueKey="value" @scroll="val=>scrollTop = val" v-model="scrollVal1"/>
+            <link-scroll-option :data="data" labelKey="name" valueKey="value" v-model="val[0]"/>
         </demo-row>
-
+        <demo-row :title="`禁用部分选项:${val[1]}`">
+            <link-scroll-option :data="data" labelKey="name" valueKey="value" disabledKey="invalid" v-model="val[1]"/>
+        </demo-row>
     </div>
 </template>
 
@@ -15,20 +17,22 @@
         data() {
             return {
                 scrollTop: 0,
-                scrollVal1: 'shanxi',
+                val: {
+                    0: 'shanxi'
+                },
                 data: [
-                    {name: '广东', value: 'guangdong'},
-                    {name: '上海', value: 'shanghai'},
-                    {name: '北京', value: 'beijing'},
-                    {name: '湖南', value: 'hunan'},
-                    {name: '湖北', value: 'hubei'},
-                    {name: '江西', value: 'jiangxi'},
-                    {name: '山西', value: 'shanxi'},
-                    {name: '天津', value: 'tianjin'},
-                    {name: '贵州', value: 'guizhou'},
-                    {name: '福建', value: 'fujian'},
-                    {name: '广西', value: 'guangxi'},
-                    {name: '山东', value: 'shandong'},
+                    {name: '广东', value: 'guangdong', invalid: true},
+                    {name: '上海', value: 'shanghai', invalid: false},
+                    {name: '北京', value: 'beijing', invalid: true},
+                    {name: '湖南', value: 'hunan', invalid: false},
+                    {name: '湖北', value: 'hubei', invalid: true},
+                    {name: '江西', value: 'jiangxi', invalid: false},
+                    {name: '山西', value: 'shanxi', invalid: true},
+                    {name: '天津', value: 'tianjin', invalid: false},
+                    {name: '贵州', value: 'guizhou', invalid: true},
+                    {name: '福建', value: 'fujian', invalid: false},
+                    {name: '广西', value: 'guangxi', invalid: true},
+                    {name: '山东', value: 'shandong', invalid: false},
                 ],
             }
         },
