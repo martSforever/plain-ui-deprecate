@@ -199,7 +199,6 @@
         @include public-style;
         height: 100%;
         overflow: hidden;
-        border: solid 1px #ddd;
         position: relative;
         display: inline-block;
         .pl-scroll-option-wrapper {
@@ -227,6 +226,9 @@
                     font-size: 12px;
                     color: $color-normal-sub-color;
                 }
+                &:hover{
+                    color: black;
+                }
             }
         }
         .pl-scroll-option-shadow-top, .pl-scroll-option-shadow-bottom {
@@ -238,12 +240,12 @@
         .pl-scroll-option-shadow-top {
             top: 0;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), transparent);
-            border-bottom: solid #ddd 1px;
+            border-bottom: solid #f2f2f2 1px;
         }
         .pl-scroll-option-shadow-bottom {
             bottom: 0;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.15), transparent);
-            border-top: solid #ddd 1px;
+            border-top: solid #f2f2f2 1px;
         }
     }
 </style>
