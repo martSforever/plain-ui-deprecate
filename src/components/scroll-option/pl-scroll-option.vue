@@ -5,13 +5,14 @@
             <pl-scroll-option-item
                     v-for="(item,index) in data"
                     :key="index"
-
-                    :label-key="labelKey"
-                    :value-key="valueKey"
-                    :item-num="itemNum"
-                    :item-height="itemHeight"
-                    :index="index"
-                    :scroll-top="scrollTop"
+                    v-bind="{
+                        labelKey:labelKey,
+                        valueKey:valueKey,
+                        itemNum:itemNum,
+                        itemHeight:itemHeight,
+                        index:index,
+                        scrollTop:scrollTop,
+                    }"
                     @click="p_click(item,index)">
                 {{!!labelKey ? item[labelKey] : item}}
             </pl-scroll-option-item>
@@ -226,7 +227,7 @@
                     font-size: 12px;
                     color: $color-normal-sub-color;
                 }
-                &:hover{
+                &:hover {
                     color: black;
                 }
             }
