@@ -6,7 +6,7 @@
                      v-for="(item,index) in pageStack"
                      :key="index"
                      :class="{'pl-navigator-main-header-item-active':index === currentValue}"
-                     @click="p_clickTabTitle(item,index)">
+                     @click="p_clickTabTitle(index)">
                     <span>{{item.title}}</span>
                     <div class="pl-navigator-main-header-item-close" @click.stop="p_close(item.title,item.path)">
                         <pl-icon icon="pl-close-circle-fill"/>
@@ -30,17 +30,27 @@
     import PlNavigatorMainTab from "./pl-navigator-main-tab";
     import PlIcon from "../icon/pl-icon";
 
+    const STORAGE_KEY = 'navigator-main'
+
     export default {
         name: "pl-navigator-main",
         components: {PlIcon, PlNavigatorMainTab},
         data() {
-            const pageStack = []
+            let pageStack = []
+            /*从缓存中获取页面信息*/
+            let selfStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
+            if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
+                pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false, id: this.$plain.$utils.uuid()}, item))
+                this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
+            }
             return {
                 pageStack,
+                selfStorage,
                 currentValue: null,
             }
         },
         mounted() {
+            /*全局注入nav导航对象*/
             if (!!this.$nav) {
                 console.error("整个应用只允许存在一个navigator-main组件")
                 return
@@ -55,13 +65,25 @@
             })
         },
         methods: {
+            /**
+             * 打开tab标签页
+             * @author  韦胜健
+             * @date    2019/2/26 16:27
+             */
             async open(title, path, param) {
-                const findPage = this.p_findPage(title, path)
-                if (!!findPage) {
-                    this.currentValue = findPage.index
+                /*打开之前判断标签是否已经打开，已经打开则切换到标签页，判断标签页是否已经初始化，未初始化则加载页面*/
+                const pageIndex = this.p_findPage(title, path)
+                if (pageIndex != null) {
+                    const page = this.pageStack[pageIndex]
+                    if (!page.init) {
+                        page.component = await this.$plain.pageRegistry(path)
+                        page.init = true
+                    }
+                    this.currentValue = pageIndex
+                    this.p_save()
                     return
                 }
-
+                /*打开新标签页*/
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
                 this.pageStack.push({
@@ -73,32 +95,66 @@
                     id: this.$plain.$utils.uuid()
                 })
                 this.currentValue = this.pageStack.length - 1
-                // this.p_save()
+                this.p_save()
             },
-            async close() {
-
+            /**
+             * 关闭标签页
+             * @author  韦胜健
+             * @date    2019/2/26 16:33
+             */
+            async close(title, path) {
+                return this.p_close(title, path)
             },
-            async p_clickTabTitle(item) {
-                await this.open(item.title, item.path, item.param)
+            /**
+             * 处理标签标题点击事件
+             * @author  韦胜健
+             * @date    2019/2/26 16:33
+             */
+            async p_clickTabTitle(index) {
+                const {title, path, param} = this.pageStack[index]
+                return this.open(title, path, param)
             },
+            /**
+             * 处理标签标题关闭事件
+             * @author  韦胜健
+             * @date    2019/2/26 16:33
+             */
             async p_close(title, path) {
-                const findPage = this.p_findPage(title, path)
-                if (!findPage) return
-                let index = findPage.index
+                const pageIndex = this.p_findPage(title, path)
+                if (pageIndex == null) return
+                let index = pageIndex
                 let nextIndex = this.currentValue
                 if (index <= this.currentValue) nextIndex--;
                 this.pageStack.splice(index, 1)
                 if (nextIndex < 0 && this.pageStack.length > 0) nextIndex = 0
-                nextIndex > -1 && this.p_clickTabTitle(this.pageStack[nextIndex])
+                nextIndex > -1 && this.p_clickTabTitle(nextIndex)
+                this.p_save()
             },
+            /**
+             * 根据title以及path获取page的索引
+             * @author  韦胜健
+             * @date    2019/2/26 16:34
+             */
             p_findPage(title, path) {
                 for (let i = 0; i < this.pageStack.length; i++) {
                     const page = this.pageStack[i];
                     if (page.path === path && page.title === title) {
-                        return {page, index: i}
+                        return i
                     }
                 }
                 return null
+            },
+            /**
+             * 缓存当前页面信息
+             * @author  韦胜健
+             * @date    2019/2/26 16:34
+             */
+            p_save() {
+                this.selfStorage.index = this.currentValue;
+                this.selfStorage.pageStack = this.pageStack.map(({title, path, param}) => {
+                    return {title, path, param}
+                })
+                this.$plain.$storage.set(STORAGE_KEY, this.selfStorage)
             },
         },
         beforeDestroy() {
