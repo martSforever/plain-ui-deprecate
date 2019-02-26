@@ -2,7 +2,7 @@
     <div class="demo-navigator-page">
         <demo-row title="基本用法">
             <div class="demo-navigator-page-box">
-                <link-navigator-page ref="baseNavigator" id="abc" :root="{path:'/demo-navigator-page-1'}"/>
+                <link-navigator-page ref="baseNavigator" id="abc" :root="{path:'/navigator/navigator-page/demo-navigator-page-1'}"/>
             </div>
         </demo-row>
     </div>

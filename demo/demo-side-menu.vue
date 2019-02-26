@@ -92,9 +92,9 @@
                         menus: [
                             {title: 'Tabs页签', icon: 'pl-tab', page: '/demo-tabs', complete: true},
                             {title: 'TabsHeader页签标题', icon: 'pl-tab', page: '/demo-tab-header', complete: true},
-                            {title: 'NavigatorTab页签导航', icon: 'pl-tab', page: '/demo-navigator-tab', complete: true},
-                            {title: 'NavigatorPage页面导航', icon: 'pl-tab', page: '/demo-navigator-page', complete: true},
-                            {title: 'NavigatorMain系统导航', icon: 'pl-tab', page: '/demo-navigator-main', complete: true},
+                            {title: 'NavigatorTab页签导航', icon: 'pl-tab', page: '/navigator/demo-navigator-tab', complete: true},
+                            {title: 'NavigatorPage页面导航', icon: 'pl-tab', page: '/navigator/navigator-page/demo-navigator-page', complete: true},
+                            {title: 'NavigatorMain系统导航', icon: 'pl-tab', page: '/navigator/navigator-main/demo-navigator-main', complete: true},
                             {title: 'Steps步骤条', icon: 'pl-number-list', page: '/demo-step', complete: true},
                         ],
                     },

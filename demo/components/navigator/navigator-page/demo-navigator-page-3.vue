@@ -4,7 +4,7 @@
         <link-content>
             <div class="demo-navigator-page-3">
                 <link-button label="回退两个页面" @click="baseNavigator.back(2)"/>
-                <link-button label="再次打开页面3" @click="baseNavigator.push('/demo-navigator-page-3',{msg})"/>
+                <link-button label="再次打开页面3" @click="baseNavigator.push('/navigator/navigator-page/demo-navigator-page-3',{msg})"/>
                 <link-input :value="param.msg"/>
                 <link-input v-model="msg"/>
             </div>
