@@ -44,12 +44,13 @@
         display: inline-block;
         vertical-align: top;
         .pl-cascade-option-item {
-            min-height: 28px;
+            box-sizing: border-box;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 12px;
-            padding: 0 6px;
+            padding: 6px 6px;
             cursor: pointer;
             .pl-cascade-option-item-icon {
                 transform: scale(0.9);
