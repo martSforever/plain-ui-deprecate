@@ -282,12 +282,12 @@
         }
         .pl-scroll-option-shadow-top {
             top: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), transparent);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.025), transparent);
             border-bottom: solid #f2f2f2 1px;
         }
         .pl-scroll-option-shadow-bottom {
             bottom: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.15), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.025), transparent);
             border-top: solid #f2f2f2 1px;
         }
     }
