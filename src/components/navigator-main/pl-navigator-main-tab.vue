@@ -20,6 +20,8 @@
                     v-for="(item,index) in pageStack"
                     :key="item.id"
                     :tab="item"
+                    :before-push="beforePush"
+                    :after-push="afterPush"
                     v-if="item.init"
                     v-show="currentValue === index"/>
         </div>
@@ -37,6 +39,12 @@
         components: {PlNavigatorMainPage, PlIcon},
         props: {
             maxTabs: {type: Number, default: 5},                                //最大打开页签的个数
+
+            beforeOpenTab: {type: Function},                                    //打开页签之前钩子函数
+            afterOpenTab: {type: Function},                                     //打开页签之后的钩子函数
+
+            beforePush: {type: Function},                                       //打开页面之前的钩子函数
+            afterPush: {type: Function},                                        //关闭页面之后的钩子函数
         },
         data() {
             let pageStack = []
@@ -89,14 +97,11 @@
                 /*打开新标签页*/
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
-                this.pageStack.push({
-                    title,
-                    path,
-                    component: pc,
-                    param,
-                    init: true,
-                    id: this.$plain.$utils.uuid()
-                })
+                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid()}
+                !!this.beforeOpenTab && (await this.beforeOpenTab(page))
+                this.pageStack.push(page)
+                await this.$plain.nextTick()
+                !!this.afterOpenTab && (await this.afterOpenTab(page))
                 this.currentValue = this.pageStack.length - 1
                 this.p_save()
             },

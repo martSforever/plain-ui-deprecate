@@ -13,7 +13,7 @@
             </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">
-            <link-navigator-main-tab ref="navigator"/>
+            <link-navigator-main-tab ref="navigator" :beforeOpenTab="beforeOpenTab" :afterOpenTab="afterOpenTab" :beforePush="beforePush" :afterPush="afterPush"/>
         </div>
     </div>
 </template>
@@ -29,6 +29,18 @@
             },
             openPage() {
 
+            },
+            beforeOpenTab(data) {
+                console.log(`打开页签前[${data.title}],${data.path}`)
+            },
+            afterOpenTab(data) {
+                console.log(`打开页签后[${data.title}],${data.path}`)
+            },
+            beforePush(data) {
+                console.log(`打开页面前[${data.path}]`)
+            },
+            afterPush(data) {
+                console.log(`打开页面后[${data.path}]`)
             },
         }
     }

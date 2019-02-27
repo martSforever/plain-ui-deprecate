@@ -23,6 +23,8 @@
         components: {},
         props: {
             tab: {},
+            beforePush: {type: Function},                                       //打开页面之前的钩子函数
+            afterPush: {type: Function},                                        //打开页面之后的钩子函数
         },
         data() {
             let pageStack = []
@@ -48,31 +50,12 @@
         methods: {
             async push(path, param) {
                 const component = await this.$plain.pageRegistry(path)
-                this.pageStack.push({
-                    id: this.$plain.$utils.uuid(),
-                    path,
-                    param,
-                    component,
-                    init: true,
-                })
+                const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true}
+                !!this.beforePush && (await this.beforePush(page))
+                this.pageStack.push(page)
+                !!this.afterPush && (await this.afterPush(page))
                 await this.p_save()
                 this.$emit('push', {path, param})
-            },
-
-            async redirect(path, param) {
-                const component = await this.$plain.pageRegistry(path)
-                this.pageStack.push({
-                    id: this.$plain.$utils.uuid(),
-                    path,
-                    param,
-                    component,
-                    init: true,
-                })
-                await this.$plain.nextTick()
-                this.pageStack.splice(this.pageStack.length - 2, 1)
-                this.p_save()
-                this.$emit('push', {path, param})
-                this.$emit('redirect', {path, param})
             },
 
             async back(num = 1) {
@@ -101,6 +84,22 @@
                 await this.p_save()
                 this.$emit('back', {path, param})
                 return {path, param}
+            },
+
+            async redirect(path, param) {
+                const component = await this.$plain.pageRegistry(path)
+                this.pageStack.push({
+                    id: this.$plain.$utils.uuid(),
+                    path,
+                    param,
+                    component,
+                    init: true,
+                })
+                await this.$plain.nextTick()
+                this.pageStack.splice(this.pageStack.length - 2, 1)
+                this.p_save()
+                this.$emit('push', {path, param})
+                this.$emit('redirect', {path, param})
             },
 
             async backoff() {
