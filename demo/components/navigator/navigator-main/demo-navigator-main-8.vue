@@ -6,8 +6,8 @@
         <div>
             页面八得到的参数：{{param.msg}}
         </div>
-        <link-button label="回退页面" @click="$back()"/>
-        <link-button label="回退两个页面" @click="$back(2)"/>
+        <link-button label="回退页面" @click="$nav.back()"/>
+        <link-button label="回退两个页面" @click="$nav.back(2)"/>
     </div>
 </template>
 

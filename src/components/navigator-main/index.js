@@ -16,26 +16,30 @@ const NavigatorMixin = {
                     }
                     return this._page
                 },
+
+                async openTab(title, path, param) {
+                    if (!!this.tab) {
+                        return this.tab.open(title, path, param)
+                    }
+                },
+                async pushPage(path, param) {
+                    if (!!this.page) {
+                        return await this.page.push(path, param)
+                    }
+                },
+                async back(num = 1) {
+                    if (!!this.page) {
+                        return await this.page.back(num)
+                    }
+                },
             }
         }
     },
-    methods: {
-        async $openTab(title, path, param) {
-            if (!!this.NAV.tab) {
-                return this.NAV.tab.open(title, path, param)
-            }
+    computed: {
+        $nav() {
+            return this.NAV
         },
-        async $pushPage(path, param) {
-            if (!!this.NAV.page) {
-                return await this.NAV.page.push(path, param)
-            }
-        },
-        async $back(num = 1) {
-            if (!!this.NAV.page) {
-                return await this.NAV.page.back(num)
-            }
-        },
-    }
+    },
 }
 
 export {

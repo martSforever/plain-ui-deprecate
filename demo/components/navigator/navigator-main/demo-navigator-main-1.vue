@@ -14,13 +14,13 @@
         name: "demo-navigator-main-1",
         methods: {
             log() {
-                console.log(this.NAV)
+                console.log(this.NAV, this.$nav)
             },
             openTab() {
-                this.$openTab('页面四', '/navigator/navigator-main/demo-navigator-main-4', {hello: 111})
+                this.$nav.openTab('页面四', '/navigator/navigator-main/demo-navigator-main-4', {hello: 111})
             },
             openPage() {
-                this.$pushPage('/navigator/navigator-main/demo-navigator-main-5', {hello: 111})
+                this.$nav.pushPage('/navigator/navigator-main/demo-navigator-main-5', {hello: 111})
             },
         }
     }

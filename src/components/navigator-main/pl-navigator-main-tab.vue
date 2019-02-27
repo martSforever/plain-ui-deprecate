@@ -42,7 +42,6 @@
             if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                 pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false}, item))
                 this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
-                console.log(pageStack)
             }
             return {
                 pageStack,
@@ -152,7 +151,7 @@
             },
         },
         beforeDestroy() {
-            this.$delete(this.$plain.Vue.prototype, '$nav')
+            this.$delete(this.$plain, '$tab')
         },
     }
 </script>
