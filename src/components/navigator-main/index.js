@@ -22,7 +22,7 @@ const NavigatorMixin = {
                         return this.tab.open(title, path, param)
                     }
                 },
-                async pushPage(path, param) {
+                async push(path, param) {
                     if (!!this.page) {
                         return await this.page.push(path, param)
                     }
@@ -31,6 +31,9 @@ const NavigatorMixin = {
                     if (!!this.page) {
                         return await this.page.back(num)
                     }
+                },
+                async redirect(path, param) {
+                    this.page.redirect(path, param)
                 },
             }
         }

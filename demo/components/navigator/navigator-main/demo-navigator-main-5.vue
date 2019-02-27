@@ -8,7 +8,7 @@
         <div>
             页面六传递参数：
             <link-input v-model="msg"/>
-            <link-button label="打开页面六" box-color="info" @click="$nav.pushPage('/navigator/navigator-main/demo-navigator-main-6',{msg})"/>
+            <link-button label="打开页面六" box-color="info" @click="$nav.push('/navigator/navigator-main/demo-navigator-main-6',{msg})"/>
         </div>
     </div>
 </template>

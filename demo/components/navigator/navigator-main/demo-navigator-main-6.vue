@@ -10,7 +10,7 @@
         <div>
             页面七传递参数：
             <link-input v-model="msg"/>
-            <link-button label="打开页面七" box-color="info" @click="$nav.pushPage('/navigator/navigator-main/demo-navigator-main-7',{msg})"/>
+            <link-button label="打开页面七" box-color="info" @click="$nav.push('/navigator/navigator-main/demo-navigator-main-7',{msg})"/>
         </div>
     </div>
 </template>

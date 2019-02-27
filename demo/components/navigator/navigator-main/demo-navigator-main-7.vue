@@ -10,8 +10,8 @@
         <div>
             页面七传递参数：
             <link-input v-model="msg"/>
-            <link-button label="打开页面八" box-color="info" @click="$nav.pushPage('/navigator/navigator-main/demo-navigator-main-8',{msg})"/>
-            <link-button label="重定向到页面八" box-color="info" @click="$nav.pushPage('/navigator/navigator-main/demo-navigator-main-8',{msg})"/>
+            <link-button label="打开页面八" box-color="info" @click="$nav.push('/navigator/navigator-main/demo-navigator-main-8',{msg})"/>
+            <link-button label="重定向到页面八" box-color="info" @click="$nav.redirect('/navigator/navigator-main/demo-navigator-main-8',{msg})"/>
         </div>
     </div>
 </template>

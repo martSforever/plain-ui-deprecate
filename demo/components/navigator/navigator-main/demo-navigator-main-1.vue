@@ -20,7 +20,7 @@
                 this.$nav.openTab('页面四', '/navigator/navigator-main/demo-navigator-main-4', {hello: 111})
             },
             openPage() {
-                this.$nav.pushPage('/navigator/navigator-main/demo-navigator-main-5', {hello: 111})
+                this.$nav.push('/navigator/navigator-main/demo-navigator-main-5', {hello: 111})
             },
         }
     }
