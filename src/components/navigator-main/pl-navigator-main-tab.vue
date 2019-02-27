@@ -40,8 +40,9 @@
             /*从缓存中获取页面信息*/
             let selfStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
             if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
-                pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false, id: this.$plain.$utils.uuid()}, item))
+                pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false}, item))
                 this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
+                console.log(pageStack)
             }
             return {
                 pageStack,
@@ -144,8 +145,8 @@
              */
             p_save() {
                 this.selfStorage.index = this.currentValue;
-                this.selfStorage.pageStack = this.pageStack.map(({title, path, param}) => {
-                    return {title, path, param}
+                this.selfStorage.pageStack = this.pageStack.map(({title, path, param, id}) => {
+                    return {title, path, param, id}
                 })
                 this.$plain.$storage.set(STORAGE_KEY, this.selfStorage)
             },

@@ -11,20 +11,29 @@ const NavigatorMixin = {
                     return that.$plain.$tab
                 },
                 get page() {
-                    if (!this._navigatorTab) {
-                        this._navigatorTab = that.$plain.$utils.findComponentUpward(that, 'pl-navigator-main-page')
+                    if (!this._page) {
+                        this._page = that.$plain.$dom.findComponentUpward(that, 'pl-navigator-main-page')
                     }
-                    return this._navigatorTab
+                    return this._page
                 },
             }
         }
     },
     methods: {
-        $openTab(title, path, param) {
-            !!this.NAV.tab && this.NAV.tab.open(title, path, param)
+        async $openTab(title, path, param) {
+            if (!!this.NAV.tab) {
+                return this.NAV.tab.open(title, path, param)
+            }
         },
-        $pushPage(path, param) {
-
+        async $pushPage(path, param) {
+            if (!!this.NAV.page) {
+                return await this.NAV.page.push(path, param)
+            }
+        },
+        async $back(num = 1) {
+            if (!!this.NAV.page) {
+                return await this.NAV.page.back(num)
+            }
         },
     }
 }
