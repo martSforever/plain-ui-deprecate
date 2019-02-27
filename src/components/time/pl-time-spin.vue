@@ -1,6 +1,13 @@
 <template>
     <div class="pl-time-spin">
-        <pl-scroll-option :data="data" label-key="val" value-key="val" disabled-key="disabled" :width="width" v-model="currentValue" :shadow="false"/>
+        <pl-scroll-option :data="data"
+                          label-key="val"
+                          value-key="val"
+                          disabled-key="disabled"
+                          :width="width"
+                          :value="currentValue"
+                          :shadow="false"
+                          @input="p_input"/>
     </div>
 </template>
 
@@ -33,7 +40,12 @@
                 return ret
             },
         },
-        methods: {}
+        methods: {
+            p_input(val) {
+                this.currentValue = val
+                this.$emit('change', val)
+            },
+        }
     }
 </script>
 

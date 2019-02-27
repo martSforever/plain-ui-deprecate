@@ -4,9 +4,9 @@
             <div class="pl-time-panel-label">{{timeString}}</div>
         </div>
         <div class="pl-time-spin-wrapper">
-            <pl-time-spin :num="24" :width="width" v-model="hour"/>
-            <pl-time-spin :num="60" :width="width" v-model="minute"/>
-            <pl-time-spin :num="60" :width="width" v-model="second"/>
+            <pl-time-spin :num="24" :width="width" v-model="hour" @change="p_change"/>
+            <pl-time-spin :num="60" :width="width" v-model="minute" @change="p_change"/>
+            <pl-time-spin :num="60" :width="width" v-model="second" @change="p_change"/>
         </div>
     </div>
 </template>
@@ -18,12 +18,29 @@
         name: "pl-time-panel",
         components: {PlTimeSpin},
         props: {
+            value: {type: String,},
             width: {default: 50},
+            defaultValue: {type: String, default: '08:00:00'},
+        },
+        watch: {
+            value: {
+                immediate: true,
+                handler(val) {
+                    if (!val) {
+                        this.p_resetDefaultValue()
+                    } else {
+                        const [hour, minute, second] = val.split(":").map(item => item - 0)
+                        this.hour = hour
+                        this.minute = minute
+                        this.second = second
+                    }
+                },
+            },
         },
         data() {
             return {
                 hour: 0,
-                minute: 10,
+                minute: 0,
                 second: 0,
             }
         },
@@ -32,6 +49,17 @@
                 return `${this.$plain.$utils.zeroize(this.hour)} : ${this.$plain.$utils.zeroize(this.minute)} : ${this.$plain.$utils.zeroize(this.second)}`
             },
         },
+        methods: {
+            p_resetDefaultValue() {
+                const [hour, minute, second] = this.defaultValue.split(":").map(item => item - 0)
+                this.hour = hour
+                this.minute = minute
+                this.second = second
+            },
+            p_change() {
+                this.$emit('input', this.timeString)
+            },
+        }
     }
 </script>
 
