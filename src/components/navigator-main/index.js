@@ -3,17 +3,19 @@ const NavigatorMixin = {
         const that = this
         return {
             NAV: {
-                _navigatorMain: null,
-                _navigatorTab: null,
-                get navigatorMain() {
+                /*当前组件所在的navigator-main组件实例*/
+                _tab: null,
+                /*当前组件所在的navigator-tab组件实例*/
+                _page: null,
+                get tab() {
                     if (!this._navigatorMain) {
-                        this._navigatorMain = that.$plain.$dom.findComponentUpward(that, 'pl-navigator-main')
+                        this._navigatorMain = that.$plain.$dom.findComponentUpward(that, 'pl-navigator-main-tab')
                     }
                     return this._navigatorMain
                 },
-                get navigatorTab() {
+                get page() {
                     if (!this._navigatorTab) {
-                        this._navigatorTab = that.$plain.$utils.findComponentUpward(that, 'pl-navigator-main-tab')
+                        this._navigatorTab = that.$plain.$utils.findComponentUpward(that, 'pl-navigator-main-page')
                     }
                     return this._navigatorTab
                 },
@@ -22,9 +24,9 @@ const NavigatorMixin = {
     },
     methods: {
         $openTab(title, path, param) {
-            !!this.NAV.navigatorMain && this.NAV.navigatorMain.open(title, path, param)
+            !!this.NAV.tab && this.NAV.tab.open(title, path, param)
         },
-        $openPage(path, param) {
+        $pushPage(path, param) {
 
         },
     }

@@ -10,7 +10,7 @@
             </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">
-            <link-navigator-main ref="navigator"/>
+            <link-navigator-main-tab ref="navigator"/>
         </div>
     </div>
 </template>
