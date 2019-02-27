@@ -55,14 +55,14 @@
                 console.error("整个应用只允许存在一个navigator-main组件")
                 return
             }
-            this.$set(this.$plain.Vue.prototype, '$nav', {
+            /*this.$set(this.$plain.Vue.prototype, '$nav', {
                 openTab: async (title, path, param) => {
                     await this.open(title, path, param)
                 },
                 openPage: async () => {
 
                 }
-            })
+            })*/
         },
         methods: {
             /**

@@ -1,15 +1,14 @@
 <template>
     <div class="pl-navigator-main-tab">
-        <pl-navigator-main-page :root="page"/>
+        <component :is="page.component" class="pl-navigator-main-page"/>
     </div>
 </template>
 
 <script>
-    import PlNavigatorMainPage from "./pl-navigator-main-page";
 
     export default {
         name: "pl-navigator-main-tab",
-        components: {PlNavigatorMainPage},
+        components: {},
         props: {
             page: {},
         },
