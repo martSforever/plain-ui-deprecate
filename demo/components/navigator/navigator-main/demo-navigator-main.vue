@@ -3,10 +3,10 @@
         <demo-row title="基本用法">
             <link-button-group>
                 <link-button box-type="line" label="打开标签"/>
-                <link-button label="Icon图标" @click="openTab('Icon图标','/demo-icon')"/>
-                <link-button label="Button按钮" @click="openTab('Button按钮','/demo-button')"/>
-                <link-button label="Radio单选复选" @click="openTab('Radio单选复选','/demo-radio')"/>
-                <link-button label="Message消息提示" @click="openTab('Message消息提示','/demo-message')"/>
+                <link-button label="页签一" @click="openTab('页面一','/navigator/navigator-main/demo-navigator-main-1')"/>
+                <link-button label="页签二" @click="openTab('页面二','/navigator/navigator-main/demo-navigator-main-2')"/>
+                <link-button label="页签三" @click="openTab('页面三','/navigator/navigator-main/demo-navigator-main-3')"/>
+                <link-button label="页签四" @click="openTab('页面四','/navigator/navigator-main/demo-navigator-main-4')"/>
             </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">
