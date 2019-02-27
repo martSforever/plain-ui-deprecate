@@ -32,6 +32,9 @@
             },
             beforeOpenTab(data) {
                 console.log(`打开页签前[${data.title}],${data.path}`)
+                if (data.title === '页面二') {
+                    return Promise.reject("不能打开页面二")
+                }
             },
             afterOpenTab(data) {
                 console.log(`打开页签后[${data.title}],${data.path}`)
