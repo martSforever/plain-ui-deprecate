@@ -3,6 +3,7 @@
         <div>
             页面一
         </div>
+        <link-button label="回退页面" @click="$nav.back()"/>
         <link-button label="打开页签四" @click="openTab"/>
         <link-button label="打开页面五" @click="openPage"/>
         <link-button label="打印日志" @click="log"/>

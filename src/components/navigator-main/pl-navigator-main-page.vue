@@ -103,6 +103,18 @@
                 return {path, param}
             },
 
+            async backoff() {
+                const page = this.pageStack[0]
+                if (!page.init) {
+                    page.component = await this.$plain.pageRegistry(page.path)
+                    page.init = true
+                }
+                await this.$plain.nextTick()
+                this.pageStack.splice(1, this.pageStack.length)
+                await this.p_save()
+                this.$emit('backAll')
+            },
+
             async p_save() {
                 this.selfStorage.pageStack = this.pageStack.map(({path, param, id}) => ({path, param, id}))
                 this.componentStorage[this.tab.id] = this.selfStorage

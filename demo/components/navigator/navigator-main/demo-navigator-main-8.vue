@@ -8,6 +8,7 @@
         </div>
         <link-button label="回退页面" @click="$nav.back()"/>
         <link-button label="回退两个页面" @click="$nav.back(2)"/>
+        <link-button label="回退到第一个页面" @click="$nav.backoff()"/>
     </div>
 </template>
 
