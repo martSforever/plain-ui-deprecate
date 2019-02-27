@@ -110,7 +110,7 @@
             },
 
             async p_initComponent() {
-                for (let i = 0; i < this.pageStack.length; i++) {
+                for (let i = this.pageStack.length - 1; i >= 0; i--) {
                     const page = this.pageStack[i];
                     if (!!page.init && !page.component) page.component = await this.$plain.pageRegistry(page.path)
                 }
