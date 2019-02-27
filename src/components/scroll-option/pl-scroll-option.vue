@@ -1,5 +1,5 @@
 <template>
-    <div class="pl-scroll-option" :style="styles">
+    <div class="pl-scroll-option" :style="styles" :class="{'pl-scroll-option-shadow':shadow}">
         <div class="pl-scroll-option-wrapper" @scroll="p_scroll" ref="wrapper">
             <pl-scroll-option-item v-for="(item) in externalData" :key="`top_${item}`"/>
             <pl-scroll-option-item
@@ -44,6 +44,7 @@
             itemHeight: {type: Number, default: 24},
             itemNum: {type: Number, default: 3},
             width: {type: Number, default: 100},
+            shadow: {type: Boolean, default: true},
         },
         data() {
             return {
@@ -274,6 +275,14 @@
                 }
             }
         }
+        &.pl-scroll-option-shadow {
+            .pl-scroll-option-shadow-top {
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.025), transparent);
+            }
+            .pl-scroll-option-shadow-bottom {
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.025), transparent);
+            }
+        }
         .pl-scroll-option-shadow-top, .pl-scroll-option-shadow-bottom {
             position: absolute;
             left: 0;
@@ -282,12 +291,10 @@
         }
         .pl-scroll-option-shadow-top {
             top: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.025), transparent);
             border-bottom: solid #f2f2f2 1px;
         }
         .pl-scroll-option-shadow-bottom {
             bottom: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.025), transparent);
             border-top: solid #f2f2f2 1px;
         }
     }
