@@ -35,6 +35,9 @@
     export default {
         name: "pl-navigator-main-tab",
         components: {PlNavigatorMainPage, PlIcon},
+        props: {
+            maxTabs: {type: Number, default: 5},                                //最大打开页签的个数
+        },
         data() {
             let pageStack = []
             /*从缓存中获取页面信息*/
@@ -76,6 +79,13 @@
                     this.p_save()
                     return
                 }
+
+                if (!!this.maxTabs && this.pageStack.length === this.maxTabs) {
+                    const msg = `最多只能打开${this.maxTabs}个页签！`
+                    this.$dialog.show(msg)
+                    return Promise.reject(msg)
+                }
+
                 /*打开新标签页*/
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
@@ -113,6 +123,10 @@
              * @date    2019/2/26 16:33
              */
             async p_close(title, path) {
+                if (this.pageStack.length === 1) {
+                    this.$dialog.show("不能关闭所有页面！")
+                    return
+                }
                 const pageIndex = this.p_findPage(title, path)
                 if (pageIndex == null) return
                 let index = pageIndex
@@ -151,7 +165,9 @@
             },
         },
         beforeDestroy() {
+            // console.log('pl-navigator-main-tab beforeDestroy')
             this.$delete(this.$plain, '$tab')
+            this.$plain.$tab = null
         },
     }
 </script>
