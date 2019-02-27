@@ -69,7 +69,10 @@
         methods: {
             p_clear() {
                 this.$emit('clear')
-                !this.readonly && !this.disabled && !!this.defaultClear && (this.currentValue = null)
+                if (!this.readonly && !this.disabled && !!this.defaultClear) {
+                    this.currentValue = null
+                    this.$emit('input', null)
+                }
             },
             p_input({target: {value}}) {
                 this.currentValue = value
