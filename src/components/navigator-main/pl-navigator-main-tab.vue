@@ -18,8 +18,8 @@
         <div class="pl-navigator-main-tab-body">
             <pl-navigator-main-page
                     v-for="(item,index) in pageStack"
-                    :key="index"
-                    :page="item"
+                    :key="item.id"
+                    :tab="item"
                     v-if="item.init"
                     v-show="currentValue === index"/>
         </div>
@@ -49,20 +49,13 @@
                 currentValue: null,
             }
         },
-        mounted() {
+        created() {
             /*全局注入nav导航对象*/
-            if (!!this.$nav) {
+            if (!!this.$plain.$tab) {
                 console.error("整个应用只允许存在一个navigator-main组件")
                 return
             }
-            /*this.$set(this.$plain.Vue.prototype, '$nav', {
-                openTab: async (title, path, param) => {
-                    await this.open(title, path, param)
-                },
-                openPage: async () => {
-
-                }
-            })*/
+            this.$plain.$tab = this
         },
         methods: {
             /**

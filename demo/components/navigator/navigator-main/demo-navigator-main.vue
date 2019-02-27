@@ -22,7 +22,7 @@
         },
         methods: {
             openTab(...args) {
-                this.$nav.openTab(...args)
+                this.$openTab(...args)
             },
             openPage() {
 

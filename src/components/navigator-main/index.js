@@ -8,10 +8,7 @@ const NavigatorMixin = {
                 /*当前组件所在的navigator-tab组件实例*/
                 _page: null,
                 get tab() {
-                    if (!this._navigatorMain) {
-                        this._navigatorMain = that.$plain.$dom.findComponentUpward(that, 'pl-navigator-main-tab')
-                    }
-                    return this._navigatorMain
+                    return that.$plain.$tab
                 },
                 get page() {
                     if (!this._navigatorTab) {
