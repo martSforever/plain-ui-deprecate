@@ -12,6 +12,7 @@
                         itemNum:itemNum,
                         itemHeight:itemHeight,
                         index:index,
+                        currentIndex:p_index,
                         itemData:item,
                         scrollTop:scrollTop,
                     }"
@@ -256,19 +257,20 @@
                 box-sizing: border-box;
                 cursor: pointer;
                 user-select: none;
+                font-size: 12px;
+                color: $color-normal-sub-color;
 
                 transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
                 transition-duration: 0ms;
 
-                &:not(:last-child) {
-                    font-size: 12px;
-                    color: $color-normal-sub-color;
-                }
                 &:hover {
                     color: black;
                 }
                 &.pl-scroll-option-item-disabled {
                     color: #ddd;
+                }
+                &.pl-scroll-option-item-active {
+                    color: black;
                 }
             }
         }
