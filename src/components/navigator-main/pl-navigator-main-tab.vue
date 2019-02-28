@@ -16,8 +16,8 @@
                         <pl-icon icon="pl-close" @click.stop="p_close(item.title,item.path)"/>
                     </div>
                 </div>
-                <div class="pl-navigator-main-tab-header-item pl-navigator-main-tab-header-item-empty" :class="{'pl-navigator-main-tab-header-item-next':currentValue === pageStack.length - 1}">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="pl-navigator-main-tab-header-item pl-navigator-main-tab-header-item-empty"
+                     :class="{'pl-navigator-main-tab-header-item-next':currentValue === pageStack.length - 1}">
                 </div>
             </div>
 
@@ -237,6 +237,7 @@
                     box-sizing: border-box;
                     &.pl-navigator-main-tab-header-item-empty {
                         cursor: default;
+                        width: 10px;
                     }
                     .pl-navigator-main-tab-header-item-wrapper {
                         height: 100%;

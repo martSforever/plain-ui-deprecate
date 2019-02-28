@@ -61,10 +61,10 @@
             },
 
             handleOpenTab(page) {
-                console.log('open tab', page)
+                // console.log('open tab', page)
             },
             handleCloseTab(page) {
-                console.log('close tab', page)
+                // console.log('close tab', page)
             },
         }
     }
