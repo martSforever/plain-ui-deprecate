@@ -1,13 +1,17 @@
 <template>
     <div class="pl-navigator-main-tab">
         <div class="pl-navigator-main-tab-wrapper">
-            <div class="pl-navigator-main-tab-header-wrapper">
-                <div class="pl-navigator-main-tab-header">
-                    <div class="pl-navigator-main-tab-header-item"
-                         v-for="(item,index) in pageStack"
-                         :key="index"
-                         :class="{'pl-navigator-main-tab-header-item-active':index === currentValue}"
-                         @click="p_clickTabTitle(index)">
+            <div class="pl-navigator-main-tab-header">
+                <div class="pl-navigator-main-tab-header-item"
+                     v-for="(item,index) in pageStack"
+                     :key="index"
+                     :class="{
+                            'pl-navigator-main-tab-header-item-active':index === currentValue,
+                            'pl-navigator-main-tab-header-item-prev':index === currentValue-1,
+                            'pl-navigator-main-tab-header-item-next':index === currentValue+1,
+                         }"
+                     @click="p_clickTabTitle(index)">
+                    <div class="pl-navigator-main-tab-header-item-wrapper">
                         <span class="pl-navigator-main-tab-header-item-label">{{item.title}}</span>
                         <pl-icon icon="pl-close" @click.stop="p_close(item.title,item.path)"/>
                     </div>
@@ -67,6 +71,11 @@
                 return
             }
             this.$plain.$tab = this
+        },
+        computed: {
+            classes() {
+                return {}
+            },
         },
         methods: {
             /**
@@ -182,12 +191,14 @@
     $navigator-main-tab-border-color: #e8ebf7;
     $navigator-main-tab-border: solid 1px $navigator-main-tab-border-color;
     $navigator-main-tab-header-padding: 16px;
+    $navigator-main-tab-background-color: #F0F2F7;
+    $navigator-main-tab-head-radios: 9px;
 
     .pl-navigator-main-tab {
         @include public-style;
         height: 100%;
         width: 100%;
-        background-color: #f4f6fc;
+        background-color: $navigator-main-tab-background-color;
         padding: 16px;
 
         .pl-navigator-main-tab-wrapper {
@@ -196,54 +207,51 @@
             flex-direction: column;
             height: 100%;
             width: 100%;
-        }
-
-        .pl-navigator-main-tab-header-wrapper {
-            @include public-style;
-            height: 28px;
-            width: 100%;
-            display: flex;
 
             .pl-navigator-main-tab-header {
-                @include public-style;
-                height: 100%;
-                width: 100%;
-                border-bottom: $navigator-main-tab-border;
-                display: flex;
+                height: 32px;
+                display: inline-flex;
                 align-items: center;
-                justify-content: flex-start;
+                width: fit-content;
+                background-color: white;
                 .pl-navigator-main-tab-header-item {
-                    padding: 0 $navigator-main-tab-header-padding;
                     height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
                     font-size: 12px;
-                    color: $navigator-main-tab-border-color;
-                    border-bottom-color: transparent;
-
-                    &.pl-navigator-main-tab-header-item-active {
-                        border: $navigator-main-tab-border;
-                        border-bottom-color: white;
-                        color: #869eff;
-                        background-color: white;
-                        font-weight: 600;
-                        border-top-left-radius: 6px;
-                        border-top-right-radius: 6px;
+                    background-color: $navigator-main-tab-background-color;
+                    cursor: pointer;
+                    user-select: none;
+                    box-sizing: border-box;
+                    .pl-navigator-main-tab-header-item-wrapper {
+                        height: 100%;
+                        padding: 0 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
                     .pl-navigator-main-tab-header-item-label {
                         margin-right: 8px;
                     }
+                    &.pl-navigator-main-tab-header-item-active {
+                        color: #869eff;
+                        .pl-navigator-main-tab-header-item-wrapper {
+                            background-color: white;
+                            border-top-left-radius: $navigator-main-tab-head-radios;
+                            border-top-right-radius: $navigator-main-tab-head-radios;
+                        }
+                    }
+                    &.pl-navigator-main-tab-header-item-prev {
+                        border-bottom-right-radius: $navigator-main-tab-head-radios;
+                    }
+                    &.pl-navigator-main-tab-header-item-next {
+                        border-bottom-left-radius: $navigator-main-tab-head-radios;
+                    }
                 }
             }
         }
-
         .pl-navigator-main-tab-body {
             flex: 1;
             position: relative;
-            border: solid 1px $navigator-main-tab-border-color;
-            border-top: none;
+
             box-sizing: border-box;
         }
     }
