@@ -1,7 +1,7 @@
 <template>
     <div class="demo-navigator-main-1">
         <div>
-            页面一,{{tabData.oauth}}
+            页面一
         </div>
         <link-button label="回退页面" @click="$nav.back()"/>
         <link-button label="打开页签四" @click="openTab"/>

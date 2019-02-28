@@ -71,7 +71,8 @@
             /*全局注入nav导航对象*/
             if (!!this.$plain.$tab) {
                 console.error("整个应用只允许存在一个navigator-main组件")
-                return
+                this.$plain.$tab.$destroy()
+                this.$plain.$tab = null
             }
             this.$plain.$tab = this
         },
@@ -86,7 +87,7 @@
              * @author  韦胜健
              * @date    2019/2/26 16:27
              */
-            async open(title, path, param, oauth) {
+            async open(title, path, param, security) {
                 /*打开之前判断标签是否已经打开，已经打开则切换到标签页，判断标签页是否已经初始化，未初始化则加载页面*/
                 const pageIndex = this.p_findPage(title, path)
                 if (pageIndex != null) {
@@ -109,7 +110,7 @@
                 /*打开新标签页*/
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
-                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid(), oauth}
+                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid(), security}
                 !!this.beforeOpenTab && (await this.beforeOpenTab(page))
                 this.pageStack.push(page)
                 await this.$plain.nextTick()
@@ -175,8 +176,8 @@
              */
             p_save() {
                 this.selfStorage.index = this.currentValue;
-                this.selfStorage.pageStack = this.pageStack.map(({title, path, param, id, oauth}) => {
-                    return {title, path, param, id, oauth}
+                this.selfStorage.pageStack = this.pageStack.map(({title, path, param, id, security}) => {
+                    return {title, path, param, id, security}
                 })
                 this.$plain.$storage.set(STORAGE_KEY, this.selfStorage)
             },

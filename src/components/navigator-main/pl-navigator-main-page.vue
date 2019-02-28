@@ -10,6 +10,7 @@
                     :is="page.component"
                     :param="page.param || {}"
                     :tabData="tabData"
+                    :security="tab.security"
                     v-if="page.init"/>
         </div>
     </div>

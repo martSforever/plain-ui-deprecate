@@ -1,7 +1,13 @@
 <template>
     <div class="demo-navigator-main-5">
         <div>
-            页面五:安全性:{{tabData.oauth}}
+            页面五:
+            <div>
+                tabData:{{tabData}}
+            </div>
+            <div>
+                security:{{security}}
+            </div>
         </div>
         <link-button label="回退页面" @click="back"/>
 
@@ -18,6 +24,7 @@
         name: "demo-navigator-main-5",
         props: {
             tabData: {},
+            security: {},
             param: {},
         },
         data() {
