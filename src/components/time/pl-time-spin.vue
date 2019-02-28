@@ -22,6 +22,8 @@
         props: {
             num: {type: Number,},
             width: {},
+            max: {},
+            min: {},
         },
         data() {
             return {}
@@ -33,7 +35,7 @@
                 while (i < this.num) {
                     ret.push({
                         val: i,
-                        disabled: false,
+                        disabled: !((this.min == null || i >= this.min) && (this.max == null || i <= this.max)),
                     })
                     i++
                 }
