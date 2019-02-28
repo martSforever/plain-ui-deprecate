@@ -74,7 +74,7 @@
              * @author  韦胜健
              * @date    2019/2/26 16:27
              */
-            async open(title, path, param) {
+            async open(title, path, param, oauth) {
                 /*打开之前判断标签是否已经打开，已经打开则切换到标签页，判断标签页是否已经初始化，未初始化则加载页面*/
                 const pageIndex = this.p_findPage(title, path)
                 if (pageIndex != null) {
@@ -97,7 +97,7 @@
                 /*打开新标签页*/
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
-                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid()}
+                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid(), oauth}
                 !!this.beforeOpenTab && (await this.beforeOpenTab(page))
                 this.pageStack.push(page)
                 await this.$plain.nextTick()
@@ -163,8 +163,8 @@
              */
             p_save() {
                 this.selfStorage.index = this.currentValue;
-                this.selfStorage.pageStack = this.pageStack.map(({title, path, param, id}) => {
-                    return {title, path, param, id}
+                this.selfStorage.pageStack = this.pageStack.map(({title, path, param, id, oauth}) => {
+                    return {title, path, param, id, oauth}
                 })
                 this.$plain.$storage.set(STORAGE_KEY, this.selfStorage)
             },

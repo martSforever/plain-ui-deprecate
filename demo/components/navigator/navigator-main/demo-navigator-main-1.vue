@@ -13,6 +13,13 @@
 <script>
     export default {
         name: "demo-navigator-main-1",
+        props: {
+            tabData: {},
+        },
+        data() {
+            // console.log(this.tabData)
+            return {}
+        },
         methods: {
             log() {
                 console.log(this.NAV, this.$nav)

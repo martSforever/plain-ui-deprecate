@@ -3,10 +3,10 @@
         <demo-row title="基本用法">
             <link-button-group>
                 <link-button box-type="line" label="打开标签"/>
-                <link-button label="页签一" @click="openTab('页面一','/navigator/navigator-main/demo-navigator-main-1')"/>
-                <link-button label="页签二" @click="openTab('页面二','/navigator/navigator-main/demo-navigator-main-2')"/>
-                <link-button label="页签三" @click="openTab('页面三','/navigator/navigator-main/demo-navigator-main-3')"/>
-                <link-button label="页签四" @click="openTab('页面四','/navigator/navigator-main/demo-navigator-main-4')"/>
+                <link-button label="页签一,My" @click="openTab('页面一','/navigator/navigator-main/demo-navigator-main-1',{},'My')"/>
+                <link-button label="页签二,ORG" @click="openTab('页面二','/navigator/navigator-main/demo-navigator-main-2',{},'ORG')"/>
+                <link-button label="页签三,POSTN" @click="openTab('页面三','/navigator/navigator-main/demo-navigator-main-3',{},'POSTN')"/>
+                <link-button label="页签四,ALL" @click="openTab('页面四','/navigator/navigator-main/demo-navigator-main-4',{},'ALL')"/>
                 <link-button label="Icon图标" @click="openTab('Icon图标','/demo-icon')"/>
                 <link-button label="Button按钮" @click="openTab('Button按钮','/demo-button')"/>
                 <link-button label="Input输入框" @click="openTab('Input输入框','/demo-input')"/>
@@ -37,13 +37,13 @@
                 }
             },
             afterOpenTab(data) {
-                console.log(`打开页签后[${data.title}],${data.path}`)
+                // console.log(`打开页签后[${data.title}],${data.path}`)
             },
             beforePush(data) {
-                console.log(`打开页面前[${data.path}]`)
+                // console.log(`打开页面前[${data.path}]`)
             },
             afterPush(data) {
-                console.log(`打开页面后[${data.path}]`)
+                // console.log(`打开页面后[${data.path}]`)
             },
         }
     }

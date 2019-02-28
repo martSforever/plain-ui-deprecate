@@ -1,7 +1,7 @@
 <template>
     <div class="demo-navigator-main-5">
         <div>
-            页面五
+            页面五:安全性:{{tabData.oauth}}
         </div>
         <link-button label="回退页面" @click="$nav.back()"/>
 
@@ -16,7 +16,11 @@
 <script>
     export default {
         name: "demo-navigator-main-5",
+        props: {
+            tabData: {},
+        },
         data() {
+            // console.log(this.tabData)
             return {
                 msg: null,
             }
