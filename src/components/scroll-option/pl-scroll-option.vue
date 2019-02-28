@@ -218,13 +218,15 @@
             p_getValidIndex(index) {
                 let target = index
                 if (!this.disabledKey) return target
+                let direction = 1
                 if (this.p_isDisabled(target)) {
                     while (this.p_isDisabled(target)) {
-                        target--
-                        if (target === -1) {
-                            target = this.data.length - 1
+                        target += direction
+                        if (target === this.data.length) {
+                            target = index - 1
+                            direction = -1
                         }
-                        if (target === index) {
+                        if (target === -1) {
                             return 0
                         }
                     }
