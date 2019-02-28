@@ -90,6 +90,7 @@
             p_scroll(e) {
                 this.scrollTop = e.target.scrollTop
                 this.$emit('scroll', this.scrollTop)
+                this.p_clearTimer()
                 this.listenScroll && this.p_scrollEnd(e)
             },
             /**
