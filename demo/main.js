@@ -13,7 +13,10 @@ Vue.use(plain, {
         return new Promise((rs, rj) => {
             import('demo/components' + path + '.vue')
                 .then(module => rs(module.default))
-                .catch(e => rj(e))
+                .catch(e => {
+                    console.log('自定义记录错误地址', e.message)
+                    rj(e)
+                })
         })
     },
 })

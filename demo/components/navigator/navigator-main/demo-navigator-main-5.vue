@@ -3,7 +3,7 @@
         <div>
             页面五:安全性:{{tabData.oauth}}
         </div>
-        <link-button label="回退页面" @click="$nav.back()"/>
+        <link-button label="回退页面" @click="back"/>
 
         <div>
             页面六传递参数：
@@ -18,12 +18,19 @@
         name: "demo-navigator-main-5",
         props: {
             tabData: {},
+            param: {},
         },
         data() {
-            // console.log(this.tabData)
+            console.log(this.tabData)
             return {
                 msg: null,
             }
+        },
+        methods: {
+            back() {
+                !!this.param.callback && this.param.callback()
+                this.$nav.back()
+            },
         },
     }
 </script>
