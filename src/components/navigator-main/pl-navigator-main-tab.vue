@@ -13,7 +13,9 @@
                      @click="p_clickTabTitle(index)">
                     <div class="pl-navigator-main-tab-header-item-wrapper">
                         <span class="pl-navigator-main-tab-header-item-label">{{item.title}}</span>
-                        <pl-icon icon="pl-close" @click.stop="p_close(item.title,item.path)"/>
+                        <div class="pl-navigator-main-tab-header-item-close">
+                            <pl-icon icon="pl-close" @click.stop="p_close(item.title,item.path)"/>
+                        </div>
                     </div>
                 </div>
                 <div class="pl-navigator-main-tab-header-item pl-navigator-main-tab-header-item-empty"
@@ -47,7 +49,7 @@
         props: {
             defaultPage: {type: Object},                                        //第一次默认打开的页面，格式{title, path, param, security}
 
-            maxTabs: {type: Number, default: 5},                                //最大打开页签的个数
+            maxTabs: {type: Number, default: 20},                                //最大打开页签的个数
 
             beforeOpenTab: {type: Function},                                    //打开页签之前钩子函数
             afterOpenTab: {type: Function},                                     //打开页签之后的钩子函数
@@ -228,6 +230,8 @@
                 align-items: center;
                 width: fit-content;
                 background-color: white;
+                max-width: 100%;
+                overflow: hidden;
                 .pl-navigator-main-tab-header-item {
                     height: 100%;
                     font-size: 12px;
@@ -235,6 +239,7 @@
                     cursor: pointer;
                     user-select: none;
                     box-sizing: border-box;
+                    width: 150px;
                     &.pl-navigator-main-tab-header-item-empty {
                         cursor: default;
                         width: 10px;
@@ -244,10 +249,26 @@
                         padding: 0 20px;
                         display: flex;
                         align-items: center;
-                        justify-content: center;
-                    }
-                    .pl-navigator-main-tab-header-item-label {
-                        margin-right: 8px;
+                        justify-content: space-between;
+                        white-space: nowrap;
+                        position: relative;
+                        /*.pl-navigator-main-tab-header-item-close {
+                            opacity: 0;
+                        }*/
+                        .pl-navigator-main-tab-header-item-close {
+                            position: absolute;
+                            right: 20px;
+                            top: 0;
+                            bottom: 0;
+                            display: flex;
+                            align-items: center;
+                        }
+                        .pl-navigator-main-tab-header-item-label {
+                            width: calc(100% - 15px);
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            position: relative;
+                        }
                     }
                     &.pl-navigator-main-tab-header-item-active {
                         color: #869eff;
@@ -256,6 +277,9 @@
                             border-top-left-radius: $navigator-main-tab-head-radios;
                             border-top-right-radius: $navigator-main-tab-head-radios;
                         }
+                        /*.pl-navigator-main-tab-header-item-close {
+                            opacity: 1;
+                        }*/
                     }
                     &.pl-navigator-main-tab-header-item-prev {
                         border-bottom-right-radius: $navigator-main-tab-head-radios;
