@@ -45,6 +45,8 @@
         name: "pl-navigator-main-tab",
         components: {PlNavigatorMainPage, PlIcon},
         props: {
+            defaultPage: {type: Object},                                        //第一次默认打开的页面，格式{title, path, param, security}
+
             maxTabs: {type: Number, default: 5},                                //最大打开页签的个数
 
             beforeOpenTab: {type: Function},                                    //打开页签之前钩子函数
@@ -74,6 +76,12 @@
                 this.$plain.$tab = null
             }
             this.$plain.$tab = this
+
+            /*打开默认页面*/
+            if (this.pageStack.length === 0 && !!this.defaultPage) {
+                const {title, path, param, security} = this.defaultPage
+                this.open(title, path, param, security)
+            }
         },
         computed: {
             classes() {

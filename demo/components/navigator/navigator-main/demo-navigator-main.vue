@@ -21,6 +21,12 @@
 
                                      @openTab="handleOpenTab"
                                      @closeTab="handleCloseTab"
+
+                                     :defaultPage="{
+                                        title:'主页',
+                                        path:'/navigator/navigator-main/demo-navigator-main-1',
+                                        security:{oauth:'My'}
+                                     }"
             />
         </div>
     </div>
