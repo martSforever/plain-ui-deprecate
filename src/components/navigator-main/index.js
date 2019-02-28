@@ -21,9 +21,9 @@ const NavigatorMixin = {
                  * @author  韦胜健
                  * @date    2019/2/27 15:29
                  */
-                async openTab(title, path, param, oauth) {
+                async openTab(title, path, param, security) {
                     if (!!this.tab) {
-                        return this.tab.open(title, path, param, oauth)
+                        return this.tab.open(title, path, param, security)
                     }
                 },
                 /**

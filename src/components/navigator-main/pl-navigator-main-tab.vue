@@ -70,7 +70,6 @@
         created() {
             /*全局注入nav导航对象*/
             if (!!this.$plain.$tab) {
-                console.error("整个应用只允许存在一个navigator-main组件")
                 this.$plain.$tab.$destroy()
                 this.$plain.$tab = null
             }
@@ -98,6 +97,7 @@
                     }
                     this.currentValue = pageIndex
                     this.p_save()
+                    this.$emit('openTab', {title, path, param, security})
                     return
                 }
 
@@ -117,6 +117,7 @@
                 !!this.afterOpenTab && (await this.afterOpenTab(page))
                 this.currentValue = this.pageStack.length - 1
                 this.p_save()
+                this.$emit('openTab', {title, path, param, security})
             },
             /**
              * 关闭标签页
@@ -132,8 +133,8 @@
              * @date    2019/2/26 16:33
              */
             async p_clickTabTitle(index) {
-                const {title, path, param} = this.pageStack[index]
-                return this.open(title, path, param)
+                const {title, path, param, security} = this.pageStack[index]
+                return this.open(title, path, param, security)
             },
             /**
              * 处理标签标题关闭事件
@@ -150,10 +151,11 @@
                 let index = pageIndex
                 let nextIndex = this.currentValue
                 if (index <= this.currentValue) nextIndex--;
-                this.pageStack.splice(index, 1)
+                const closePage = this.pageStack.splice(index, 1)
                 if (nextIndex < 0 && this.pageStack.length > 0) nextIndex = 0
                 nextIndex > -1 && this.p_clickTabTitle(nextIndex)
                 this.p_save()
+                this.$emit('close', closePage)
             },
             /**
              * 根据title以及path获取page的索引

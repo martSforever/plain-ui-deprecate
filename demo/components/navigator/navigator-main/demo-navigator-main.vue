@@ -17,7 +17,11 @@
                                      :beforeOpenTab="beforeOpenTab"
                                      :afterOpenTab="afterOpenTab"
                                      :beforePush="beforePush"
-                                     :afterPush="afterPush"/>
+                                     :afterPush="afterPush"
+
+                                     @openTab="handleOpenTab"
+                                     @closeTab="handleCloseTab"
+            />
         </div>
     </div>
 </template>
@@ -48,6 +52,13 @@
             },
             afterPush(data) {
                 // console.log(`打开页面后[${data.path}]`)
+            },
+
+            handleOpenTab(page) {
+                console.log('open tab', page)
+            },
+            handleCloseTab(page) {
+                console.log('close tab', page)
             },
         }
     }
