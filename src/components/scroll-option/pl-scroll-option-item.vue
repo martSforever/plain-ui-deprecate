@@ -33,6 +33,7 @@
                 if (this.index != null) {
                     const deg = ((Math.abs((this.scrollTop - (this.index * this.itemHeight))) / this.itemHeight).toFixed(1) - 0) * (100 / (this.itemNum * 2))
                     styles.transform = `rotateX(${deg}deg)`
+                    styles.opacity = `${(80 - deg) / 100}`
                 }
                 return styles
             },
