@@ -85,6 +85,7 @@
                             {title: '$message消息服务', icon: 'pl-message3', page: '/demo-message', complete: true},
                             {title: '$dialog对话框服务', icon: 'pl-message4', page: '/demo-dialog-service', complete: true},
                             {title: '$notice通知', icon: 'pl-sound-4', page: '/demo-notice', complete: true},
+                            {title: '$menu右击菜单', icon: 'pl-sound-4', page: '/demo-context-menu', complete: true},
                         ],
                     },
                     {

@@ -3,7 +3,7 @@
         <div>
             页面二
         </div>
-        <link-button label="打开" box-color="success"/>
+        <link-button label="打开页面五" box-color="success" @click="$nav.push('/navigator/navigator-main/demo-navigator-main-5', {hello: 111})"/>
     </div>
 </template>
 

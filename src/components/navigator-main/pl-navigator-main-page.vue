@@ -9,6 +9,8 @@
                     :path="page.path"
                     :is="page.component"
                     :param="page.param || {}"
+                    :tabData="tabData"
+                    :security="tab.security"
                     v-if="page.init"/>
         </div>
     </div>
@@ -46,6 +48,11 @@
                 componentStorage,
                 selfStorage,
             }
+        },
+        computed: {
+            tabData() {
+                return Object.assign({}, this.tab, {component: null})
+            },
         },
         methods: {
             async push(path, param) {
@@ -152,6 +159,8 @@
                 overflow: auto;
                 box-sizing: border-box;
                 background-color: white;
+                padding: 16px;
+                box-sizing: border-box;
             }
         }
     }
