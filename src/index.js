@@ -10,6 +10,7 @@ import {$dialog} from './components/dialog/index'
 import {$message} from "./components/message";
 import {$notice} from "./components/notice";
 import {NavigatorMixin} from "./components/navigator-main";
+import ContextMenu from './components/context-menu/ContextMenu'
 
 import ColumnComponents from './components/table-columns'
 import icon from './components/icon/pl-icon'
@@ -161,6 +162,7 @@ const PlainUI = {
         Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice
         Vue.prototype.$dialog = $dialog
+        Vue.prototype.$contextMenu = new ContextMenu(Vue)
         Vue.mixin(NavigatorMixin)
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
