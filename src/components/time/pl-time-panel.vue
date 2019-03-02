@@ -84,11 +84,11 @@
         methods: {
             async p_hourInput(val) {
                 await this.$plain.nextTick()
-                if (val >= this.p_max.hour) {
+                if (val >= this.p_max.hour && this.p_max.hour != null) {
                     this.hour = this.p_max.hour
                     this.minute = this.p_max.minute
                     this.second = this.p_max.second
-                } else if (val <= this.p_min.hour) {
+                } else if (val <= this.p_min.hour && this.p_min.hour != null) {
                     this.hour = this.p_min.hour
                     this.minute = this.p_min.minute
                     this.second = this.p_min.second
@@ -99,10 +99,10 @@
             },
             async p_minuteInput(val) {
                 await this.$plain.nextTick()
-                if (this.hour === this.p_max.hour && val >= this.p_max.minute) {
+                if (this.hour === this.p_max.hour && val >= this.p_max.minute && this.p_max.minute != null) {
                     this.minute = this.p_max.minute
                     this.second = this.p_max.second
-                } else if (this.hour === this.p_min.hour && val <= this.p_min.minute) {
+                } else if (this.hour === this.p_min.hour && val <= this.p_min.minute && this.p_min.minute != null) {
                     this.minute = this.p_min.minute
                     this.second = this.p_min.second
                 } else {
