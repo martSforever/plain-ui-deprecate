@@ -26,7 +26,9 @@
             min: {},
         },
         data() {
-            return {}
+            return {
+                p_watchCurrentValue: false,
+            }
         },
         computed: {
             data() {
@@ -46,6 +48,7 @@
             p_input(val) {
                 this.currentValue = val
                 this.$emit('change', val)
+                this.$emit('input', val)
             },
         }
     }
