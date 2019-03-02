@@ -66,7 +66,7 @@
         },
         computed: {
             timeString() {
-                return `${this.$plain.$utils.zeroize(this.hour)} : ${this.$plain.$utils.zeroize(this.minute)} : ${this.$plain.$utils.zeroize(this.second)}`
+                return `${this.$plain.$utils.zeroize(this.hour)}:${this.$plain.$utils.zeroize(this.minute)}:${this.$plain.$utils.zeroize(this.second)}`
             },
             p_maxMinute() {
                 return this.hour !== this.p_max.hour ? null : this.p_max.minute

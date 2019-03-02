@@ -1,46 +1,45 @@
 <template>
-    <div class="pl-time">
-        <pl-popover
-                v-model="currentShow"
-                :trigger="!readonly && !disabled ?trigger:null"
-                :disabled-hide-on-click-outside="disabledHideOnClickOutside"
-                :disabled-destroy-on-hide="disabledDestroyOnHide"
-                :direction="direction"
-                :animate="animate"
-                :arrow="arrow"
-                :offset="offset"
-                :height="208"
-                :width="150"
-                :disabled-equal="disabledEqual">
+    <pl-popover
+            class="pl-time"
+            v-model="currentShow"
+            :trigger="!readonly && !disabled ?trigger:null"
+            :disabled-hide-on-click-outside="disabledHideOnClickOutside"
+            :disabled-destroy-on-hide="disabledDestroyOnHide"
+            :direction="direction"
+            :animate="animate"
+            :arrow="arrow"
+            :offset="offset"
+            :height="208"
+            :width="150"
+            :disabled-equal="disabledEqual">
 
-            <pl-input
-                    :value="currentValue"
-                    :box-type="boxType"
-                    :box-color="boxColor"
-                    :box-size="boxSize"
-                    :box-shape="boxShape"
-                    :suffix-icon="suffixIcon"
-                    :prefix-icon="prefixIcon"
-                    :clear-icon="'pl-time'"
-                    :clearable="clearable"
-                    :loading="loading"
-                    :readonly="inputReadonly"
-                    :disabled="disabled"
-                    :padding="padding"
-                    :long="long"
-                    :width="inputWidth"
-                    :hover="hover"
-                    :required="required"
-                    :rules="rules"
-                    :valid-on-init="validOnInit"
+        <pl-input
+                :value="currentValue"
+                :box-type="boxType"
+                :box-color="boxColor"
+                :box-size="boxSize"
+                :box-shape="boxShape"
+                :suffix-icon="suffixIcon"
+                :prefix-icon="prefixIcon"
+                :clear-icon="'pl-time'"
+                :clearable="clearable"
+                :loading="loading"
+                :readonly="inputReadonly"
+                :disabled="disabled"
+                :padding="padding"
+                :long="long"
+                :width="inputWidth"
+                :hover="hover"
+                :required="required"
+                :rules="rules"
+                :valid-on-init="validOnInit"
 
-                    :default-clear="false"
-                    :placeholder="placeholder"
-                    @clear="e=>!readonly && !disabled && p_clear(e)"
-            />
-            <pl-time-panel slot="popper" v-model="currentValue"/>
-        </pl-popover>
-    </div>
+                :default-clear="false"
+                :placeholder="placeholder"
+                @clear="e=>!readonly && !disabled && p_clear(e)"
+        />
+        <pl-time-panel slot="popper" v-model="currentValue" :max="max" :min="min"/>
+    </pl-popover>
 </template>
 
 <script>
@@ -54,6 +53,9 @@
         components: {PlInput, PlPopover, PlTimePanel},
         mixins: [BoxMixin, InputMixin],
         props: {
+            max: {type: String},                                                    //最大值
+            min: {tyoe: String},                                                    //最小值
+
             show: {type: Boolean},                                                  //打开下拉框，双向绑定属性
 
             trigger: {type: String, default: 'click'},                              //触发的动作：hover|click

@@ -1,54 +1,53 @@
 <template>
-    <div class="pl-select">
-        <pl-popover
-                v-model="currentShow"
-                :trigger="!readonly && !disabled ?trigger:null"
-                :disabled-hide-on-click-outside="disabledHideOnClickOutside"
-                :disabled-destroy-on-hide="disabledDestroyOnHide"
-                :direction="direction"
-                :animate="animate"
-                :arrow="arrow"
-                :offset="offset"
-                :height="height"
-                :width="width"
-                :disabled-equal="disabledEqual">
-            <pl-input
-                    :value="showValue"
-                    :box-type="boxType"
-                    :box-color="boxColor"
-                    :box-size="boxSize"
-                    :box-shape="boxShape"
-                    :suffix-icon="suffixIcon"
-                    :prefix-icon="prefixIcon"
-                    :clear-icon="p_suffixIcon"
-                    :clearable="clearable"
-                    :loading="loading"
-                    :readonly="inputReadonly"
-                    :disabled="disabled"
-                    :padding="padding"
-                    :long="long"
-                    :width="inputWidth"
-                    :hover="hover"
-                    :required="required"
-                    :rules="rules"
-                    :valid-on-init="validOnInit"
+    <pl-popover
+            class="pl-select"
+            v-model="currentShow"
+            :trigger="!readonly && !disabled ?trigger:null"
+            :disabled-hide-on-click-outside="disabledHideOnClickOutside"
+            :disabled-destroy-on-hide="disabledDestroyOnHide"
+            :direction="direction"
+            :animate="animate"
+            :arrow="arrow"
+            :offset="offset"
+            :height="height"
+            :width="width"
+            :disabled-equal="disabledEqual">
+        <pl-input
+                :value="showValue"
+                :box-type="boxType"
+                :box-color="boxColor"
+                :box-size="boxSize"
+                :box-shape="boxShape"
+                :suffix-icon="suffixIcon"
+                :prefix-icon="prefixIcon"
+                :clear-icon="p_suffixIcon"
+                :clearable="clearable"
+                :loading="loading"
+                :readonly="inputReadonly"
+                :disabled="disabled"
+                :padding="padding"
+                :long="long"
+                :width="inputWidth"
+                :hover="hover"
+                :required="required"
+                :rules="rules"
+                :valid-on-init="validOnInit"
 
-                    :default-clear="false"
-                    :placeholder="placeholder"
-                    @clear="e=>!readonly && !disabled && p_clear(e)"
-            />
-            <pl-scroll :scroll-x="false" slot="popper">
-                <div class="pl-select-content">
-                    <div class="link-select-item" v-for="(item,index) in p_data" :label="item.label" :value="item.value" :key="index" @click="p_click(item,index)">
-                        <slot :item="item.item" :index="index" :checked="item.checked">
-                            <span>{{item.label}}</span>
-                            <pl-icon icon="pl-check" v-if="item.checked"/>
-                        </slot>
-                    </div>
+                :default-clear="false"
+                :placeholder="placeholder"
+                @clear="e=>!readonly && !disabled && p_clear(e)"
+        />
+        <pl-scroll :scroll-x="false" slot="popper">
+            <div class="pl-select-content">
+                <div class="link-select-item" v-for="(item,index) in p_data" :label="item.label" :value="item.value" :key="index" @click="p_click(item,index)">
+                    <slot :item="item.item" :index="index" :checked="item.checked">
+                        <span>{{item.label}}</span>
+                        <pl-icon icon="pl-check" v-if="item.checked"/>
+                    </slot>
                 </div>
-            </pl-scroll>
-        </pl-popover>
-    </div>
+            </div>
+        </pl-scroll>
+    </pl-popover>
 </template>
 
 <script>
@@ -176,7 +175,6 @@
         @include public-style;
         display: inline-block;
         cursor: pointer;
-
     }
 
     .pl-select-content {

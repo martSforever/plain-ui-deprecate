@@ -4,6 +4,13 @@
             <!--<pl-time-panel v-model="val[0]"/>-->
             <link-time v-model="val[0]"/>
         </demo-row>
+        <demo-row title="测试双向绑定">
+            <link-time v-model="val[1]"/>
+            <link-time v-model="val[1]"/>
+        </demo-row>
+        <demo-row title="最大最小值,max=12:12:12,min=05:05:05">
+            <link-time v-model="val[0]" max="12:12:12" min="05:05:05"/>
+        </demo-row>
     </div>
 </template>
 
@@ -15,7 +22,9 @@
         components: {PlTimePanel},
         data() {
             return {
-                val: {},
+                val: {
+                    1: '12:08:09',
+                },
             }
         },
     }
