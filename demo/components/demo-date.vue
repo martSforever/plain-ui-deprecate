@@ -1,23 +1,17 @@
 <template>
     <div class="demo-date">
-        <pl-date-day-panel :current-date="current"/>
+        <pl-date-panel/>
     </div>
 </template>
 
 <script>
     import PlDateYearPanel from "../../src/components/date/pl-date-year-panel";
     import PlDateDayPanel from "../../src/components/date/pl-date-day-panel";
+    import PlDatePanel from "../../src/components/date/pl-date-panel";
 
     export default {
         name: "demo-date",
-        components: {PlDateDayPanel, PlDateYearPanel},
-        data() {
-            const current = new Date()
-            current.setDate(current.getDate() + 1)
-            return {
-                current
-            }
-        },
+        components: {PlDatePanel, PlDateDayPanel, PlDateYearPanel},
     }
 </script>
 

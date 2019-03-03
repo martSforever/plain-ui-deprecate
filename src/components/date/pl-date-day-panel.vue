@@ -1,23 +1,27 @@
 <template>
-    <div class="pl-date-day-panel">
-        <div class="pl-date-day-panel-item"
+    <div class="pl-date-day-panel" @mouseleave="p_leavePanel">
+        <div class="pl-date-day-panel-item-wrapper"
              v-for="(weekName,index) in weekNames"
              :key="`_${index}`">
-            <div class="pl-date-day-panel-item-inner">
-                <span>{{weekName}}</span>
+            <div class="pl-date-day-panel-item">
+                <div class="pl-date-day-panel-item-inner">
+                    <span class="pl-date-day-panel-item-label">{{weekName}}</span>
+                </div>
             </div>
         </div>
-        <div
-                v-for="(item,index) in days"
-                :key="index"
-                class="pl-date-day-panel-item"
-                :class="{
+        <div class="pl-date-day-panel-item-wrapper"
+             v-for="(item,index) in days"
+             :key="index"
+             @mouseenter="p_hoverItem(item)">
+            <div class="pl-date-day-panel-item"
+                 :class="{
                     'pl-date-day-panel-item-today':item.isToday,
                     'pl-date-day-panel-item-other-month':item.isOtherMonth,
-                    'pl-date-day-panel-item-current':item.isCurrent,
-                }">
-            <div class="pl-date-day-panel-item-inner">
-                <span>{{item.isToday?'今':item.day}}</span>
+                    'pl-date-day-panel-item-active':item.active,
+                    'pl-date-day-panel-item-light':p_isLight(item)}">
+                <div class="pl-date-day-panel-item-inner">
+                    <span class="pl-date-day-panel-item-label">{{item.isToday?'今':item.day}}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -29,11 +33,9 @@
         props: {
             year: {},                                   //当前面板显示的年份
             month: {},                                  //当前面板显示的月份
-
             currentDate: {},                            //当前日期
             maxDate: {},                                //最大可选日期
             minDate: {},                                //最小可选日期
-
             startDate: {},                              //日期范围开始日期
             endDate: {},                                //日期范围结束日期
             hoverDate: {},                              //当前鼠标浮动的日期
@@ -44,12 +46,19 @@
             const nowMonth = now.getMonth()
             const nowDay = now.getDate()
 
+            const tempDate = new Date()
+            tempDate.setHours(0)
+            tempDate.setMinutes(0)
+            tempDate.setSeconds(0)
+            tempDate.setMilliseconds(0)
+
             return {
                 weekNames: ['日', '1', '二', '三', '四', '五', '六'],
                 now,
                 nowYear,
                 nowMonth,
                 nowDay,
+                tempDate,
             }
         },
         computed: {
@@ -65,12 +74,26 @@
             /*当前选择月份*/
             selectMonth() {return this.month != null ? this.month : new Date().getMonth()},
 
-            /*当前选中的年月日*/
-            currentYear() {return !!this.currentDate ? this.currentDate.getFullYear() : null},
-            currentMonth() {return !!this.currentDate ? this.currentDate.getMonth() : null},
-            currentDay() {return !!this.currentDate ? this.currentDate.getDate() : null},
-
             /*@formatter:on*/
+
+            hoverTime() {
+                if (!this.hoverDate) return null
+                return this.hoverDate.getTime()
+            },
+            startTime() {
+                if (!this.startDate) return null
+                this.startDate.setHours(0)
+                this.startDate.setMinutes(0)
+                this.startDate.setSeconds(0)
+                return this.p_getTime(this.startDate)
+            },
+            endTime() {
+                if (!this.endDate) return null
+                this.endDate.setHours(0)
+                this.endDate.setMinutes(0)
+                this.endDate.setSeconds(0)
+                return this.p_getTime(this.endDate)
+            },
 
             days() {
                 let days = []
@@ -115,14 +138,44 @@
                     year,
                     month,
                     day,
-                    time: date.getTime(),
+                    time: this.p_getTime(date),
                     disabled: (!!this.maxTime && date.getTime() > this.maxTime) || (!!this.minTime && date.getTime() < this.minTime),
                     /*日期是否为今天*/
                     isToday,
                     /*日期是否为选择月份的日期*/
                     isOtherMonth: month !== this.selectMonth,
-                    isCurrent: year === this.currentYear && month === this.currentMonth && day === this.currentDay
+                    active: this.isThatDate(this.currentDate, {year, month, day}) || this.isThatDate(this.startDate, {year, month, day}) || this.isThatDate(this.endDate, {year, month, day}),
                 }
+            },
+            isThatDate(date, {year, month, day}) {
+                if (!date) return false
+                return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day
+            },
+            p_hoverItem(item) {
+                this.$emit('update:hoverDate', new Date(item.year, item.month, item.day, 0, 0, 0))
+            },
+            p_leavePanel() {
+                this.$emit('update:hoverDate', null)
+            },
+            p_getTime(date) {
+                if (!date) return null
+                /*
+                    遇到很奇怪的bug， 下面这段代码不能使用这种顺序
+                    this.tempDate.setFullYear(date.getFullYear())
+                    this.tempDate.setMonth(date.getMonth())
+                    this.tempDate.setDate(date.getDate())
+                    否则在计算到4月1号的时候，会变成5月一号
+                */
+                this.tempDate.setDate(date.getDate())
+                this.tempDate.setMonth(date.getMonth())
+                this.tempDate.setFullYear(date.getFullYear())
+                // console.log(this.tempDate.getFullYear(), this.tempDate.getMonth(), this.tempDate.getDate(), this.tempDate.getTime())
+                return this.tempDate.getTime()
+            },
+            p_isLight(pushDate) {
+                if (!this.startTime) return false
+                if (!!this.endTime) return pushDate.time >= this.startTime && pushDate.time <= this.endTime
+                return !!this.hoverTime && pushDate.time >= Math.min(this.hoverTime, this.startTime) && pushDate.time <= Math.max(this.hoverTime, this.startTime)
             },
         },
     }
@@ -132,6 +185,7 @@
 
     $itemSize: 28px;
     $borderRadius: 4px;
+    $innerItemSize: 24px;
 
     .pl-date-day-panel {
         @include public-style;
@@ -142,7 +196,8 @@
         flex-wrap: wrap;
         color: $color-normal-sub-color;
         user-select: none;
-        .pl-date-day-panel-item {
+
+        .pl-date-day-panel-item-wrapper {
             height: $itemSize;
             width: $itemSize;
             display: inline-flex;
@@ -150,36 +205,50 @@
             justify-content: center;
             cursor: pointer;
             margin-bottom: 6px;
-            .pl-date-day-panel-item-inner {
-                height: 100%;
+
+            .pl-date-day-panel-item {
+                height: $innerItemSize;
                 width: 100%;
-                display: flex;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: $borderRadius;
-                transform: scale(0.8);
-            }
-
-            &.pl-date-day-panel-item-today {
                 .pl-date-day-panel-item-inner {
-                    background-color: $color-success;
-                    border-radius: $itemSize;
-                    color: white;
-                }
-            }
-            &.pl-date-day-panel-item-other-month {
-                color: $color-normal-disabled;
-            }
-            &.pl-date-day-panel-item-current {
-                .pl-date-day-panel-item-inner {
-                    background-color: $color-primary;
+                    height: $innerItemSize;
+                    width: $innerItemSize;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     border-radius: $borderRadius;
-                    color: white;
+                    .pl-date-day-panel-item-label {
+                        transform: scale(0.9);
+                    }
                 }
-            }
-            &:hover {
-                background-color: $color-primary-light;
-                color: $color-normal-sub-color;
+                &.pl-date-day-panel-item-today {
+                    .pl-date-day-panel-item-inner {
+                        background-color: $color-success;
+                        border-radius: $itemSize;
+                        color: white;
+                    }
+                }
+                &.pl-date-day-panel-item-other-month {
+                    color: $color-normal-disabled;
+                }
+                &:hover {
+                    .pl-date-day-panel-item-inner {
+                        background-color: $color-primary-light;
+                        color: $color-normal-sub-color;
+                    }
+                }
+                &.pl-date-day-panel-item-light {
+                    background-color: $color-primary-light;
+                }
+                &.pl-date-day-panel-item-active {
+                    .pl-date-day-panel-item-inner {
+                        background-color: $color-primary;
+                        border-radius: $borderRadius;
+                        color: white;
+                    }
+                }
             }
         }
     }
