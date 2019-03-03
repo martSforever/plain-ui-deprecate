@@ -37,6 +37,7 @@
         height: 40px;
         display: flex;
         flex-direction: row;
+        user-select: none;
         .pl-date-header-left, .pl-date-header-right {
             width: 90px;
             padding: 0 6px;
@@ -53,8 +54,13 @@
             justify-content: center;
             color: $color-normal-content;
             cursor: pointer;
-            .pl-date-header-label:hover {
-                color: $color-primary;
+            .pl-date-header-label {
+                &:not(:last-child) {
+                    margin-right: 3px;
+                }
+                &:hover {
+                    color: $color-primary;
+                }
             }
         }
         .pl-date-header-left {
