@@ -1,6 +1,6 @@
 <template>
     <div class="pl-date-day-panel" @mouseleave="p_leavePanel">
-        <div class="pl-date-day-panel-item-wrapper"
+        <div class="pl-date-day-panel-item-wrapper pl-date-day-panel-item-wrapper-title"
              v-for="(weekName,index) in weekNames"
              :key="`_${index}`">
             <div class="pl-date-day-panel-item">
@@ -74,8 +74,6 @@
             /*当前选择月份*/
             selectMonth() {return this.month != null ? this.month : new Date().getMonth()},
 
-            /*@formatter:on*/
-
             hoverTime() {
                 if (!this.hoverDate) return null
                 return this.hoverDate.getTime()
@@ -94,6 +92,7 @@
                 this.endDate.setSeconds(0)
                 return this.p_getTime(this.endDate)
             },
+            /*@formatter:on*/
 
             days() {
                 let days = []
@@ -129,6 +128,11 @@
             },
         },
         methods: {
+            /*
+             *  获取要渲染的日期数据对象
+             *  @author     martsforever
+             *  @datetime   2019/3/3 21:13
+             */
             newPushDate(date) {
                 const year = date.getFullYear()
                 const month = date.getMonth()
@@ -147,16 +151,36 @@
                     active: this.isThatDate(this.currentDate, {year, month, day}) || this.isThatDate(this.startDate, {year, month, day}) || this.isThatDate(this.endDate, {year, month, day}),
                 }
             },
+            /*
+             *  判断是否为当天
+             *  @author     martsforever
+             *  @datetime   2019/3/3 21:13
+             */
             isThatDate(date, {year, month, day}) {
                 if (!date) return false
                 return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day
             },
+            /*
+             *  处理日期dom鼠标hover事件
+             *  @author     martsforever
+             *  @datetime   2019/3/3 21:14
+             */
             p_hoverItem(item) {
                 this.$emit('update:hoverDate', new Date(item.year, item.month, item.day, 0, 0, 0))
             },
+            /*
+             *  处理鼠标离开日期面板事件
+             *  @author     martsforever
+             *  @datetime   2019/3/3 21:15
+             */
             p_leavePanel() {
                 this.$emit('update:hoverDate', null)
             },
+            /*
+             *  获取日期对应的time
+             *  @author     martsforever
+             *  @datetime   2019/3/3 21:15
+             */
             p_getTime(date) {
                 if (!date) return null
                 /*
@@ -172,6 +196,11 @@
                 // console.log(this.tempDate.getFullYear(), this.tempDate.getMonth(), this.tempDate.getDate(), this.tempDate.getTime())
                 return this.tempDate.getTime()
             },
+            /*
+             *  日期dom是否应该高亮
+             *  @author     martsforever
+             *  @datetime   2019/3/3 21:15
+             */
             p_isLight(pushDate) {
                 if (!this.startTime) return false
                 if (!!this.endTime) return pushDate.time >= this.startTime && pushDate.time <= this.endTime
@@ -205,7 +234,9 @@
             justify-content: center;
             cursor: pointer;
             margin-bottom: 6px;
-
+            &.pl-date-day-panel-item-wrapper-title {
+                color: $color-normal-content;
+            }
             .pl-date-day-panel-item {
                 height: $innerItemSize;
                 width: 100%;

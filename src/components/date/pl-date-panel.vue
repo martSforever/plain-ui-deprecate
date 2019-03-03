@@ -1,22 +1,24 @@
 <template>
     <div class="pl-date-panel">
+        <pl-date-header/>
         <pl-date-day-panel :current-date="current" :start-date="start" :hover-date.sync="hoverDate"/>
     </div>
 </template>
 
 <script>
     import PlDateDayPanel from "./pl-date-day-panel";
+    import PlDateHeader from "./pl-date-header";
 
     export default {
         name: "pl-date-panel",
-        components: {PlDateDayPanel},
+        components: {PlDateHeader, PlDateDayPanel},
         data() {
             const now = new Date()
             now.setDate(now.getDate() + 1)
             const current = this.$plain.$utils.deepCopy(now)
             now.setDate(15)
             const start = this.$plain.$utils.deepCopy(now)
-            now.setMonth(now.getMonth()+1)
+            now.setMonth(now.getMonth() + 1)
             now.setDate(5)
             const end = this.$plain.$utils.deepCopy(now)
             return {
@@ -31,5 +33,9 @@
 </script>
 
 <style lang="scss">
-
+    .pl-date-panel {
+        @include public-style;
+        width: 196px;
+        display: inline-block;
+    }
 </style>
