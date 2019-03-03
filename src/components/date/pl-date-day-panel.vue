@@ -14,6 +14,7 @@
                 :class="{
                     'pl-date-day-panel-item-today':item.isToday,
                     'pl-date-day-panel-item-other-month':item.isOtherMonth,
+                    'pl-date-day-panel-item-current':item.isCurrent,
                 }">
             <div class="pl-date-day-panel-item-inner">
                 <span>{{item.isToday?'今':item.day}}</span>
@@ -52,18 +53,25 @@
             }
         },
         computed: {
-            maxTime() {
-                return !!this.maxDate ? this.maxDate.getTime() : null
-            },
-            minTime() {
-                return !!this.minDate ? this.minDate.getTime() : null
-            },
-            selectYear() {
-                return this.year != null ? this.year : new Date().getFullYear()
-            },
-            selectMonth() {
-                return this.month != null ? this.month : new Date().getMonth()
-            },
+            /*@formatter:off*/
+
+            /*最大日期的time*/
+            maxTime() {return !!this.maxDate ? this.maxDate.getTime() : null},
+            /*最小日期的time*/
+            minTime() {return !!this.minDate ? this.minDate.getTime() : null},
+
+            /*当前选择年份*/
+            selectYear() {return this.year != null ? this.year : new Date().getFullYear()},
+            /*当前选择月份*/
+            selectMonth() {return this.month != null ? this.month : new Date().getMonth()},
+
+            /*当前选中的年月日*/
+            currentYear() {return !!this.currentDate ? this.currentDate.getFullYear() : null},
+            currentMonth() {return !!this.currentDate ? this.currentDate.getMonth() : null},
+            currentDay() {return !!this.currentDate ? this.currentDate.getDate() : null},
+
+            /*@formatter:on*/
+
             days() {
                 let days = []
                 let date = new Date()
@@ -109,8 +117,11 @@
                     day,
                     time: date.getTime(),
                     disabled: (!!this.maxTime && date.getTime() > this.maxTime) || (!!this.minTime && date.getTime() < this.minTime),
+                    /*日期是否为今天*/
                     isToday,
-                    isOtherMonth: month !== this.selectMonth
+                    /*日期是否为选择月份的日期*/
+                    isOtherMonth: month !== this.selectMonth,
+                    isCurrent: year === this.currentYear && month === this.currentMonth && day === this.currentDay
                 }
             },
         },
@@ -120,6 +131,7 @@
 <style lang="scss">
 
     $itemSize: 28px;
+    $borderRadius: 4px;
 
     .pl-date-day-panel {
         @include public-style;
@@ -144,7 +156,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: 4px;
+                border-radius: $borderRadius;
                 transform: scale(0.8);
             }
 
@@ -157,6 +169,13 @@
             }
             &.pl-date-day-panel-item-other-month {
                 color: $color-normal-disabled;
+            }
+            &.pl-date-day-panel-item-current {
+                .pl-date-day-panel-item-inner {
+                    background-color: $color-primary;
+                    border-radius: $borderRadius;
+                    color: white;
+                }
             }
             &:hover {
                 background-color: $color-primary-light;
