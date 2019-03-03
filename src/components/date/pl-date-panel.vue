@@ -2,7 +2,8 @@
     <div class="pl-date-panel">
         <pl-date-header/>
         <div class="pl-date-panel-body">
-            <pl-date-day-panel :current-date="current" :start-date="start" :hover-date.sync="hoverDate"/>
+            <pl-date-year-panel :value="current.getFullYear()"/>
+            <!--<pl-date-day-panel :current-date="current" :start-date="start" :hover-date.sync="hoverDate"/>-->
         </div>
     </div>
 </template>
@@ -10,10 +11,11 @@
 <script>
     import PlDateDayPanel from "./pl-date-day-panel";
     import PlDateHeader from "./pl-date-header";
+    import PlDateYearPanel from "./pl-date-year-panel";
 
     export default {
         name: "pl-date-panel",
-        components: {PlDateHeader, PlDateDayPanel},
+        components: {PlDateYearPanel, PlDateHeader, PlDateDayPanel},
         data() {
             const now = new Date()
             now.setDate(now.getDate() + 1)
