@@ -2,19 +2,21 @@
     <div class="pl-date-header">
         <div class="pl-date-header-left">
             <slot name="left">
-                <pl-icon icon="pl-double-arrow-left"/>
-                <pl-icon icon="pl-arrow-left"/>
+                <pl-icon icon="pl-double-arrow-left" class="pl-date-header-label"/>
+                <pl-icon icon="pl-arrow-left" class="pl-date-header-label"/>
             </slot>
         </div>
         <div class="pl-date-header-center">
             <slot name="center">
-                2018 - 12
+                <span class="pl-date-header-label">2019</span>
+                -
+                <span class="pl-date-header-label">12</span>
             </slot>
         </div>
         <div class="pl-date-header-right">
             <slot name="right">
-                <pl-icon icon="pl-double-arrow-right"/>
-                <pl-icon icon="pl-arrow-right"/>
+                <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label"/>
+                <pl-icon icon="pl-arrow-right" class="pl-date-header-label"/>
             </slot>
         </div>
     </div>
@@ -36,8 +38,8 @@
         display: flex;
         flex-direction: row;
         .pl-date-header-left, .pl-date-header-right {
-            width: 60px;
-            padding: 0 9px;
+            width: 90px;
+            padding: 0 6px;
             box-sizing: border-box;
         }
         .pl-date-header-center {
@@ -49,6 +51,10 @@
             align-items: center;
             justify-content: center;
             color: $color-normal-content;
+            cursor: pointer;
+            .pl-date-header-label:hover {
+                color: $color-primary;
+            }
         }
         .pl-date-header-left {
             justify-content: flex-start;
