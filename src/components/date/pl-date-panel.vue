@@ -1,7 +1,9 @@
 <template>
     <div class="pl-date-panel">
         <pl-date-header/>
-        <pl-date-day-panel :current-date="current" :start-date="start" :hover-date.sync="hoverDate"/>
+        <div class="pl-date-panel-body">
+            <pl-date-day-panel :current-date="current" :start-date="start" :hover-date.sync="hoverDate"/>
+        </div>
     </div>
 </template>
 
@@ -37,5 +39,9 @@
         @include public-style;
         width: 196px;
         display: inline-block;
+        .pl-date-panel-body {
+            width: 196px;
+            height: 238px;
+        }
     }
 </style>

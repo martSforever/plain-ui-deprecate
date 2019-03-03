@@ -15,8 +15,8 @@
         </div>
         <div class="pl-date-header-right">
             <slot name="right">
-                <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label"/>
                 <pl-icon icon="pl-arrow-right" class="pl-date-header-label"/>
+                <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label"/>
             </slot>
         </div>
     </div>
@@ -41,6 +41,7 @@
             width: 90px;
             padding: 0 6px;
             box-sizing: border-box;
+            font-size: 12px;
         }
         .pl-date-header-center {
             flex: 1;
