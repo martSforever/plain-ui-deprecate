@@ -16,10 +16,12 @@ class ContextMenu {
         this.Vue = Vue
     }
 
-    async pick({data, labelKey, valueKey, value, multiple, width, height, target} = {}) {
-        Object.assign(this.instance, {data, labelKey, valueKey, value, multiple, width, height, target})
-        this.Vue.prototype.$nextTick(() => {
-            this.instance.show = true
+    async pick({data, labelKey, valueKey, value, multiple, width, height, el, event} = {}) {
+        return new Promise((rs) => {
+            Object.assign(this.instance, {data, labelKey, valueKey, value, multiple, width, height, el, event}, {onConfirm: rs})
+            this.Vue.prototype.$nextTick(() => {
+                this.instance.show = true
+            })
         })
     }
 }
