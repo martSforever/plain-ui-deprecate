@@ -1,10 +1,6 @@
 <template>
     <div class="demo-context-menu">
         <demo-row>
-            <link-button label="open"/>
-            <!--<pl-context-menu/>-->
-        </demo-row>
-        <demo-row>
             <link-button :label="`event service:${val[0]}`" @contextmenu.prevent.native="useService"/>
             <link-button :label="`el service:${val[0]}`" @contextmenu.prevent.native="useService2" ref="button"/>
         </demo-row>
