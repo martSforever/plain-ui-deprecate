@@ -7,7 +7,7 @@
                 <div class="pl-date-year-panel-item-wrapper" v-for="(item,index) in list" :key="index">
                     <div class="pl-date-year-panel-item"
                          ref="items"
-                         :class="{'pl-date-year-panel-item-active':item === currentValue,'pl-date-year-panel-item-now':nowYear===item}"
+                         :class="{'pl-date-year-panel-item-active':item === currentYear,'pl-date-year-panel-item-now':nowYear===item}"
                          @click="p_clickItem(item,index)">
                         {{item}}
                     </div>
@@ -25,7 +25,9 @@
         name: "pl-date-year-panel",
         components: {PlScroll},
         mixins: [ValueMixin],
-        props: {},
+        props: {
+            currentYear: {},
+        },
         data() {
             return {
                 p_watchCurrentValue: false,             //不坚挺currentValue变化事件

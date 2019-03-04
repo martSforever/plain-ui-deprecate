@@ -6,7 +6,7 @@
                  @click="p_clickItem(item)"
                  :key="index">
                 <div class="pl-date-month-panel-item"
-                     :class="{'pl-date-month-panel-item-active':item===currentValue,'pl-date-month-panel-item-now':item === nowMonth}">
+                     :class="{'pl-date-month-panel-item-active':item===currentMonth,'pl-date-month-panel-item-now':item === nowMonth}">
                     <!--{{$amlocale.date.month[item]}}-->
                     {{item+1}}月
                 </div>
@@ -21,6 +21,9 @@
     export default {
         name: "pl-date-month-panel",
         mixins: [ValueMixin],
+        props: {
+            currentMonth: {},
+        },
         data() {
             return {
                 list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
