@@ -2,7 +2,7 @@
     <div class="pl-date-panel">
         <pl-date-header/>
         <div class="pl-date-panel-body">
-            <pl-date-year-panel :value="current.getFullYear()"/>
+            <pl-date-year-panel :value="current.getFullYear()" :current-year="2018"/>
             <!--<pl-date-day-panel :current-date="current" :start-date="start" :hover-date.sync="hoverDate"/>-->
         </div>
     </div>
@@ -18,13 +18,18 @@
         components: {PlDateYearPanel, PlDateHeader, PlDateDayPanel},
         data() {
             const now = new Date()
+
             now.setDate(now.getDate() + 1)
+            now.setFullYear(2018)
             const current = this.$plain.$utils.deepCopy(now)
+
             now.setDate(15)
             const start = this.$plain.$utils.deepCopy(now)
+
             now.setMonth(now.getMonth() + 1)
             now.setDate(5)
             const end = this.$plain.$utils.deepCopy(now)
+
             return {
                 current,
                 start,

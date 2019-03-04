@@ -1,12 +1,14 @@
 <template>
     <div class="pl-date-year-panel">
-        <pl-scroll ref="scrollbar">
+        <pl-scroll ref="scrollbar"
+                   @vertical-scroll-top="p_addPreviousYears"
+                   @vertical-scroll-bottom="p_addNextYears">
             <div class="pl-date-year-panel-content">
                 <div class="pl-date-year-panel-item-wrapper" v-for="(item,index) in list" :key="index">
                     <div class="pl-date-year-panel-item"
                          ref="items"
-                         :class="{'pl-date-year-panel-item-active':item === currentYear,'currentYear-now':nowYear===item}"
-                         @click="handleClickItem(item,index)">
+                         :class="{'pl-date-year-panel-item-active':item === currentValue,'pl-date-year-panel-item-now':nowYear===item}"
+                         @click="p_clickItem(item,index)">
                         {{item}}
                     </div>
                 </div>
@@ -23,12 +25,10 @@
         name: "pl-date-year-panel",
         components: {PlScroll},
         mixins: [ValueMixin],
-        props: {
-            currentYear: {},
-        },
+        props: {},
         data() {
             return {
-                p_watchCurrentValue: false,
+                p_watchCurrentValue: false,             //不坚挺currentValue变化事件
                 list: [],                               //年份数组
                 num: 15,                                //每一页显示的个数
                 nowYear: new Date().getFullYear(),      //当前年份
@@ -46,19 +46,34 @@
             this.updatePosition()
         },
         methods: {
+            /*
+             *  重新计算年份数组
+             *  @author     martsforever
+             *  @datetime   2019/3/4 22:32
+             */
             reset() {
                 this.list = []
                 this.start = this.value - Math.floor(this.num * 1.5)
                 for (let i = this.start; i < this.start + this.num * 3; i++) this.list.push(i)
                 this.$nextTick(() => this.currentValue = this.value)
             },
+            /*
+             *  更新滚动条位置，
+             *  @author     martsforever
+             *  @datetime   2019/3/4 22:32
+             */
             updatePosition() {
                 this.$nextTick(() => {
                     const targetItemRef = this.$refs.items[this.currentIndex - 6]
                     !!targetItemRef && this.$refs.scrollbar.scrollTop(targetItemRef.offsetTop)
                 })
             },
-            addPreviousYears() {
+            /*
+             *  滚动到顶部时，年份数组栈顶部添加额外年份
+             *  @author     martsforever
+             *  @datetime   2019/3/4 22:42
+             */
+            p_addPreviousYears() {
                 let currentScrolllTop = this.$refs.scrollbar.contentWrapperScrollTop
                 const newStart = this.start - this.num
                 for (let i = this.start - 1; i >= newStart; i--) {
@@ -69,14 +84,23 @@
                     this.$refs.scrollbar.$refs.wrapper.scrollTop = currentScrolllTop + this.$el.offsetHeight
                 })
             },
-            addNextYears() {
+            /*
+             *  滚动到底部时，年份数组栈尾部添加额外年份
+             *  @author     martsforever
+             *  @datetime   2019/3/4 22:42
+             */
+            p_addNextYears() {
                 let addStart = this.list[this.list.length - 1]
                 for (let i = 0; i < this.num; i++) {
                     this.list.push(++addStart)
                 }
             },
-
-            handleClickItem(item) {
+            /*
+             *  处理年份点击事件
+             *  @author     martsforever
+             *  @datetime   2019/3/4 22:34
+             */
+            p_clickItem(item) {
                 this.currentValue = item
                 this.$emit('click', item)
             },
@@ -99,6 +123,23 @@
                 align-items: center;
                 justify-content: center;
                 height: 44px;
+                font-size: 12px;
+                .pl-date-year-panel-item {
+                    padding: 4px 9px;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    &:hover {
+                        background-color: $color-primary-light;
+                    }
+                    &.pl-date-year-panel-item-now {
+                        background-color: $color-success;
+                        color: white;
+                    }
+                    &.pl-date-year-panel-item-active {
+                        background-color: $color-primary;
+                        color: white;
+                    }
+                }
             }
         }
     }
