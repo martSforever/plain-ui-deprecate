@@ -274,13 +274,28 @@ function findOne(array, fn) {
  * @author  韦胜健
  * @date    2019/1/10 10:57
  */
-function findSome() {
+function findSome(array, fn) {
     const ret = []
     for (let i = 0; i < array.length; i++) {
         const item = array[i];
         if (!!fn(item)) ret.push(item)
     }
     return ret
+}
+
+/**
+ * 从数组中删除部分元素
+ * @author  韦胜健
+ * @date    2019/3/4 10:35
+ */
+function removeSome(array, fn) {
+    for (let i = 0; i < array.length; i++) {
+        const item = array[i];
+        if (fn(item)) {
+            array.splice(i, 1)
+            i--
+        }
+    }
 }
 
 /**
@@ -381,9 +396,12 @@ const $utils = {
     typeOf,                                     //判断变量类型
     oneOf,                                      //判断是否存在于数组中
     unit,                                       //填补单位，如果是字符串，则返回原数据，如果是数字则返回数字+px
+
     shuffle,                                    //打乱数组顺序
     findOne,                                    //从数组中查找一个
     findSome,                                   //从数组中查找多个
+    removeSome,                                 //从数组中删除部分元素
+
     telFormat,                                  //电话号码格式化
     moneyFormat,                                //金额格式化
     cnyFormat,                                  //人民币格式化

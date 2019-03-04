@@ -8,6 +8,12 @@
             <link-button :label="`event service:${val[0]}`" @contextmenu.prevent.native="useService"/>
             <link-button :label="`el service:${val[0]}`" @contextmenu.prevent.native="useService2" ref="button"/>
         </demo-row>
+        <demo-row title="多选">
+            <link-button label="多选" @contextmenu.prevent.native="multiplePick" ref="button2"/>
+            <div>
+                {{val[1]}}
+            </div>
+        </demo-row>
     </div>
 </template>
 
@@ -42,6 +48,16 @@
                 })
                 this.val[0] = ret
                 this.$message.show(ret)
+            },
+            async multiplePick() {
+                const ret = await this.$contextMenu.pick({
+                    data: ['北京', '天津', '上海', '杭州', '南京', '无锡', '南昌', '广州', '南宁', '柳州', '防城港', '汕头', '厦门'],
+                    el: this.$refs.button2.$el,
+                    value: this.val[1],
+                    multiple: true,
+                })
+                this.val[1] = ret
+                this.$message.show(ret.toString())
             },
         }
     }

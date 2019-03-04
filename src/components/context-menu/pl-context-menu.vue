@@ -1,29 +1,36 @@
 <template>
     <transition name="pl-context-menu">
         <div class="pl-context-menu" :style="styles" v-show="show">
-            <pl-scroll>
-                <div class="pl-context-menu-item"
-                     :class="{'pl-context-menu-item-active':p_isActive(item)}"
-                     v-for="(item,index) in data"
-                     :key="index"
-                     v-if="!!data"
-                     @click="p_clickItem(item)">
-                    <span>{{!!labelKey?item[labelKey]:item}}</span>
+            <div class="pl-context-menu-content" :style="contentStyles">
+                <pl-scroll>
+                    <div class="pl-context-menu-item"
+                         :class="{'pl-context-menu-item-active':p_isActive(item)}"
+                         v-for="(item,index) in data"
+                         :key="index"
+                         v-if="!!data"
+                         @click="p_clickItem(item)">
+                        <span>{{!!labelKey?item[labelKey]:item}}</span>
+                    </div>
+                </pl-scroll>
+            </div>
+            <div class="pl-context-menu-footer" v-show="multiple">
+                <div class="pl-context-menu-footer-content">
+                    <pl-button label="确定" @click="p_confirm"/>
                 </div>
-            </pl-scroll>
+            </div>
         </div>
     </transition>
 </template>
 
 <script>
     import PlScroll from "../scroll/pl-scroll";
+    import PlButton from "../button/pl-button";
 
     export default {
         name: "pl-context-menu",
-        components: {PlScroll},
+        components: {PlButton, PlScroll},
         data() {
             return {
-                /*['北京', '天津', '上海', '杭州', '南京', '无锡', '南昌', '广州', '南宁', '柳州', '防城港', '汕头', '厦门']*/
                 data: [],                                       //右侧选择的数据
                 value: null,                                    //当前值
                 labelKey: null,                                 //显示的文本key
@@ -64,15 +71,23 @@
                     this.p_top = e.clientY
                     this.p_left = e.clientX
                 },
-            }
+            },
+            show(val) {
+                if (!val) this.p_clearPosition()
+            },
         },
         computed: {
             styles() {
                 return {
-                    width: this.width || this.defaultWidth,
-                    height: this.height || this.defaultHeight,
                     top: `${this.p_top}px`,
                     left: `${this.p_left}px`,
+                }
+            },
+            contentStyles() {
+                return {
+                    width: this.width || this.defaultWidth,
+                    height: this.height || this.defaultHeight,
+
                 }
             },
         },
@@ -96,9 +111,18 @@
              * @date    2019/3/4 09:54
              */
             p_clickItem(item) {
-                !!this.onConfirm && this.onConfirm(item)
-                this.show = false
-                this.p_clearPosition()
+                if (!this.multiple) {
+                    !!this.onConfirm && this.onConfirm(item)
+                    this.show = false
+                } else {
+                    const ret = [].concat(this.value || [])
+                    if (this.$plain.$utils.findOne(ret, (it) => !!this.valueKey ? it[this.valueKey] === item[this.valueKey] : it === item)) {
+                        this.$plain.$utils.removeSome(ret, it => !!this.valueKey ? it[this.valueKey] === item[this.valueKey] : it === item)
+                    } else {
+                        ret.push(item)
+                    }
+                    this.value = ret
+                }
             },
             /**
              * 保存目标dom位置大小信息
@@ -138,6 +162,15 @@
                 this.p_targetWidth = null
                 this.p_targetHeight = null
             },
+            /**
+             * 点击确认按钮事件
+             * @author  韦胜健
+             * @date    2019/3/4 10:58
+             */
+            p_confirm() {
+                !!this.onConfirm && this.onConfirm(this.value)
+                this.show = false
+            },
         },
         beforeDestroy() {
             document.body.removeEventListener('click', this.p_click)
@@ -150,13 +183,15 @@
     .pl-context-menu {
         @include transition-all;
         @include public-style;
-        padding: 4px 0;
         box-shadow: 0 0 15px 1px #ddd;
         position: fixed;
         left: 0;
         top: 0;
         background-color: white;
         z-index: 9999;
+        .pl-context-menu-content {
+            padding: 4px 0;
+        }
 
         .pl-context-menu-item {
             padding: 4px 10px;
@@ -165,6 +200,29 @@
             &:hover, &.pl-context-menu-item-active {
                 background-color: $color-primary;
                 color: white;
+            }
+        }
+        .pl-context-menu-footer {
+            height: 40px;
+            position: relative;
+            &:after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                content: '';
+                box-shadow: 0 0 15px 1px #ddd;
+            }
+            .pl-context-menu-footer-content {
+                background-color: white;
+                height: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 0 12px;
+                position: relative;
+                z-index: 1;
             }
         }
     }
