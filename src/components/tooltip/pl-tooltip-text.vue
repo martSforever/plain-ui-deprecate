@@ -12,9 +12,9 @@
         name: "pl-tooltip-text",
         directives: {tooltip},
         props: {
-            content: {type: String, required: true},                        //显示以及tooltip悬浮显示的文本
+            content: {required: true},                                      //显示以及tooltip悬浮显示的文本
             arrow: {type: Boolean, default: true},                          //是否显示箭头
-            placement: {type: String, default: 'bottom'},                   //悬浮位置
+            placement: {type: String, default: 'top'},                      //悬浮位置
             trigger: {type: String, default: 'mouseenter'},                 //悬浮触发方式
             theme: {type: String, default: 'dark'},                         //悬浮的主题色
             disabled: {type: Boolean},                                      //是否禁用
@@ -61,5 +61,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        outline: none;
     }
 </style>

@@ -5,7 +5,9 @@
                            :scope-slot-func="scopeSlotFunc"
                            :data="data"/>
             <template v-else>
-                <span class="pl-table-cell-default-text">{{text}}</span>
+                <div class="pl-table-cell-default-text">
+                    <pl-tooltip-text :content="text"/>
+                </div>
                 <slot></slot>
             </template>
         </template>
@@ -15,10 +17,11 @@
 <script>
     import PlScopeSlot from "../render/pl-scope-slot";
     import {TableMixin} from "./index";
+    import PlTooltipText from "../tooltip/pl-tooltip-text";
 
     export default {
         name: "pl-table-cell",
-        components: {PlScopeSlot},
+        components: {PlTooltipText, PlScopeSlot},
         mixins: [TableMixin],
         props: {
             scopeSlotFunc: {},                  //作用域渲染函数
@@ -67,13 +70,8 @@
                 }
             }
         }
-    }
-
-    .pl-column-text-default-text, .pl-table-cell-default-text {
-        display: block;
-        width: 100%;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+        .pl-column-text-default-text, .pl-table-cell-default-text {
+            width: 100%;
+        }
     }
 </style>
