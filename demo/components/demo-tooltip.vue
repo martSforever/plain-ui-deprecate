@@ -24,6 +24,17 @@
             <link-button v-link-tooltip="{content:input,trigger:'manual'}" label="manual"/>
         </demo-row>
         <demo-row title="其他更多配置参考Tippy.js"/>
+        <demo-row title="tooltip-text组件，超长省略号显示并且鼠标悬浮时tooltip显示">
+            <div class="demo-tooltip-box">
+                <link-tooltip-text content="tooltip-text组件，超长省略号显示并且鼠标悬浮时tooltip显示"/>
+            </div>
+            <div class="demo-tooltip-box">
+                <link-tooltip-text :content="tooltipText"/>
+            </div>
+            <div>
+                <link-input v-model="tooltipText"/>
+            </div>
+        </demo-row>
     </div>
 </template>
 
@@ -35,6 +46,7 @@
         data() {
             return {
                 input: '这把不亏',
+                tooltipText: '非超长文本'
             }
         },
     }
@@ -42,6 +54,13 @@
 
 <style lang="scss">
     .demo-tooltip {
-
+        .demo-tooltip-box {
+            width: 150px;
+            background-color: #5c677b;
+            color: white;
+            &:not(:last-child) {
+                margin-bottom: 12px;
+            }
+        }
     }
 </style>

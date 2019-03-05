@@ -64,6 +64,7 @@ import backButton from './components/navigator-page/pl-back-button'
 import time from './components/time/pl-time'
 import scrollOption from './components/scroll-option/pl-scroll-option'
 import navigatorMainTab from './components/navigator-main/pl-navigator-main-tab'
+import tooltipText from './components/tooltip/pl-tooltip-text'
 
 const components = {
     icon,
@@ -116,6 +117,7 @@ const components = {
     time,
     scrollOption,
     navigatorMainTab,
+    tooltipText,
 
     ...ColumnComponents,
 }
