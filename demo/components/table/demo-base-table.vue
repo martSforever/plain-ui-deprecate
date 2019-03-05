@@ -1,6 +1,6 @@
 <template>
     <div class="demo-base-table">
-        <!--<demo-row title="基本用法">
+        <demo-row title="基本用法">
             <link-base-table :data="getData()">
                 <link-column field="id" title="编号"/>
                 <link-column field="name" title="姓名"/>
@@ -87,25 +87,22 @@
                 <link-column field="name" title="姓名"/>
                 <link-column field="age" title="年龄"/>
             </link-base-table>
-        </demo-row>-->
+        </demo-row>
         <demo-row title="默认列权重，有固定列">
             <link-base-table :data="getData()">
                 <link-column field="id" title="编号"/>
                 <link-column field="name" title="姓名"/>
                 <link-column field="name" title="姓名" fixed="left"/>
                 <link-column field="age" title="年龄"/>
-                <!--<link-column field="age" title="年龄" fixed="right"/>-->
+                <link-column field="age" title="年龄" fixed="right"/>
             </link-base-table>
         </demo-row>
-        <demo-row></demo-row>
-        <demo-row></demo-row>
-        <demo-row></demo-row>
 
-        <!--<demo-row title="使用渲染【渲染函数】组件渲染列内容">
+        <demo-row title="使用渲染【渲染函数】组件渲染列内容">
             <link-base-table :data="getData()">
                 <pl-render-func :render-func="renderFunc"/>
             </link-base-table>
-        </demo-row>-->
+        </demo-row>
     </div>
 </template>
 
