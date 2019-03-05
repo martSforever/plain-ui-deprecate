@@ -7,6 +7,7 @@ export const ColumnMixin = {
         title: {type: String},                                                                                          //列标题
         field: {type: String},                                                                                          //列绑定的字段
         width: {type: Number, default: 200},                                                                            //列宽度
+        fit: {type: Number, default: 0},                                                                                //当列不满表格宽度时，该列所占剩下宽度的权重
         order: {type: Number, default: 0},                                                                              //列排序
         fixed: {type: String, default: 'center', validator: val => $utils.oneOf(val, ['left', 'center', 'right'])},     //固定列位置
         search: {type: Boolean, default: true},                                                                         //可查询

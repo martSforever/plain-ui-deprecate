@@ -66,6 +66,7 @@
                 p_scrollRight: false,                  //内容是否滑动到右端
                 p_sortField: this.sortField,           //排序字段
                 p_sortDesc: this.sortDesc,             //排序方式，先序降序
+                p_baseTableTempWidth: null,                //表格宽度
                 content: {                             //各个表格的数据对象，rows：pl-table-row组件对象、timer排序定时器
                     left: {rows: [], timer: null},
                     center: {rows: [], timer: null},
@@ -112,7 +113,6 @@
             classes() {
                 return {
                     'pl-base-table-hover': !!this.p_hover,
-                    'pl-base-table-stretch': this.p_stretchTable,
                     'pl-base-table-left-shadow': !this.p_scrollLeft,
                     'pl-base-table-right-shadow': !this.p_scrollRight,
                 }
@@ -198,20 +198,45 @@
                     })
                 }
                 const cols = []
+                /*收集渲染的列*/
                 itar(this.columns, cols)
+                /*首次加载还没有挂载mounted的时候，columns应该是空的，收集的bodyColumns也是空的，直接返回空数组*/
+                if (cols.length === 0) return cols
+                /*计算所有列的总宽度*/
+                const totalColumnWidth = cols.reduce((ret, item) => ret + item.width, 0)
+                /*如果所有列的总宽度小于表格宽度，按照列的权重给列分配剩下的宽度*/
+                if (totalColumnWidth < this.p_baseTableWidth) {
+                    /*额外多出来的宽度*/
+                    let externalWidth = this.p_baseTableWidth - totalColumnWidth
+                    /*总权重*/
+                    let totalColumnFit = cols.reduce((ret, item) => ret + item.fit, 0)
+                    /*如果列中没有配置权重，则最后一个非固定列设置权重为1*/
+                    if (totalColumnFit === 0) {
+                        for (let i = cols.length - 1; i >= 0; i--) {
+                            const col = cols[i]
+                            if (col.fixed !== 'left' && col.fixed !== 'right') {
+                                col.fit = 1
+                                break
+                            }
+                        }
+                        totalColumnFit = 1
+                    }
+                    /*一份权重所增加的宽度*/
+                    let externalChunkWidth = Math.floor(externalWidth / totalColumnFit) - 1
+                    cols.forEach(col => col.update({width: col.width + col.fit * externalChunkWidth}))
+                }
                 // console.log(cols.map(i => i.title))
                 return cols
             },
             /**
-             * 是否需要将table的宽度设置为100%,当列宽总和不足宿主宽度时，设置table宽度为100%
+             * 表格宽度
              * @author  韦胜健
-             * @date    2019/1/8 19:29
+             * @date    2019/3/5 09:52
              */
-            p_stretchTable() {
-                if (!this.p_mounted) return false
-                const totalWidth = this.p_bodyColumns.reduce((ret, item) => ret + item.width, 0)
-                const hostWidth = this.$el.offsetWidth
-                return totalWidth < hostWidth
+            p_baseTableWidth() {
+                if (!this.p_mounted) return null
+                if (!this.p_baseTableTempWidth) this.p_baseTableTempWidth = this.$el.offsetWidth
+                return this.p_baseTableTempWidth
             },
         },
         created() {
@@ -532,16 +557,6 @@
         }
         .pl-scroll-horizontal-indicator {
             z-index: 1;
-        }
-
-        &.pl-base-table-stretch {
-            table {
-                width: 100%;
-                .lv-table-cell {
-                    /*设置了这个，会导致有时候表体编辑的时候表体宽度变宽，出现滚动条，而表头没有变宽也没有出现滚动条*/
-                    /*width: 100% !important;*/
-                }
-            }
         }
         &.pl-base-table-hover {
             .pl-scroll-horizontal-indicator, .pl-scroll-vertical-indicator {

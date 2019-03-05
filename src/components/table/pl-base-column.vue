@@ -34,6 +34,7 @@
                 p_title: this.title,
                 p_initWidth: this.width,
                 p_width: this.width,
+                p_fit: this.fit,
                 p_initOrder: this.order,
                 p_order: this.order,
                 p_initFixed: this.fixed,
@@ -51,6 +52,7 @@
                     get previousTitle(){return that.title},
                     get field() {return that.field},
                     get width() {return that.p_width},
+                    get fit() {return that.p_fit},
                     get order() {return that.p_order+(that.p_fixed === 'left'?999:that.p_fixed === 'right'?-999:0)},
                     get fixed() {return that.p_fixed},
                     get hide() {return that.p_hide},
@@ -73,6 +75,7 @@
                     set order(val){that.p_order = val},
                     set title(val){that.p_title = val},
                     set hide(val){that.p_hide = val},
+                    set fit(val){that.p_fit = val},
                     update({width}){
                         that.p_width = width
                     },

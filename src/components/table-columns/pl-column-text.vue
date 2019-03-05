@@ -1,5 +1,5 @@
 <template>
-    <div class="pl-column-text" :class="[`pl-column-text-${align}`,{'pl-column-text-link':link}]" v-tooltip="{content:showValue,tooltip}">
+    <div class="pl-column-text" :class="[`pl-column-text-${align}`,{'pl-column-text-link':link}]" v-tooltip="{content:showValue,disabled:!tooltip}">
         <slot :row="row" :rowIndex="rowIndex" :align="align" :field="field" :editable="editable">
             <span class="pl-column-text-default-text">{{label!=null?label:showValue}}</span>
         </slot>

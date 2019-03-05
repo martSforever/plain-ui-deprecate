@@ -4,6 +4,7 @@
             :title="title"
             :field="field"
             :width="width"
+            :fit="fit"
             :order="order"
             :fixed="fixed"
             :search="search"

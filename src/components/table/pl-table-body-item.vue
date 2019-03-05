@@ -72,6 +72,9 @@
                     right: 0;
                     position: absolute;
                     float: right;
+                    table {
+                        float: right;
+                    }
                 }
             }
         }
