@@ -66,7 +66,7 @@
                 p_scrollRight: false,                  //内容是否滑动到右端
                 p_sortField: this.sortField,           //排序字段
                 p_sortDesc: this.sortDesc,             //排序方式，先序降序
-                p_baseTableTempWidth: null,                //表格宽度
+                p_tableWidth: null,                    //表格宽度
                 content: {                             //各个表格的数据对象，rows：pl-table-row组件对象、timer排序定时器
                     left: {rows: [], timer: null},
                     center: {rows: [], timer: null},
@@ -188,6 +188,7 @@
              */
             p_bodyColumns() {
                 if (!this.p_mounted) return []
+                if (!this.p_tableWidth) return []
                 const itar = (columns, ret) => {
                     columns.forEach(item => {
                         if (!!item.group) {
@@ -205,9 +206,9 @@
                 /*计算所有列的总宽度*/
                 const totalColumnWidth = cols.reduce((ret, item) => ret + item.width, 0)
                 /*如果所有列的总宽度小于表格宽度，按照列的权重给列分配剩下的宽度*/
-                if (totalColumnWidth < this.p_baseTableWidth) {
+                if (totalColumnWidth < this.p_tableWidth) {
                     /*额外多出来的宽度*/
-                    let externalWidth = this.p_baseTableWidth - totalColumnWidth
+                    let externalWidth = this.p_tableWidth - totalColumnWidth
                     /*总权重*/
                     let totalColumnFit = cols.reduce((ret, item) => ret + item.fit, 0)
                     /*如果列中没有配置权重，则最后一个非固定列设置权重为1*/
@@ -228,16 +229,6 @@
                 // console.log(cols.map(i => i.title))
                 return cols
             },
-            /**
-             * 表格宽度
-             * @author  韦胜健
-             * @date    2019/3/5 09:52
-             */
-            p_baseTableWidth() {
-                if (!this.p_mounted) return null
-                if (!this.p_baseTableTempWidth) this.p_baseTableTempWidth = this.$el.offsetWidth
-                return this.p_baseTableTempWidth
-            },
         },
         created() {
             this.$on('rowEnter', ({row, rowIndex, position}) => this.p_rowIterate(row => row.p_hover = true, rowIndex))       //监听行鼠标覆盖行事件
@@ -248,9 +239,12 @@
             this.$on('scrollRight', (val) => this.p_scrollRight = val)                                                         //内容滑动到右端
             this.$on('clickTitle', this.p_clickTitle)                                                                          //点击标题动作
         },
-        mounted() {
+        async mounted() {
             this.p_calculateWidth()
             window.addEventListener('resize', this.p_calculateWidth)
+            await this.$plain.nextTick()
+            await this.$plain.nextTick()
+            this.p_tableWidth = this.$el.offsetWidth
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.p_calculateWidth)

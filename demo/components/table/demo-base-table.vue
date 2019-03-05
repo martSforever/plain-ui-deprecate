@@ -94,9 +94,12 @@
                 <link-column field="name" title="姓名"/>
                 <link-column field="name" title="姓名" fixed="left"/>
                 <link-column field="age" title="年龄"/>
-                <link-column field="age" title="年龄" fixed="right"/>
+                <!--<link-column field="age" title="年龄" fixed="right"/>-->
             </link-base-table>
         </demo-row>
+        <demo-row></demo-row>
+        <demo-row></demo-row>
+        <demo-row></demo-row>
 
         <!--<demo-row title="使用渲染【渲染函数】组件渲染列内容">
             <link-base-table :data="getData()">
