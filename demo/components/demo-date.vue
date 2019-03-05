@@ -1,6 +1,6 @@
 <template>
     <div class="demo-date">
-        <pl-date-panel/>
+        <link-date/>
     </div>
 </template>
 
