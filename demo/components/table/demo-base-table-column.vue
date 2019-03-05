@@ -99,7 +99,13 @@
         <demo-row title="浮动显示文本">
             <link-base-table :data="getData()">
                 <link-column field="id" title="编号(tooltip)" tooltip/>
-                <link-column field="name" title="姓名(tooltip)" tooltip/>
+                <link-column field="id" title="编号(tooltip)"/>
+                <link-column field="id" title="编号(tooltip)" tooltip>
+                    <template slot-scope="{row}">
+                        <link-tooltip-text :content="row.id"/>
+                    </template>
+                </link-column>
+                <link-column field="name" title="姓名(tooltip)"/>
                 <link-column field="age" title="年龄"/>
             </link-base-table>
         </demo-row>
