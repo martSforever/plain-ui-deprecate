@@ -73,5 +73,29 @@
         .pl-column-text-default-text, .pl-table-cell-default-text {
             width: 100%;
         }
+
+        &.pl-table-cell-left {
+            justify-content: flex-start;
+            .pl-table-cell-default-text {
+                text-align: left;
+            }
+        }
+        &.pl-table-cell-center {
+            justify-content: center;
+            padding: 0;
+            .pl-table-cell-default-text {
+                text-align: center;
+            }
+        }
+        &.pl-table-cell-right {
+            justify-content: flex-end;
+            flex-wrap: revert;
+            .pl-table-head-cell-sort {
+                order: -1;
+            }
+            .pl-table-cell-default-text {
+                text-align: right;
+            }
+        }
     }
 </style>
