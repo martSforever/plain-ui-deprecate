@@ -81,8 +81,7 @@
 
             /*打开默认页面*/
             if (this.pageStack.length === 0 && !!this.defaultPage) {
-                const {title, path, param, security} = this.defaultPage
-                this.open(title, path, param, security)
+                this.p_openPage(this.defaultPage)
             }
         },
         computed: {
@@ -96,7 +95,7 @@
              * @author  韦胜健
              * @date    2019/2/26 16:27
              */
-            async open(title, path, param, security) {
+            async open(title, path, param, security, data) {
                 /*打开之前判断标签是否已经打开，已经打开则切换到标签页，判断标签页是否已经初始化，未初始化则加载页面*/
                 const pageIndex = this.p_findPage(title, path)
                 if (pageIndex != null) {
@@ -107,7 +106,7 @@
                     }
                     this.currentValue = pageIndex
                     this.p_save()
-                    this.$emit('openTab', {title, path, param, security})
+                    this.$emit('openTab', {title, path, param, security, data})
                     return
                 }
 
@@ -120,14 +119,14 @@
                 /*打开新标签页*/
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
-                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid(), security}
+                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid(), security, data}
                 !!this.beforeOpenTab && (await this.beforeOpenTab(page))
                 this.pageStack.push(page)
                 await this.$plain.nextTick()
                 !!this.afterOpenTab && (await this.afterOpenTab(page))
                 this.currentValue = this.pageStack.length - 1
                 this.p_save()
-                this.$emit('openTab', {title, path, param, security})
+                this.$emit('openTab', {title, path, param, security, data})
             },
             /**
              * 关闭标签页
@@ -138,13 +137,32 @@
                 return this.p_close(title, path)
             },
             /**
+             * 刷新当前tab页面
+             * @author  韦胜健
+             * @date    2019/3/5 18:48
+             */
+            async fresh() {
+                if (this.pageStack.length === 0) return
+                this.pageStack[this.currentValue].init = false
+                await this.$plain.nextTick()
+                this.pageStack[this.currentValue].init = true
+            },
+            /**
              * 处理标签标题点击事件
              * @author  韦胜健
              * @date    2019/2/26 16:33
              */
             async p_clickTabTitle(index) {
-                const {title, path, param, security} = this.pageStack[index]
-                return this.open(title, path, param, security)
+                return await this.p_openPage(this.pageStack[index])
+            },
+            /**
+             * 打开页面
+             * @author  韦胜健
+             * @date    2019/3/5 18:54
+             */
+            async p_openPage(page) {
+                const {title, path, param, security, data} = page
+                return this.open(title, path, param, security, data)
             },
             /**
              * 处理标签标题关闭事件
