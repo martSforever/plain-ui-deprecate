@@ -1,17 +1,23 @@
 <template>
     <div class="pl-date">
-        <!--<pl-date-panel/>-->
-        pl-date
+        <pl-date-single-panel
+                value="2019-03-05"
+                :max="max"
+                :min="min"
+                :display-format="p_df"
+                :value-format="p_vf"/>
     </div>
 </template>
 
 <script>
     import PlDatePanel from "./pl-date-panel";
     import {BoxMixin} from "../../mixin/component-mixin";
+    import {DateUtil} from "./index";
+    import PlDateSinglePanel from "./pl-date-single-panel";
 
     export default {
         name: "pl-date",
-        components: {PlDatePanel},
+        components: {PlDateSinglePanel, PlDatePanel},
         mixins: [BoxMixin],
         props: {
             value: {type: String,},
@@ -29,17 +35,55 @@
 
             placeholder: {type: String, default: '请选择日期时间……'},
         },
+        watch: {
+            value(val) {
+                if (this.p_value !== val) this.p_value = val
+            },
+            p_value(val) {
+                this.$emit('update:value', val)
+            },
+            start(val) {
+                if (this.p_start !== val) this.p_start = val
+            },
+            p_start(val) {
+                this.$emit('update:start', val)
+            },
+            end(val) {
+                if (this.p_end !== val) this.p_end = val
+            },
+            p_end(val) {
+                this.$emit('update:end', val)
+            },
+            show(val) {
+                if (this.p_show !== val) this.p_show = val
+            },
+            p_show(val) {
+                this.$emit('update:show', val)
+            },
+
+        },
         data() {
             return {
                 p_watchCurrentValue: false,
                 p_value: this.value,
                 p_start: this.start,
                 p_end: this.end,
+                p_show: this.show,
             }
+        },
+        computed: {
+            p_df() {
+                return DateUtil.getDefaultDisplayFormat(this.displayFormat, this.datetime, this.view)
+            },
+            p_vf() {
+                return DateUtil.getDefaultValueFormat(this.valueFormat, this.datetime, this.view)
+            },
         },
     }
 </script>
 
 <style lang="scss">
+    .pl-date {
 
+    }
 </style>

@@ -8,9 +8,9 @@
         </div>
         <div class="pl-date-header-center">
             <slot name="center">
-                <span class="pl-date-header-label">2019</span>
+                <span class="pl-date-header-label">{{pickYear}}</span>
                 -
-                <span class="pl-date-header-label">12</span>
+                <span class="pl-date-header-label">{{pickMonth+1}}</span>
             </slot>
         </div>
         <div class="pl-date-header-right">
@@ -27,7 +27,11 @@
 
     export default {
         name: "pl-date-header",
-        components: {PlIcon}
+        components: {PlIcon},
+        props: {
+            pickYear: {},
+            pickMonth: {},
+        },
     }
 </script>
 
@@ -35,6 +39,7 @@
     .pl-date-header {
         @include public-style;
         height: 40px;
+        width: $dateItemSize*7;
         display: flex;
         flex-direction: row;
         user-select: none;

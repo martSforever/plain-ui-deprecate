@@ -1,23 +1,29 @@
 <template>
     <div class="pl-date-panel">
-        <pl-date-header/>
         <div class="pl-date-panel-body">
-            <pl-date-year-panel :value="pickYear" :current-year="2017"/>
-            <pl-date-month-panel :value="pickMonth" :current-month="5"/>
-            <pl-date-day-panel :current-date="current" :start-date="start" :hover-date="hoverDate"/>
+            <pl-date-year-panel :value="pickYear" :current-year="year" @input="p_changePickYear"/>
+            <pl-date-month-panel :value="pickMonth" :current-month="month" @input="p_changePickMonth"/>
+            <pl-date-day-panel
+                    :year="p_pickYear"
+                    :month="p_pickMonth"
+                    :current-date="valueDate"
+                    :max-date="maxDate"
+                    :min-date="minDate"
+                    :start-date="startDate"
+                    :end-date="endDate"
+                    :hover-date="hoverDate"/>
         </div>
     </div>
 </template>
 
 <script>
     import PlDateDayPanel from "./pl-date-day-panel";
-    import PlDateHeader from "./pl-date-header";
     import PlDateYearPanel from "./pl-date-year-panel";
     import PlDateMonthPanel from "./pl-date-month-panel";
 
     export default {
         name: "pl-date-panel",
-        components: {PlDateMonthPanel, PlDateYearPanel, PlDateHeader, PlDateDayPanel},
+        components: {PlDateMonthPanel, PlDateYearPanel, PlDateDayPanel},
         props: {
             pickYear: {},                                   //当前选择面板的年份
             pickMonth: {},                                  //当前选择面板的月份
@@ -25,32 +31,40 @@
             year: {},                                       //当前值的年份
             month: {},                                      //当前值的月份
             date: {},                                       //当前值的日期
+            valueDate: {},                                  //当前日期的时间Date对象
             startDate: {},                                  //开始时间日期
             endDate: {},                                    //截止时间日期
             hoverDate: {},                                  //鼠标浮动所处的日期
             maxDate: {},                                    //最大可选日期
             minDate: {},                                    //最小可选日期
         },
+        watch: {
+            pickYear(val) {
+                if (this.p_pickYear !== val) this.p_pickYear = val
+            },
+            p_pickYear(val) {
+                this.$emit('update:pickYear', val)
+            },
+            pickMonth(val) {
+                if (this.p_pickMonth !== val) this.p_pickMonth = val
+            },
+            p_pickMonth(val) {
+                this.$emit('update:pickMonth', val)
+            },
+        },
         data() {
-            const now = new Date()
-
-            now.setDate(now.getDate() + 1)
-            now.setFullYear(2018)
-            now.setMonth(5)
-            const current = this.$plain.$utils.deepCopy(now)
-
-            now.setDate(15)
-            const start = this.$plain.$utils.deepCopy(now)
-
-            now.setMonth(now.getMonth() + 1)
-            now.setDate(5)
-            const end = this.$plain.$utils.deepCopy(now)
-
             return {
-                current,
-                start,
-                end,
+                p_pickYear: this.pickYear,
+                p_pickMonth: this.pickMonth,
             }
+        },
+        methods: {
+            p_changePickYear(val) {
+                this.p_pickYear = val
+            },
+            p_changePickMonth(val) {
+                this.p_pickMonth = val
+            },
         },
     }
 </script>

@@ -212,23 +212,19 @@
 
 <style lang="scss">
 
-    $itemSize: 28px;
-    $borderRadius: 4px;
-    $innerItemSize: 24px;
-
     .pl-date-day-panel {
         @include public-style;
         font-size: 12px;
         box-sizing: border-box;
         display: inline-flex;
-        width: $itemSize*7;
+        width: $dateItemSize*7;
         flex-wrap: wrap;
         color: $color-normal-sub-color;
         user-select: none;
 
         .pl-date-day-panel-item-wrapper {
-            height: $itemSize;
-            width: $itemSize;
+            height: $dateItemSize;
+            width: $dateItemSize;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -238,18 +234,18 @@
                 color: $color-normal-content;
             }
             .pl-date-day-panel-item {
-                height: $innerItemSize;
+                height: $dateInnerItemSize;
                 width: 100%;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
                 .pl-date-day-panel-item-inner {
-                    height: $innerItemSize;
-                    width: $innerItemSize;
+                    height: $dateInnerItemSize;
+                    width: $dateInnerItemSize;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: $borderRadius;
+                    border-radius: $dateBorderRadius;
                     .pl-date-day-panel-item-label {
                         transform: scale(0.9);
                     }
@@ -257,7 +253,7 @@
                 &.pl-date-day-panel-item-today {
                     .pl-date-day-panel-item-inner {
                         background-color: $color-success;
-                        border-radius: $itemSize;
+                        border-radius: $dateItemSize;
                         color: white;
                     }
                 }
@@ -276,7 +272,7 @@
                 &.pl-date-day-panel-item-active {
                     .pl-date-day-panel-item-inner {
                         background-color: $color-primary;
-                        border-radius: $borderRadius;
+                        border-radius: $dateBorderRadius;
                         color: white;
                     }
                 }
