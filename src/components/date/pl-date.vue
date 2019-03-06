@@ -1,7 +1,7 @@
 <template>
     <div class="pl-date">
         <pl-date-single-panel
-                value="2019-03-05"
+                v-model="p_value"
                 :max="max"
                 :min="min"
                 :display-format="p_df"
@@ -40,27 +40,26 @@
                 if (this.p_value !== val) this.p_value = val
             },
             p_value(val) {
-                this.$emit('update:value', val)
+                if (this.value !== val) this.$emit('input', val)
             },
             start(val) {
                 if (this.p_start !== val) this.p_start = val
             },
             p_start(val) {
-                this.$emit('update:start', val)
+                if (this.start !== val) this.$emit('update:start', val)
             },
             end(val) {
                 if (this.p_end !== val) this.p_end = val
             },
             p_end(val) {
-                this.$emit('update:end', val)
+                if (this.end !== val) this.$emit('update:end', val)
             },
             show(val) {
                 if (this.p_show !== val) this.p_show = val
             },
             p_show(val) {
-                this.$emit('update:show', val)
+                if (this.show !== val) this.$emit('update:show', val)
             },
-
         },
         data() {
             return {

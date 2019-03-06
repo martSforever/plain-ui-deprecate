@@ -12,6 +12,7 @@
         <div class="pl-date-day-panel-item-wrapper"
              v-for="(item,index) in days"
              :key="index"
+             @click="p_clickItem(item)"
              @mouseenter="p_hoverItem(item)">
             <div class="pl-date-day-panel-item"
                  :class="{
@@ -205,6 +206,14 @@
                 if (!this.startTime) return false
                 if (!!this.endTime) return pushDate.time >= this.startTime && pushDate.time <= this.endTime
                 return !!this.hoverTime && pushDate.time >= Math.min(this.hoverTime, this.startTime) && pushDate.time <= Math.max(this.hoverTime, this.startTime)
+            },
+            /*
+             *  处理日期点击事件
+             *  @author     martsforever
+             *  @datetime   2019/3/6 21:07
+             */
+            p_clickItem(item) {
+                this.$emit('pickDate', item)
             },
         },
     }

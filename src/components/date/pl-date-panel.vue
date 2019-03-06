@@ -11,7 +11,9 @@
                     :min-date="minDate"
                     :start-date="startDate"
                     :end-date="endDate"
-                    :hover-date="hoverDate"/>
+                    :hover-date="hoverDate"
+
+                    @pickDate="p_pickDate"/>
         </div>
     </div>
 </template>
@@ -64,6 +66,9 @@
             },
             p_changePickMonth(val) {
                 this.p_pickMonth = val
+            },
+            p_pickDate({year, month, day}) {
+                this.$emit('pickDate', new Date(year, month, day))
             },
         },
     }

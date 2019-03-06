@@ -7,7 +7,11 @@
                 <div class="pl-date-year-panel-item-wrapper" v-for="(item,index) in list" :key="index">
                     <div class="pl-date-year-panel-item"
                          ref="items"
-                         :class="{'pl-date-year-panel-item-active':item === currentYear,'pl-date-year-panel-item-now':nowYear===item}"
+                         :class="{
+                            'pl-date-year-panel-item-active':item === currentYear,
+                            'pl-date-year-panel-item-pick-year':item === currentValue,
+                            'pl-date-year-panel-item-now':nowYear===item,
+                         }"
                          @click="p_clickItem(item,index)">
                         {{item}}
                     </div>
@@ -30,7 +34,7 @@
         },
         data() {
             return {
-                p_watchCurrentValue: false,             //不坚挺currentValue变化事件
+                p_watchCurrentValue: false,             //不监听currentValue变化事件
                 list: [],                               //年份数组
                 num: 15,                                //每一页显示的个数
                 nowYear: new Date().getFullYear(),      //当前年份
@@ -104,6 +108,7 @@
              */
             p_clickItem(item) {
                 this.currentValue = item
+                this.$emit('input', item)
                 this.$emit('click', item)
             },
         },
@@ -130,7 +135,7 @@
                     padding: 4px 9px;
                     cursor: pointer;
                     border-radius: 4px;
-                    &:hover {
+                    &:hover, &.pl-date-year-panel-item-pick-year {
                         background-color: $color-primary-light;
                     }
                     &.pl-date-year-panel-item-now {

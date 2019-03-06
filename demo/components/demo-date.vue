@@ -1,6 +1,7 @@
 <template>
     <div class="demo-date">
-        <link-date/>
+        <div>{{val[0]}}</div>
+        <link-date v-model="val[0]"/>
     </div>
 </template>
 
@@ -12,6 +13,13 @@
     export default {
         name: "demo-date",
         components: {PlDatePanel, PlDateDayPanel, PlDateYearPanel},
+        data() {
+            return {
+                val: {
+                    0: '2019-03-05'
+                }
+            }
+        },
     }
 </script>
 

@@ -6,7 +6,11 @@
                  @click="p_clickItem(item)"
                  :key="index">
                 <div class="pl-date-month-panel-item"
-                     :class="{'pl-date-month-panel-item-active':item===currentMonth,'pl-date-month-panel-item-now':item === nowMonth}">
+                     :class="{
+                        'pl-date-month-panel-item-active':item===currentMonth,
+                        'pl-date-month-panel-item-pick-month':item===currentValue,
+                        'pl-date-month-panel-item-now':item === nowMonth,
+                     }">
                     <!--{{$amlocale.date.month[item]}}-->
                     {{item+1}}月
                 </div>
@@ -62,7 +66,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    &:hover {
+                    &:hover, &.pl-date-month-panel-item-pick-month {
                         background-color: $color-primary-light;
                     }
                     &.pl-date-month-panel-item-now {

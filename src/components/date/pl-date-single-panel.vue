@@ -11,6 +11,8 @@
                 :value-date="valueDate"
                 :max-date="maxDate"
                 :min-date="minDate"
+
+                @pickDate="p_pickDate"
         />
     </div>
 </template>
@@ -32,8 +34,17 @@
             min: {type: String,},
         },
         watch: {
-            value() {
-                this.p_reset()
+            value(val) {
+                if (this.p_value !== val) {
+                    this.p_value = val
+                    this.p_reset()
+                }
+            },
+            p_value(val) {
+                if (this.value !== val) {
+                    this.$emit('input', val)
+                    this.p_reset()
+                }
             },
         },
         data() {
@@ -46,6 +57,7 @@
                 month: null,
                 date: null,
                 valueDate: null,
+                p_value: this.value,
             }
         },
         computed: {
@@ -72,13 +84,13 @@
         methods: {
             p_reset() {
                 const now = new Date()
-                if (!this.value) {
+                if (!this.p_value) {
                     this.year = null
                     this.month = null
                     this.date = null
                     this.valueDate = null
                 } else {
-                    const valueDate = this.$plain.$utils.dateParse(this.value, this.valueFormat)
+                    const valueDate = this.$plain.$utils.dateParse(this.p_value, this.valueFormat)
                     this.year = valueDate.getFullYear()
                     this.month = valueDate.getMonth()
                     this.date = valueDate.getDate()
@@ -86,6 +98,9 @@
                 }
                 this.pickYear = this.year || now.getFullYear()
                 this.pickMonth = this.month || now.getMonth()
+            },
+            p_pickDate(newDate) {
+                this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
             },
         }
     }
