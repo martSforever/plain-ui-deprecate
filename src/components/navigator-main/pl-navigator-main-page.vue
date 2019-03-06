@@ -66,9 +66,9 @@
             async push(path, param, security) {
                 const component = await this.$plain.pageRegistry(path)
                 const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true, security}
-                !!this.beforePush && (await this.beforePush(page))
+                this.pageStack.length !== 0 && !!this.beforePush && (await this.beforePush(page, this.tab))
                 this.pageStack.push(page)
-                !!this.afterPush && (await this.afterPush(page))
+                this.pageStack.length !== 1 && !!this.afterPush && (await this.afterPush(page, this.tab))
                 await this.p_save()
                 this.$emit('push', {path, param})
             },

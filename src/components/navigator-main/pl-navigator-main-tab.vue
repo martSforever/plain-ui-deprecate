@@ -121,27 +121,24 @@
                         page.component = await this.$plain.pageRegistry(path)
                         page.init = true
                     }
+                    Object.assign(page, openData)
                     this.currentValue = pageIndex
-                    this.p_save()
-                    this.$emit('openTab', page)
-                    return page
                 }
-
-                if (!!this.maxTabs && this.pageStack.length === this.maxTabs) {
+                else if (!!this.maxTabs && this.pageStack.length === this.maxTabs) {
                     const msg = `最多只能打开${this.maxTabs}个页签！`
                     this.$dialog.show(msg)
                     return Promise.reject(msg)
                 }
-
-                /*打开新标签页*/
-                const pc = await this.$plain.pageRegistry(path)
-                if (!pc) return
-                page = {id, title, path, param, security, data, component: pc, init: true}
-
-                this.pageStack.push(page)
-                await this.$plain.nextTick()
+                else {
+                    /*打开新标签页*/
+                    const pc = await this.$plain.pageRegistry(path)
+                    if (!pc) return
+                    page = {id, title, path, param, security, data, component: pc, init: true}
+                    this.pageStack.push(page)
+                    await this.$plain.nextTick()
+                    this.currentValue = this.pageStack.length - 1
+                }
                 !!this.afterOpenTab && (await this.afterOpenTab(page))
-                this.currentValue = this.pageStack.length - 1
                 this.p_save()
                 this.$emit('openTab', page)
                 return page

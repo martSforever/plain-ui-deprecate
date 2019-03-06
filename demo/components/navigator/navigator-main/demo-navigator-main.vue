@@ -69,25 +69,25 @@
             openPage() {
 
             },
-            beforeOpenTab(tabData) {
-                // console.log(`打开页签前[${data.title}],${data.path}`)
+            beforeOpenTab(data) {
+                console.log(`打开页签前[${data.title}],${data.path}`)
 
-                if (!tabData.id) {
-                    tabData.id = this.$plain.$utils.uuid()
+                if (!data.id) {
+                    data.id = this.$plain.$utils.uuid()
                 }
 
-                if (tabData.title === '页面二') {
+                if (data.title === '页面二') {
                     return Promise.reject("不能打开页面二")
                 }
             },
             afterOpenTab(data) {
-                // console.log(`打开页签后[${data.title}],${data.path}`)
+                console.log(`打开页签后[${data.title}],${data.path}`)
             },
             beforePush(data) {
-                // console.log(`打开页面前[${data.path}]`)
+                console.log(`打开页面前[${data.path}]`)
             },
             afterPush(data) {
-                // console.log(`打开页面后[${data.path}]`)
+                console.log(`打开页面后[${data.path}]`)
             },
 
             handleOpenTab(page) {
