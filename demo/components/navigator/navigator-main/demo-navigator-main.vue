@@ -24,6 +24,8 @@
                                      :beforePush="beforePush"
                                      :afterPush="afterPush"
 
+                                     :idGenerator="idGenerator"
+
                                      @openTab="handleOpenTab"
                                      @closeTab="handleCloseTab"
 
@@ -49,7 +51,7 @@
                     {id: 'aaa', title: '页面一', path: '/navigator/navigator-main/demo-navigator-main-1', param: {}, security: {oauth: 'My'}, data: {}},
                     {id: 'bbb', title: '页面二', path: '/navigator/navigator-main/demo-navigator-main-2', param: {}, security: {oauth: 'ORG'}, data: {}},
                     {id: 'ccc', title: '页面三', path: '/navigator/navigator-main/demo-navigator-main-3', param: {}, security: {oauth: 'POSTN'}, data: {}},
-                    {id: 'ddd', title: '页面四', path: '/navigator/navigator-main/demo-navigator-main-4', param: {}, security: {oauth: 'ALL'}, data: {}},
+                    {id: null, title: '页面四', path: '/navigator/navigator-main/demo-navigator-main-4', param: {}, security: {oauth: 'ALL'}, data: {}},
                     {id: 'eee', title: '页面五', path: '/navigator/navigator-main/demo-navigator-main-5', param: {}, security: {}, data: {}},
                     {id: 'fff', title: '页面六', path: '/navigator/navigator-main/demo-navigator-main-6', param: {}, security: {}, data: {}},
                     {id: 'hhh', title: '页面七', path: '/navigator/navigator-main/demo-navigator-main-7', param: {}, security: {}, data: {}},
@@ -70,7 +72,7 @@
 
             },
             beforeOpenTab(data) {
-                console.log(`打开页签前[${data.title}],${data.path}`)
+                console.log(`打开页签前[${data.title}],${data.path}`, data)
 
                 if (!data.id) {
                     data.id = this.$plain.$utils.uuid()
@@ -95,6 +97,10 @@
             },
             handleCloseTab(page) {
                 // console.log('close tab', page)
+            },
+
+            idGenerator({id, title, path, param, security, data}) {
+                return title + path
             },
         }
     }

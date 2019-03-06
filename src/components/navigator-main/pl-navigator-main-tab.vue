@@ -55,6 +55,7 @@
             afterOpenTab: {type: Function},                                     //打开页签之后的钩子函数
             beforePush: {type: Function},                                       //打开页面之前的钩子函数
             afterPush: {type: Function},                                        //关闭页面之后的钩子函数
+            idGenerator: {type: Function, required: true},                      //Tab页签id生成函数
         },
         data() {
             let pageStack = []
@@ -104,6 +105,7 @@
 
                 /*预处理*/
                 const openData = {id, title, path, param, security, data}
+                if (!openData.id) openData.id = this.idGenerator(openData)
                 !!this.beforeOpenTab && (await this.beforeOpenTab(openData))
                 id = openData.id
                 title = openData.title
@@ -187,6 +189,7 @@
              * @date    2019/2/26 16:33
              */
             async p_clickTabTitle(index) {
+                if (index === this.currentValue) return
                 return await this.p_openPage(this.pageStack[index])
             },
             /**
