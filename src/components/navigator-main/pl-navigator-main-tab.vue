@@ -157,11 +157,13 @@
              * @author  韦胜健
              * @date    2019/3/5 18:48
              */
-            async fresh() {
-                if (this.pageStack.length === 0) return
-                this.pageStack[this.currentValue].init = false
+            async refresh(id) {
+                const {page} = this.p_findPage(id)
+                if (this.pageStack.length === 0 || !page) return
+                if (!page.init) return
+                page.init = false
                 await this.$plain.nextTick()
-                this.pageStack[this.currentValue].init = true
+                page.init = true
             },
             /**
              * 处理标签标题点击事件

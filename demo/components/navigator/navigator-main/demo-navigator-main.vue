@@ -10,6 +10,9 @@
             <link-button-group>
                 <link-button v-for="(item,index) in tabsData.slice(8)" :key="index" :label="item.title" @click="openTab(item)"/>
             </link-button-group>
+            <link-button-group>
+                <link-button label="刷新Icon页签" @click="$nav.refreshTab('ggg')"/>
+            </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">
             <link-navigator-main-tab ref="navigator"

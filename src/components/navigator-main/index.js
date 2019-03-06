@@ -35,6 +35,15 @@ class NavigatorService {
     }
 
     /**
+     * 刷新tab
+     * @author  韦胜健
+     * @date    2019/3/6 11:24
+     */
+    async refreshTab(id) {
+        return await this.tab.refresh(id)
+    }
+
+    /**
      * 在某个标签页下打开页面
      * @author  韦胜健
      * @date    2019/2/27 15:29
