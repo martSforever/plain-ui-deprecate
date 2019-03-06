@@ -1,3 +1,8 @@
+const NAVIGATOR_CONSTANT = {
+    TAB: 'navigator-main',
+    PAGE: 'navigator-page',
+}
+
 class NavigatorService {
 
     context;
@@ -50,6 +55,15 @@ class NavigatorService {
      */
     async updateTab(id, newTabData) {
         return await this.tab.update(id, newTabData)
+    }
+
+    /**
+     * 清除tab导航缓存
+     * @author  韦胜健
+     * @date    2019/3/6 14:03
+     */
+    async clearTab() {
+        this.context.$plain.$storage.set(NAVIGATOR_CONSTANT.TAB, null)
     }
 
     /**
@@ -109,5 +123,6 @@ const NavigatorMixin = {
 }
 
 export {
-    NavigatorMixin
+    NavigatorMixin,
+    NAVIGATOR_CONSTANT
 }

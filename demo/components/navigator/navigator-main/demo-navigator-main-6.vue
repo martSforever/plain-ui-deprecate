@@ -5,6 +5,7 @@
         </div>
         <div>
             页面六得到的参数：{{pageParam.msg}}
+            页面六安全性{{pageSecurity}}
         </div>
         <link-button label="回退页面" @click="$nav.back()"/>
         <div>

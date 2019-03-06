@@ -20,7 +20,7 @@
 
 <script>
 
-    const PAGE_STORAGE_KEY = 'navigator-page';
+    import {NAVIGATOR_CONSTANT} from "./index";
 
     export default {
         name: "pl-navigator-main-page",
@@ -33,7 +33,7 @@
         },
         data() {
             let pageStack = []
-            const componentStorage = this.$plain.$storage.get(PAGE_STORAGE_KEY) || {}
+            const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
             const selfStorage = componentStorage[this.tab.id] || {}
             if (!!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                 pageStack = selfStorage.pageStack.map((item, index) => Object.assign({
@@ -149,7 +149,7 @@
             async p_save() {
                 this.selfStorage.pageStack = this.pageStack.map(({id, path, param, security}) => ({id, path, param, security}))
                 this.componentStorage[this.tab.id] = this.selfStorage
-                this.$plain.$storage.set(PAGE_STORAGE_KEY, this.componentStorage)
+                this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
             },
             /**
              * 初始化需要显示的页面的信息

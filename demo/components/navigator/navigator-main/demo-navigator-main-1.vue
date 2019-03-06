@@ -39,7 +39,7 @@
                     hello: 111, callback: () => {
                         console.log('页面一刷新')
                     },
-                })
+                }, {oauth: '页面新安全性'})
             },
         }
     }

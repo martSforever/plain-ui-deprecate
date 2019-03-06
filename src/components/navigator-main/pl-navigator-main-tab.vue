@@ -43,8 +43,7 @@
     import PlIcon from "../icon/pl-icon";
     import PlNavigatorMainPage from "./pl-navigator-main-page";
 
-    const TAB_STORAGE_KEY = 'navigator-main'
-    const PAGE_STORAGE_KEY = 'navigator-page';
+    import {NAVIGATOR_CONSTANT} from "./index";
 
     export default {
         name: "pl-navigator-main-tab",
@@ -60,7 +59,7 @@
         data() {
             let pageStack = []
             /*从缓存中获取页面信息*/
-            let selfStorage = this.$plain.$storage.get(TAB_STORAGE_KEY) || {}
+            let selfStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.TAB) || {}
             if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                 pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false}, item))
                 this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
@@ -162,9 +161,9 @@
              */
             async refresh(id) {
                 /*清除该页签的缓存*/
-                const componentStorage = this.$plain.$storage.get(PAGE_STORAGE_KEY) || {}
+                const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
                 componentStorage[id] = null
-                this.$plain.$storage.set(PAGE_STORAGE_KEY, this.componentStorage)
+                this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
 
                 /*重新初始化页面*/
                 const {page} = this.p_findPage(id)
@@ -241,7 +240,7 @@
             p_save() {
                 this.selfStorage.index = this.currentValue;
                 this.selfStorage.pageStack = this.pageStack.map(({id, title, path, param, security, data}) => ({id, title, path, param, security, data}))
-                this.$plain.$storage.set(TAB_STORAGE_KEY, this.selfStorage)
+                this.$plain.$storage.set(NAVIGATOR_CONSTANT.TAB, this.selfStorage)
             },
         },
         beforeDestroy() {
