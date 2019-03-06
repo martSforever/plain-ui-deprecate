@@ -5,21 +5,10 @@
                 <link-button box-type="line" label="打开标签"/>
             </link-button-group>
             <link-button-group>
-                <link-button label="页签一,My" @click="openTab('页面一','/navigator/navigator-main/demo-navigator-main-1',{},{oauth:'My'})"/>
-                <link-button label="页签二,ORG" @click="openTab('页面二','/navigator/navigator-main/demo-navigator-main-2',{},{oauth:'ORG'})"/>
-                <link-button label="页签三,POSTN" @click="openTab('页面三','/navigator/navigator-main/demo-navigator-main-3',{},{oauth:'POSTN'})"/>
-                <link-button label="页签四,ALL" @click="openTab('页面四','/navigator/navigator-main/demo-navigator-main-4',{},{oauth:'ALL'})"/>
-                <link-button label="页签五,ALL" @click="openTab('页面五','/navigator/navigator-main/demo-navigator-main-5',{},{oauth:'ALL'})"/>
-                <link-button label="页签六,ALL" @click="openTab('页面六','/navigator/navigator-main/demo-navigator-main-6',{},{oauth:'ALL'})"/>
-                <link-button label="页签七,ALL" @click="openTab('页面七','/navigator/navigator-main/demo-navigator-main-7',{},{oauth:'ALL'})"/>
-                <link-button label="页签八,ALL" @click="openTab('页面八','/navigator/navigator-main/demo-navigator-main-8',{},{oauth:'ALL'})"/>
+                <link-button v-for="(item,index) in tabsData.slice(0,8)" :key="index" :label="item.title" @click="openTab(item)"/>
             </link-button-group>
             <link-button-group>
-                <link-button label="Icon图标" @click="openTab('Icon图标','/demo-icon')"/>
-                <link-button label="Button按钮" @click="openTab('Button按钮','/demo-button')"/>
-                <link-button label="Input输入框" @click="openTab('Input输入框','/demo-input')"/>
-                <link-button label="Radio单选复选框" @click="openTab('Radio单选复选框Radio单选复选框','/demo-radio')"/>
-                <link-button label="Rate评分" @click="openTab('Rate评分','/demo-rate')"/>
+                <link-button v-for="(item,index) in tabsData.slice(8)" :key="index" :label="item.title" @click="openTab(item)"/>
             </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">
@@ -33,6 +22,7 @@
                                      @closeTab="handleCloseTab"
 
                                      :defaultPage="{
+                                        id:'111',
                                         title:'主页',
                                         path:'/navigator/navigator-main/demo-navigator-main-1',
                                         security:{oauth:'My'}
@@ -47,16 +37,40 @@
         name: "demo-navigator-main",
         mounted() {
         },
+        data() {
+            return {
+                tabsData: [
+                    {id: 'aaa', title: '页面一', path: '/navigator/navigator-main/demo-navigator-main-1', param: {}, security: {oauth: 'My'}, data: {}},
+                    {id: 'bbb', title: '页面二', path: '/navigator/navigator-main/demo-navigator-main-2', param: {}, security: {oauth: 'ORG'}, data: {}},
+                    {id: 'ccc', title: '页面三', path: '/navigator/navigator-main/demo-navigator-main-3', param: {}, security: {oauth: 'POSTN'}, data: {}},
+                    {id: 'ddd', title: '页面四', path: '/navigator/navigator-main/demo-navigator-main-4', param: {}, security: {oauth: 'ALL'}, data: {}},
+                    {id: 'eee', title: '页面五', path: '/navigator/navigator-main/demo-navigator-main-5', param: {}, security: {}, data: {}},
+                    {id: 'fff', title: '页面六', path: '/navigator/navigator-main/demo-navigator-main-6', param: {}, security: {}, data: {}},
+                    {id: 'hhh', title: '页面七', path: '/navigator/navigator-main/demo-navigator-main-7', param: {}, security: {}, data: {}},
+                    {id: 'iii', title: '页面八', path: '/navigator/navigator-main/demo-navigator-main-8', param: {}, security: {}, data: {}},
+                    {id: 'ggg', title: 'Icon图标', path: '/demo-icon', param: {}, security: {}, data: {}},
+                    {id: 'kkk', title: 'Button按钮', path: '/demo-button', param: {}, security: {}, data: {}},
+                    {id: 'lll', title: 'Input输入框', path: '/demo-input', param: {}, security: {}, data: {}},
+                    {id: 'mmm', title: 'Radio单选复选框Radio单选复选框', path: '/demo-radio', param: {}, security: {}, data: {}},
+                    {id: 'nnn', title: 'Rate评分', path: '/demo-rate', param: {}, security: {}, data: {}},
+                ]
+            }
+        },
         methods: {
-            openTab(...args) {
-                this.$nav.openTab(...args)
+            openTab({id, title, path, param, security, data}) {
+                this.$nav.openTab({id, title, path, param, security, data})
             },
             openPage() {
 
             },
-            beforeOpenTab(data) {
+            beforeOpenTab(tabData) {
                 // console.log(`打开页签前[${data.title}],${data.path}`)
-                if (data.title === '页面二') {
+
+                if (!tabData.id) {
+                    tabData.id = this.$plain.$utils.uuid()
+                }
+
+                if (tabData.title === '页面二') {
                     return Promise.reject("不能打开页面二")
                 }
             },

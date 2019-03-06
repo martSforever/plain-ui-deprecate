@@ -3,10 +3,10 @@
         <div>
             页面五:
             <div>
-                tabData:{{tabData}}
+                tabData:{{pageTabData}}
             </div>
             <div>
-                security:{{security}}
+                security:{{pageSecurity}}
             </div>
         </div>
         <link-button label="回退页面" @click="back"/>
@@ -23,19 +23,16 @@
     export default {
         name: "demo-navigator-main-5",
         props: {
-            tabData: {},
-            security: {},
-            param: {},
         },
         data() {
-            console.log(this.tabData)
+            console.log(this.pageTabData)
             return {
                 msg: null,
             }
         },
         methods: {
             back() {
-                !!this.param.callback && this.param.callback()
+                !!this.pageParam.callback && this.pageParam.callback()
                 this.$nav.back()
             },
         },

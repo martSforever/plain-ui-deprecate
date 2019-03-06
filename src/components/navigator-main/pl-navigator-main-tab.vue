@@ -14,7 +14,7 @@
                     <div class="pl-navigator-main-tab-header-item-wrapper">
                         <span class="pl-navigator-main-tab-header-item-label">{{item.title}}</span>
                         <div class="pl-navigator-main-tab-header-item-close">
-                            <pl-icon icon="pl-close" @click.stop="p_close(item.title,item.path)"/>
+                            <pl-icon icon="pl-close" @click.stop="p_close(item.id)"/>
                         </div>
                     </div>
                 </div>
@@ -48,12 +48,9 @@
         components: {PlNavigatorMainPage, PlIcon},
         props: {
             defaultPage: {type: Object},                                        //第一次默认打开的页面，格式{title, path, param, security}
-
-            maxTabs: {type: Number, default: 20},                                //最大打开页签的个数
-
+            maxTabs: {type: Number, default: 20},                               //最大打开页签的个数
             beforeOpenTab: {type: Function},                                    //打开页签之前钩子函数
             afterOpenTab: {type: Function},                                     //打开页签之后的钩子函数
-
             beforePush: {type: Function},                                       //打开页面之前的钩子函数
             afterPush: {type: Function},                                        //关闭页面之后的钩子函数
         },
@@ -94,20 +91,38 @@
              * 打开tab标签页
              * @author  韦胜健
              * @date    2019/2/26 16:27
+             * @param   id          tab的id
+             * @param   title       tab的标题
+             * @param   path        tab根页面路径
+             * @param   param       tab根页面参数
+             * @param   data        tab页签额外的数据
+             * @param   security    tab的安全性
              */
-            async open(title, path, param, security, data) {
+            async open({id, title, path, param, security, data}) {
+
+                /*预处理*/
+                const openData = {id, title, path, param, security, data}
+                !!this.beforeOpenTab && (await this.beforeOpenTab(openData))
+                id = openData.id
+                title = openData.title
+                path = openData.path
+                param = openData.param
+                security = openData.security
+                data = openData.data
+
+                if (!id) return Promise.reject("打开Tab页时，id不能为空！")
+
                 /*打开之前判断标签是否已经打开，已经打开则切换到标签页，判断标签页是否已经初始化，未初始化则加载页面*/
-                const pageIndex = this.p_findPage(title, path)
-                if (pageIndex != null) {
-                    const page = this.pageStack[pageIndex]
+                let {page, pageIndex} = this.p_findPage(id)
+                if (page != null) {
                     if (!page.init) {
                         page.component = await this.$plain.pageRegistry(path)
                         page.init = true
                     }
                     this.currentValue = pageIndex
                     this.p_save()
-                    this.$emit('openTab', {title, path, param, security, data})
-                    return
+                    this.$emit('openTab', page)
+                    return page
                 }
 
                 if (!!this.maxTabs && this.pageStack.length === this.maxTabs) {
@@ -119,22 +134,23 @@
                 /*打开新标签页*/
                 const pc = await this.$plain.pageRegistry(path)
                 if (!pc) return
-                const page = {title, path, component: pc, param, init: true, id: this.$plain.$utils.uuid(), security, data}
-                !!this.beforeOpenTab && (await this.beforeOpenTab(page))
+                page = {id, title, path, param, security, data, component: pc, init: true}
+
                 this.pageStack.push(page)
                 await this.$plain.nextTick()
                 !!this.afterOpenTab && (await this.afterOpenTab(page))
                 this.currentValue = this.pageStack.length - 1
                 this.p_save()
-                this.$emit('openTab', {title, path, param, security, data})
+                this.$emit('openTab', page)
+                return page
             },
             /**
              * 关闭标签页
              * @author  韦胜健
              * @date    2019/2/26 16:33
              */
-            async close(title, path) {
-                return this.p_close(title, path)
+            async close(id) {
+                return this.p_close(id)
             },
             /**
              * 刷新当前tab页面
@@ -161,21 +177,21 @@
              * @date    2019/3/5 18:54
              */
             async p_openPage(page) {
-                const {title, path, param, security, data} = page
-                return this.open(title, path, param, security, data)
+                const {id, title, path, param, security, data} = page
+                return this.open({id, title, path, param, security, data})
             },
             /**
              * 处理标签标题关闭事件
              * @author  韦胜健
              * @date    2019/2/26 16:33
              */
-            async p_close(title, path) {
+            async p_close(id) {
                 if (this.pageStack.length === 1) {
                     this.$dialog.show("不能关闭所有页面！")
                     return
                 }
-                const pageIndex = this.p_findPage(title, path)
-                if (pageIndex == null) return
+                const {page, pageIndex} = this.p_findPage(id)
+                if (page == null) return
                 let index = pageIndex
                 let nextIndex = this.currentValue
                 if (index <= this.currentValue) nextIndex--;
@@ -190,14 +206,10 @@
              * @author  韦胜健
              * @date    2019/2/26 16:34
              */
-            p_findPage(title, path) {
-                for (let i = 0; i < this.pageStack.length; i++) {
-                    const page = this.pageStack[i];
-                    if (page.path === path && page.title === title) {
-                        return i
-                    }
-                }
-                return null
+            p_findPage(id) {
+                const page = this.$plain.$utils.findOne(this.pageStack, (item) => item.id === id)
+                const pageIndex = this.pageStack.indexOf(page)
+                return {page, pageIndex}
             },
             /**
              * 缓存当前页面信息
@@ -206,9 +218,7 @@
              */
             p_save() {
                 this.selfStorage.index = this.currentValue;
-                this.selfStorage.pageStack = this.pageStack.map(({title, path, param, id, security}) => {
-                    return {title, path, param, id, security}
-                })
+                this.selfStorage.pageStack = this.pageStack.map(({id, title, path, param, security, data}) => ({id, title, path, param, security, data}))
                 this.$plain.$storage.set(STORAGE_KEY, this.selfStorage)
             },
         },

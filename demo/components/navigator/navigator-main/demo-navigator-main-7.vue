@@ -4,7 +4,7 @@
             页面七
         </div>
         <div>
-            页面七得到的参数：{{param.msg}}
+            页面七得到的参数：{{pageParam.msg}}
         </div>
         <link-button label="回退页面" @click="$nav.back()"/>
         <div>
@@ -19,9 +19,6 @@
 <script>
     export default {
         name: "demo-navigator-main-7",
-        props: {
-            param: {},
-        },
         data() {
             return {
                 msg: null,

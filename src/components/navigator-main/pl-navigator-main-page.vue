@@ -8,9 +8,11 @@
                     :key="page.id"
                     :path="page.path"
                     :is="page.component"
-                    :param="page.param || {}"
-                    :tabData="tabData"
-                    :security="tab.security"
+
+                    :pageTabData="tabData"
+                    :pageSecurity="page.security || tab.security"
+                    :pageParam="page.param || {}"
+
                     v-if="page.init"/>
         </div>
     </div>
@@ -55,9 +57,9 @@
             },
         },
         methods: {
-            async push(path, param) {
+            async push(path, param, security) {
                 const component = await this.$plain.pageRegistry(path)
-                const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true}
+                const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true, security}
                 !!this.beforePush && (await this.beforePush(page))
                 this.pageStack.push(page)
                 !!this.afterPush && (await this.afterPush(page))
@@ -93,7 +95,7 @@
                 return {path, param}
             },
 
-            async redirect(path, param) {
+            async redirect(path, param, security) {
                 const component = await this.$plain.pageRegistry(path)
                 this.pageStack.push({
                     id: this.$plain.$utils.uuid(),
@@ -101,6 +103,7 @@
                     param,
                     component,
                     init: true,
+                    security,
                 })
                 await this.$plain.nextTick()
                 this.pageStack.splice(this.pageStack.length - 2, 1)
@@ -122,7 +125,7 @@
             },
 
             async p_save() {
-                this.selfStorage.pageStack = this.pageStack.map(({path, param, id}) => ({path, param, id}))
+                this.selfStorage.pageStack = this.pageStack.map(({id, path, param, security}) => ({id, path, param, security}))
                 this.componentStorage[this.tab.id] = this.selfStorage
                 this.$plain.$storage.set(STORAGE_KEY, this.componentStorage)
             },
