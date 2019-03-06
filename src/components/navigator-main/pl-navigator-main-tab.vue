@@ -25,8 +25,10 @@
 
             <div class="pl-navigator-main-tab-body">
                 <pl-navigator-main-page
+                        ref="pages"
                         v-for="(item,index) in pageStack"
                         :key="item.id"
+                        :id="item.id"
                         :tab="item"
                         :before-push="beforePush"
                         :after-push="afterPush"
@@ -41,7 +43,8 @@
     import PlIcon from "../icon/pl-icon";
     import PlNavigatorMainPage from "./pl-navigator-main-page";
 
-    const STORAGE_KEY = 'navigator-main'
+    const TAB_STORAGE_KEY = 'navigator-main'
+    const PAGE_STORAGE_KEY = 'navigator-page';
 
     export default {
         name: "pl-navigator-main-tab",
@@ -57,7 +60,7 @@
         data() {
             let pageStack = []
             /*从缓存中获取页面信息*/
-            let selfStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
+            let selfStorage = this.$plain.$storage.get(TAB_STORAGE_KEY) || {}
             if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                 pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false}, item))
                 this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
@@ -158,12 +161,29 @@
              * @date    2019/3/5 18:48
              */
             async refresh(id) {
+                /*清除该页签的缓存*/
+                const componentStorage = this.$plain.$storage.get(PAGE_STORAGE_KEY) || {}
+                componentStorage[id] = null
+                this.$plain.$storage.set(PAGE_STORAGE_KEY, this.componentStorage)
+
+                /*重新初始化页面*/
                 const {page} = this.p_findPage(id)
-                if (this.pageStack.length === 0 || !page) return
-                if (!page.init) return
+                if (this.pageStack.length === 0 || !page || !page.init) return
                 page.init = false
                 await this.$plain.nextTick()
                 page.init = true
+            },
+            /**
+             * 刷新某个tab的数据
+             * @author  韦胜健
+             * @date    2019/3/6 11:36
+             */
+            async update(id, newTabData) {
+                const {page} = this.p_findPage(id)
+                if (this.pageStack.length === 0 || !page) return
+                Object.assign(page, newTabData)
+                this.p_save()
+                this.refresh(page.id)
             },
             /**
              * 处理标签标题点击事件
@@ -221,7 +241,7 @@
             p_save() {
                 this.selfStorage.index = this.currentValue;
                 this.selfStorage.pageStack = this.pageStack.map(({id, title, path, param, security, data}) => ({id, title, path, param, security, data}))
-                this.$plain.$storage.set(STORAGE_KEY, this.selfStorage)
+                this.$plain.$storage.set(TAB_STORAGE_KEY, this.selfStorage)
             },
         },
         beforeDestroy() {

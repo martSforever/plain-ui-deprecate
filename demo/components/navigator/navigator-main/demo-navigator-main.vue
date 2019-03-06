@@ -12,6 +12,8 @@
             </link-button-group>
             <link-button-group>
                 <link-button label="刷新Icon页签" @click="$nav.refreshTab('ggg')"/>
+                <link-button label="刷新页签三" @click="$nav.refreshTab('ccc')"/>
+                <link-button label="更新页签三的数据信息" @click="$nav.updateTab('ccc',{security:{oauth:'HELLO',title:'wahaha'}})"/>
             </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">

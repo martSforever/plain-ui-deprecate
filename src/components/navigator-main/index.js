@@ -44,6 +44,15 @@ class NavigatorService {
     }
 
     /**
+     * 更新tab的信息
+     * @author  韦胜健
+     * @date    2019/3/6 11:38
+     */
+    async updateTab(id, newTabData) {
+        return await this.tab.update(id, newTabData)
+    }
+
+    /**
      * 在某个标签页下打开页面
      * @author  韦胜健
      * @date    2019/2/27 15:29

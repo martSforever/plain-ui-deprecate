@@ -1,7 +1,7 @@
 <template>
     <div class="demo-navigator-main-3">
         <div>
-            页面三
+            页面三{{pageSecurity}}
         </div>
         <link-button label="打开页面五" box-color="warn" @click="$nav.push('/navigator/navigator-main/demo-navigator-main-5', {hello: 111})"/>
     </div>

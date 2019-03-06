@@ -20,19 +20,20 @@
 
 <script>
 
-    const STORAGE_KEY = 'navigator-page';
+    const PAGE_STORAGE_KEY = 'navigator-page';
 
     export default {
         name: "pl-navigator-main-page",
         components: {},
         props: {
-            tab: {},
+            id: {},                                                             //tab的id
+            tab: {},                                                            //tab数据信息
             beforePush: {type: Function},                                       //打开页面之前的钩子函数
             afterPush: {type: Function},                                        //打开页面之后的钩子函数
         },
         data() {
             let pageStack = []
-            const componentStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
+            const componentStorage = this.$plain.$storage.get(PAGE_STORAGE_KEY) || {}
             const selfStorage = componentStorage[this.tab.id] || {}
             if (!!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                 pageStack = selfStorage.pageStack.map((item, index) => Object.assign({
@@ -57,6 +58,11 @@
             },
         },
         methods: {
+            /**
+             * 打开页面
+             * @author  韦胜健
+             * @date    2019/3/6 11:41
+             */
             async push(path, param, security) {
                 const component = await this.$plain.pageRegistry(path)
                 const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true, security}
@@ -66,7 +72,11 @@
                 await this.p_save()
                 this.$emit('push', {path, param})
             },
-
+            /**
+             * 回退页面
+             * @author  韦胜健
+             * @date    2019/3/6 11:41
+             */
             async back(num = 1) {
                 if (this.pageStack.length === 1) {
                     console.info("is last page!!!")
@@ -94,7 +104,11 @@
                 this.$emit('back', {path, param})
                 return {path, param}
             },
-
+            /**
+             * 重定向到页面
+             * @author  韦胜健
+             * @date    2019/3/6 11:41
+             */
             async redirect(path, param, security) {
                 const component = await this.$plain.pageRegistry(path)
                 this.pageStack.push({
@@ -111,7 +125,11 @@
                 this.$emit('push', {path, param})
                 this.$emit('redirect', {path, param})
             },
-
+            /**
+             * 回退所有页面
+             * @author  韦胜健
+             * @date    2019/3/6 11:41
+             */
             async backoff() {
                 const page = this.pageStack[0]
                 if (!page.init) {
@@ -123,13 +141,21 @@
                 await this.p_save()
                 this.$emit('backAll')
             },
-
+            /**
+             * 保存当前页面信息
+             * @author  韦胜健
+             * @date    2019/3/6 11:42
+             */
             async p_save() {
                 this.selfStorage.pageStack = this.pageStack.map(({id, path, param, security}) => ({id, path, param, security}))
                 this.componentStorage[this.tab.id] = this.selfStorage
-                this.$plain.$storage.set(STORAGE_KEY, this.componentStorage)
+                this.$plain.$storage.set(PAGE_STORAGE_KEY, this.componentStorage)
             },
-
+            /**
+             * 初始化需要显示的页面的信息
+             * @author  韦胜健
+             * @date    2019/3/6 11:42
+             */
             async p_initComponent() {
                 for (let i = this.pageStack.length - 1; i >= 0; i--) {
                     const page = this.pageStack[i];
