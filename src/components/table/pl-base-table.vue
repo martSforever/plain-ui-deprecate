@@ -242,9 +242,6 @@
         async mounted() {
             this.p_calculateWidth()
             window.addEventListener('resize', this.p_calculateWidth)
-            await this.$plain.nextTick()
-            await this.$plain.nextTick()
-            this.p_tableWidth = this.$el.offsetWidth
         },
         beforeDestroy() {
             window.removeEventListener('resize', this.p_calculateWidth)
@@ -398,6 +395,9 @@
 
                 this.columns = columns
                 this.$emit('collect', columns)
+                await this.$plain.nextTick()
+                await this.$plain.nextTick()
+                this.p_tableWidth = this.$el.offsetWidth
             },
             /**
              * 复制columns
