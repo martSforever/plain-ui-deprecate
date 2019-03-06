@@ -74,7 +74,7 @@
 
             },
             beforeOpenTab(data) {
-                console.log(`打开页签前[${data.title}],${data.path}`, data)
+                // console.log(`打开页签前[${data.title}],${data.path}`, data)
 
                 if (!data.id) {
                     data.id = this.$plain.$utils.uuid()
@@ -85,13 +85,13 @@
                 }
             },
             afterOpenTab(data) {
-                console.log(`打开页签后[${data.title}],${data.path}`)
+                // console.log(`打开页签后[${data.title}],${data.path}`)
             },
             beforePush(data) {
-                console.log(`打开页面前[${data.path}]`)
+                // console.log(`打开页面前[${data.path}]`)
             },
             afterPush(data) {
-                console.log(`打开页面后[${data.path}]`)
+                // console.log(`打开页面后[${data.path}]`)
             },
 
             handleOpenTab(page) {

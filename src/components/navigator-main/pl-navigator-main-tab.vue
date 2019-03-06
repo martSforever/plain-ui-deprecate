@@ -10,7 +10,8 @@
                             'pl-navigator-main-tab-header-item-prev':index === currentValue-1,
                             'pl-navigator-main-tab-header-item-next':index === currentValue+1,
                          }"
-                     @click="p_clickTabTitle(index)">
+                     @click="p_clickTabTitle(index)"
+                     @contextmenu.prevent="e=>p_contextMenu(e,item,index)">
                     <div class="pl-navigator-main-tab-header-item-wrapper">
                         <span class="pl-navigator-main-tab-header-item-label">{{item.title}}</span>
                         <div class="pl-navigator-main-tab-header-item-close">
@@ -161,11 +162,7 @@
              * @date    2019/3/5 18:48
              */
             async refresh(id) {
-                /*清除该页签的缓存*/
-                const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
-                componentStorage[id] = null
-                this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
-
+                this.p_clearPage(id)
                 /*重新初始化页面*/
                 const {page} = this.p_findPage(id)
                 if (this.pageStack.length === 0 || !page || !page.init) return
@@ -193,6 +190,41 @@
             async p_clickTabTitle(index) {
                 if (index === this.currentValue) return
                 return await this.p_openPage(this.pageStack[index])
+            },
+            /**
+             * 右击菜单
+             * @author  韦胜健
+             * @date    2019/3/6 17:10
+             */
+            async p_contextMenu(e, item, index) {
+                const ret = await this.$contextMenu.pick({
+                    data: ['刷新', '关闭', '关闭左侧页签', '关闭右侧页签', '关闭其他页签'],
+                    el: e.target
+                })
+                let closePage
+                switch (ret) {
+                    case '刷新':
+                        this.refresh(item.id)
+                        break
+                    case '关闭':
+                        this.close(item.id)
+                        break
+                    case '关闭左侧页签':
+                        this.pageStack.forEach((itemPage, itemIndex) => itemIndex < index && (this.p_clearPage(itemPage.id)))
+                        this.pageStack = this.pageStack.splice(index, this.pageStack.length)
+                        this.p_openPage(this.pageStack[0])
+                        break
+                    case '关闭右侧页签':
+                        this.pageStack.forEach((itemPage, itemIndex) => itemIndex > index && (this.p_clearPage(itemPage.id)))
+                        this.pageStack = this.pageStack.splice(0, index + 1)
+                        this.p_openPage(this.pageStack[index])
+                        break
+                    case '关闭其他页签':
+                        this.pageStack.forEach((itemPage, itemIndex) => itemIndex !== index && (this.p_clearPage(itemPage.id)))
+                        this.pageStack = this.pageStack.splice(index, 1)
+                        this.p_openPage(this.pageStack[0])
+                        break
+                }
             },
             /**
              * 打开页面
@@ -244,6 +276,16 @@
                 this.selfStorage.index = this.currentValue;
                 this.selfStorage.pageStack = this.pageStack.map(({id, title, path, param, security, data}) => ({id, title, path, param, security, data}))
                 this.$plain.$storage.set(NAVIGATOR_CONSTANT.TAB, this.selfStorage)
+            },
+            /**
+             * 清除该页签的缓存
+             * @author  韦胜健
+             * @date    2019/3/6 17:47
+             */
+            p_clearPage(id) {
+                const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
+                componentStorage[id] = null
+                this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
             },
         },
         beforeDestroy() {
