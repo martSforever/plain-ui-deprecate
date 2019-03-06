@@ -2,21 +2,21 @@
     <div class="pl-date-header">
         <div class="pl-date-header-left">
             <slot name="left">
-                <pl-icon icon="pl-double-arrow-left" class="pl-date-header-label"/>
-                <pl-icon icon="pl-arrow-left" class="pl-date-header-label"/>
+                <pl-icon icon="pl-double-arrow-left" class="pl-date-header-label" @click="p_pickYear--"/>
+                <pl-icon icon="pl-arrow-left" class="pl-date-header-label" @click="p_previousMonth"/>
             </slot>
         </div>
         <div class="pl-date-header-center">
             <slot name="center">
-                <span class="pl-date-header-label">{{pickYear}}</span>
+                <span class="pl-date-header-label">{{p_pickYear}}</span>
                 -
-                <span class="pl-date-header-label">{{pickMonth+1}}</span>
+                <span class="pl-date-header-label">{{p_pickMonth+1}}</span>
             </slot>
         </div>
         <div class="pl-date-header-right">
             <slot name="right">
-                <pl-icon icon="pl-arrow-right" class="pl-date-header-label"/>
-                <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label"/>
+                <pl-icon icon="pl-arrow-right" class="pl-date-header-label" @click="p_nextMonth"/>
+                <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label" @click="p_pickYear++"/>
             </slot>
         </div>
     </div>
@@ -31,6 +31,44 @@
         props: {
             pickYear: {},
             pickMonth: {},
+        },
+        watch: {
+            pickYear(val) {
+                if (this.p_pickYear !== val) this.p_pickYear = val
+            },
+            p_pickYear(val) {
+                if (this.pickYear !== val) this.$emit('update:pickYear', val)
+            },
+            pickMonth(val) {
+                if (this.p_pickMonth !== val) this.p_pickMonth = val
+            },
+            p_pickMonth(val) {
+                if (this.pickMonth !== val) this.$emit('update:pickMonth', val)
+            },
+        },
+        data() {
+            return {
+                p_pickYear: this.pickYear,
+                p_pickMonth: this.pickMonth,
+            }
+        },
+        methods: {
+            p_previousMonth() {
+                if (this.p_pickMonth - 1 < 0) {
+                    this.p_pickMonth = 11
+                    this.p_pickYear--
+                } else {
+                    this.p_pickMonth--
+                }
+            },
+            p_nextMonth() {
+                if (this.p_pickMonth + 1 > 11) {
+                    this.p_pickMonth = 0
+                    this.p_pickYear++
+                } else {
+                    this.p_pickMonth++
+                }
+            },
         },
     }
 </script>

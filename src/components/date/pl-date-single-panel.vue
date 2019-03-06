@@ -1,6 +1,6 @@
 <template>
     <div class="pl-date-single-panel">
-        <pl-date-header :pick-year="pickYear" :pick-month="pickMonth"/>
+        <pl-date-header :pick-year.sync="pickYear" :pick-month.sync="pickMonth"/>
         <pl-date-panel
                 :pick-year.sync="pickYear"
                 :pick-month.sync="pickMonth"
