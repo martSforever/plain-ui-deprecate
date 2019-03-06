@@ -13,6 +13,8 @@
             <link-button-group>
                 <link-button label="刷新Icon页签" @click="$nav.refreshTab('ggg')"/>
                 <link-button label="刷新页签三" @click="$nav.refreshTab('ccc')"/>
+                <link-button label="打开页签三同时更新数据并刷新页面"
+                             @click="$nav.openTab({id: 'ccc', title: '页面三', path: '/navigator/navigator-main/demo-navigator-main-3', param: {}, security: {oauth: 'III'}, data: {}},true)"/>
                 <link-button label="更新页签三的数据信息" @click="$nav.updateTab('ccc',{security:{oauth:'HELLO',title:'wahaha'}})"/>
                 <link-button label="清除tab导航缓存" @click="$nav.clearTab()"/>
             </link-button-group>

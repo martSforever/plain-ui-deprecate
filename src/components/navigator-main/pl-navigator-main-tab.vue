@@ -100,8 +100,9 @@
              * @param   param       tab根页面参数
              * @param   data        tab页签额外的数据
              * @param   security    tab的安全性
+             * @param   refresh     如果页面已经打开，是否刷新页面
              */
-            async open({id, title, path, param, security, data}) {
+            async open({id, title, path, param, security, data}, refresh = false) {
 
                 /*预处理*/
                 const openData = {id, title, path, param, security, data}
@@ -119,6 +120,7 @@
                 /*打开之前判断标签是否已经打开，已经打开则切换到标签页，判断标签页是否已经初始化，未初始化则加载页面*/
                 let {page, pageIndex} = this.p_findPage(id)
                 if (page != null) {
+                    if (refresh) await this.refresh(id)
                     if (!page.init) {
                         page.component = await this.$plain.pageRegistry(path)
                         page.init = true
@@ -221,6 +223,7 @@
                 nextIndex > -1 && this.p_clickTabTitle(nextIndex)
                 this.p_save()
                 this.$emit('close', closePage)
+                await this.refresh(id)
             },
             /**
              * 根据title以及path获取page的索引

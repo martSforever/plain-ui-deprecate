@@ -1,6 +1,17 @@
+import $storage from '../../utils/storage'
+
 const NAVIGATOR_CONSTANT = {
     TAB: 'navigator-main',
     PAGE: 'navigator-page',
+}
+
+/**
+ * 清除tab导航缓存
+ * @author  韦胜健
+ * @date    2019/3/6 14:03
+ */
+async function clearTab() {
+    $storage.set(NAVIGATOR_CONSTANT.TAB, null)
 }
 
 class NavigatorService {
@@ -26,8 +37,8 @@ class NavigatorService {
      * @author  韦胜健
      * @date    2019/3/6 11:23
      */
-    async openTab({id, title, path, param, security, data}) {
-        return await this.tab.open({id, title, path, param, security, data})
+    async openTab({id, title, path, param, security, data}, refresh = false) {
+        return await this.tab.open({id, title, path, param, security, data}, refresh)
     }
 
     /**
@@ -57,14 +68,7 @@ class NavigatorService {
         return await this.tab.update(id, newTabData)
     }
 
-    /**
-     * 清除tab导航缓存
-     * @author  韦胜健
-     * @date    2019/3/6 14:03
-     */
-    async clearTab() {
-        this.context.$plain.$storage.set(NAVIGATOR_CONSTANT.TAB, null)
-    }
+    clearTab = clearTab
 
     /**
      * 在某个标签页下打开页面
