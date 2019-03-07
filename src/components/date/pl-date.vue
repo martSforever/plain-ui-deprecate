@@ -1,20 +1,44 @@
 <template>
     <div class="pl-date">
-        <pl-input/>
+        <pl-popover
+                v-bind="popoverBinding"
+                v-model="p_show"
+                disabledEqual
+                :width="null"
+                :height="null"
+        >
+            <pl-input
+                    v-bind="inputBinding"
+                    clearIcon="pl-date"
+                    :defaultClear="false"
+            />
+            <div slot="popper">
+                <pl-date-single-panel
+                        :value="p_value"
+                        :max="max"
+                        :min="min"
+                        :display-format="p_df"
+                        :value-format="p_vf"
+
+                        @input="p_valueChange"/>
+            </div>
+        </pl-popover>
     </div>
 </template>
 
 <script>
     import PlDatePanel from "./pl-date-panel";
-    import {BoxMixin} from "../../mixin/component-mixin";
+    import {BoxMixin, InputMixin} from "../../mixin/component-mixin";
     import {DateUtil} from "./index";
     import PlDateSinglePanel from "./pl-date-single-panel";
     import PlInput from "../input/pl-input";
+    import PlPopover from "../popper/pl-popover";
+    import {PopoverMixin} from "../popper";
 
     export default {
         name: "pl-date",
-        components: {PlInput, PlDateSinglePanel, PlDatePanel},
-        mixins: [BoxMixin],
+        components: {PlPopover, PlInput, PlDateSinglePanel, PlDatePanel},
+        mixins: [InputMixin, PopoverMixin],
         props: {
             value: {type: String,},
             start: {type: String},
@@ -74,6 +98,12 @@
                 return DateUtil.getDefaultValueFormat(this.valueFormat, this.datetime, this.view)
             },
         },
+        methods: {
+            p_valueChange(val) {
+                this.p_value = val
+                this.p_show = false
+            },
+        }
     }
 </script>
 

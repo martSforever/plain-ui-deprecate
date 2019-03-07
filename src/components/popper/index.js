@@ -16,12 +16,12 @@ const POPOVER_ALIGN = {
 
 const PopoverMixin = {
     props: {
-        trigger: {type: String, default: POPOVER_TRIGGER.CLICK},                        //触发的动作：hover|click
+        trigger: {type: String, default: POPOVER_TRIGGER.CLICK},                //触发的动作：hover|click
         disabledHideOnClickOutside: {type: Boolean},                            //禁用点击外部的时候关闭弹出框
         disabledDestroyOnHide: {type: Boolean},                                 //禁用隐藏的时候销毁内容
         initialized: {type: Boolean},                                           //是否在初始化的时候就初始化内容
-        direction: {type: String, default: POPOVER_DIRECTION.BOTTOM},                   //弹出框的方向：top|bottom|left|right
-        align: {type: String, default: POPOVER_ALIGN.START},                            //弹出框的对其方式
+        direction: {type: String, default: POPOVER_DIRECTION.BOTTOM},           //弹出框的方向：top|bottom|left|right
+        align: {type: String, default: POPOVER_ALIGN.START},                    //弹出框的对其方式
         animate: {type: String, default: 'drop'},                               //弹出框显隐动画
         arrow: {type: Boolean},                                                 //弹出框是否带小三角
         offset: {type: Number},                                                 //弹出框与载体的距离
