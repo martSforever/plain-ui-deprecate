@@ -1,11 +1,6 @@
 <template>
     <div class="pl-date">
-        <pl-date-single-panel
-                v-model="p_value"
-                :max="max"
-                :min="min"
-                :display-format="p_df"
-                :value-format="p_vf"/>
+        <pl-input/>
     </div>
 </template>
 
@@ -14,10 +9,11 @@
     import {BoxMixin} from "../../mixin/component-mixin";
     import {DateUtil} from "./index";
     import PlDateSinglePanel from "./pl-date-single-panel";
+    import PlInput from "../input/pl-input";
 
     export default {
         name: "pl-date",
-        components: {PlDateSinglePanel, PlDatePanel},
+        components: {PlInput, PlDateSinglePanel, PlDatePanel},
         mixins: [BoxMixin],
         props: {
             value: {type: String,},

@@ -38,41 +38,12 @@
 <script>
     import {MountedMixin, ValueMixin} from "../../mixin/component-mixin";
     import Popper from 'popper.js'
+    import {POPOVER_TRIGGER, PopoverMixin} from "./index";
 
-    const TRIGGER = {
-        CLICK: 'click',
-        HOVER: 'hover',
-    }
-    const DIRECTION = {
-        TOP: 'top',
-        BOTTOM: 'bottom',
-        LEFT: 'left',
-        RIGHT: 'right',
-    }
-    const ALIGN = {
-        START: 'start',
-        CENTER: 'center',
-        END: 'end',
-    }
 
     export default {
         name: "pl-popover",
-        mixins: [ValueMixin, MountedMixin],
-        props: {
-            trigger: {type: String, default: TRIGGER.CLICK},                        //触发的动作：hover|click
-            disabledHideOnClickOutside: {type: Boolean},                            //禁用点击外部的时候关闭弹出框
-            disabledDestroyOnHide: {type: Boolean},                                 //禁用隐藏的时候销毁内容
-            initialized: {type: Boolean},                                           //是否在初始化的时候就初始化内容
-            direction: {type: String, default: DIRECTION.BOTTOM},                   //弹出框的方向：top|bottom|left|right
-            align: {type: String, default: ALIGN.START},                            //弹出框的对其方式
-            animate: {type: String, default: 'drop'},                               //弹出框显隐动画
-            arrow: {type: Boolean},                                                 //弹出框是否带小三角
-            offset: {type: Number},                                                 //弹出框与载体的距离
-            height: {default: 180},                                                 //弹出框的高度
-            width: {default: 180},                                                  //弹出框的宽度
-            disabledEqual: {type: Boolean},                                         //弹出框是否与载体在方向上大小相同
-            windowBoundary: {type: Boolean, default: true},                         //边界为window
-        },
+        mixins: [ValueMixin, MountedMixin, PopoverMixin],
         data() {
             return {
                 popper: null,
@@ -213,26 +184,26 @@
             },
             p_clickReference(e) {
                 this.$emit('clickReference', e)
-                this.trigger === TRIGGER.CLICK && (this.show())
+                this.trigger === POPOVER_TRIGGER.CLICK && (this.show())
             },
             p_enterReference(e) {
                 this.$emit('enterReference', e)
-                this.trigger === TRIGGER.HOVER && (this.show())
+                this.trigger === POPOVER_TRIGGER.HOVER && (this.show())
             },
             p_leaveReference(e) {
                 this.$emit('leaveReference', e)
-                this.trigger === TRIGGER.HOVER && (this.hide())
+                this.trigger === POPOVER_TRIGGER.HOVER && (this.hide())
             },
             p_clickPopper() {
                 this.$emit('clickPopper')
             },
             p_enterPopper(e) {
                 this.$emit('enterReference', e)
-                this.trigger === TRIGGER.HOVER && (this.show())
+                this.trigger === POPOVER_TRIGGER.HOVER && (this.show())
             },
             p_leavePopper(e) {
                 this.$emit('leaveReference', e)
-                this.trigger === TRIGGER.HOVER && (this.hide())
+                this.trigger === POPOVER_TRIGGER.HOVER && (this.hide())
             },
             p_refresh() {
                 let placement = this.popper.popper.getAttribute('x-placement').split('-');
