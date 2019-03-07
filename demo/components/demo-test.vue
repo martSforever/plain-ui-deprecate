@@ -1,14 +1,10 @@
 <template>
     <div class="demo-test crm-color">
-        <button @click="toggleVal = !toggleVal">toggle</button>
-        <iframe width="100%" height="300" src="//jsfiddle.net/martsforever/vhq3d4oz/embedded/result,js,html,css" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
-        <button @click="open">open in fiddle</button>
-
-        <div v-highlight>
-            <pre>
-                <code v-html="content"></code>
-            </pre>
-        </div>
+        <link-toggle v-model="toggleVal"/>
+        <child-component
+                v-bind="{name1:'hello',name2:'world'}"
+                :name1="name1"
+        />
 
     </div>
 </template>
@@ -19,19 +15,26 @@
     import hljs from 'highlight.js';
     import 'highlight.js/styles/googlecode.css' //样式文件
 
-    Vue.directive('highlight',function (el) {
+    Vue.directive('highlight', function (el) {
         let blocks = el.querySelectorAll('pre code');
-        setTimeout(() =>{
-            blocks.forEach((block)=>{
+        setTimeout(() => {
+            blocks.forEach((block) => {
                 hljs.highlightBlock(block)
             })
         }, 200)
     })
 
     const childComponent = {
+        props: {
+            name1: {},
+            name2: {},
+        },
         render(h) {
             return (
-                <div class="child-component"></div>
+                <div class="child-component">
+                    <div>name1:{this.name1}</div>
+                    <div>name2:{this.name2}</div>
+                </div>
             )
         },
         mounted() {
@@ -81,7 +84,7 @@
                         console.log(name)
                     },
                 },
-                content:`
+                content: `
                     export default {
     data() {
       return {
@@ -118,6 +121,11 @@
         mounted() {
 
         },
+        computed: {
+            name1() {
+                return this.toggleVal ? '111' : '222'
+            },
+        },
     }
 </script>
 
@@ -138,7 +146,6 @@
     .child-component {
         width: 300px;
         height: 200px;
-        background-color: black;
     }
 
     body {

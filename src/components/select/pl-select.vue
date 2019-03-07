@@ -6,11 +6,11 @@
             v-bind="popoverBinding">
         <pl-input
                 :value="showValue"
-                :clear-icon="p_suffixIcon"
+                v-bind="inputBinding"
+                :clearIcon="p_suffixIcon"
                 :readonly="inputReadonly"
                 :width="inputWidth"
-                :default-clear="false"
-                v-bind="inputBinding"
+                :defaultClear="false"
                 @clear="e=>!readonly && !disabled && p_clear(e)"
         />
         <pl-scroll :scroll-x="false" slot="popper">
@@ -99,8 +99,6 @@
         },
         created() {
             this.p_reset()
-
-            console.log(this.inputBinding)
         },
         methods: {
             p_clear() {
