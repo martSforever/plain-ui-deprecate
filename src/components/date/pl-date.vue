@@ -10,7 +10,10 @@
             <pl-input
                     v-bind="inputBinding"
                     clearIcon="pl-date"
+                    :readonly="true"
+                    :width="inputWidth"
                     :defaultClear="false"
+                    @clear="e=>!readonly && !disabled && p_clear(e)"
             />
             <div slot="popper">
                 <pl-date-single-panel
@@ -54,6 +57,7 @@
             confirmButton: {type: Boolean},
 
             placeholder: {type: String, default: '请选择日期时间……'},
+            inputWidth: {type: Number, default: 256},
         },
         watch: {
             value(val) {
@@ -101,6 +105,10 @@
         methods: {
             p_valueChange(val) {
                 this.p_value = val
+                this.p_show = false
+            },
+            p_clear() {
+                this.p_value = null
                 this.p_show = false
             },
         }

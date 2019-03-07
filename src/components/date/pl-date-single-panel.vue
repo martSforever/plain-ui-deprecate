@@ -100,11 +100,10 @@
                     this.date = valueDate.getDate()
                     this.valueDate = valueDate
                 }
-                this.pickYear = this.year || now.getFullYear()
-                this.pickMonth = this.month || now.getMonth()
+                this.pickYear = this.year != null ? this.year : now.getFullYear()
+                this.pickMonth = this.month != null ? this.month : now.getMonth()
             },
             p_pickYear(val) {
-                console.log('p_pickYear', val)
                 this.pickYear = val
                 if (this.view === 'year') {
                     const newDate = new Date()
