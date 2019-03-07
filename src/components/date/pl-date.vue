@@ -8,6 +8,7 @@
                 :height="null"
         >
             <pl-input
+                    :value="showValue"
                     v-bind="inputBinding"
                     clearIcon="pl-date"
                     :readonly="true"
@@ -102,6 +103,10 @@
             },
             p_vf() {
                 return DateUtil.getDefaultValueFormat(this.valueFormat, this.datetime, this.view)
+            },
+            showValue() {
+                if (!this.p_value) return null
+                return this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_value, this.p_vf), this.p_df)
             },
         },
         methods: {
