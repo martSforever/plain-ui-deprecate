@@ -60,7 +60,7 @@
                     {id: 'iii', title: '页面八', path: '/navigator/navigator-main/demo-navigator-main-8', param: {}, security: {}, data: {}},
                     {id: 'ggg', title: 'Icon图标', path: '/demo-icon', param: {}, security: {}, data: {}},
                     {id: 'kkk', title: 'Button按钮', path: '/demo-button', param: {}, security: {}, data: {}},
-                    {id: 'lll', title: 'Input输入框', path: '/demo-input', param: {}, security: {}, data: {}},
+                    {id: 'lll', title: 'Input输入框Input输入框Input输入框', path: '/demo-input', param: {}, security: {}, data: {}},
                     {id: 'mmm', title: 'Radio单选复选框Radio单选复选框', path: '/demo-radio', param: {}, security: {}, data: {}},
                     {id: 'nnn', title: 'Rate评分', path: '/demo-rate', param: {}, security: {}, data: {}},
                 ]

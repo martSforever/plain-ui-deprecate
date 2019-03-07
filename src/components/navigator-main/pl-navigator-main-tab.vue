@@ -13,7 +13,9 @@
                      @click="p_clickTabTitle(index)"
                      @contextmenu.prevent="e=>p_contextMenu(e,item,index)">
                     <div class="pl-navigator-main-tab-header-item-wrapper">
-                        <span class="pl-navigator-main-tab-header-item-label">{{item.title}}</span>
+                        <span class="pl-navigator-main-tab-header-item-label">
+                            <pl-tooltip-text :content="item.title"/>
+                        </span>
                         <div class="pl-navigator-main-tab-header-item-close">
                             <pl-icon icon="pl-close" @click.stop="p_close(item.id)"/>
                         </div>
@@ -45,10 +47,11 @@
     import PlNavigatorMainPage from "./pl-navigator-main-page";
 
     import {NAVIGATOR_CONSTANT} from "./index";
+    import PlTooltipText from "../tooltip/pl-tooltip-text";
 
     export default {
         name: "pl-navigator-main-tab",
-        components: {PlNavigatorMainPage, PlIcon},
+        components: {PlTooltipText, PlNavigatorMainPage, PlIcon},
         props: {
             defaultPage: {type: Object},                                        //第一次默认打开的页面，格式{title, path, param, security}
             maxTabs: {type: Number, default: 20},                               //最大打开页签的个数

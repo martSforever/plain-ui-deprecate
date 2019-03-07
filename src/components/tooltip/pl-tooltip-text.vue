@@ -1,5 +1,5 @@
 <template>
-    <div class="pl-tooltip-text" v-tooltip="tooltipOption">
+    <div class="pl-tooltip-text" v-tooltip="tooltipOption" @mouseenter="p_mouseenter">
         <span ref="text">{{content}}</span>
     </div>
 </template>
@@ -18,11 +18,6 @@
             trigger: {type: String, default: 'mouseenter'},                 //悬浮触发方式
             theme: {type: String, default: 'dark'},                         //悬浮的主题色
             disabled: {type: Boolean},                                      //是否禁用
-        },
-        watch: {
-            content() {
-                this.$nextTick(() => this.p_resetWidth())
-            },
         },
         computed: {
             tooltipOption() {
@@ -49,6 +44,9 @@
             p_resetWidth() {
                 this.hostWidth = this.$el.offsetWidth
                 this.textWidth = this.$refs.text.offsetWidth
+            },
+            p_mouseenter() {
+                this.p_resetWidth()
             },
         },
     }
