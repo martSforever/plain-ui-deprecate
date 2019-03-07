@@ -45,14 +45,8 @@
             pickYear(val) {
                 if (this.p_pickYear !== val) this.p_pickYear = val
             },
-            p_pickYear(val) {
-                this.$emit('update:pickYear', val)
-            },
             pickMonth(val) {
                 if (this.p_pickMonth !== val) this.p_pickMonth = val
-            },
-            p_pickMonth(val) {
-                this.$emit('update:pickMonth', val)
             },
         },
         data() {
@@ -64,9 +58,11 @@
         methods: {
             p_changePickYear(val) {
                 this.p_pickYear = val
+                this.$emit('update:pickYear', val)
             },
             p_changePickMonth(val) {
                 this.p_pickMonth = val
+                this.$emit('update:pickMonth', val)
             },
             p_pickDate({year, month, day}) {
                 this.$emit('pickDate', new Date(year, month, day))

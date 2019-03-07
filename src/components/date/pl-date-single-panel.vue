@@ -104,6 +104,7 @@
                 this.pickMonth = this.month || now.getMonth()
             },
             p_pickYear(val) {
+                console.log('p_pickYear',val)
                 this.pickYear = val
                 if (this.view === 'year') {
                     const newDate = new Date()
