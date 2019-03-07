@@ -19,6 +19,7 @@
                     'pl-date-day-panel-item-today':item.isToday,
                     'pl-date-day-panel-item-other-month':item.isOtherMonth,
                     'pl-date-day-panel-item-active':item.active,
+                    'pl-date-day-panel-item-disabled':item.disabled,
                     'pl-date-day-panel-item-light':p_isLight(item)}">
                 <div class="pl-date-day-panel-item-inner">
                     <span class="pl-date-day-panel-item-label">{{item.isToday?'今':item.day}}</span>
@@ -213,6 +214,7 @@
              *  @datetime   2019/3/6 21:07
              */
             p_clickItem(item) {
+                if (!!item.disabled) return
                 this.$emit('pickDate', item)
             },
         },
@@ -277,6 +279,13 @@
                 }
                 &.pl-date-day-panel-item-light {
                     background-color: $color-primary-light;
+                }
+                &.pl-date-day-panel-item-disabled {
+                    .pl-date-day-panel-item-inner {
+                        background-color: #ffd9ce;
+                        border-radius: $dateBorderRadius;
+                        color: white;
+                    }
                 }
                 &.pl-date-day-panel-item-active {
                     .pl-date-day-panel-item-inner {

@@ -1,7 +1,7 @@
 <template>
     <div class="demo-date">
         <div>{{val[0]}}</div>
-        <link-date v-model="val[0]"/>
+        <link-date v-model="val[0]" max="2019-05-05" min="2019-01-01"/>
     </div>
 </template>
 
