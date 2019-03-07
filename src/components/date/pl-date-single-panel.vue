@@ -2,6 +2,7 @@
     <div class="pl-date-single-panel">
         <pl-date-header :pick-year.sync="pickYear"
                         :pick-month.sync="pickMonth"
+                        :view="view"
                         @changeMode="val=>mode = val"/>
         <pl-date-panel
                 :pick-year="pickYear"

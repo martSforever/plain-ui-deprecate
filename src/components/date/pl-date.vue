@@ -18,10 +18,12 @@
             <div slot="popper">
                 <pl-date-single-panel
                         :value="p_value"
-                        :max="max"
-                        :min="min"
+
                         :display-format="p_df"
                         :value-format="p_vf"
+                        :max="max"
+                        :min="min"
+                        :view="view"
 
                         @input="p_valueChange"/>
             </div>

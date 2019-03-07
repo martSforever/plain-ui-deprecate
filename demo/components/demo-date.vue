@@ -1,7 +1,18 @@
 <template>
     <div class="demo-date">
-        <demo-row :title="`普通用法:${val[0]}`">
+        <demo-row :title="`普通用法，选择日期:${val[0]}`">
             <link-date v-model="val[0]" max="2020-05-05" min="2018-01-01"/>
+        </demo-row>
+        <demo-row title="三种视图">
+            <demo-row-item title="年">
+                <link-date v-model="val[1]" view="year"/>
+            </demo-row-item>
+            <demo-row-item title="月">
+                <link-date v-model="val[2]" view="month"/>
+            </demo-row-item>
+            <demo-row-item title="日">
+                <link-date v-model="val[3]" view="date"/>
+            </demo-row-item>
         </demo-row>
     </div>
 </template>
