@@ -1,6 +1,6 @@
 <template>
-    <div class="pl-tooltip-text" v-tooltip="tooltipOption" @mouseenter="p_mouseenter">
-        <span ref="text">{{content}}</span>
+    <div class="pl-tooltip-text" @mouseenter="p_mouseenter">
+        <span ref="text" v-tooltip="tooltipOption">{{content}}</span>
     </div>
 </template>
 
