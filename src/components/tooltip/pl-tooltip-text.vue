@@ -1,6 +1,8 @@
 <template>
     <div class="pl-tooltip-text" @mouseenter="p_mouseenter">
-        <span ref="text" v-tooltip="tooltipOption">{{content}}</span>
+        <div class="pl-tooltip-text-content" ref="content" v-tooltip="tooltipOption">
+            <span ref="text">{{content}}</span>
+        </div>
     </div>
 </template>
 
@@ -42,7 +44,7 @@
         },
         methods: {
             p_resetWidth() {
-                this.hostWidth = this.$el.offsetWidth
+                this.hostWidth = this.$refs.content.offsetWidth
                 this.textWidth = this.$refs.text.offsetWidth
             },
             p_mouseenter() {
@@ -56,12 +58,13 @@
     .pl-tooltip-text {
         display: block;
         height: fit-content;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        outline: none;
-        span {
+        padding: 6px 0;
+        .pl-tooltip-text-content {
             outline: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
         }
     }
 </style>

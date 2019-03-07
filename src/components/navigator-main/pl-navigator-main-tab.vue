@@ -13,11 +13,13 @@
                      @click="p_clickTabTitle(index)"
                      @contextmenu.prevent="e=>p_contextMenu(e,item,index)">
                     <div class="pl-navigator-main-tab-header-item-wrapper">
-                        <span class="pl-navigator-main-tab-header-item-label">
+                        <div class="pl-navigator-main-tab-header-item-inner">
+                            <span class="pl-navigator-main-tab-header-item-label">
                             <pl-tooltip-text :content="item.title"/>
                         </span>
-                        <div class="pl-navigator-main-tab-header-item-close">
-                            <pl-icon icon="pl-close" @click.stop="p_close(item.id)"/>
+                            <div class="pl-navigator-main-tab-header-item-close">
+                                <pl-icon icon="pl-close" @click.stop="p_close(item.id)"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -362,12 +364,8 @@
                     }
                     .pl-navigator-main-tab-header-item-wrapper {
                         height: 100%;
-                        padding: 0 20px;
                         display: flex;
                         align-items: center;
-                        justify-content: space-between;
-                        white-space: nowrap;
-                        position: relative;
                         /*.pl-navigator-main-tab-header-item-close {
                             opacity: 0;
                         }*/
@@ -393,6 +391,10 @@
                             border-top-left-radius: $navigator-main-tab-head-radios;
                             border-top-right-radius: $navigator-main-tab-head-radios;
                         }
+                        .pl-navigator-main-tab-header-item-inner {
+                            border-left: none !important;
+                            border-right: none !important;
+                        }
                         /*.pl-navigator-main-tab-header-item-close {
                             opacity: 1;
                         }*/
@@ -402,6 +404,26 @@
                     }
                     &.pl-navigator-main-tab-header-item-next {
                         border-bottom-left-radius: $navigator-main-tab-head-radios;
+                        .pl-navigator-main-tab-header-item-inner {
+                            border-left: none;
+                        }
+                    }
+
+                    .pl-navigator-main-tab-header-item-inner {
+                        width: 100%;
+                        padding: 0 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        white-space: nowrap;
+                        position: relative;
+                        box-sizing: border-box;
+                        border-left: solid 1px #ddd;
+                    }
+                    &:nth-last-child(2) {
+                        .pl-navigator-main-tab-header-item-inner {
+                            border-right: solid 1px #ddd;
+                        }
                     }
                 }
             }
