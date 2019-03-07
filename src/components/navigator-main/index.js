@@ -12,6 +12,9 @@ const NAVIGATOR_CONSTANT = {
  */
 async function clearTab() {
     $storage.set(NAVIGATOR_CONSTANT.TAB, null)
+    /*const storage = JSON.parse(localStorage.getItem('LinkUI')) || {}
+    storage['navigator-main'] = null
+    localStorage.setItem('LinkUI', JSON.stringify(storage))*/
 }
 
 class NavigatorService {

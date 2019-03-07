@@ -201,7 +201,6 @@
                     data: ['刷新', '关闭', '关闭左侧页签', '关闭右侧页签', '关闭其他页签'],
                     el: e.target
                 })
-                let closePage
                 switch (ret) {
                     case '刷新':
                         this.refresh(item.id)
