@@ -40,7 +40,7 @@
     export default {
         name: "pl-input",
         components: {PlBox},
-        mixins: [BoxMixin, InputMixin],
+        mixins: [InputMixin],
         props: {},
         data() {
             return {

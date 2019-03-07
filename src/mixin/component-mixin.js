@@ -99,6 +99,7 @@ export const MountedMixin = {
 }
 
 export const InputMixin = {
+    mixins: [BoxMixin],
     props: {
         boxType: {default: 'line'},                                 //盒子类型
         boxColor: {default: 'info'},                                //盒子颜色
@@ -110,7 +111,19 @@ export const InputMixin = {
         defaultClear: {type: Boolean, default: true},               //是否在点击清楚图标的时候清除默认input的内容
         placeholder: {type: String, default: '点击输入...'},         //空值占位符
         keyboard: {type: Boolean,},                                 //是否监听案件事件，开启之后就可以监听back、enter、up等事件
-    }
+    },
+    computed: {
+        inputBinding() {
+            return Object.assign(this.boxBinding, {
+                replaceRegexp: this.replaceRegexp,
+                type: this.type,
+                focusOnHover: this.focusOnHover,
+                defaultClear: this.defaultClear,
+                placeholder: this.placeholder,
+                keyboard: this.keyboard,
+            })
+        },
+    },
 }
 
 

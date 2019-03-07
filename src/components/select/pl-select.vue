@@ -6,27 +6,11 @@
             v-bind="popoverBinding">
         <pl-input
                 :value="showValue"
-                :box-type="boxType"
-                :box-color="boxColor"
-                :box-size="boxSize"
-                :box-shape="boxShape"
-                :suffix-icon="suffixIcon"
-                :prefix-icon="prefixIcon"
                 :clear-icon="p_suffixIcon"
-                :clearable="clearable"
-                :loading="loading"
                 :readonly="inputReadonly"
-                :disabled="disabled"
-                :padding="padding"
-                :long="long"
                 :width="inputWidth"
-                :hover="hover"
-                :required="required"
-                :rules="rules"
-                :valid-on-init="validOnInit"
-
                 :default-clear="false"
-                :placeholder="placeholder"
+                v-bind="inputBinding"
                 @clear="e=>!readonly && !disabled && p_clear(e)"
         />
         <pl-scroll :scroll-x="false" slot="popper">
@@ -115,6 +99,8 @@
         },
         created() {
             this.p_reset()
+
+            console.log(this.inputBinding)
         },
         methods: {
             p_clear() {
