@@ -35,6 +35,7 @@
                         :tab="item"
                         :before-push="beforePush"
                         :after-push="afterPush"
+                        :page-registry="p_pageRegistry"
                         v-if="item.init"
                         v-show="currentValue === index"/>
             </div>
@@ -62,6 +63,7 @@
             beforeOpenWindow: {type: Function},                                 //打开浏览器窗口页面之前的钩子函数
             afterOpenWindow: {type: Function},                                  //打开浏览器窗口页面之后的钩子函数
             idGenerator: {type: Function, required: true},                      //Tab页签id生成函数
+            pageRegistryErrorHandler: {type: Function},                         //请求页面js文件出错处理
         },
         data() {
             let pageStack = []
@@ -128,7 +130,7 @@
                 if (page != null) {
                     if (refresh) await this.refresh(id)
                     if (!page.init) {
-                        page.component = await this.$plain.pageRegistry(path)
+                        page.component = await this.p_pageRegistry(path)
                         page.init = true
                     }
                     Object.assign(page, openData)
@@ -141,7 +143,7 @@
                 }
                 else {
                     /*打开新标签页*/
-                    const pc = await this.$plain.pageRegistry(path)
+                    const pc = await this.p_pageRegistry(path)
                     if (!pc) return
                     page = {id, title, path, param, security, data, component: pc, init: true}
                     this.pageStack.push(page)
@@ -290,6 +292,23 @@
                 const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
                 componentStorage[id] = null
                 this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
+            },
+            /**
+             * 自定义注册页面
+             * @author  韦胜健
+             * @date    2019/3/7 15:18
+             */
+            async p_pageRegistry(path) {
+                try {
+                    return await this.$plain.pageRegistry(path)
+                } catch (e) {
+                    console.info('找不到页面,转错误处理',e)
+                    if (!!this.pageRegistryErrorHandler) {
+                        return await this.pageRegistryErrorHandler(path)
+                    } else {
+                        return Promise.reject(e.message)
+                    }
+                }
             },
         },
         beforeDestroy() {

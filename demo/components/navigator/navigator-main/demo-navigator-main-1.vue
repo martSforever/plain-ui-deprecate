@@ -7,6 +7,7 @@
         <link-button label="回退页面" @click="$nav.back()"/>
         <link-button label="打开页签四" @click="openTab"/>
         <link-button label="打开页面五" @click="openPage"/>
+        <link-button label="不存在的页面" @click="openErrorPage"/>
         <link-button label="打印日志" @click="log"/>
     </div>
 </template>
@@ -40,6 +41,9 @@
                         console.log('页面一刷新')
                     },
                 }, {oauth: '页面新安全性'})
+            },
+            openErrorPage() {
+                this.$nav.push('/navigator/navigator-main/demo-navigator-main-iii')
             },
         }
     }

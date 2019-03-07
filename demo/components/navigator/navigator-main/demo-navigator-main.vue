@@ -5,10 +5,10 @@
                 <link-button box-type="line" label="打开标签"/>
             </link-button-group>
             <link-button-group>
-                <link-button v-for="(item,index) in tabsData.slice(0,8)" :key="index" :label="item.title" @click="openTab(item)"/>
+                <link-button v-for="(item,index) in tabsData.slice(0,9)" :key="index" :label="item.title" @click="openTab(item)"/>
             </link-button-group>
             <link-button-group>
-                <link-button v-for="(item,index) in tabsData.slice(8)" :key="index" :label="item.title" @click="openTab(item)"/>
+                <link-button v-for="(item,index) in tabsData.slice(9)" :key="index" :label="item.title" @click="openTab(item)"/>
             </link-button-group>
             <link-button-group>
                 <link-button label="刷新Icon页签" @click="$nav.refreshTab('ggg')"/>
@@ -25,6 +25,7 @@
                                      :afterOpenTab="afterOpenTab"
                                      :beforePush="beforePush"
                                      :afterPush="afterPush"
+                                     :pageRegistryErrorHandler="pageRegistryErrorHandler"
 
                                      :idGenerator="idGenerator"
 
@@ -43,6 +44,9 @@
 </template>
 
 <script>
+
+    import DemoNavigatorMainError from './demo-navigator-main-error'
+
     export default {
         name: "demo-navigator-main",
         mounted() {
@@ -58,6 +62,7 @@
                     {id: 'fff', title: '页面六', path: '/navigator/navigator-main/demo-navigator-main-6', param: {}, security: {}, data: {}},
                     {id: 'hhh', title: '页面七', path: '/navigator/navigator-main/demo-navigator-main-7', param: {}, security: {}, data: {}},
                     {id: 'iii', title: '页面八', path: '/navigator/navigator-main/demo-navigator-main-8', param: {}, security: {}, data: {}},
+                    {id: 'nopage', title: '不存在的页面', path: '/navigator/navigator-main/demo-navigator-main-???', param: {}, security: {}, data: {}},
                     {id: 'ggg', title: 'Icon图标', path: '/demo-icon', param: {}, security: {}, data: {}},
                     {id: 'kkk', title: 'Button按钮', path: '/demo-button', param: {}, security: {}, data: {}},
                     {id: 'lll', title: 'Input输入框Input输入框Input输入框', path: '/demo-input', param: {}, security: {}, data: {}},
@@ -99,6 +104,11 @@
             },
             handleCloseTab(page) {
                 // console.log('close tab', page)
+            },
+            async pageRegistryErrorHandler(path) {
+                console.log('自定义处理错误页面', path)
+                // return DemoNavigatorMainError
+                return Promise.reject('不能打开')
             },
 
             idGenerator({id, title, path, param, security, data}) {

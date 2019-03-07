@@ -30,6 +30,7 @@
             tab: {},                                                            //tab数据信息
             beforePush: {type: Function},                                       //打开页面之前的钩子函数
             afterPush: {type: Function},                                        //打开页面之后的钩子函数
+            pageRegistry: {type: Function},                                     //注册页面
         },
         data() {
             let pageStack = []
@@ -64,7 +65,7 @@
              * @date    2019/3/6 11:41
              */
             async push(path, param, security) {
-                const component = await this.$plain.pageRegistry(path)
+                const component = await this.pageRegistry(path)
                 const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true, security}
                 this.pageStack.length !== 0 && !!this.beforePush && (await this.beforePush(page, this.tab))
                 this.pageStack.push(page)
@@ -90,7 +91,7 @@
                 /*初始化需要初始化的页面*/
                 this.pageStack.forEach(async (page, index) => {
                     if (!page.init && index >= (this.pageStack.length - 2 - num)) {
-                        page.component = await this.$plain.pageRegistry(page.path)
+                        page.component = await this.pageRegistry(page.path)
                         page.init = true
                     }
                 })
@@ -110,7 +111,7 @@
              * @date    2019/3/6 11:41
              */
             async redirect(path, param, security) {
-                const component = await this.$plain.pageRegistry(path)
+                const component = await this.pageRegistry(path)
                 this.pageStack.push({
                     id: this.$plain.$utils.uuid(),
                     path,
@@ -133,7 +134,7 @@
             async backoff() {
                 const page = this.pageStack[0]
                 if (!page.init) {
-                    page.component = await this.$plain.pageRegistry(page.path)
+                    page.component = await this.pageRegistry(page.path)
                     page.init = true
                 }
                 await this.$plain.nextTick()
@@ -159,7 +160,7 @@
             async p_initComponent() {
                 for (let i = this.pageStack.length - 1; i >= 0; i--) {
                     const page = this.pageStack[i];
-                    if (!!page.init && !page.component) page.component = await this.$plain.pageRegistry(page.path)
+                    if (!!page.init && !page.component) page.component = await this.pageRegistry(page.path)
                 }
             },
         }
