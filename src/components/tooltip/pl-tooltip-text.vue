@@ -60,5 +60,8 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         outline: none;
+        span {
+            outline: none;
+        }
     }
 </style>

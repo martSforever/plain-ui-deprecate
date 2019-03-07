@@ -190,7 +190,7 @@
                 box-sizing: border-box;
                 background-color: white;
                 padding: 16px;
-                box-sizing: border-box;
+                z-index: 1;
             }
         }
     }
