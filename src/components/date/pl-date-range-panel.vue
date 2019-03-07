@@ -1,15 +1,15 @@
 <template>
     <div class="pl-date-range-panel">
         <div class="pl-date-range-panel-left">
-            <pl-date-header :pick-year.sync="pickYear"
-                            :pick-month.sync="pickMonth"
+            <pl-date-header :pick-year="leftPickYear"
+                            :pick-month="leftPickMonth"
                             :view="view"
                             @changeMode="val=>mode = val"/>
             <pl-date-panel
                     :start-date="startDate"
                     :end-date="endDate"
-                    :pick-year="pickYear"
-                    :pick-month="pickMonth"
+                    :pick-year="leftPickYear"
+                    :pick-month="leftPickMonth"
                     :mode="mode"
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
@@ -20,15 +20,15 @@
                     @pickDate="p_pickDate"/>
         </div>
         <div class="pl-date-range-panel-right">
-            <pl-date-header :pick-year.sync="pickYear"
-                            :pick-month.sync="pickMonth"
+            <pl-date-header :pick-year="rightPickYear"
+                            :pick-month="rightPickMonth"
                             :view="view"
                             @changeMode="val=>mode = val"/>
             <pl-date-panel
                     :start-date="startDate"
                     :end-date="endDate"
-                    :pick-year="pickYear"
-                    :pick-month="pickMonth"
+                    :pick-year="rightPickYear"
+                    :pick-month="rightPickMonth"
                     :mode="mode"
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
@@ -61,7 +61,10 @@
         },
         watch: {
             start(val) {
-                if (this.p_start !== val) this.p_start = val
+                if (this.p_start !== val) {
+                    this.p_start = val
+                    this.p_reset()
+                }
             },
             p_start(val) {
                 if (this.start !== val) this.$emit('update:start', val)
@@ -74,15 +77,16 @@
             },
         },
         data() {
-            const startDate = !this.start ? null : this.$plain.$utils.dateParse(this.start, this.valueFormat)
             const endDate = !this.end ? null : this.$plain.$utils.dateParse(this.end, this.valueFormat)
             return {
-                pickYear: null,
-                pickMonth: null,
-                mode: this.view,
+                leftPickYear: null,
+                leftPickMonth: null,
+                rightPickYear: null,
+                rightPickMonth: null,
 
+                mode: this.view,
                 hoverDate: null,
-                startDate,
+                startDate: null,
                 endDate,
                 p_start: this.start,
                 p_end: this.end,
@@ -111,7 +115,28 @@
         },
         methods: {
             p_reset() {
+                const now = new Date()
+                let year, month, date, startDate, endDate
+                startDate = this.$plain.$utils.dateParse(this.start, this.valueFormat)
+                endDate = this.$plain.$utils.dateParse(this.end, this.valueFormat)
 
+                year = !!startDate ? startDate.getFullYear() : now.getFullYear()
+                month = !!startDate ? startDate.getMonth() : now.getMonth()
+                date = !!startDate ? startDate.getDate() : now.getDate()
+
+                this.leftPickYear = year
+                this.leftPickMonth = month
+
+                if (month === 11) {
+                    this.rightPickYear = year + 1
+                    this.rightPickMonth = 0
+                } else {
+                    this.rightPickYear = year
+                    this.rightPickMonth = month + 1
+                }
+
+                this.startDate = startDate
+                this.endDate = endDate
             },
             p_pickYear(val) {
                 this.pickYear = val
