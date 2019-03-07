@@ -59,6 +59,8 @@
             afterOpenTab: {type: Function},                                     //打开页签之后的钩子函数
             beforePush: {type: Function},                                       //打开页面之前的钩子函数
             afterPush: {type: Function},                                        //关闭页面之后的钩子函数
+            beforeOpenWindow: {type: Function},                                 //打开浏览器窗口页面之前的钩子函数
+            afterOpenWindow: {type: Function},                                  //打开浏览器窗口页面之后的钩子函数
             idGenerator: {type: Function, required: true},                      //Tab页签id生成函数
         },
         data() {
