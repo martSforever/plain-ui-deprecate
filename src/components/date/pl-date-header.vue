@@ -8,9 +8,8 @@
         </div>
         <div class="pl-date-header-center">
             <slot name="center">
-                <span class="pl-date-header-label">{{p_pickYear}}</span>
-                -
-                <span class="pl-date-header-label">{{p_pickMonth+1}}</span>
+                <span class="pl-date-header-label" @click="$emit('changeMode','year')">{{p_pickYear}}</span>-<span class="pl-date-header-label"
+                                                                                                                   @click="$emit('changeMode','month')">{{p_pickMonth+1}}</span>
             </slot>
         </div>
         <div class="pl-date-header-right">
@@ -82,13 +81,19 @@
         flex-direction: row;
         user-select: none;
         .pl-date-header-left, .pl-date-header-right {
-            width: 90px;
+            flex: 1;
             padding: 0 6px;
             box-sizing: border-box;
             font-size: 12px;
         }
         .pl-date-header-center {
-            flex: 1;
+            .pl-date-header-label {
+                padding: 4px 9px;
+                &:hover {
+                    border-radius: 4px;
+                    background-color: $color-primary-light;
+                }
+            }
         }
         .pl-date-header-left, .pl-date-header-center, .pl-date-header-right {
             height: 100%;

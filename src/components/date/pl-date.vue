@@ -83,6 +83,7 @@
 
 <style lang="scss">
     .pl-date {
-
+        @include public-style;
+        display: inline-block;
     }
 </style>

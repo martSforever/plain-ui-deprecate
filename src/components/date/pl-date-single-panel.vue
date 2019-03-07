@@ -1,10 +1,12 @@
 <template>
     <div class="pl-date-single-panel">
-        <pl-date-header :pick-year.sync="pickYear" :pick-month.sync="pickMonth"/>
+        <pl-date-header :pick-year.sync="pickYear"
+                        :pick-month.sync="pickMonth"
+                        @changeMode="val=>mode = val"/>
         <pl-date-panel
-                :pick-year.sync="pickYear"
-                :pick-month.sync="pickMonth"
-                :mode="view"
+                :pick-year="pickYear"
+                :pick-month="pickMonth"
+                :mode="mode"
                 :year="year"
                 :month="month"
                 :date="date"
@@ -12,6 +14,8 @@
                 :max-date="maxDate"
                 :min-date="minDate"
 
+                @update:pickYear="p_pickYear"
+                @update:pickMonth="p_pickMonth"
                 @pickDate="p_pickDate"
         />
     </div>
@@ -98,6 +102,27 @@
                 }
                 this.pickYear = this.year || now.getFullYear()
                 this.pickMonth = this.month || now.getMonth()
+            },
+            p_pickYear(val) {
+                this.pickYear = val
+                if (this.view === 'year') {
+                    const newDate = new Date()
+                    newDate.setFullYear(val)
+                    this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
+                } else {
+                    this.mode = 'month'
+                }
+            },
+            p_pickMonth(val) {
+                this.pickMonth = val
+                if (this.view === 'month') {
+                    const newDate = new Date()
+                    newDate.setFullYear(this.pickYear)
+                    newDate.setMonth(val)
+                    this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
+                } else {
+                    this.mode = 'date'
+                }
             },
             p_pickDate(newDate) {
                 this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
