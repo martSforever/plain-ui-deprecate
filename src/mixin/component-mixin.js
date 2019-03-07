@@ -52,6 +52,35 @@ export const BoxMixin = {
         hover: {type: Boolean},                                         //是否监听鼠标hover事件
 
         value: {},                                                      //当前值
+        required: {type: Boolean},                                      //是否必输
+        rules: {type: Array},                                           //校验规则
+        validOnInit: {type: Boolean},                                   //是否在初始化的时候进行校验
+    },
+    computed: {
+        boxBinding() {
+            return {
+                boxType: this.boxType,
+                boxColor: this.boxColor,
+                boxShape: this.boxShape,
+                boxSize: this.boxSize,
+                prefixIcon: this.prefixIcon,
+                suffixIcon: this.suffixIcon,
+                clearIcon: this.clearIcon,
+                clearable: this.clearable,
+                loading: this.loading,
+                iconOnly: this.iconOnly,
+                readonly: this.readonly,
+                disabled: this.disabled,
+                padding: this.padding,
+                long: this.long,
+                width: this.width,
+                hover: this.hover,
+                value: this.value,
+                required: this.required,
+                rules: this.rules,
+                validOnInit: this.validOnInit,
+            }
+        },
     },
 }
 

@@ -17,36 +17,12 @@
 
 <script>
     import PlIcon from "../icon/pl-icon";
+    import {BoxMixin} from "../../mixin/component-mixin";
 
     export default {
         name: "pl-box",
         components: {PlIcon},
-        props: {
-            boxType: {type: String, default: 'fill',},                      //盒子类型
-            boxColor: {type: String, default: 'primary'},                   //盒子颜色
-            boxShape: {type: String, default: 'none'},                      //盒子形状
-            boxSize: {type: String, default: 'default'},                    //盒子大小
-
-            prefixIcon: {type: String},                                     //前置图标
-            suffixIcon: {type: String},                                     //后置图标
-            clearIcon: {type: String},                                      //清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pl-close，否则显示clearIcon
-            clearable: {type: Boolean},                                     //是否可清除
-            loading: {type: Boolean},                                       //loading 图标
-            iconOnly: {type: Boolean},                                      //只有图标，设置为true则盒子宽高相等，并且为圆形
-
-            readonly: {type: Boolean},                                      //只读
-            disabled: {type: Boolean},                                      //禁用（颜色变为disabled）
-
-            padding: {type: Boolean, default: true},                        //左右边距
-            long: {type: Boolean,},                                         //长按钮
-            width: {type: Number, default: 200},                            //盒子宽度
-            hover: {type: Boolean},                                         //是否监听鼠标hover事件
-
-            value: {},                                                      //当前值
-            required: {type: Boolean},                                      //是否必输
-            rules: {type: Array},                                           //校验规则
-            validOnInit: {type: Boolean},                                   //是否在初始化的时候进行校验
-        },
+        mixins:[BoxMixin],
         watch: {
             value() {
                 this.validate()
