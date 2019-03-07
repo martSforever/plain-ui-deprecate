@@ -17,7 +17,18 @@
                     @clear="e=>!readonly && !disabled && p_clear(e)"
             />
             <div slot="popper">
+                <pl-date-range-panel
+                        v-if="range"
+                        :start.sync="p_start"
+                        :end.sync="p_end"
+
+                        :display-format="p_df"
+                        :value-format="p_vf"
+                        :max="max"
+                        :min="min"
+                        :view="view"/>
                 <pl-date-single-panel
+                        v-else
                         :value="p_value"
 
                         :display-format="p_df"
@@ -40,10 +51,11 @@
     import PlInput from "../input/pl-input";
     import PlPopover from "../popper/pl-popover";
     import {PopoverMixin} from "../popper";
+    import PlDateRangePanel from "./pl-date-range-panel";
 
     export default {
         name: "pl-date",
-        components: {PlPopover, PlInput, PlDateSinglePanel, PlDatePanel},
+        components: {PlDateRangePanel, PlPopover, PlInput, PlDateSinglePanel, PlDatePanel},
         mixins: [InputMixin, PopoverMixin],
         props: {
             value: {type: String,},

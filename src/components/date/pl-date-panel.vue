@@ -12,7 +12,7 @@
                     :min-date="minDate"
                     :start-date="startDate"
                     :end-date="endDate"
-                    :hover-date="hoverDate"
+                    :hover-date.sync="p_hoverDate"
 
                     @pickDate="p_pickDate"/>
         </div>
@@ -48,11 +48,18 @@
             pickMonth(val) {
                 if (this.p_pickMonth !== val) this.p_pickMonth = val
             },
+            hoverDate(val) {
+                if (this.p_hoverDate !== val) this.p_hoverDate = val
+            },
+            p_hoverDate(val) {
+                if (this.hoverDate !== val) this.$emit('update:hoverDate', val)
+            },
         },
         data() {
             return {
                 p_pickYear: this.pickYear,
                 p_pickMonth: this.pickMonth,
+                p_hoverDate: this.hoverDate,
             }
         },
         methods: {

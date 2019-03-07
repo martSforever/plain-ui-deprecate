@@ -1,6 +1,6 @@
 <template>
     <div class="demo-date">
-        <demo-row :title="`普通用法，选择日期:${val[0]}`">
+        <!--<demo-row :title="`普通用法，选择日期:${val[0]}`">
             <link-date v-model="val[0]"/>
         </demo-row>
         <demo-row title="三种视图">
@@ -19,6 +19,9 @@
         </demo-row>
         <demo-row :title="`值以及显示值格式化:${val[5]}`">
             <link-date v-model="val[5]" valueFormat="YYYYMMDD" displayFormat="YYYY年MM月DD日"/>
+        </demo-row>-->
+        <demo-row :title="`日期范围:${val[6]}-${val[7]}`">
+            <link-date :start.sync="val[6]" :end.sync="val[7]" range/>
         </demo-row>
     </div>
 </template>
@@ -35,7 +38,9 @@
             return {
                 val: {
                     0: '2019-03-05',
-                    5: '20190306'
+                    5: '20190306',
+                    6: '2019-03-2',
+                    7: '2019-03-20',
                 }
             }
         },

@@ -203,6 +203,7 @@ function oneOf(val, array) {
  * @param format 格式化字符串
  */
 function dateFormat(date, format) {
+    if (date == null) return null
     return fecha.format(date, format)
 }
 
@@ -214,6 +215,7 @@ function dateFormat(date, format) {
  * @param format 格式化字符串
  */
 function dateParse(string, format) {
+    if (string == null) return null
     return fecha.parse(string, format)
 }
 
