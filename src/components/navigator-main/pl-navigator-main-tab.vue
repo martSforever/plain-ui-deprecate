@@ -64,6 +64,7 @@
             afterOpenWindow: {type: Function},                                  //打开浏览器窗口页面之后的钩子函数
             idGenerator: {type: Function, required: true},                      //Tab页签id生成函数
             pageRegistryErrorHandler: {type: Function},                         //请求页面js文件出错处理
+            page404: {type: String},                                            //找不到页面时，显示的404页面
         },
         data() {
             let pageStack = []
@@ -302,12 +303,10 @@
                 try {
                     return await this.$plain.pageRegistry(path)
                 } catch (e) {
-                    console.info('找不到页面,转错误处理',e)
-                    if (!!this.pageRegistryErrorHandler) {
-                        return await this.pageRegistryErrorHandler(path)
-                    } else {
-                        return Promise.reject(e.message)
-                    }
+                    console.info('找不到页面,转错误处理', e)
+                    if (!!this.pageRegistryErrorHandler) await this.pageRegistryErrorHandler(path)
+                    if (!!this.page404) return await this.$plain.pageRegistry(this.page404)
+                    return Promise.reject(e.message)
                 }
             },
         },

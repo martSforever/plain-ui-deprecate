@@ -26,6 +26,7 @@
                                      :beforePush="beforePush"
                                      :afterPush="afterPush"
                                      :pageRegistryErrorHandler="pageRegistryErrorHandler"
+                                     page404="/navigator/navigator-main/demo-navigator-main-error"
 
                                      :idGenerator="idGenerator"
 
@@ -107,8 +108,6 @@
             },
             async pageRegistryErrorHandler(path) {
                 console.log('自定义处理错误页面', path)
-                // return DemoNavigatorMainError
-                return Promise.reject('不能打开')
             },
 
             idGenerator({id, title, path, param, security, data}) {
