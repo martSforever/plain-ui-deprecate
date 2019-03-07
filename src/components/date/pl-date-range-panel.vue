@@ -3,6 +3,8 @@
         <div class="pl-date-range-panel-left">
             <pl-date-header :pick-year="leftPickYear"
                             :pick-month="leftPickMonth"
+                            @update:pickYear="p_leftPickYearChange"
+                            @update:pickMonth="p_leftPickMonthChange"
                             :view="view"
                             @changeMode="val=>mode = val"/>
             <pl-date-panel
@@ -179,6 +181,15 @@
                 }
                 this.startDate = newDate
                 this.endDate = null
+            },
+            p_leftPickYearChange(val) {
+                this.leftPickYear = val
+                this.rightPickYear = this.leftPickMonth === 11 ? val + 1 : val
+            },
+            p_leftPickMonthChange(val) {
+                this.leftPickMonth = val
+                this.rightPickMonth = val === 11 ? 0 : val + 1
+                this.rightPickYear = val === 11 ? this.leftPickYear + 1 : this.leftPickYear
             },
         }
     }
