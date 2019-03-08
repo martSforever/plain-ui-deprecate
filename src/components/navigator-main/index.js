@@ -39,6 +39,14 @@ class NavigatorService {
      * 打开页签
      * @author  韦胜健
      * @date    2019/3/6 11:23
+     * @param   id          tab的id
+     * @param   title       tab的标题
+     * @param   path        tab根页面路径
+     * @param   param       tab根页面参数
+     * @param   data        tab页签额外的数据
+     * @param   security    tab的安全性
+     * @param   refresh     如果页面已经打开，是否刷新页面
+     * @param   iframe      页签是否显示的是一个外部网页地址
      */
     async openTab({id, title, path, param, security, data, iframe}, refresh = false) {
         return await this.tab.open({id, title, path, param, security, data, iframe}, refresh)
