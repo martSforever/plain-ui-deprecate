@@ -1,6 +1,7 @@
 <template>
     <div class="pl-date-year-panel">
         <pl-scroll ref="scrollbar"
+                   fit-host-width
                    @vertical-scroll-top="p_addPreviousYears"
                    @vertical-scroll-bottom="p_addNextYears">
             <div class="pl-date-year-panel-content">
@@ -134,7 +135,7 @@
         height: 100%;
         padding: 9px;
         .pl-date-year-panel-content {
-            width: 178px;
+            width: 100%;
             .pl-date-year-panel-item-wrapper {
                 display: inline-flex;
                 width: 33.33%;

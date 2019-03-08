@@ -37,6 +37,7 @@
                         :max-date="p_maxDate"
                         :min-date="p_minDate"
                         :view="view"
+                        :datetime="datetime"
                         :now-year="nowYear"
                         :now-month="nowMonth"
                         :now-day="nowDay"

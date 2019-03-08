@@ -103,8 +103,8 @@
         width: 196px;
         display: inline-block;
         .pl-date-panel-body {
-            width: 196px;
-            height: 238px;
+            width: $dateItemSize*7;
+            height: $dateItemSize*7+6*6;
         }
     }
 </style>
