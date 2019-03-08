@@ -118,8 +118,13 @@
                 return DateUtil.getDefaultValueFormat(this.valueFormat, this.datetime, this.view)
             },
             showValue() {
-                if (!this.p_value) return null
-                return this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_value, this.p_vf), this.p_df)
+                if (!this.range) {
+                    if (!this.p_value) return null
+                    return this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_value, this.p_vf), this.p_df)
+                } else {
+                    if (!this.p_start || !this.p_end) return null
+                    return `${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_start, this.p_vf), this.p_df)} ~ ${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_end, this.p_vf), this.p_df)}`
+                }
             },
         },
         methods: {
