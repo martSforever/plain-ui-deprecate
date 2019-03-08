@@ -11,6 +11,7 @@
                             'pl-date-year-panel-item-active':item === currentYear,
                             'pl-date-year-panel-item-pick-year':item === currentValue,
                             'pl-date-year-panel-item-now':nowYear===item,
+                            'pl-date-year-panel-item-disabled':(!!maxYear && item>maxYear) || (!!minyear && item<minyear),
                          }"
                          @click="p_clickItem(item,index)">
                         {{item}}
@@ -31,19 +32,28 @@
         mixins: [ValueMixin],
         props: {
             currentYear: {},
+
+            nowYear: {},                                    //当前年份
+            maxDate: {},
+            minDate: {},
         },
         data() {
             return {
                 p_watchCurrentValue: false,             //不监听currentValue变化事件
                 list: [],                               //年份数组
                 num: 15,                                //每一页显示的个数
-                nowYear: new Date().getFullYear(),      //当前年份
                 start: null,                            //档期年份数组的起始年份
             }
         },
         computed: {
             currentIndex() {
                 return this.list.indexOf(this.currentValue)
+            },
+            maxYear() {
+                return !!this.maxDate ? this.maxDate.getFullYear() : null
+            },
+            minyear() {
+                return !!this.minDate ? this.minDate.getFullYear() : null
             },
         },
         async created() {
@@ -107,6 +117,7 @@
              *  @datetime   2019/3/4 22:34
              */
             p_clickItem(item) {
+                if ((!!this.maxYear && item > this.maxYear) || (!!this.minyear && item < this.minyear)) return
                 this.currentValue = item
                 this.$emit('input', item)
                 this.$emit('click', item)
@@ -145,6 +156,9 @@
                     &.pl-date-year-panel-item-active {
                         background-color: $color-primary;
                         color: white;
+                    }
+                    &.pl-date-year-panel-item-disabled {
+                        background-color: $color-normal-background-error;
                     }
                 }
             }

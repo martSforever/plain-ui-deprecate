@@ -1,7 +1,13 @@
 <template>
     <div class="pl-date-panel">
         <div class="pl-date-panel-body">
-            <pl-date-year-panel :value="pickYear" :current-year="year" @input="p_changePickYear" v-if="mode === 'year'"/>
+            <pl-date-year-panel :value="pickYear"
+                                :current-year="year"
+                                :now-year="nowYear"
+                                :max-date="maxDate"
+                                :min-date="minDate"
+                                @input="p_changePickYear"
+                                v-if="mode === 'year'"/>
             <pl-date-month-panel :value="pickMonth"
                                  :current-month="month"
                                  :current-year="year"
