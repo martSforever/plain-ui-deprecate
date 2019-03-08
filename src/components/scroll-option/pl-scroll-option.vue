@@ -200,7 +200,7 @@
              * @date    2019/2/26 09:18
              */
             p_scrollTop(scrollTop) {
-                scroll.top(this.$refs.wrapper, scrollTop);
+                !!this.$refs.wrapper && scroll.top(this.$refs.wrapper, scrollTop);
             },
             /**
              * 判断是否禁用
