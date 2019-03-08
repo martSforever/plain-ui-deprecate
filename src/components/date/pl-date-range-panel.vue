@@ -60,8 +60,8 @@
             valueFormat: {type: String,},                           //值格式化字符串
             view: {type: String},                                   //视图
             datetime: {type: Boolean},                              //是否选择时间
-            max: {type: String,},                                   //最大值
-            min: {type: String,},                                   //最小值
+            maxDate: {},
+            minDate: {},
         },
         watch: {
             start(val) {
@@ -103,34 +103,6 @@
                 /*截止时间缓存值*/
                 p_end: this.end,
             }
-        },
-        computed: {
-            /**
-             * 最大日期
-             * @author  韦胜健
-             * @date    2019/3/8 09:43
-             */
-            maxDate() {
-                if (!this.max) return null
-                const maxDate = this.$plain.$utils.dateParse(this.max, this.valueFormat)
-                maxDate.setHours(23)
-                maxDate.setMinutes(59)
-                maxDate.setSeconds(59)
-                return maxDate
-            },
-            /**
-             * 最小日期
-             * @author  韦胜健
-             * @date    2019/3/8 09:43
-             */
-            minDate() {
-                if (!this.min) return null
-                const minDate = this.$plain.$utils.dateParse(this.min, this.valueFormat)
-                minDate.setHours(0)
-                minDate.setMinutes(0)
-                minDate.setSeconds(0)
-                return minDate
-            },
         },
         created() {
             this.p_reset()

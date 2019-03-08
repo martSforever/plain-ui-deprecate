@@ -35,8 +35,8 @@
             valueFormat: {type: String,},
             view: {type: String, default: 'date'},
             datetime: {type: Boolean},
-            max: {type: String,},
-            min: {type: String,},
+            maxDate: {},
+            minDate: {},
         },
         watch: {
             value(val) {
@@ -64,24 +64,6 @@
                 valueDate: null,
                 p_value: this.value,
             }
-        },
-        computed: {
-            maxDate() {
-                if (!this.max) return null
-                const maxDate = this.$plain.$utils.dateParse(this.max, this.valueFormat)
-                maxDate.setHours(23)
-                maxDate.setMinutes(59)
-                maxDate.setSeconds(59)
-                return maxDate
-            },
-            minDate() {
-                if (!this.min) return null
-                const minDate = this.$plain.$utils.dateParse(this.min, this.valueFormat)
-                minDate.setHours(0)
-                minDate.setMinutes(0)
-                minDate.setSeconds(0)
-                return minDate
-            },
         },
         created() {
             this.p_reset()

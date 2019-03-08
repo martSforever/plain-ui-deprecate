@@ -24,8 +24,8 @@
 
                         :display-format="p_df"
                         :value-format="p_vf"
-                        :max="max"
-                        :min="min"
+                        :max-date="p_maxDate"
+                        :min-date="p_minDate"
                         :view="view"
                         @change="p_show = false"/>
                 <pl-date-single-panel
@@ -34,8 +34,8 @@
 
                         :display-format="p_df"
                         :value-format="p_vf"
-                        :max="max"
-                        :min="min"
+                        :max-date="p_maxDate"
+                        :min-date="p_minDate"
                         :view="view"
 
                         @input="p_valueChange"/>
@@ -126,6 +126,40 @@
                     return `${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_start, this.p_vf), this.p_df)} ~ ${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_end, this.p_vf), this.p_df)}`
                 }
             },
+            p_maxDate() {
+                if (!this.max) return null
+                const date = this.$plain.$utils.dateParse(this.max, this.p_vf)
+
+                if (this.view === 'year') {
+                    date.setMonth(0)
+                    date.setDate(0)
+                }
+                if (this.view === 'month') {
+                    date.setDate(0)
+                }
+
+                date.setHours(23)
+                date.setMinutes(59)
+                date.setSeconds(59)
+                return date
+            },
+            p_minDate() {
+                if (!this.min) return null
+                const date = this.$plain.$utils.dateParse(this.min, this.p_vf)
+
+                if (this.view === 'year') {
+                    date.setMonth(0)
+                    date.setDate(0)
+                }
+                if (this.view === 'month') {
+                    date.setDate(0)
+                }
+
+                date.setHours(23)
+                date.setMinutes(59)
+                date.setSeconds(59)
+                return date
+            },
         },
         methods: {
             p_valueChange(val) {
@@ -134,6 +168,8 @@
             },
             p_clear() {
                 this.p_value = null
+                this.p_start = null
+                this.p_end = null
                 this.p_show = false
             },
         }
