@@ -1,45 +1,41 @@
 <template>
     <div class="pl-date-range-panel">
         <div class="pl-date-range-panel-left">
-            <pl-date-header :pick-year="leftPickYear"
-                            :pick-month="leftPickMonth"
+            <pl-date-header :pick-year="left.pickYear"
+                            :pick-month="left.pickMonth"
+                            :view="view"
+                            hide-right-button
                             @update:pickYear="p_leftPickYearChange"
                             @update:pickMonth="p_leftPickMonthChange"
-                            :view="view"
-                            @changeMode="val=>mode = val"/>
+                            @changeMode="val=>left.mode = val"/>
             <pl-date-panel
-                    :start-date="startDate"
-                    :end-date="endDate"
-                    :pick-year="leftPickYear"
-                    :pick-month="leftPickMonth"
-                    :mode="mode"
+                    :start-date="left.date"
+                    :end-date="right.date"
+                    :pick-year="left.pickYear"
+                    :pick-month="left.pickMonth"
+                    :mode="left.mode"
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
                     :min-date="minDate"
-
-                    @update:pickYear="p_pickYear"
-                    @update:pickMonth="p_pickMonth"
                     @pickDate="p_pickDate"/>
         </div>
         <div class="pl-date-range-panel-right">
-            <pl-date-header :pick-year="rightPickYear"
-                            :pick-month="rightPickMonth"
+            <pl-date-header :pick-year="right.pickYear"
+                            :pick-month="right.pickMonth"
+                            :view="view"
+                            hide-left-button
                             @update:pickYear="p_rightPickYearChange"
                             @update:pickMonth="p_rightPickMonthChange"
-                            :view="view"
-                            @changeMode="val=>mode = val"/>
+                            @changeMode="val=>right.mode = val"/>
             <pl-date-panel
-                    :start-date="startDate"
-                    :end-date="endDate"
-                    :pick-year="rightPickYear"
-                    :pick-month="rightPickMonth"
-                    :mode="mode"
+                    :start-date="left.date"
+                    :end-date="right.date"
+                    :pick-year="right.pickYear"
+                    :pick-month="right.pickMonth"
+                    :mode="right.mode"
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
                     :min-date="minDate"
-
-                    @update:pickYear="p_pickYear"
-                    @update:pickMonth="p_pickMonth"
                     @pickDate="p_pickDate"/>
         </div>
     </div>
@@ -53,15 +49,15 @@
         name: "pl-date-range-panel",
         components: {PlDatePanel, PlDateHeader},
         props: {
-            start: {type: String},
-            end: {type: String},
+            start: {type: String},                                  //开始日期字符串
+            end: {type: String},                                    //截止日期字符串
 
-            displayFormat: {type: String,},
-            valueFormat: {type: String,},
-            view: {type: String},
-            datetime: {type: Boolean},
-            max: {type: String,},
-            min: {type: String,},
+            displayFormat: {type: String,},                         //显示值格式化字符串
+            valueFormat: {type: String,},                           //值格式化字符串
+            view: {type: String},                                   //视图
+            datetime: {type: Boolean},                              //是否选择时间
+            max: {type: String,},                                   //最大值
+            min: {type: String,},                                   //最小值
         },
         watch: {
             start(val) {
@@ -81,22 +77,35 @@
             },
         },
         data() {
-            const endDate = !this.end ? null : this.$plain.$utils.dateParse(this.end, this.valueFormat)
             return {
-                leftPickYear: null,
-                leftPickMonth: null,
-                rightPickYear: null,
-                rightPickMonth: null,
-
-                mode: this.view,
+                /*左边缓存数据*/
+                left: {
+                    pickYear: null,
+                    pickMonth: null,
+                    mode: this.view,
+                    date: null,
+                },
+                /*右边缓存数据*/
+                right: {
+                    pickYear: null,
+                    pickMonth: null,
+                    mode: this.view,
+                    date: null,
+                },
+                /*鼠标悬浮的日期*/
                 hoverDate: null,
-                startDate: null,
-                endDate,
+                /*起始时间缓存值*/
                 p_start: this.start,
+                /*截止时间缓存值*/
                 p_end: this.end,
             }
         },
         computed: {
+            /**
+             * 最大日期
+             * @author  韦胜健
+             * @date    2019/3/8 09:43
+             */
             maxDate() {
                 if (!this.max) return null
                 const maxDate = this.$plain.$utils.dateParse(this.max, this.valueFormat)
@@ -105,6 +114,11 @@
                 maxDate.setSeconds(59)
                 return maxDate
             },
+            /**
+             * 最小日期
+             * @author  韦胜健
+             * @date    2019/3/8 09:43
+             */
             minDate() {
                 if (!this.min) return null
                 const minDate = this.$plain.$utils.dateParse(this.min, this.valueFormat)
@@ -118,6 +132,11 @@
             this.p_reset()
         },
         methods: {
+            /**
+             * 重设选择年份以及月份
+             * @author  韦胜健
+             * @date    2019/3/8 09:44
+             */
             p_reset() {
                 const now = new Date()
                 let year, month, date, startDate, endDate
@@ -128,79 +147,84 @@
                 month = !!startDate ? startDate.getMonth() : now.getMonth()
                 date = !!startDate ? startDate.getDate() : now.getDate()
 
-                this.leftPickYear = year
-                this.leftPickMonth = month
+                this.left.pickYear = year
+                this.left.pickMonth = month
 
                 if (month === 11) {
-                    this.rightPickYear = year + 1
-                    this.rightPickMonth = 0
+                    this.right.pickYear = year + 1
+                    this.right.pickMonth = 0
                 } else {
-                    this.rightPickYear = year
-                    this.rightPickMonth = month + 1
+                    this.right.pickYear = year
+                    this.right.pickMonth = month + 1
                 }
 
-                this.startDate = startDate
-                this.endDate = endDate
+                this.left.date = startDate
+                this.right.date = endDate
             },
-            p_pickYear(val) {
-                this.pickYear = val
-                if (this.view === 'year') {
-                    const newDate = new Date()
-                    newDate.setFullYear(val)
-                    this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
-                } else {
-                    this.mode = 'month'
-                }
-            },
-            p_pickMonth(val) {
-                this.pickMonth = val
-                if (this.view === 'month') {
-                    const newDate = new Date()
-                    newDate.setFullYear(this.pickYear)
-                    newDate.setMonth(val)
-                    this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
-                } else {
-                    this.mode = 'date'
-                }
-            },
+            /**
+             * 处理日期面板选择日期事件
+             * @author  韦胜健
+             * @date    2019/3/8 09:47
+             */
             p_pickDate(newDate) {
-                if (!this.startDate) {
-                    this.startDate = newDate
+                if (!this.left.date) {
+                    this.left.date = newDate
                     return
                 }
-                if (!this.endDate) {
-                    const startTime = this.startDate.getTime()
+                if (!this.right.date) {
+                    const startTime = this.left.date.getTime()
                     const newTime = newDate.getTime()
                     if (startTime > newTime) {
-                        this.endDate = this.startDate
-                        this.startDate = newDate
+                        this.right.date = this.left.date
+                        this.left.date = newDate
                     } else {
-                        this.endDate = newDate
+                        this.right.date = newDate
                     }
-                    this.p_start = this.$plain.$utils.dateFormat(this.startDate, this.valueFormat)
-                    this.p_end = this.$plain.$utils.dateFormat(this.endDate, this.valueFormat)
+                    this.p_start = this.$plain.$utils.dateFormat(this.left.date, this.valueFormat)
+                    this.p_end = this.$plain.$utils.dateFormat(this.right.date, this.valueFormat)
                     return
                 }
-                this.startDate = newDate
-                this.endDate = null
+                this.left.date = newDate
+                this.right.date = null
             },
+
+            /**
+             * 左侧日期头年份变化处理
+             * @author  韦胜健
+             * @date    2019/3/8 09:47
+             */
             p_leftPickYearChange(val) {
-                this.leftPickYear = val
-                this.rightPickYear = this.leftPickMonth === 11 ? val + 1 : val
+                this.left.pickYear = val
+                this.right.pickYear = this.left.pickMonth === 11 ? val + 1 : val
             },
+            /**
+             * 左侧日期头月份变化处理
+             * @author  韦胜健
+             * @date    2019/3/8 09:47
+             */
             p_leftPickMonthChange(val) {
-                this.leftPickMonth = val
-                this.rightPickMonth = val === 11 ? 0 : val + 1
-                this.rightPickYear = val === 11 ? this.leftPickYear + 1 : this.leftPickYear
+                this.left.pickMonth = val
+                this.right.pickMonth = val === 11 ? 0 : val + 1
+                this.right.pickYear = val === 11 ? this.left.pickYear + 1 : this.left.pickYear
             },
+            /**
+             * 右侧日期头年份变化处理
+             * @author  韦胜健
+             * @date    2019/3/8 09:47
+             */
             p_rightPickYearChange(val) {
-                this.rightPickYear = val
-                this.leftPickYear = this.leftPickMonth === 11 ? val - 1 : val
+                this.right.pickYear = val
+                this.left.pickYear = this.left.pickMonth === 11 ? val - 1 : val
             },
+            /**
+             * 右侧日期头月份变化处理
+             * @author  韦胜健
+             * @date    2019/3/8 09:48
+             */
             p_rightPickMonthChange(val) {
-                this.rightPickMonth = val
-                this.leftPickMonth = val === 0 ? 11 : val - 1
-                this.leftPickYear = val === 0 ? this.rightPickYear - 1 : this.rightPickYear
+                this.right.pickMonth = val
+                this.left.pickMonth = val === 0 ? 11 : val - 1
+                this.left.pickYear = val === 0 ? this.right.pickYear - 1 : this.right.pickYear
             },
         }
     }

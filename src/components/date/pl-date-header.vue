@@ -2,8 +2,10 @@
     <div class="pl-date-header">
         <div class="pl-date-header-left">
             <slot name="left">
-                <pl-icon icon="pl-double-arrow-left" class="pl-date-header-label" @click="p_pickYear--"/>
-                <pl-icon icon="pl-arrow-left" class="pl-date-header-label" @click="p_previousMonth"/>
+                <template v-if="!hideLeftButton">
+                    <pl-icon icon="pl-double-arrow-left" class="pl-date-header-label" @click="p_pickYear--"/>
+                    <pl-icon icon="pl-arrow-left" class="pl-date-header-label" @click="p_previousMonth"/>
+                </template>
             </slot>
         </div>
         <div class="pl-date-header-center">
@@ -17,8 +19,10 @@
         </div>
         <div class="pl-date-header-right">
             <slot name="right">
-                <pl-icon icon="pl-arrow-right" class="pl-date-header-label" @click="p_nextMonth"/>
-                <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label" @click="p_pickYear++"/>
+                <template v-if="!hideRightButton">
+                    <pl-icon icon="pl-arrow-right" class="pl-date-header-label" @click="p_nextMonth"/>
+                    <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label" @click="p_pickYear++"/>
+                </template>
             </slot>
         </div>
     </div>
@@ -34,6 +38,8 @@
             pickYear: {},
             pickMonth: {},
             view: {},
+            hideLeftButton: {type: Boolean},
+            hideRightButton: {type: Boolean},
         },
         watch: {
             pickYear(val) {
