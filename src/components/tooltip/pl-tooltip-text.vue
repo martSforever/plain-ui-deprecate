@@ -58,7 +58,7 @@
     .pl-tooltip-text {
         display: block;
         height: fit-content;
-        padding: 1px 0;
+        padding: 3px 0;
         .pl-tooltip-text-content {
             outline: none;
             overflow: hidden;

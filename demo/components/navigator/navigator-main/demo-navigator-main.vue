@@ -39,14 +39,20 @@
                                         path:'/navigator/navigator-main/demo-navigator-main-1',
                                         security:{oauth:'My'}
                                      }"
-            />
+            >
+                <div slot="tab">
+                    <link-button-group>
+                        <link-button label="安全性菜单"/>
+                        <link-button label="安全性菜单"/>
+                        <link-button label="安全性菜单"/>
+                    </link-button-group>
+                </div>
+            </link-navigator-main-tab>
         </div>
     </div>
 </template>
 
 <script>
-
-    import DemoNavigatorMainError from './demo-navigator-main-error'
 
     export default {
         name: "demo-navigator-main",
