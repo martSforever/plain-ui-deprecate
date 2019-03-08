@@ -13,31 +13,33 @@
             :width="150"
             :disabled-equal="disabledEqual">
 
-        <pl-input
-                :value="currentValue"
-                :box-type="boxType"
-                :box-color="boxColor"
-                :box-size="boxSize"
-                :box-shape="boxShape"
-                :suffix-icon="suffixIcon"
-                :prefix-icon="prefixIcon"
-                :clear-icon="'pl-time'"
-                :clearable="clearable"
-                :loading="loading"
-                :readonly="inputReadonly"
-                :disabled="disabled"
-                :padding="padding"
-                :long="long"
-                :width="inputWidth"
-                :hover="hover"
-                :required="required"
-                :rules="rules"
-                :valid-on-init="validOnInit"
+        <slot :value="currentValue">
+            <pl-input
+                    :value="currentValue"
+                    :box-type="boxType"
+                    :box-color="boxColor"
+                    :box-size="boxSize"
+                    :box-shape="boxShape"
+                    :suffix-icon="suffixIcon"
+                    :prefix-icon="prefixIcon"
+                    :clear-icon="'pl-time'"
+                    :clearable="clearable"
+                    :loading="loading"
+                    :readonly="inputReadonly"
+                    :disabled="disabled"
+                    :padding="padding"
+                    :long="long"
+                    :width="inputWidth"
+                    :hover="hover"
+                    :required="required"
+                    :rules="rules"
+                    :valid-on-init="validOnInit"
 
-                :default-clear="false"
-                :placeholder="placeholder"
-                @clear="e=>!readonly && !disabled && p_clear(e)"
-        />
+                    :default-clear="false"
+                    :placeholder="placeholder"
+                    @clear="e=>!readonly && !disabled && p_clear(e)"
+            />
+        </slot>
         <pl-time-panel slot="popper" v-model="currentValue" :max="max" :min="min"/>
     </pl-popover>
 </template>

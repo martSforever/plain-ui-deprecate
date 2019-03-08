@@ -11,6 +11,13 @@
         <demo-row title="最大最小值,max=12:12:12,min=05:05:05">
             <link-time v-model="val[0]" max="12:12:12" min="05:05:05"/>
         </demo-row>
+        <demo-row title="自定义内容">
+            <link-time v-model="val[2]">
+                <template slot-scope="{value}">
+                    <span>{{value}}</span>
+                </template>
+            </link-time>
+        </demo-row>
     </div>
 </template>
 
@@ -24,6 +31,7 @@
             return {
                 val: {
                     1: '12:08:09',
+                    2: '12:30:00',
                 },
             }
         },
