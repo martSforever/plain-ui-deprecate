@@ -1,8 +1,8 @@
 <template>
     <div class="pl-navigator-main-tab">
         <div class="pl-navigator-main-tab-wrapper">
-            <div class="pl-navigator-main-tab-header-wrapper">
-                <div class="pl-navigator-main-tab-header">
+            <div class="pl-navigator-main-tab-header-wrapper" v-if="!hideHeader">
+            <div class="pl-navigator-main-tab-header">
                     <div class="pl-navigator-main-tab-header-item"
                          v-for="(item,index) in pageStack"
                          :key="index"
@@ -72,6 +72,7 @@
             idGenerator: {type: Function, required: true},                      //Tab页签id生成函数
             pageRegistryErrorHandler: {type: Function},                         //请求页面js文件出错处理
             page404: {type: String},                                            //找不到页面时，显示的404页面
+            hideHeader: {type: Boolean},                                        //是否隐藏header
         },
         data() {
             let pageStack = []
