@@ -72,6 +72,7 @@
                 this.pageStack.length !== 1 && !!this.afterPush && (await this.afterPush(page, this.tab))
                 await this.p_save()
                 this.$emit('push', {path, param})
+                this.$emit('refreshUrl')
             },
             /**
              * 回退页面
@@ -103,6 +104,7 @@
                 /*保存*/
                 await this.p_save()
                 this.$emit('back', {path, param})
+                this.$emit('refreshUrl')
                 return {path, param}
             },
             /**
@@ -125,6 +127,7 @@
                 this.p_save()
                 this.$emit('push', {path, param})
                 this.$emit('redirect', {path, param})
+                this.$emit('refreshUrl')
             },
             /**
              * 回退所有页面
@@ -141,6 +144,7 @@
                 this.pageStack.splice(1, this.pageStack.length)
                 await this.p_save()
                 this.$emit('backAll')
+                this.$emit('refreshUrl')
             },
             /**
              * 保存当前页面信息

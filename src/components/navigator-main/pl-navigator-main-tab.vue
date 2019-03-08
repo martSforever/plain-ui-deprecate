@@ -2,7 +2,7 @@
     <div class="pl-navigator-main-tab">
         <div class="pl-navigator-main-tab-wrapper">
             <div class="pl-navigator-main-tab-header-wrapper" v-if="!hideHeader">
-            <div class="pl-navigator-main-tab-header">
+                <div class="pl-navigator-main-tab-header">
                     <div class="pl-navigator-main-tab-header-item"
                          v-for="(item,index) in pageStack"
                          :key="index"
@@ -44,7 +44,9 @@
                         :after-push="afterPush"
                         :page-registry="p_pageRegistry"
                         v-if="item.init"
-                        v-show="currentValue === index"/>
+                        v-show="currentValue === index"
+
+                        @refreshUrl="p_refreshUrl"/>
             </div>
         </div>
     </div>
@@ -82,10 +84,14 @@
                 pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false}, item))
                 this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
             }
+
+            let url = window.location.href
+            url = url.substring(0, url.indexOf("?"))
             return {
                 pageStack,
                 selfStorage,
                 currentValue: null,
+                url,
             }
         },
         created() {
@@ -162,6 +168,7 @@
                 !!this.afterOpenTab && (await this.afterOpenTab(page))
                 this.p_save()
                 this.$emit('openTab', page)
+                this.p_refreshUrl()
                 return page
             },
             /**
@@ -316,6 +323,15 @@
                     if (!!this.page404) return await this.$plain.pageRegistry(this.page404)
                     return Promise.reject(e.message)
                 }
+            },
+            async p_refreshUrl() {
+                await this.$plain.$utils.delay(100)
+                let tabStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.TAB) || {}
+                let pageStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
+                const curTab = tabStorage.pageStack[this.currentValue]
+                const curPageStack = (pageStorage[curTab.id] || {}).pageStack || []
+                const curPage = curPageStack[curPageStack.length - 1] || {path: 'none'}
+                window.history.pushState({}, null, this.url + `?menu=${curTab.path},page=${curPage.path}`)
             },
         },
         beforeDestroy() {
