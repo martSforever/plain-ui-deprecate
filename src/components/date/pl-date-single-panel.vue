@@ -14,6 +14,9 @@
                 :value-date="valueDate"
                 :max-date="maxDate"
                 :min-date="minDate"
+                :now-year="nowYear"
+                :now-month="nowMonth"
+                :now-day="nowDay"
 
                 @update:pickYear="p_pickYear"
                 @update:pickMonth="p_pickMonth"
@@ -37,6 +40,9 @@
             datetime: {type: Boolean},
             maxDate: {},
             minDate: {},
+            nowYear: {},                                    //当前年份
+            nowMonth: {},                                   //当前月份
+            nowDay: {},                                     //当前日
         },
         watch: {
             value(val) {

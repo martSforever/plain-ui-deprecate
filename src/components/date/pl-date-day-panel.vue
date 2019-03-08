@@ -282,7 +282,7 @@
                 }
                 &.pl-date-day-panel-item-disabled {
                     .pl-date-day-panel-item-inner {
-                        background-color: #ffd9ce;
+                        background-color: $color-normal-background-error;
                         border-radius: $dateBorderRadius;
                         color: white;
                     }

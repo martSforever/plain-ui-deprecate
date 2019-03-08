@@ -19,14 +19,14 @@
                 <link-date v-model="val[1]" view="year" max="2020" min="2018"/>
             </demo-row-item>
             <demo-row-item title="月">
-                <link-date v-model="val[2]" view="month" max="2020-05" min="2018-01"/>
+                <link-date v-model="val[2]" view="month" max="2020-05" min="2018-04"/>
             </demo-row-item>
             <demo-row-item title="日">
-                <link-date v-model="val[3]" view="date" max="2020-05-05" min="2018-01-01"/>
+                <link-date v-model="val[3]" view="date" max="2020-05-05" min="2018-04-01"/>
             </demo-row-item>
         </demo-row>
-        <!--<demo-row title="最大最小时间,max=2020-05-05，min=2018-01-01">
-            <link-date v-model="val[4]" max="2020-05-05" min="2018-01-01"/>
+        <!--<demo-row title="最大最小时间,max=2020-05-05，min=2018-04-01">
+            <link-date v-model="val[4]" max="2020-05-05" min="2018-04-01"/>
         </demo-row>
         <demo-row :title="`值以及显示值格式化:${val[5]}`">
             <link-date v-model="val[5]" valueFormat="YYYYMMDD" displayFormat="YYYY年MM月DD日"/>
@@ -34,8 +34,8 @@
         <demo-row :title="`日期范围:${val[6]}-${val[7]}`">
             <link-date :start.sync="val[6]" :end.sync="val[7]" range/>
         </demo-row>
-        <demo-row :title="`日期范围,最大最小值：max=2020-05-05，min=2018-01-01`">
-            <link-date :start.sync="val[6]" :end.sync="val[7]" range max="2020-05-05" min="2018-01-01"/>
+        <demo-row :title="`日期范围,最大最小值：max=2020-05-05，min=2018-04-01`">
+            <link-date :start.sync="val[6]" :end.sync="val[7]" range max="2020-05-05" min="2018-04-01"/>
         </demo-row>-->
     </div>
 </template>

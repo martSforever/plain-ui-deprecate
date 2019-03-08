@@ -37,6 +37,9 @@
                         :max-date="p_maxDate"
                         :min-date="p_minDate"
                         :view="view"
+                        :now-year="nowYear"
+                        :now-month="nowMonth"
+                        :now-day="nowDay"
 
                         @input="p_valueChange"/>
             </div>
@@ -102,12 +105,18 @@
             },
         },
         data() {
+            const nowDate = new Date()
             return {
                 p_watchCurrentValue: false,
                 p_value: this.value,
                 p_start: this.start,
                 p_end: this.end,
                 p_show: this.show,
+
+                nowDate,
+                nowYear: nowDate.getFullYear(),
+                nowMonth: nowDate.getMonth(),
+                nowDay: nowDate.getDate()
             }
         },
         computed: {
@@ -131,11 +140,11 @@
                 const date = this.$plain.$utils.dateParse(this.max, this.p_vf)
 
                 if (this.view === 'year') {
+                    date.setDate(1)
                     date.setMonth(0)
-                    date.setDate(0)
                 }
                 if (this.view === 'month') {
-                    date.setDate(0)
+                    date.setDate(1)
                 }
 
                 date.setHours(23)
@@ -148,16 +157,16 @@
                 const date = this.$plain.$utils.dateParse(this.min, this.p_vf)
 
                 if (this.view === 'year') {
+                    date.setDate(1)
                     date.setMonth(0)
-                    date.setDate(0)
                 }
                 if (this.view === 'month') {
-                    date.setDate(0)
+                    date.setDate(1)
                 }
 
-                date.setHours(23)
-                date.setMinutes(59)
-                date.setSeconds(59)
+                date.setHours(0)
+                date.setMinutes(0)
+                date.setSeconds(0)
                 return date
             },
         },

@@ -2,7 +2,17 @@
     <div class="pl-date-panel">
         <div class="pl-date-panel-body">
             <pl-date-year-panel :value="pickYear" :current-year="year" @input="p_changePickYear" v-if="mode === 'year'"/>
-            <pl-date-month-panel :value="pickMonth" :current-month="month" @input="p_changePickMonth" v-else-if="mode === 'month'"/>
+            <pl-date-month-panel :value="pickMonth"
+                                 :current-month="month"
+                                 :current-year="year"
+                                 :pick-year="p_pickYear"
+                                 :max-date="maxDate"
+                                 :min-date="minDate"
+                                 :now-year="nowYear"
+                                 :now-month="nowMonth"
+                                 :now-day="nowDay"
+                                 @input="p_changePickMonth"
+                                 v-else-if="mode === 'month'"/>
             <pl-date-day-panel
                     v-else
                     :year="p_pickYear"
@@ -40,6 +50,9 @@
             hoverDate: {},                                  //鼠标浮动所处的日期
             maxDate: {},                                    //最大可选日期
             minDate: {},                                    //最小可选日期
+            nowYear: {},                                    //当前年份
+            nowMonth: {},                                   //当前月份
+            nowDay: {},                                     //当前日
         },
         watch: {
             pickYear(val) {

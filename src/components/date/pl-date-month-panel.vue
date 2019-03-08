@@ -7,12 +7,13 @@
                  :key="index">
                 <div class="pl-date-month-panel-item"
                      :class="{
-                        'pl-date-month-panel-item-active':item===currentMonth,
-                        'pl-date-month-panel-item-pick-month':item===currentValue,
-                        'pl-date-month-panel-item-now':item === nowMonth,
+                        'pl-date-month-panel-item-active':item.active,
+                        'pl-date-month-panel-item-pick-month':item.pickMonth,
+                        'pl-date-month-panel-item-now':item .now,
+                        'pl-date-month-panel-item-disabled':item.disabled,
                      }">
                     <!--{{$amlocale.date.month[item]}}-->
-                    {{item+1}}月
+                    {{item.val+1}}月
                 </div>
             </div>
         </div>
@@ -27,18 +28,40 @@
         mixins: [ValueMixin],
         props: {
             currentMonth: {},
+            currentYear: {},
+            pickYear: {},
+            maxDate: {},
+            minDate: {},
+            nowYear: {},                                    //当前年份
+            nowMonth: {},                                   //当前月份
+            nowDay: {},                                     //当前日
         },
         data() {
             return {
                 p_watchCurrentValue: false,
-                list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                nowMonth: new Date().getMonth()
             }
+        },
+        computed: {
+            list() {
+                const ret = []
+                for (let i = 0; i < 12; i++) {
+                    const date = new Date(this.pickYear, i, 1, 0, 0, 0)
+                    ret.push({
+                        val: i,
+                        active: i === this.currentMonth && this.currentYear === this.pickYear,
+                        pickMonth: i === this.currentValue,
+                        now: i === this.nowMonth && this.nowYear === this.pickYear,
+                        disabled: (!!this.maxDate && date.getTime() > this.maxDate.getTime()) || (!!this.minDate && date.getTime() < this.minDate.getTime()),
+                    })
+                }
+                return ret
+            },
         },
         methods: {
             p_clickItem(item) {
-                this.currentValue = item
-                this.$emit('input', item)
+                if (!!item.disabled) return
+                this.currentValue = item.val
+                this.$emit('input', item.val)
             },
         },
     }
@@ -78,6 +101,9 @@
                     &.pl-date-month-panel-item-active {
                         background-color: $color-primary;
                         color: white;
+                    }
+                    &.pl-date-month-panel-item-disabled {
+                        background-color: $color-normal-background-error;
                     }
                 }
             }
