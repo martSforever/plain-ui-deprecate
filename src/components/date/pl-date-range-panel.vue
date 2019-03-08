@@ -17,7 +17,9 @@
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
                     :min-date="minDate"
-                    @pickDate="p_pickDate"/>
+                    @pickDate="p_pickDate"
+                    @update:pickYear="p_leftPickYearSelect"
+                    @update:pickMonth="p_leftPickMonthSelect"/>
         </div>
         <div class="pl-date-range-panel-right">
             <pl-date-header :pick-year="right.pickYear"
@@ -36,7 +38,9 @@
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
                     :min-date="minDate"
-                    @pickDate="p_pickDate"/>
+                    @pickDate="p_pickDate"
+                    @update:pickYear="p_rightPickYearSelect"
+                    @update:pickMonth="p_rightPickMonthSelect"/>
         </div>
     </div>
 </template>
@@ -180,8 +184,7 @@
                     } else {
                         this.right.date = newDate
                     }
-                    this.p_start = this.$plain.$utils.dateFormat(this.left.date, this.valueFormat)
-                    this.p_end = this.$plain.$utils.dateFormat(this.right.date, this.valueFormat)
+                    this.p_emitVal()
                     return
                 }
                 this.left.date = newDate
@@ -208,6 +211,32 @@
                 this.right.pickYear = val === 11 ? this.left.pickYear + 1 : this.left.pickYear
             },
             /**
+             * 左侧日期面板选择年份处理
+             * @author  韦胜健
+             * @date    2019/3/8 10:03
+             */
+            p_leftPickYearSelect(val) {
+                this.p_leftPickYearChange(val)
+                if (this.view === 'year') {
+                    this.p_emitVal()
+                    return
+                }
+                this.left.mode = 'month'
+            },
+            /**
+             * 左侧日期面板选择月份处理
+             * @author  韦胜健
+             * @date    2019/3/8 10:03
+             */
+            p_leftPickMonthSelect(val) {
+                this.p_leftPickMonthChange(val)
+                if (this.view === 'month') {
+                    this.p_emitVal()
+                    return
+                }
+                this.left.mode = 'date'
+            },
+            /**
              * 右侧日期头年份变化处理
              * @author  韦胜健
              * @date    2019/3/8 09:47
@@ -225,6 +254,29 @@
                 this.right.pickMonth = val
                 this.left.pickMonth = val === 0 ? 11 : val - 1
                 this.left.pickYear = val === 0 ? this.right.pickYear - 1 : this.right.pickYear
+            },
+            p_rightPickYearSelect(val) {
+                this.p_rightPickYearChange(val)
+                if (this.view === 'year') {
+                    this.p_emitVal()
+                    return
+                }
+                this.right.mode = 'month'
+            },
+            p_rightPickMonthSelect(val) {
+                this.p_rightPickMonthChange(val)
+                if (this.view === 'month') {
+                    this.p_emitVal()
+                    return
+                }
+                this.right.mode = 'date'
+            },
+
+            async p_emitVal() {
+                this.p_start = this.$plain.$utils.dateFormat(this.left.date, this.valueFormat)
+                this.p_end = this.$plain.$utils.dateFormat(this.right.date, this.valueFormat)
+                await this.$plain.nextTick()
+                this.$emit('change')
             },
         }
     }

@@ -16,7 +16,7 @@
                     :defaultClear="false"
                     @clear="e=>!readonly && !disabled && p_clear(e)"
             />
-            <div slot="popper">
+            <div slot="popper" class="pl-date-popper">
                 <pl-date-range-panel
                         v-if="range"
                         :start.sync="p_start"
@@ -26,7 +26,8 @@
                         :value-format="p_vf"
                         :max="max"
                         :min="min"
-                        :view="view"/>
+                        :view="view"
+                        @change="p_show = false"/>
                 <pl-date-single-panel
                         v-else
                         :value="p_value"
@@ -138,5 +139,9 @@
     .pl-date {
         @include public-style;
         display: inline-block;
+    }
+
+    .pl-date-popper {
+        padding: 0 8px 0px 8px;
     }
 </style>
