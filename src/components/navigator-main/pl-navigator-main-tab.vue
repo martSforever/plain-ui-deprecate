@@ -256,8 +256,8 @@
              * @date    2019/3/5 18:54
              */
             async p_openPage(page) {
-                const {id, title, path, param, security, data} = page
-                return this.open({id, title, path, param, security, data})
+                const {id, title, path, param, security, data, iframe} = page
+                return this.open({id, title, path, param, security, data, iframe})
             },
             /**
              * 处理标签标题关闭事件
