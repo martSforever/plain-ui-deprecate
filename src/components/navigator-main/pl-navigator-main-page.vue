@@ -8,6 +8,7 @@
                     :key="page.id"
                     :path="page.path"
                     :is="page.component"
+                    :src="page.path"
 
                     :pageTabData="tabData"
                     :pageSecurity="page.security || tab.security"
@@ -30,7 +31,7 @@
             tab: {},                                                            //tab数据信息
             beforePush: {type: Function},                                       //打开页面之前的钩子函数
             afterPush: {type: Function},                                        //打开页面之后的钩子函数
-            pageRegistry: {type: Function},                                     //注册页面
+            getPageComponent: {type: Function},                                     //注册页面
         },
         data() {
             let pageStack = []
@@ -44,7 +45,7 @@
                 }, item))
                 this.$nextTick(() => this.p_initComponent())
             } else {
-                this.$nextTick(() => this.push(this.tab.path, this.tab.param))
+                this.$nextTick(() => this.push(this.tab.path, this.tab.param, null, this.tab.iframe))
             }
 
             return {
@@ -64,9 +65,9 @@
              * @author  韦胜健
              * @date    2019/3/6 11:41
              */
-            async push(path, param, security) {
-                const component = await this.pageRegistry(path)
-                const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true, security}
+            async push(path, param, security, iframe = false) {
+                const component = await this.getPageComponent(path, iframe)
+                const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true, security, iframe}
                 this.pageStack.length !== 0 && !!this.beforePush && (await this.beforePush(page, this.tab))
                 this.pageStack.push(page)
                 this.pageStack.length !== 1 && !!this.afterPush && (await this.afterPush(page, this.tab))
@@ -92,28 +93,28 @@
                 /*初始化需要初始化的页面*/
                 this.pageStack.forEach(async (page, index) => {
                     if (!page.init && index >= (this.pageStack.length - 2 - num)) {
-                        page.component = await this.pageRegistry(page.path)
+                        page.component = await this.getPageComponent(page.path, page.iframe)
                         page.init = true
                     }
                 })
                 await this.$plain.nextTick()
 
                 /*弹出页面*/
-                const {path, param} = this.pageStack.pop()
+                const popPge = this.pageStack.pop()
 
                 /*保存*/
                 await this.p_save()
-                this.$emit('back', {path, param})
+                this.$emit('back', popPge)
                 this.$emit('refreshUrl')
-                return {path, param}
+                return popPge
             },
             /**
              * 重定向到页面
              * @author  韦胜健
              * @date    2019/3/6 11:41
              */
-            async redirect(path, param, security) {
-                const component = await this.pageRegistry(path)
+            async redirect(path, param, security, iframe) {
+                const component = await this.getPageComponent(path, iframe)
                 this.pageStack.push({
                     id: this.$plain.$utils.uuid(),
                     path,
@@ -121,6 +122,7 @@
                     component,
                     init: true,
                     security,
+                    iframe,
                 })
                 await this.$plain.nextTick()
                 this.pageStack.splice(this.pageStack.length - 2, 1)
@@ -137,7 +139,7 @@
             async backoff() {
                 const page = this.pageStack[0]
                 if (!page.init) {
-                    page.component = await this.pageRegistry(page.path)
+                    page.component = await this.getPageComponent(page.path, page.iframe)
                     page.init = true
                 }
                 await this.$plain.nextTick()
@@ -152,7 +154,7 @@
              * @date    2019/3/6 11:42
              */
             async p_save() {
-                this.selfStorage.pageStack = this.pageStack.map(({id, path, param, security}) => ({id, path, param, security}))
+                this.selfStorage.pageStack = this.pageStack.map(({id, path, param, security, iframe}) => ({id, path, param, security, iframe}))
                 this.componentStorage[this.tab.id] = this.selfStorage
                 this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
             },
@@ -164,7 +166,7 @@
             async p_initComponent() {
                 for (let i = this.pageStack.length - 1; i >= 0; i--) {
                     const page = this.pageStack[i];
-                    if (!!page.init && !page.component) page.component = await this.pageRegistry(page.path)
+                    if (!!page.init && !page.component) page.component = await this.getPageComponent(page.path, page.iframe)
                 }
             },
         }
@@ -195,6 +197,11 @@
                 background-color: white;
                 padding: 16px;
                 z-index: 1;
+            }
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
             }
         }
     }

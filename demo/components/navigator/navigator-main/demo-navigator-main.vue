@@ -75,12 +75,13 @@
                     {id: 'lll', title: 'Input输入框Input输入框Input输入框', path: '/demo-input', param: {}, security: {}, data: {}},
                     {id: 'mmm', title: 'Radio单选复选框Radio单选复选框', path: '/demo-radio', param: {}, security: {}, data: {}},
                     {id: 'nnn', title: 'Rate评分', path: '/demo-rate', param: {}, security: {}, data: {}},
+                    {id: 'nnn', title: '页签：VueCLI3', path: 'https://cli.vuejs.org/zh/config/', param: {}, security: {}, data: {}, iframe: true},
                 ]
             }
         },
         methods: {
-            openTab({id, title, path, param, security, data}) {
-                this.$nav.openTab({id, title, path, param, security, data})
+            openTab({id, title, path, param, security, data, iframe}) {
+                this.$nav.openTab({id, title, path, param, security, data, iframe})
             },
             openPage() {
 

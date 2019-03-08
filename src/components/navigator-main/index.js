@@ -40,8 +40,8 @@ class NavigatorService {
      * @author  韦胜健
      * @date    2019/3/6 11:23
      */
-    async openTab({id, title, path, param, security, data}, refresh = false) {
-        return await this.tab.open({id, title, path, param, security, data}, refresh)
+    async openTab({id, title, path, param, security, data, iframe}, refresh = false) {
+        return await this.tab.open({id, title, path, param, security, data, iframe}, refresh)
     }
 
     /**
@@ -78,8 +78,8 @@ class NavigatorService {
      * @author  韦胜健
      * @date    2019/2/27 15:29
      */
-    async push(path, param, security) {
-        if (!!this.page) return await this.page.push(path, param, security)
+    async push(path, param, security, iframe) {
+        if (!!this.page) return await this.page.push(path, param, security, iframe)
     }
 
     /**
@@ -87,8 +87,8 @@ class NavigatorService {
      * @author  韦胜健
      * @date    2019/2/27 15:30
      */
-    async redirect(path, param, security) {
-        this.page.redirect(path, param, security)
+    async redirect(path, param, security, iframe) {
+        this.page.redirect(path, param, security, iframe)
     }
 
     /**

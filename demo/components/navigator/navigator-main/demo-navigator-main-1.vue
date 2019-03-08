@@ -8,6 +8,7 @@
         <link-button label="打开页签四" @click="openTab"/>
         <link-button label="打开页面五" @click="openPage"/>
         <link-button label="不存在的页面" @click="openErrorPage"/>
+        <link-button label="打开页面：VueCLI3" @click="openVueCli3"/>
         <link-button label="打印日志" @click="log"/>
     </div>
 </template>
@@ -44,6 +45,9 @@
             },
             openErrorPage() {
                 this.$nav.push('/navigator/navigator-main/demo-navigator-main-iii')
+            },
+            openVueCli3() {
+                this.$nav.push('https://cli.vuejs.org/zh/config/', null, null, true)
             },
         }
     }

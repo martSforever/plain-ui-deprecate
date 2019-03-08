@@ -42,7 +42,7 @@
                         :tab="item"
                         :before-push="beforePush"
                         :after-push="afterPush"
-                        :page-registry="p_pageRegistry"
+                        :get-page-component="p_getPageComponent"
                         v-if="item.init"
                         v-show="currentValue === index"
 
@@ -124,11 +124,12 @@
              * @param   data        tab页签额外的数据
              * @param   security    tab的安全性
              * @param   refresh     如果页面已经打开，是否刷新页面
+             * @param   iframe      页签是否显示的是一个外部网页地址
              */
-            async open({id, title, path, param, security, data}, refresh = false) {
+            async open({id, title, path, param, security, data, iframe}, refresh = false) {
 
                 /*预处理*/
-                const openData = {id, title, path, param, security, data}
+                const openData = {id, title, path, param, security, data, iframe}
                 if (!openData.id) openData.id = this.idGenerator(openData)
                 !!this.beforeOpenTab && (await this.beforeOpenTab(openData))
                 id = openData.id
@@ -137,6 +138,7 @@
                 param = openData.param
                 security = openData.security
                 data = openData.data
+                iframe = openData.iframe
 
                 if (!id) return Promise.reject("打开Tab页时，id不能为空！")
 
@@ -145,7 +147,7 @@
                 if (page != null) {
                     if (refresh) await this.refresh(id)
                     if (!page.init) {
-                        page.component = await this.p_pageRegistry(path)
+                        page.component = await this.p_getPageComponent(path, iframe)
                         page.init = true
                     }
                     Object.assign(page, openData)
@@ -158,9 +160,9 @@
                 }
                 else {
                     /*打开新标签页*/
-                    const pc = await this.p_pageRegistry(path)
+                    const pc = await this.p_getPageComponent(path, iframe)
                     if (!pc) return
-                    page = {id, title, path, param, security, data, component: pc, init: true}
+                    page = {id, title, path, param, security, data, component: pc, init: true, iframe}
                     this.pageStack.push(page)
                     await this.$plain.nextTick()
                     this.currentValue = this.pageStack.length - 1
@@ -296,7 +298,7 @@
              */
             p_save() {
                 this.selfStorage.index = this.currentValue;
-                this.selfStorage.pageStack = this.pageStack.map(({id, title, path, param, security, data}) => ({id, title, path, param, security, data}))
+                this.selfStorage.pageStack = this.pageStack.map(({id, title, path, param, security, data, iframe}) => ({id, title, path, param, security, data, iframe}))
                 this.$plain.$storage.set(NAVIGATOR_CONSTANT.TAB, this.selfStorage)
             },
             /**
@@ -308,6 +310,15 @@
                 const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
                 componentStorage[id] = null
                 this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
+            },
+            /**
+             * 获取页面组件对象
+             * @author  韦胜健
+             * @date    2019/3/8 17:53
+             */
+            async p_getPageComponent(path, iframe) {
+                if (iframe) return 'iframe'
+                return await this.p_pageRegistry(path)
             },
             /**
              * 自定义注册页面
