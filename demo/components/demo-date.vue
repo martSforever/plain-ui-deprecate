@@ -38,6 +38,9 @@
         <demo-row :title="`日期时间选择:${val[10]}`">
             <link-date v-model="val[10]" datetime/>
         </demo-row>
+        <demo-row :title="`日期范围:${val[6]}-${val[7]}`">
+            <link-date :start.sync="val[6]" :end.sync="val[7]" range/>
+        </demo-row>
     </div>
 </template>
 

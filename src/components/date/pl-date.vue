@@ -1,6 +1,7 @@
 <template>
     <div class="pl-date">
         <pl-popover
+                ref="popover"
                 v-bind="popoverBinding"
                 v-model="p_show"
                 disabledEqual
@@ -50,7 +51,7 @@
 
 <script>
     import PlDatePanel from "./pl-date-panel";
-    import {BoxMixin, InputMixin} from "../../mixin/component-mixin";
+    import {InputMixin} from "../../mixin/component-mixin";
     import {DateUtil} from "./index";
     import PlDateSinglePanel from "./pl-date-single-panel";
     import PlInput from "../input/pl-input";
@@ -103,6 +104,15 @@
             },
             p_show(val) {
                 if (this.show !== val) this.$emit('update:show', val)
+                if (!!val) {
+                    this.$nextTick(() => {
+                        const times = this.$plain.$dom.findComponentsDownward(this, 'pl-time')
+                        this.timeEls = times.map(item => item.$refs.panel.$el)
+                        this.timeEls.forEach(el => this.$refs.popover.addRelateEl(el))
+                    })
+                } else {
+                    this.timeEls.forEach(el => this.$refs.popover.removeRelateEl(el))
+                }
             },
         },
         data() {
@@ -117,7 +127,8 @@
                 nowDate,
                 nowYear: nowDate.getFullYear(),
                 nowMonth: nowDate.getMonth(),
-                nowDay: nowDate.getDate()
+                nowDay: nowDate.getDate(),
+                timeEls: [],
             }
         },
         computed: {

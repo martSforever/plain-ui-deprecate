@@ -7,7 +7,17 @@
                             hide-right-button
                             @update:pickYear="p_leftPickYearChange"
                             @update:pickMonth="p_leftPickMonthChange"
-                            @changeMode="val=>left.mode = val"/>
+                            @changeMode="val=>left.mode = val">
+                <pl-time :value="left.time"
+                         arrow
+                         animate="scale"
+                         initialized
+                         slot="time">
+                    <template slot-scope="{value}">
+                        <span class="pl-date-time">{{value}}</span>
+                    </template>
+                </pl-time>
+            </pl-date-header>
             <pl-date-panel
                     :start-date="left.date"
                     :end-date="right.date"
@@ -28,7 +38,17 @@
                             hide-left-button
                             @update:pickYear="p_rightPickYearChange"
                             @update:pickMonth="p_rightPickMonthChange"
-                            @changeMode="val=>right.mode = val"/>
+                            @changeMode="val=>right.mode = val">
+                <pl-time :value="right.time"
+                         arrow
+                         animate="scale"
+                         initialized
+                         slot="time">
+                    <template slot-scope="{value}">
+                        <span class="pl-date-time">{{value}}</span>
+                    </template>
+                </pl-time>
+            </pl-date-header>
             <pl-date-panel
                     :start-date="left.date"
                     :end-date="right.date"
@@ -48,10 +68,11 @@
 <script>
     import PlDateHeader from "./pl-date-header";
     import PlDatePanel from "./pl-date-panel";
+    import PlTime from "../time/pl-time";
 
     export default {
         name: "pl-date-range-panel",
-        components: {PlDatePanel, PlDateHeader},
+        components: {PlTime, PlDatePanel, PlDateHeader},
         props: {
             start: {type: String},                                  //开始日期字符串
             end: {type: String},                                    //截止日期字符串
@@ -88,6 +109,7 @@
                     pickMonth: null,
                     mode: this.view,
                     date: null,
+                    time: '10:00:00',
                 },
                 /*右边缓存数据*/
                 right: {
@@ -95,6 +117,7 @@
                     pickMonth: null,
                     mode: this.view,
                     date: null,
+                    time: '10:00:00',
                 },
                 /*鼠标悬浮的日期*/
                 hoverDate: null,

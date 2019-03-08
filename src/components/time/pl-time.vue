@@ -20,7 +20,7 @@
                     @clear="e=>!readonly && !disabled && p_clear(e)"
             />
         </slot>
-        <pl-time-panel slot="popper" v-model="currentValue" :max="max" :min="min"/>
+        <pl-time-panel slot="popper" v-model="currentValue" :max="max" :min="min" ref="panel"/>
     </pl-popover>
 </template>
 

@@ -5,6 +5,9 @@
                         :view="view"
                         @changeMode="val=>mode = val">
             <pl-time :value="p_time"
+                     arrow
+                     animate="scale"
+                     initialized
                      slot="time">
                 <template slot-scope="{value}">
                     <span class="pl-date-time">{{value}}</span>
