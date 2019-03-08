@@ -194,5 +194,9 @@
 
     .pl-date-popper {
         padding: 0 8px 0px 8px;
+        .pl-date-time {
+            font-size: 12px;
+            color: $color-primary;
+        }
     }
 </style>

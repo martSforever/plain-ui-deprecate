@@ -3,7 +3,14 @@
         <pl-date-header :pick-year.sync="pickYear"
                         :pick-month.sync="pickMonth"
                         :view="view"
-                        @changeMode="val=>mode = val"/>
+                        @changeMode="val=>mode = val">
+            <pl-time :value="p_time"
+                     slot="time">
+                <template slot-scope="{value}">
+                    <span class="pl-date-time">{{value}}</span>
+                </template>
+            </pl-time>
+        </pl-date-header>
         <pl-date-panel
                 :pick-year="pickYear"
                 :pick-month="pickMonth"
@@ -28,10 +35,11 @@
 <script>
     import PlDatePanel from "./pl-date-panel";
     import PlDateHeader from "./pl-date-header";
+    import PlTime from "../time/pl-time";
 
     export default {
         name: "pl-date-single-panel",
-        components: {PlDateHeader, PlDatePanel},
+        components: {PlTime, PlDateHeader, PlDatePanel},
         props: {
             value: {},
             displayFormat: {type: String,},
@@ -69,6 +77,7 @@
                 date: null,
                 valueDate: null,
                 p_value: this.value,
+                p_time: '08:00:00'
             }
         },
         created() {

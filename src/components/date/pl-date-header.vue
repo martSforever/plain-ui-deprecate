@@ -15,9 +15,7 @@
                     <span>-</span>
                     <span class="pl-date-header-label" @click="$emit('changeMode','month')">{{p_pickMonth+1}}</span>
                 </template>
-                <slot name="center">
-                    <span style="color: cornflowerblue; font-size: 12px">12:00:00</span>
-                </slot>
+                <slot name="time"></slot>
             </slot>
         </div>
         <div class="pl-date-header-right">
