@@ -35,7 +35,46 @@ export const ColumnMixin = {
     computed: {
         col() {
             return this.$refs.column.col;
-        }
+        },
+        columnBinding() {
+            return {
+                title: this.title,
+                field: this.field,
+                width: this.width,
+                fit: this.fit,
+                order: this.order,
+                fixed: this.fixed,
+                search: this.search,
+                sort: this.sort,
+                quickFilter: this.quickFilter,
+                filterName: this.filterName,
+                filterOption: this.filterOption,
+                lov: this.lov,
+                placeLeft: this.placeLeft,
+                placeRight: this.placeRight,
+                align: this.align,
+                hide: this.hide,
+                disabledConfig: this.disabledConfig,
+
+                editable: this.editable,
+            }
+        },
+        columnItemBinding() {
+            return {
+                field: this.field,
+                editable: this.editable,
+                align: this.align,
+                dataType: this.dataType,
+                tooltip: this.tooltip,
+                link: this.link,
+                scopeSlotFunc: this.$scopedSlots.default,
+                required: this.required,
+                rules: this.rules,
+                validOnInit: this.validOnInit,
+                editableFunc: this.editableFunc,
+                requiredFunc: this.requiredFunc,
+            }
+        },
     },
     methods: {
         /**
