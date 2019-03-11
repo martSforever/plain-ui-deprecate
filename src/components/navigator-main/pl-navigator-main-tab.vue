@@ -15,10 +15,10 @@
                          @contextmenu.prevent="e=>p_contextMenu(e,item,index)">
                         <div class="pl-navigator-main-tab-header-item-wrapper">
                             <div class="pl-navigator-main-tab-header-item-inner">
-                            <span class="pl-navigator-main-tab-header-item-label">
-                            <pl-tooltip-text :content="item.title"/>
-                        </span>
-                                <div class="pl-navigator-main-tab-header-item-close">
+                                <span class="pl-navigator-main-tab-header-item-label">
+                                    <pl-tooltip-text :content="item.title"/>
+                                </span>
+                                <div class="pl-navigator-main-tab-header-item-close" v-if="pageStack.length>1">
                                     <pl-icon icon="pl-close" @click.stop="p_close(item.id)"/>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
              */
             async p_contextMenu(e, item, index) {
                 const ret = await this.$contextMenu.pick({
-                    data: ['刷新', '关闭', '关闭左侧页签', '关闭右侧页签', '关闭其他页签'],
+                        data: this.pageStack.length > 1 ? ['刷新', '关闭', '关闭左侧页签', '关闭右侧页签', '关闭其他页签'] : ['刷新'],
                     el: e.target
                 })
                 switch (ret) {
