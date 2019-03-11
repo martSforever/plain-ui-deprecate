@@ -42,6 +42,7 @@
                         :now-year="nowYear"
                         :now-month="nowMonth"
                         :now-day="nowDay"
+                        :decode-date-string="p_decodeDateString"
 
                         @input="p_valueChange"/>
             </div>
@@ -192,6 +193,63 @@
                 this.p_start = null
                 this.p_end = null
                 this.p_show = false
+            },
+            p_decodeDateString(str) {
+                const ret = {
+                    pickYear: null,
+                    pickMonth: null,
+
+                    year: null,
+                    month: null,
+                    day: null,
+
+                    hour: null,
+                    minute: null,
+                    second: null,
+
+                    mode: this.view,
+
+                    date: null,
+                    timeString: null,
+                }
+                if (str == null) {
+                    ret.pickYear = this.nowYear
+                    ret.pickMonth = this.nowMonth
+                    return ret
+                } else {
+                    const date = this.$plain.$utils.dateParse(str, this.p_vf)
+                    ret.date = date
+
+                    if (this.view === 'year') {
+                        date.setDate(1)
+                        date.setMonth(0)
+                    }
+                    else if (this.view === 'month') {
+                        date.setDate(1)
+                    }
+
+                    if (!this.datetime) {
+                        date.setHours(0)
+                        date.setMinutes(0)
+                        date.setSeconds(0)
+                    }
+
+                    const year = date.getFullYear()
+                    const month = date.getMonth()
+                    const day = date.getDate()
+                    const hour = date.getHours()
+                    const minute = date.getMinutes()
+                    const second = date.getSeconds()
+
+                    Object.assign(ret, {year, month, day, hour, minute, second})
+
+                    ret.pickYear = year
+                    ret.pickMonth = month
+
+                    ret.timeString = `${this.$plain.$utils.zeroize(hour)}:${this.$plain.$utils.zeroize(minute)}:${this.$plain.$utils.zeroize(second)}`
+                }
+
+                return ret
             },
         }
     }

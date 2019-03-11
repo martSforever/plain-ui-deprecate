@@ -1,10 +1,10 @@
 <template>
     <div class="pl-date-single-panel">
-        <pl-date-header :pick-year.sync="pickYear"
-                        :pick-month.sync="pickMonth"
+        <pl-date-header :pick-year.sync="p_data.pickYear"
+                        :pick-month.sync="p_data.pickMonth"
                         :view="view"
-                        @changeMode="val=>mode = val">
-            <pl-time :value="p_time"
+                        @changeMode="val=>p_data.mode = val">
+            <pl-time :value="p_data.timeString"
                      arrow
                      animate="scale"
                      initialized
@@ -15,13 +15,13 @@
             </pl-time>
         </pl-date-header>
         <pl-date-panel
-                :pick-year="pickYear"
-                :pick-month="pickMonth"
-                :mode="mode"
-                :year="year"
-                :month="month"
-                :date="date"
-                :value-date="valueDate"
+                :pick-year="p_data.pickYear"
+                :pick-month="p_data.pickMonth"
+                :mode="p_data.mode"
+                :year="p_data.year"
+                :month="p_data.month"
+                :date="p_data.date"
+                :value-date="p_data.date"
                 :max-date="maxDate"
                 :min-date="minDate"
                 :now-year="nowYear"
@@ -54,6 +54,7 @@
             nowYear: {},                                    //当前年份
             nowMonth: {},                                   //当前月份
             nowDay: {},                                     //当前日
+            decodeDateString: {},                           //解析日期字符串的函数
         },
         watch: {
             value(val) {
@@ -71,16 +72,8 @@
         },
         data() {
             return {
-                pickYear: null,
-                pickMonth: null,
-                mode: this.view,
-
-                year: null,
-                month: null,
-                date: null,
-                valueDate: null,
+                p_data: {},
                 p_value: this.value,
-                p_time: '08:00:00'
             }
         },
         created() {
@@ -88,41 +81,27 @@
         },
         methods: {
             p_reset() {
-                const now = new Date()
-                if (!this.p_value) {
-                    this.year = null
-                    this.month = null
-                    this.date = null
-                    this.valueDate = null
-                } else {
-                    const valueDate = this.$plain.$utils.dateParse(this.p_value, this.valueFormat)
-                    this.year = valueDate.getFullYear()
-                    this.month = valueDate.getMonth()
-                    this.date = valueDate.getDate()
-                    this.valueDate = valueDate
-                }
-                this.pickYear = this.year != null ? this.year : now.getFullYear()
-                this.pickMonth = this.month != null ? this.month : now.getMonth()
+                this.p_data = this.decodeDateString(this.p_value)
             },
             p_pickYear(val) {
-                this.pickYear = val
+                this.p_data.pickYear = val
                 if (this.view === 'year') {
                     const newDate = new Date()
                     newDate.setFullYear(val)
                     this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
                 } else {
-                    this.mode = 'month'
+                    this.p_data.mode = 'month'
                 }
             },
             p_pickMonth(val) {
-                this.pickMonth = val
+                this.p_data.pickMonth = val
                 if (this.view === 'month') {
                     const newDate = new Date()
-                    newDate.setFullYear(this.pickYear)
+                    newDate.setFullYear(this.p_data.pickYear)
                     newDate.setMonth(val)
                     this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
                 } else {
-                    this.mode = 'date'
+                    this.p_data.mode = 'date'
                 }
             },
             p_pickDate(newDate) {

@@ -13,7 +13,7 @@
                 <span class="pl-date-header-label" @click="$emit('changeMode','year')">{{p_pickYear}}</span>
                 <template v-if="view !== 'year'">
                     <span>-</span>
-                    <span class="pl-date-header-label" @click="$emit('changeMode','month')">{{p_pickMonth+1}}</span>
+                    <span class="pl-date-header-label" @click="$emit('changeMode','month')">{{$plain.$utils.zeroize(p_pickMonth+1)}}</span>
                 </template>
                 <slot name="time"></slot>
             </slot>
