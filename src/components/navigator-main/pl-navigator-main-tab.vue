@@ -43,6 +43,8 @@
                         :before-push="beforePush"
                         :after-push="afterPush"
                         :get-page-component="p_getPageComponent"
+                        :set-storage="p_setStorage"
+                        :get-storage="p_getStorage"
                         v-if="item.init"
                         v-show="currentValue === index"
 
@@ -75,11 +77,12 @@
             pageRegistryErrorHandler: {type: Function},                         //请求页面js文件出错处理
             page404: {type: String},                                            //找不到页面时，显示的404页面
             hideHeader: {type: Boolean},                                        //是否隐藏header
+            storageKey: {type: String},                                         //多页面应用同时使用这个导航组件的话，缓存可能会冲突，这里未设置缓存的关键字，不同单页面应用的key应该不同
         },
         data() {
             let pageStack = []
             /*从缓存中获取页面信息*/
-            let selfStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.TAB) || {}
+            let selfStorage = this.p_getStorage(NAVIGATOR_CONSTANT.TAB)
             if (selfStorage.index != null && !!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                 pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false}, item))
                 this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
@@ -299,7 +302,7 @@
             p_save() {
                 this.selfStorage.index = this.currentValue;
                 this.selfStorage.pageStack = this.pageStack.map(({id, title, path, param, security, data, iframe}) => ({id, title, path, param, security, data, iframe}))
-                this.$plain.$storage.set(NAVIGATOR_CONSTANT.TAB, this.selfStorage)
+                this.p_setStorage(NAVIGATOR_CONSTANT.TAB, this.selfStorage)
             },
             /**
              * 清除该页签的缓存
@@ -307,9 +310,9 @@
              * @date    2019/3/6 17:47
              */
             p_clearPage(id) {
-                const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
+                const componentStorage = this.p_getStorage(NAVIGATOR_CONSTANT.PAGE)
                 componentStorage[id] = null
-                this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
+                this.p_setStorage(NAVIGATOR_CONSTANT.PAGE, componentStorage)
             },
             /**
              * 获取页面组件对象
@@ -335,14 +338,42 @@
                     return Promise.reject(e.message)
                 }
             },
+            /**
+             * 刷新地址信息
+             * @author  韦胜健
+             * @date    2019/3/11 19:22
+             */
             async p_refreshUrl() {
                 await this.$plain.$utils.delay(100)
-                let tabStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.TAB) || {}
-                let pageStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
+                let tabStorage = this.p_getStorage(NAVIGATOR_CONSTANT.TAB)
+                let pageStorage = this.p_getStorage(NAVIGATOR_CONSTANT.PAGE)
                 const curTab = tabStorage.pageStack[this.currentValue]
                 const curPageStack = (pageStorage[curTab.id] || {}).pageStack || []
                 const curPage = curPageStack[curPageStack.length - 1] || {path: 'none'}
                 window.history.pushState({}, null, this.url + `?menu=${curTab.path},page=${curPage.path}`)
+            },
+            /**
+             * 获取缓存
+             * @author  韦胜健
+             * @date    2019/3/11 19:23
+             */
+            p_getStorage(key) {
+                let componentStorage = this.$plain.$storage.get(key) || {}
+                return (!!this.storageKey ? componentStorage[this.storageKey] : componentStorage) || {}
+            },
+            /**
+             * 设置缓存
+             * @author  韦胜健
+             * @date    2019/3/11 19:24
+             */
+            p_setStorage(key, value) {
+                let componentStorage = this.$plain.$storage.get(key) || {}
+                if (!!this.storageKey) {
+                    componentStorage[this.storageKey] = value
+                } else {
+                    componentStorage = value
+                }
+                this.$plain.$storage.set(key, componentStorage)
             },
         },
         beforeDestroy() {

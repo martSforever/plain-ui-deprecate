@@ -27,7 +27,7 @@
                                      :afterPush="afterPush"
                                      :pageRegistryErrorHandler="pageRegistryErrorHandler"
                                      page404="/navigator/navigator-main/demo-navigator-main-error"
-
+                                     storageKey="test"
                                      :idGenerator="idGenerator"
 
                                      @openTab="handleOpenTab"

@@ -31,11 +31,13 @@
             tab: {},                                                            //tab数据信息
             beforePush: {type: Function},                                       //打开页面之前的钩子函数
             afterPush: {type: Function},                                        //打开页面之后的钩子函数
-            getPageComponent: {type: Function},                                     //注册页面
+            getPageComponent: {type: Function},                                 //注册页面
+            getStorage: {},                                                     //通过tab获取缓存
+            setStorage: {},                                                     //通过tab设置缓存
         },
         data() {
             let pageStack = []
-            const componentStorage = this.$plain.$storage.get(NAVIGATOR_CONSTANT.PAGE) || {}
+            const componentStorage = this.getStorage(NAVIGATOR_CONSTANT.PAGE)
             const selfStorage = componentStorage[this.tab.id] || {}
             if (!!selfStorage.pageStack && selfStorage.pageStack.length > 0) {
                 pageStack = selfStorage.pageStack.map((item, index) => Object.assign({
@@ -156,7 +158,7 @@
             async p_save() {
                 this.selfStorage.pageStack = this.pageStack.map(({id, path, param, security, iframe}) => ({id, path, param, security, iframe}))
                 this.componentStorage[this.tab.id] = this.selfStorage
-                this.$plain.$storage.set(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
+                this.setStorage(NAVIGATOR_CONSTANT.PAGE, this.componentStorage)
             },
             /**
              * 初始化需要显示的页面的信息
