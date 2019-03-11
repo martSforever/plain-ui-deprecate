@@ -20,14 +20,14 @@
                     @clear="e=>!readonly && !disabled && p_clear(e)"
             />
         </slot>
-        <pl-time-panel slot="popper" v-model="currentValue" :max="max" :min="min" ref="panel"/>
+        <pl-time-panel slot="popper" v-model="currentValue" :max="max" :min="min" ref="panel" @clickLabel="p_clickLabel"/>
     </pl-popover>
 </template>
 
 <script>
     import PlTimePanel from "./pl-time-panel";
     import PlPopover from "../popper/pl-popover";
-    import {BoxMixin, InputMixin} from "../../mixin/component-mixin";
+    import {InputMixin} from "../../mixin/component-mixin";
     import PlInput from "../input/pl-input";
     import {PopoverMixin} from "../popper";
 
@@ -61,6 +61,11 @@
         methods: {
             p_clear() {
                 this.currentValue = null
+            },
+            async p_clickLabel() {
+                this.p_show = false
+                await this.$plain.nextTick()
+                this.$emit('confirm', this.currentValue)
             },
         },
     }

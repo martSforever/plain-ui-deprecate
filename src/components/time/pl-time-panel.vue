@@ -1,7 +1,7 @@
 <template>
     <div class="pl-time-panel">
         <div class="pl-time-panel-label-wrapper">
-            <div class="pl-time-panel-label">{{timeString}}</div>
+            <div class="pl-time-panel-label" @click="$emit('clickLabel')">{{timeString}}</div>
         </div>
         <div class="pl-time-spin-wrapper">
             <pl-time-spin :num="24" :width="width" :value="hour" @input="p_hourInput" :max="p_max.hour" :min="p_min.hour"/>
@@ -134,13 +134,17 @@
             position: relative;
             z-index: 1;
             .pl-time-panel-label {
-                height: 100%;
-                width: 100%;
+                padding: 6px 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 background-color: white;
                 z-index: 2;
+                border-radius: 4px;
+                cursor: pointer;
+                &:hover {
+                    background-color: $color-primary-light;
+                }
             }
             &::after {
                 content: '';
