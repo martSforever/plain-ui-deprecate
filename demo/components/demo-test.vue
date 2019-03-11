@@ -1,11 +1,28 @@
 <template>
     <div class="demo-test crm-color">
-        <link-toggle v-model="toggleVal"/>
+        <!--<link-toggle v-model="toggleVal"/>
         <child-component
                 v-bind="{name1:'hello',name2:'world'}"
                 :name1="name1"
-        />
-
+        />-->
+        <link-button-group>
+            <link-button v-for="(item,index) in ['password','code','third']" :label="item" @click="type= item" :key="index"/>
+        </link-button-group>
+        <div class="demo-test-rotate-item-wrapper">
+            <transition name="demo-rotate">
+                <div class="demo-test-rotate-item" key="password" v-if="type === 'password'">
+                    <div>账号密码登录</div>
+                    <div>账号密码登录</div>
+                    <div>账号密码登录</div>
+                </div>
+                <div class="demo-test-rotate-item" key="code" v-if="type === 'code'">
+                    二维码登录
+                </div>
+                <div class="demo-test-rotate-item" key="third" v-if="type === 'third'">
+                    第三方登录
+                </div>
+            </transition>
+        </div>
     </div>
 </template>
 
@@ -54,6 +71,7 @@
         components: {childComponent},
         data() {
             return {
+                type: 'password',
                 toggleVal: true,
                 keyboardListener: {
                     'ctrl+u': (e, name) => {
@@ -151,4 +169,38 @@
     body {
         background-color: white;
     }
+
+    .demo-test-rotate-item-wrapper {
+        position: relative;
+        height: 300px;
+        width: 300px;
+        .demo-test-rotate-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 1s;
+        }
+    }
+
+    .demo-rotate-enter {
+        transform: perspective(600px) rotateY(-180deg);
+        opacity: 0;
+    }
+
+    .demo-rotate-enter-to, .demo-rotate-leave {
+        transform: perspective(600px) rotateY(0deg);
+        opacity: 1;
+    }
+
+    .demo-rotate-leave-to {
+        transform: perspective(600px) rotateY(180deg);
+        opacity: 0;
+    }
+
 </style>

@@ -146,6 +146,10 @@
             width: 100%;
             overflow: auto;
             position: relative;
+            .pl-navigator-tab-item{
+                height: 100%;
+                overflow: auto;
+            }
             .pl-navigator-tab-content-empty {
                 position: absolute;
                 left: 0;
