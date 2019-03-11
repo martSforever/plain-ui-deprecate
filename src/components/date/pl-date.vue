@@ -28,6 +28,9 @@
                         :max-date="p_maxDate"
                         :min-date="p_minDate"
                         :view="view"
+                        :datetime="datetime"
+                        :decode-date-string="p_decodeDateString"
+
                         @change="p_show = false"/>
                 <pl-date-single-panel
                         v-else

@@ -38,8 +38,8 @@
         <demo-row :title="`日期时间选择:${val[10]}`">
             <link-date v-model="val[10]" datetime/>
         </demo-row>
-        <demo-row :title="`日期范围:${val[6]}-${val[7]}`">
-            <link-date :start.sync="val[6]" :end.sync="val[7]" range/>
+        <demo-row :title="`日期范围:${val[11]}-${val[12]}`">
+            <link-date :start.sync="val[11]" :end.sync="val[12]" range datetime/>
         </demo-row>
     </div>
 </template>
@@ -62,6 +62,10 @@
 
                     8: null,
                     9: null,
+
+                    10: '2019-05-05 10:09:05',
+                    11: '2019-05-05 12:36:35',
+                    12: '2019-08-10 11:12:13',
                 }
             }
         },

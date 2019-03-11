@@ -4,11 +4,13 @@
                         :pick-month.sync="p_data.pickMonth"
                         :view="view"
                         @changeMode="val=>p_data.mode = val">
-            <pl-time :value="p_data.timeString"
-                     arrow
-                     animate="scale"
-                     initialized
-                     slot="time">
+            <pl-time
+                    v-if="datetime"
+                    :value="p_data.timeString"
+                    arrow
+                    animate="scale"
+                    initialized
+                    slot="time">
                 <template slot-scope="{value}">
                     <span class="pl-date-time">{{value}}</span>
                 </template>

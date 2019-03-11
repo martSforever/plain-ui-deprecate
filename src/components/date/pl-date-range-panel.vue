@@ -1,29 +1,31 @@
 <template>
     <div class="pl-date-range-panel">
         <div class="pl-date-range-panel-left">
-            <pl-date-header :pick-year="left.pickYear"
-                            :pick-month="left.pickMonth"
+            <pl-date-header :pick-year="p_startData.pickYear"
+                            :pick-month="p_startData.pickMonth"
                             :view="view"
                             hide-right-button
                             @update:pickYear="p_leftPickYearChange"
                             @update:pickMonth="p_leftPickMonthChange"
-                            @changeMode="val=>left.mode = val">
-                <pl-time :value="left.time"
-                         arrow
-                         animate="scale"
-                         initialized
-                         slot="time">
+                            @changeMode="val=>p_startData.mode = val">
+                <pl-time
+                        v-if="datetime"
+                        :value="p_startData.timeString"
+                        arrow
+                        animate="scale"
+                        initialized
+                        slot="time">
                     <template slot-scope="{value}">
                         <span class="pl-date-time">{{value}}</span>
                     </template>
                 </pl-time>
             </pl-date-header>
             <pl-date-panel
-                    :start-date="left.date"
-                    :end-date="right.date"
-                    :pick-year="left.pickYear"
-                    :pick-month="left.pickMonth"
-                    :mode="left.mode"
+                    :start-date="p_startData.date"
+                    :end-date="p_endData.date"
+                    :pick-year="p_startData.pickYear"
+                    :pick-month="p_startData.pickMonth"
+                    :mode="p_startData.mode"
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
                     :min-date="minDate"
@@ -32,29 +34,31 @@
                     @update:pickMonth="p_leftPickMonthSelect"/>
         </div>
         <div class="pl-date-range-panel-right">
-            <pl-date-header :pick-year="right.pickYear"
-                            :pick-month="right.pickMonth"
+            <pl-date-header :pick-year="p_endData.pickYear"
+                            :pick-month="p_endData.pickMonth"
                             :view="view"
                             hide-left-button
                             @update:pickYear="p_rightPickYearChange"
                             @update:pickMonth="p_rightPickMonthChange"
-                            @changeMode="val=>right.mode = val">
-                <pl-time :value="right.time"
-                         arrow
-                         animate="scale"
-                         initialized
-                         slot="time">
+                            @changeMode="val=>p_endData.mode = val">
+                <pl-time
+                        v-if="datetime"
+                        :value="p_endData.timeString"
+                        arrow
+                        animate="scale"
+                        initialized
+                        slot="time">
                     <template slot-scope="{value}">
                         <span class="pl-date-time">{{value}}</span>
                     </template>
                 </pl-time>
             </pl-date-header>
             <pl-date-panel
-                    :start-date="left.date"
-                    :end-date="right.date"
-                    :pick-year="right.pickYear"
-                    :pick-month="right.pickMonth"
-                    :mode="right.mode"
+                    :start-date="p_startData.date"
+                    :end-date="p_endData.date"
+                    :pick-year="p_endData.pickYear"
+                    :pick-month="p_endData.pickMonth"
+                    :mode="p_endData.mode"
                     :hover-date.sync="hoverDate"
                     :max-date="maxDate"
                     :min-date="minDate"
@@ -83,6 +87,7 @@
             datetime: {type: Boolean},                              //是否选择时间
             maxDate: {},
             minDate: {},
+            decodeDateString: {},                                   //解析日期字符串的函数
         },
         watch: {
             start(val) {
@@ -103,22 +108,9 @@
         },
         data() {
             return {
-                /*左边缓存数据*/
-                left: {
-                    pickYear: null,
-                    pickMonth: null,
-                    mode: this.view,
-                    date: null,
-                    time: '10:00:00',
-                },
-                /*右边缓存数据*/
-                right: {
-                    pickYear: null,
-                    pickMonth: null,
-                    mode: this.view,
-                    date: null,
-                    time: '10:00:00',
-                },
+                p_startData: {},
+                p_endData: {},
+
                 /*鼠标悬浮的日期*/
                 hoverDate: null,
                 /*起始时间缓存值*/
@@ -137,28 +129,17 @@
              * @date    2019/3/8 09:44
              */
             p_reset() {
-                const now = new Date()
-                let year, month, date, startDate, endDate
-                startDate = this.$plain.$utils.dateParse(this.start, this.valueFormat)
-                endDate = this.$plain.$utils.dateParse(this.end, this.valueFormat)
-
-                year = !!startDate ? startDate.getFullYear() : now.getFullYear()
-                month = !!startDate ? startDate.getMonth() : now.getMonth()
-                date = !!startDate ? startDate.getDate() : now.getDate()
-
-                this.left.pickYear = year
-                this.left.pickMonth = month
-
-                if (month === 11) {
-                    this.right.pickYear = year + 1
-                    this.right.pickMonth = 0
+                console.log(this.p_start, this.p_end)
+                this.p_startData = this.decodeDateString(this.p_start)
+                this.p_endData = this.decodeDateString(this.p_end)
+                console.log(this.p_startData, this.p_endData)
+                if (this.p_startData.month === 11) {
+                    this.p_endData.pickYear = this.p_startData.pickYear + 1
+                    this.p_endData.pickMonth = 0
                 } else {
-                    this.right.pickYear = year
-                    this.right.pickMonth = month + 1
+                    this.p_endData.pickYear = this.p_startData.pickYear
+                    this.p_endData.pickMonth = this.p_startData.pickMonth + 1
                 }
-
-                this.left.date = startDate
-                this.right.date = endDate
             },
             /**
              * 处理日期面板选择日期事件
@@ -166,24 +147,24 @@
              * @date    2019/3/8 09:47
              */
             p_pickDate(newDate) {
-                if (!this.left.date) {
-                    this.left.date = newDate
+                if (!this.p_startData.date) {
+                    this.p_startData.date = newDate
                     return
                 }
-                if (!this.right.date) {
-                    const startTime = this.left.date.getTime()
+                if (!this.p_endData.date) {
+                    const startTime = this.p_startData.date.getTime()
                     const newTime = newDate.getTime()
                     if (startTime > newTime) {
-                        this.right.date = this.left.date
-                        this.left.date = newDate
+                        this.p_endData.date = this.p_startData.date
+                        this.p_startData.date = newDate
                     } else {
-                        this.right.date = newDate
+                        this.p_endData.date = newDate
                     }
                     this.p_emitVal()
                     return
                 }
-                this.left.date = newDate
-                this.right.date = null
+                this.p_startData.date = newDate
+                this.p_endData.date = null
             },
 
             /**
@@ -192,8 +173,8 @@
              * @date    2019/3/8 09:47
              */
             p_leftPickYearChange(val) {
-                this.left.pickYear = val
-                this.right.pickYear = this.left.pickMonth === 11 ? val + 1 : val
+                this.p_startData.pickYear = val
+                this.p_endData.pickYear = this.p_startData.pickMonth === 11 ? val + 1 : val
             },
             /**
              * 左侧日期头月份变化处理
@@ -201,9 +182,9 @@
              * @date    2019/3/8 09:47
              */
             p_leftPickMonthChange(val) {
-                this.left.pickMonth = val
-                this.right.pickMonth = val === 11 ? 0 : val + 1
-                this.right.pickYear = val === 11 ? this.left.pickYear + 1 : this.left.pickYear
+                this.p_startData.pickMonth = val
+                this.p_endData.pickMonth = val === 11 ? 0 : val + 1
+                this.p_endData.pickYear = val === 11 ? this.p_startData.pickYear + 1 : this.p_startData.pickYear
             },
             /**
              * 左侧日期面板选择年份处理
@@ -216,7 +197,7 @@
                     this.p_emitVal()
                     return
                 }
-                this.left.mode = 'month'
+                this.p_startData.mode = 'month'
             },
             /**
              * 左侧日期面板选择月份处理
@@ -229,7 +210,7 @@
                     this.p_emitVal()
                     return
                 }
-                this.left.mode = 'date'
+                this.p_startData.mode = 'date'
             },
             /**
              * 右侧日期头年份变化处理
@@ -237,8 +218,8 @@
              * @date    2019/3/8 09:47
              */
             p_rightPickYearChange(val) {
-                this.right.pickYear = val
-                this.left.pickYear = this.left.pickMonth === 11 ? val - 1 : val
+                this.p_endData.pickYear = val
+                this.p_startData.pickYear = this.p_startData.pickMonth === 11 ? val - 1 : val
             },
             /**
              * 右侧日期头月份变化处理
@@ -246,9 +227,9 @@
              * @date    2019/3/8 09:48
              */
             p_rightPickMonthChange(val) {
-                this.right.pickMonth = val
-                this.left.pickMonth = val === 0 ? 11 : val - 1
-                this.left.pickYear = val === 0 ? this.right.pickYear - 1 : this.right.pickYear
+                this.p_endData.pickMonth = val
+                this.p_startData.pickMonth = val === 0 ? 11 : val - 1
+                this.p_startData.pickYear = val === 0 ? this.p_endData.pickYear - 1 : this.p_endData.pickYear
             },
             p_rightPickYearSelect(val) {
                 this.p_rightPickYearChange(val)
@@ -256,7 +237,7 @@
                     this.p_emitVal()
                     return
                 }
-                this.right.mode = 'month'
+                this.p_endData.mode = 'month'
             },
             p_rightPickMonthSelect(val) {
                 this.p_rightPickMonthChange(val)
@@ -264,12 +245,12 @@
                     this.p_emitVal()
                     return
                 }
-                this.right.mode = 'date'
+                this.p_endData.mode = 'date'
             },
 
             async p_emitVal() {
-                this.p_start = this.$plain.$utils.dateFormat(this.left.date, this.valueFormat)
-                this.p_end = this.$plain.$utils.dateFormat(this.right.date, this.valueFormat)
+                this.p_start = this.$plain.$utils.dateFormat(this.p_startData.date, this.valueFormat)
+                this.p_end = this.$plain.$utils.dateFormat(this.p_endData.date, this.valueFormat)
                 await this.$plain.nextTick()
                 this.$emit('change')
             },
