@@ -6,7 +6,7 @@
         <div class="pl-time-spin-wrapper">
             <pl-time-spin :num="24" :width="width" :value="hour" @input="p_hourInput" :max="p_max.hour" :min="p_min.hour"/>
             <pl-time-spin :num="60" :width="width" :value="minute" @input="p_minuteInput" :max="p_maxMinute" :min="p_minMinute"/>
-            <pl-time-spin :num="60" :width="width" v-model="second" @change="p_emitVal" :max="p_maxSecond" :min="p_minSecond"/>
+            <pl-time-spin :num="60" :width="width" v-model="second" @input="p_emitVal" :max="p_maxSecond" :min="p_minSecond"/>
         </div>
     </div>
 </template>
