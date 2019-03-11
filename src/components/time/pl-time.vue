@@ -41,7 +41,7 @@
             show: {type: Boolean},                                                  //打开下拉框，双向绑定属性
             disabledEqual: {default: true},
 
-            inputWidth: {type: Number, default: 256},                               //输入框宽度
+            inputWidth: {type: Number, default: 200},                               //输入框宽度
             inputReadonly: {default: true},                                         //输入框默认只读
         },
         watch: {

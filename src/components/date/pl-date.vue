@@ -13,7 +13,7 @@
                     v-bind="inputBinding"
                     clearIcon="pl-date"
                     :readonly="true"
-                    :width="inputWidth"
+                    :width="inputWidth!=null?inputWidth:range?280:200"
                     :defaultClear="false"
                     @clear="e=>!readonly && !disabled && p_clear(e)"
             />
@@ -83,7 +83,7 @@
             confirmButton: {type: Boolean},
 
             placeholder: {type: String, default: '请选择日期时间……'},
-            inputWidth: {type: Number, default: 256},
+            inputWidth: {type: Number},
         },
         watch: {
             value(val) {
@@ -154,7 +154,7 @@
                     return this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_value, this.p_vf), this.p_df)
                 } else {
                     if (!this.p_start || !this.p_end) return null
-                    return `${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_start, this.p_vf), this.p_df)} ~ ${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_end, this.p_vf), this.p_df)}`
+                    return `${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_start, this.p_vf), this.p_df)}  ~  ${this.$plain.$utils.dateFormat(this.$plain.$utils.dateParse(this.p_end, this.p_vf), this.p_df)}`
                 }
             },
             p_maxDate() {
@@ -196,7 +196,8 @@
             p_valueChange(val) {
                 this.p_value = val
             },
-            p_close() {
+            async p_close() {
+                await this.$plain.nextTick()
                 this.p_show = false
             },
             p_clear() {

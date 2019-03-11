@@ -107,6 +107,7 @@
                     const newDate = new Date()
                     newDate.setFullYear(val)
                     this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
+                    this.$emit('close')
                 } else {
                     this.p_data.mode = 'month'
                 }
@@ -118,6 +119,7 @@
                     newDate.setFullYear(this.p_data.pickYear)
                     newDate.setMonth(val)
                     this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
+                    this.$emit('close')
                 } else {
                     this.p_data.mode = 'date'
                 }
@@ -129,7 +131,6 @@
                     newDate.setSeconds(this.p_data.second)
                 }
                 this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
-                await this.$plain.nextTick()
                 this.$emit('close')
             },
             p_timeChange(timeString) {

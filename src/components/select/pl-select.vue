@@ -46,7 +46,7 @@
             labelKey: {type: String},                                               //显示值key
             valueKey: {type: String},                                               //值key
 
-            inputWidth: {type: Number, default: 256},                               //输入框宽度
+            inputWidth: {type: Number, default: 200},                               //输入框宽度
             inputReadonly: {default: true},                                         //输入框默认只读
         },
         watch: {

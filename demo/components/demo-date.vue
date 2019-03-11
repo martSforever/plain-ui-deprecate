@@ -1,6 +1,6 @@
 <template>
     <div class="demo-date">
-        <!--<demo-row :title="`普通用法，选择日期:${val[0]}`">
+        <demo-row :title="`普通用法，选择日期:${val[0]}`">
             <link-date v-model="val[0]"/>
         </demo-row>
         <demo-row title="三种视图">
@@ -33,7 +33,7 @@
         </demo-row>
         <demo-row :title="`日期范围,最大最小值：max=2020-05-05，min=2018-04-01`">
             <link-date :start.sync="val[6]" :end.sync="val[7]" range max="2020-05-05" min="2018-04-01"/>
-        </demo-row>-->
+        </demo-row>
 
         <demo-row :title="`日期时间选择:${val[10]}`">
             <link-date v-model="val[10]" datetime/>
