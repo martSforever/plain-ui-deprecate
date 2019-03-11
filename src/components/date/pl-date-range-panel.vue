@@ -13,7 +13,8 @@
                         :value="p_startData.timeString"
                         arrow
                         animate="scale"
-                        slot="time">
+                        slot="time"
+                        @input="p_leftTimeChange">
                     <template slot-scope="{value}">
                         <span class="pl-date-time">{{value}}</span>
                     </template>
@@ -45,7 +46,8 @@
                         :value="p_endData.timeString"
                         arrow
                         animate="scale"
-                        slot="time">
+                        slot="time"
+                        @input="p_rightTimeChange">
                     <template slot-scope="{value}">
                         <span class="pl-date-time">{{value}}</span>
                     </template>
@@ -174,7 +176,7 @@
              * @author  韦胜健
              * @date    2019/3/8 09:47
              */
-            p_pickDate(newDate) {
+            async p_pickDate(newDate) {
                 if (!this.p_startData.date) {
                     this.p_startData.date = newDate
                     return
@@ -189,6 +191,8 @@
                         this.p_endData.date = newDate
                     }
                     this.p_emitVal()
+                    await this.$plain.nextTick()
+                    this.$emit('close')
                     return
                 }
                 this.p_startData.date = newDate
@@ -293,15 +297,43 @@
             p_leftTimeChange(timeString) {
                 const timeDate = this.$plain.$utils.dateParse(timeString, 'HH:mm:ss')
                 const timeDateInfo = this.$plain.$utils.decodeDate(timeDate)
-                Object.assign(this.p_data, {hour: timeDateInfo.hour, minute: timeDateInfo.minute, second: timeDateInfo.second, timeString: timeDateInfo.timeString})
-
+                Object.assign(this.p_startData, {hour: timeDateInfo.hour, minute: timeDateInfo.minute, second: timeDateInfo.second, timeString: timeDateInfo.timeString})
+                if (!!this.p_startData.date) {
+                    this.p_startData.date.setHours(timeDateInfo.hour)
+                    this.p_startData.date.setMinutes(timeDateInfo.minute)
+                    this.p_startData.date.setSeconds(timeDateInfo.second)
+                    this.p_emitVal()
+                }
+            },
+            /*
+             *  description
+             *  @author     martsforever
+             *  @datetime   2019/3/11 22:02
+             */
+            p_rightTimeChange(timeString) {
+                const timeDate = this.$plain.$utils.dateParse(timeString, 'HH:mm:ss')
+                const timeDateInfo = this.$plain.$utils.decodeDate(timeDate)
+                Object.assign(this.p_endData, {hour: timeDateInfo.hour, minute: timeDateInfo.minute, second: timeDateInfo.second, timeString: timeDateInfo.timeString})
+                if (!!this.p_endData.date) {
+                    this.p_endData.date.setHours(timeDateInfo.hour)
+                    this.p_endData.date.setMinutes(timeDateInfo.minute)
+                    this.p_endData.date.setSeconds(timeDateInfo.second)
+                    this.p_emitVal()
+                }
             },
 
             async p_emitVal() {
+                this.p_startData.date.setHours(this.p_startData.hour)
+                this.p_startData.date.setMinutes(this.p_startData.minute)
+                this.p_startData.date.setSeconds(this.p_startData.second)
+
+                this.p_endData.date.setHours(this.p_endData.hour)
+                this.p_endData.date.setMinutes(this.p_endData.minute)
+                this.p_endData.date.setSeconds(this.p_endData.second)
+
                 this.p_start = this.$plain.$utils.dateFormat(this.p_startData.date, this.valueFormat)
                 this.p_end = this.$plain.$utils.dateFormat(this.p_endData.date, this.valueFormat)
                 await this.$plain.nextTick()
-                this.$emit('change')
             },
         }
     }

@@ -31,7 +31,6 @@
                         :datetime="datetime"
                         :decode-date-string="p_decodeDateString"
 
-                        @change="p_show = false"
                         @close="p_close"/>
                 <pl-date-single-panel
                         v-else

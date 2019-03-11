@@ -82,17 +82,19 @@
             },
             startTime() {
                 if (!this.startDate) return null
-                this.startDate.setHours(0)
-                this.startDate.setMinutes(0)
-                this.startDate.setSeconds(0)
-                return this.p_getTime(this.startDate)
+                const date = this.$plain.$utils.deepCopy(this.startDate)
+                date.setHours(0)
+                date.setMinutes(0)
+                date.setSeconds(0)
+                return this.p_getTime(date)
             },
             endTime() {
                 if (!this.endDate) return null
-                this.endDate.setHours(0)
-                this.endDate.setMinutes(0)
-                this.endDate.setSeconds(0)
-                return this.p_getTime(this.endDate)
+                const date = this.$plain.$utils.deepCopy(this.endDate)
+                date.setHours(0)
+                date.setMinutes(0)
+                date.setSeconds(0)
+                return this.p_getTime(date)
             },
             /*@formatter:on*/
 
