@@ -3,7 +3,7 @@
         <demo-row :title="`基本用法:${val[0]}`">
             <link-scroll-option :data="data" labelKey="name" valueKey="value" @scroll="val=>scrollTop = val" v-model="val[0]"/>
             &nbsp;
-            <link-scroll-option :data="data" labelKey="name" valueKey="value" v-model="val[0]"/>
+            <!--<link-scroll-option :data="data" labelKey="name" valueKey="value" v-model="val[0]"/>-->
         </demo-row>
         <demo-row :title="`禁用部分选项:${val[1]}`">
             <link-scroll-option :data="data" labelKey="name" valueKey="value" disabledKey="invalid" v-model="val[1]"/>

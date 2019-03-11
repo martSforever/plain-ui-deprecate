@@ -1,6 +1,6 @@
 <template>
     <div class="pl-scroll-option" :style="styles" :class="{'pl-scroll-option-shadow':shadow}">
-        <div class="pl-scroll-option-wrapper" @scroll="p_scroll" ref="wrapper">
+        <div class="pl-scroll-option-wrapper" @scroll="p_scroll" ref="wrapper" @mousewheel="p_mousewheel">
             <pl-scroll-option-item v-for="(item) in externalData" :key="`top_${item}`"/>
             <pl-scroll-option-item
                     v-for="(item,index) in data"
@@ -51,7 +51,6 @@
                 p_value: this.value,
                 scrollTop: 0,
                 timer: null,
-                listenScroll: true,
                 p_index: 0,
             }
         },
@@ -62,8 +61,11 @@
                 }
             },
         },
-        mounted() {
-            if (this.value != null) this.p_updateByValue()
+        async mounted() {
+            if (this.value != null) {
+                this.p_updateByValue()
+                await this.$plain.$utils.delay(200)
+            }
         },
         computed: {
             styles() {
@@ -83,6 +85,17 @@
         },
         methods: {
             /**
+             * 处理滚轮滚动事件
+             * @author  韦胜健
+             * @date    2019/3/11 11:26
+             */
+            async p_mousewheel(e) {
+                this.p_clearTimer()
+                this.timer = setTimeout(() => {
+                    this.p_scrollEnd(e)
+                }, 200)
+            },
+            /**
              * 处理滚动事件
              * @author  韦胜健
              * @date    2019/2/26 09:15
@@ -90,8 +103,6 @@
             p_scroll(e) {
                 this.scrollTop = e.target.scrollTop
                 this.$emit('scroll', this.scrollTop)
-                this.p_clearTimer()
-                this.listenScroll && this.p_scrollEnd(e)
             },
             /**
              * 处理点击事件
@@ -106,28 +117,23 @@
              * @author  韦胜健
              * @date    2019/2/26 09:16
              */
-            p_scrollEnd(e) {
-                this.p_clearTimer()
+            async p_scrollEnd() {
                 this.timer = setTimeout(() => {
+                    this.scrollTop = Math.ceil(this.scrollTop)
                     if (this.scrollTop % this.itemHeight === 0) {
                         let i = (this.scrollTop / this.itemHeight).toFixed(0) - 0
-                        this.p_scrollTop((this.p_getValidIndex(i)) * this.itemHeight)
-                        setTimeout((() => {
-                            this.listenScroll = true
-                            this.p_updateIndex()
-                        }), 200)
+                        this.p_index = this.p_getValidIndex(i)
+                        this.p_scrollTop(this.p_index * this.itemHeight)
+                        this.p_emitValue()
                         return
                     }
-                    this.listenScroll = false
                     for (let i = 0; i < this.data.length + (this.itemNum * 2); i++) {
                         let start = this.itemHeight * i
                         let end = this.itemHeight * (i + 1)
                         if (start < this.scrollTop && this.scrollTop < end) {
-                            this.p_scrollTop((this.p_getValidIndex(i)) * this.itemHeight)
-                            setTimeout((() => {
-                                this.listenScroll = true
-                                this.p_updateIndex()
-                            }), 100)
+                            this.p_index = this.p_getValidIndex(i)
+                            this.p_scrollTop(this.p_index * this.itemHeight)
+                            this.p_emitValue()
                         }
                     }
                 }, 100)
@@ -144,25 +150,14 @@
                 }
             },
             /**
-             * 更新当前居中选中的索引
-             * @author  韦胜健
-             * @date    2019/2/26 09:16
-             */
-            p_updateIndex() {
-                this.p_index = Math.floor((this.scrollTop / this.itemHeight))
-                this.p_emitValue()
-            },
-            /**
              * 滚动到目标索引
              * @author  韦胜健
              * @date    2019/2/26 09:17
              */
             p_scrollTo(index) {
-                this.listenScroll = false
                 this.p_index = index
                 this.p_emitValue();
                 this.p_scrollTop((index) * this.itemHeight)
-                setTimeout((() => this.listenScroll = true), 300)
             },
             /**
              * 派发当前选中值事件
@@ -182,6 +177,7 @@
                 for (let i = 0; i < this.data.length; i++) {
                     const item = this.data[i];
                     if (this.p_getValue(item) === this.value) {
+                        this.p_index = i
                         this.p_scrollTop((i) * this.itemHeight)
                     }
                 }
