@@ -223,7 +223,7 @@
              */
             async p_contextMenu(e, item, index) {
                 const ret = await this.$contextMenu.pick({
-                        data: this.pageStack.length > 1 ? ['刷新', '关闭', '关闭左侧页签', '关闭右侧页签', '关闭其他页签'] : ['刷新'],
+                    data: this.pageStack.length > 1 ? ['刷新', '关闭', '关闭左侧页签', '关闭右侧页签', '关闭其他页签'] : ['刷新'],
                     el: e.target
                 })
                 switch (ret) {
@@ -467,6 +467,8 @@
                     }
                 }
                 .pl-navigator-main-tab-header-slot {
+                    width: 300px;
+                    text-align: right;
                     flex-shrink: 0;
                 }
             }
