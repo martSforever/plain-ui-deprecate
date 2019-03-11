@@ -127,10 +127,8 @@
              * @date    2019/3/8 09:44
              */
             p_reset() {
-                console.log(this.p_start, this.p_end)
                 this.p_startData = this.decodeDateString(this.p_start)
                 this.p_endData = this.decodeDateString(this.p_end)
-                console.log(this.p_startData, this.p_endData)
                 if (this.p_startData.month === 11) {
                     this.p_endData.pickYear = this.p_startData.pickYear + 1
                     this.p_endData.pickMonth = 0
