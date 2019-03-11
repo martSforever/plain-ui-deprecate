@@ -9,7 +9,6 @@
                     :value="p_data.timeString"
                     arrow
                     animate="scale"
-                    initialized
                     slot="time">
                 <template slot-scope="{value}">
                     <span class="pl-date-time">{{value}}</span>

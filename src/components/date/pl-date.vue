@@ -108,14 +108,19 @@
             },
             p_show(val) {
                 if (this.show !== val) this.$emit('update:show', val)
-                if (!!val) {
-                    this.$nextTick(() => {
+                if (val) {
+                    this.$nextTick(async () => {
                         const times = this.$plain.$dom.findComponentsDownward(this, 'pl-time')
-                        this.timeEls = times.map(item => item.$refs.panel.$el)
-                        this.timeEls.forEach(el => this.$refs.popover.addRelateEl(el))
+                        times.forEach(time => {
+                            time.$on('show', async () => {
+                                await this.$plain.nextTick()
+                                this.$refs.popover.addRelateEl(time.$refs.panel.$el)
+                            })
+                            time.$on('hide', async () => {
+                                this.$refs.popover.removeRelateEl(time.$refs.panel.$el)
+                            })
+                        })
                     })
-                } else {
-                    this.timeEls.forEach(el => this.$refs.popover.removeRelateEl(el))
                 }
             },
         },

@@ -1,7 +1,7 @@
 <template>
     <pl-popover
             class="pl-time"
-            v-model="currentShow"
+            v-model="p_show"
             v-bind="popoverBinding"
             :trigger="!readonly && !disabled ?trigger:null"
             :height="208"
@@ -44,9 +44,18 @@
             inputWidth: {type: Number, default: 256},                               //输入框宽度
             inputReadonly: {default: true},                                         //输入框默认只读
         },
+        watch: {
+            show(val) {
+                this.p_show !== val && (this.p_show = val)
+            },
+            p_show(val) {
+                this.show !== val && this.$emit('update:show', val)
+                this.$emit(val ? 'show' : 'hide')
+            },
+        },
         data() {
             return {
-                currentShow: this.show,
+                p_show: this.show,
             }
         },
         methods: {
