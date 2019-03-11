@@ -259,6 +259,11 @@
                 this.p_startData.pickMonth = val === 0 ? 11 : val - 1
                 this.p_startData.pickYear = val === 0 ? this.p_endData.pickYear - 1 : this.p_endData.pickYear
             },
+            /**
+             * 截止日期面板选择年份事件
+             * @author  韦胜健
+             * @date    2019/3/11 20:37
+             */
             p_rightPickYearSelect(val) {
                 this.p_rightPickYearChange(val)
                 if (this.view === 'year') {
@@ -267,6 +272,11 @@
                 }
                 this.p_endData.mode = 'month'
             },
+            /**
+             * 截止日期面板选择月份事件
+             * @author  韦胜健
+             * @date    2019/3/11 20:37
+             */
             p_rightPickMonthSelect(val) {
                 this.p_rightPickMonthChange(val)
                 if (this.view === 'month') {
@@ -274,6 +284,17 @@
                     return
                 }
                 this.p_endData.mode = 'date'
+            },
+            /**
+             * 开始日期面板时间变化事件
+             * @author  韦胜健
+             * @date    2019/3/11 20:40
+             */
+            p_leftTimeChange(timeString) {
+                const timeDate = this.$plain.$utils.dateParse(timeString, 'HH:mm:ss')
+                const timeDateInfo = this.$plain.$utils.decodeDate(timeDate)
+                Object.assign(this.p_data, {hour: timeDateInfo.hour, minute: timeDateInfo.minute, second: timeDateInfo.second, timeString: timeDateInfo.timeString})
+
             },
 
             async p_emitVal() {

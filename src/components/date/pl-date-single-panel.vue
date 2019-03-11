@@ -134,14 +134,12 @@
             },
             p_timeChange(timeString) {
                 const timeDate = this.$plain.$utils.dateParse(timeString, 'HH:mm:ss')
-                const hour = timeDate.getHours()
-                const minute = timeDate.getMinutes()
-                const second = timeDate.getSeconds()
-                Object.assign(this.p_data, {hour, minute, second})
+                const timeDateInfo = this.$plain.$utils.decodeDate(timeDate)
+                Object.assign(this.p_data, {hour: timeDateInfo.hour, minute: timeDateInfo.minute, second: timeDateInfo.second, timeString: timeDateInfo.timeString})
                 this.p_data.date = this.p_data.date || new Date()
-                this.p_data.date.setHours(hour)
-                this.p_data.date.setMinutes(minute)
-                this.p_data.date.setSeconds(second)
+                this.p_data.date.setHours(timeDateInfo.hour)
+                this.p_data.date.setMinutes(timeDateInfo.minute)
+                this.p_data.date.setSeconds(timeDateInfo.second)
                 this.p_value = this.$plain.$utils.dateFormat(this.p_data.date, this.valueFormat)
             },
         }
