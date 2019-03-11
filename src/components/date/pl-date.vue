@@ -31,7 +31,8 @@
                         :datetime="datetime"
                         :decode-date-string="p_decodeDateString"
 
-                        @change="p_show = false"/>
+                        @change="p_show = false"
+                        @close="p_close"/>
                 <pl-date-single-panel
                         v-else
                         :value="p_value"
@@ -47,7 +48,8 @@
                         :now-day="nowDay"
                         :decode-date-string="p_decodeDateString"
 
-                        @input="p_valueChange"/>
+                        @input="p_valueChange"
+                        @close="p_close"/>
             </div>
         </pl-popover>
     </div>
@@ -194,6 +196,8 @@
         methods: {
             p_valueChange(val) {
                 this.p_value = val
+            },
+            p_close() {
                 this.p_show = false
             },
             p_clear() {
@@ -227,7 +231,6 @@
                 } else {
                     const date = this.$plain.$utils.dateParse(str, this.p_vf)
                     ret.date = date
-
                     if (this.view === 'year') {
                         date.setDate(1)
                         date.setMonth(0)
@@ -235,26 +238,15 @@
                     else if (this.view === 'month') {
                         date.setDate(1)
                     }
-
                     if (!this.datetime) {
                         date.setHours(0)
                         date.setMinutes(0)
                         date.setSeconds(0)
                     }
-
-                    const year = date.getFullYear()
-                    const month = date.getMonth()
-                    const day = date.getDate()
-                    const hour = date.getHours()
-                    const minute = date.getMinutes()
-                    const second = date.getSeconds()
-
-                    Object.assign(ret, {year, month, day, hour, minute, second})
-
-                    ret.pickYear = year
-                    ret.pickMonth = month
-
-                    ret.timeString = `${this.$plain.$utils.zeroize(hour)}:${this.$plain.$utils.zeroize(minute)}:${this.$plain.$utils.zeroize(second)}`
+                    const dateInfo = this.$plain.$utils.decodeDate(date)
+                    Object.assign(ret, dateInfo)
+                    ret.pickYear = dateInfo.year
+                    ret.pickMonth = dateInfo.month
                 }
 
                 return ret

@@ -11,4 +11,5 @@ const DateUtil = {
         return !!displayFormat ? displayFormat : datetime ? `${this.DEFAULT_FORMATTER[view]} HH:mm:ss` : this.DEFAULT_FORMATTER[view]
     },
 }
+
 export {DateUtil}

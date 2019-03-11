@@ -106,8 +106,40 @@
         },
         data() {
             return {
-                p_startData: {},
-                p_endData: {},
+                p_startData: {
+                    pickYear: null,
+                    pickMonth: null,
+
+                    year: null,
+                    month: null,
+                    day: null,
+
+                    hour: null,
+                    minute: null,
+                    second: null,
+
+                    mode: this.view,
+
+                    date: null,
+                    timeString: null,
+                },
+                p_endData: {
+                    pickYear: null,
+                    pickMonth: null,
+
+                    year: null,
+                    month: null,
+                    day: null,
+
+                    hour: null,
+                    minute: null,
+                    second: null,
+
+                    mode: this.view,
+
+                    date: null,
+                    timeString: null,
+                },
 
                 /*鼠标悬浮的日期*/
                 hoverDate: null,

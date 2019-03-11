@@ -9,7 +9,8 @@
                     :value="p_data.timeString"
                     arrow
                     animate="scale"
-                    slot="time">
+                    slot="time"
+                    @input="p_timeChange">
                 <template slot-scope="{value}">
                     <span class="pl-date-time">{{value}}</span>
                 </template>
@@ -73,7 +74,23 @@
         },
         data() {
             return {
-                p_data: {},
+                p_data: {
+                    pickYear: null,
+                    pickMonth: null,
+
+                    year: null,
+                    month: null,
+                    day: null,
+
+                    hour: null,
+                    minute: null,
+                    second: null,
+
+                    mode: this.view,
+
+                    date: null,
+                    timeString: null,
+                },
                 p_value: this.value,
             }
         },
@@ -105,8 +122,27 @@
                     this.p_data.mode = 'date'
                 }
             },
-            p_pickDate(newDate) {
+            async p_pickDate(newDate) {
+                if (!!this.datetime) {
+                    newDate.setHours(this.p_data.hour)
+                    newDate.setMinutes(this.p_data.minute)
+                    newDate.setSeconds(this.p_data.second)
+                }
                 this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
+                await this.$plain.nextTick()
+                this.$emit('close')
+            },
+            p_timeChange(timeString) {
+                const timeDate = this.$plain.$utils.dateParse(timeString, 'HH:mm:ss')
+                const hour = timeDate.getHours()
+                const minute = timeDate.getMinutes()
+                const second = timeDate.getSeconds()
+                Object.assign(this.p_data, {hour, minute, second})
+                this.p_data.date = this.p_data.date || new Date()
+                this.p_data.date.setHours(hour)
+                this.p_data.date.setMinutes(minute)
+                this.p_data.date.setSeconds(second)
+                this.p_value = this.$plain.$utils.dateFormat(this.p_data.date, this.valueFormat)
             },
         }
     }

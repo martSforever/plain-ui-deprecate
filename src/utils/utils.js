@@ -220,6 +220,36 @@ function dateParse(string, format) {
 }
 
 /**
+ * 解析日期对象中的数据信息
+ * @author  韦胜健
+ * @date    2019/3/11 20:24
+ */
+function decodeDate(date) {
+    const ret = {
+        year: null,
+        month: null,
+        day: null,
+        hour: null,
+        minute: null,
+        second: null,
+        date: null,
+        time: null,
+        timeString: null,
+    }
+    if (!date) return ret
+    ret.year = date.getFullYear()
+    ret.month = date.getMonth()
+    ret.day = date.getDate()
+    ret.hour = date.getHours()
+    ret.minute = date.getMinutes()
+    ret.second = date.getSeconds()
+    ret.date = date
+    ret.time = date.getTime()
+    ret.timeString = `${zeroize(ret.hour)}:${zeroize(ret.minute)}:${zeroize(ret.second)}`
+    return ret
+}
+
+/**
  * 使用px单位化
  * @author  韦胜健
  * @date    2019/1/10 10:56
@@ -390,6 +420,7 @@ const $utils = {
     delay,                                      //推迟时间
     dateFormat,                                 //日期格式化
     dateParse,                                  //字符串格式化为日期
+    decodeDate,                                 //解析日期对象中的数据信息
     removeFromArray,                            //从数组中删除
     uuid,                                       //获取唯一标识符
     zeroize,                                    //填充0字符
