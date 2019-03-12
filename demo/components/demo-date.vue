@@ -31,7 +31,7 @@
         <demo-row :title="`日期范围:${val[6]}-${val[7]}`">
             <link-date :start.sync="val[6]" :end.sync="val[7]" range/>
         </demo-row>
-        <demo-row :title="`日期范围,最大最小值：max=2020-05-05，min=2018-04-01`">
+        <demo-row :title="`日期范围,最大最小值：max=2020-05-05，min=2018-04-04`">
             <link-date :start.sync="val[6]" :end.sync="val[7]" range max="2020-05-05" min="2018-04-04"/>
         </demo-row>
 

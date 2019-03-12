@@ -36,11 +36,12 @@
             year: {},                                   //当前面板显示的年份
             month: {},                                  //当前面板显示的月份
             currentDate: {},                            //当前日期
-            maxDate: {},                                //最大可选日期
-            minDate: {},                                //最小可选日期
             startDate: {},                              //日期范围开始日期
             endDate: {},                                //日期范围结束日期
             hoverDate: {},                              //当前鼠标浮动的日期
+            maxTime: {},                                //最大时间戳
+            minTime: {},                                //最小时间戳
+            getTime: {},                                //获取时间戳函数
         },
         data() {
             const now = new Date()
@@ -48,11 +49,6 @@
             const nowMonth = now.getMonth()
             const nowDay = now.getDate()
 
-            const tempDate = new Date()
-            tempDate.setHours(0)
-            tempDate.setMinutes(0)
-            tempDate.setSeconds(0)
-            tempDate.setMilliseconds(0)
 
             return {
                 weekNames: ['日', '1', '二', '三', '四', '五', '六'],
@@ -60,16 +56,10 @@
                 nowYear,
                 nowMonth,
                 nowDay,
-                tempDate,
             }
         },
         computed: {
             /*@formatter:off*/
-
-            /*最大日期的time*/
-            maxTime() {return !!this.maxDate?this.p_getTime(this.maxDate):null},
-            /*最小日期的time*/
-            minTime() {return !!this.minDate?this.p_getTime(this.minDate):null},
 
             /*当前选择年份*/
             selectYear() {return this.year != null ? this.year : new Date().getFullYear()},
@@ -86,7 +76,7 @@
                 date.setHours(0)
                 date.setMinutes(0)
                 date.setSeconds(0)
-                return this.p_getTime(date)
+                return this.getTime(date)
             },
             endTime() {
                 if (!this.endDate) return null
@@ -94,7 +84,7 @@
                 date.setHours(0)
                 date.setMinutes(0)
                 date.setSeconds(0)
-                return this.p_getTime(date)
+                return this.getTime(date)
             },
             /*@formatter:on*/
 
@@ -142,7 +132,7 @@
                 const month = date.getMonth()
                 const day = date.getDate()
                 const isToday = (year === this.nowYear) && (month === this.nowMonth) && (day === this.nowDay)
-                const time = this.p_getTime(date)
+                const time = this.getTime(date)
                 return {
                     year,
                     month,
@@ -180,26 +170,6 @@
              */
             p_leavePanel() {
                 this.$emit('update:hoverDate', null)
-            },
-            /*
-             *  获取日期对应的time
-             *  @author     martsforever
-             *  @datetime   2019/3/3 21:15
-             */
-            p_getTime(date) {
-                if (!date) return null
-                /*
-                    遇到很奇怪的bug， 下面这段代码不能使用这种顺序
-                    this.tempDate.setFullYear(date.getFullYear())
-                    this.tempDate.setMonth(date.getMonth())
-                    this.tempDate.setDate(date.getDate())
-                    否则在计算到4月1号的时候，会变成5月一号
-                */
-                this.tempDate.setDate(date.getDate())
-                this.tempDate.setMonth(date.getMonth())
-                this.tempDate.setFullYear(date.getFullYear())
-                // console.log(this.tempDate.getFullYear(), this.tempDate.getMonth(), this.tempDate.getDate(), this.tempDate.getTime())
-                return this.tempDate.getTime()
             },
             /*
              *  日期dom是否应该高亮

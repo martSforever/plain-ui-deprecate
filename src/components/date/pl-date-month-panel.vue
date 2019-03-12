@@ -30,11 +30,12 @@
             currentMonth: {},
             currentYear: {},
             pickYear: {},
-            maxDate: {},
-            minDate: {},
             nowYear: {},                                    //当前年份
             nowMonth: {},                                   //当前月份
             nowDay: {},                                     //当前日
+            maxTime: {},
+            minTime: {},
+            getTime: {type: Function},
         },
         data() {
             return {
@@ -45,13 +46,14 @@
             list() {
                 const ret = []
                 for (let i = 0; i < 12; i++) {
-                    const date = new Date(this.pickYear, i, 1, 0, 0, 0)
+                    const date = new Date(this.pickYear, i+1, 0, 0, 0, 0, 0)
+                    const time = this.getTime(date)
                     ret.push({
                         val: i,
                         active: i === this.currentMonth && this.currentYear === this.pickYear,
                         pickMonth: i === this.currentValue,
                         now: i === this.nowMonth && this.nowYear === this.pickYear,
-                        disabled: (!!this.maxDate && date.getTime() > this.maxDate.getTime()) || (!!this.minDate && date.getTime() < this.minDate.getTime()),
+                        disabled: (!!this.maxTime && time > this.maxTime) || (!!this.minTime && time < this.minTime),
                     })
                 }
                 return ret

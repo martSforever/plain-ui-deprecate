@@ -12,11 +12,12 @@
                                  :current-month="month"
                                  :current-year="year"
                                  :pick-year="p_pickYear"
-                                 :max-date="maxDate"
-                                 :min-date="minDate"
                                  :now-year="nowYear"
                                  :now-month="nowMonth"
                                  :now-day="nowDay"
+                                 :max-time="maxTime"
+                                 :min-time="minTime"
+                                 :get-time="p_getTime"
                                  @input="p_changePickMonth"
                                  v-else-if="mode === 'month'"/>
             <pl-date-day-panel
@@ -24,11 +25,12 @@
                     :year="p_pickYear"
                     :month="p_pickMonth"
                     :current-date="valueDate"
-                    :max-date="maxDate"
-                    :min-date="minDate"
                     :start-date="startDate"
                     :end-date="endDate"
                     :hover-date.sync="p_hoverDate"
+                    :max-time="maxTime"
+                    :min-time="minTime"
+                    :get-time="p_getTime"
 
                     @pickDate="p_pickDate"/>
         </div>
@@ -75,11 +77,21 @@
             },
         },
         data() {
+            const tempDate = new Date(new Date().getFullYear(), 0, 0, 0, 0, 0, 0)
             return {
+                tempDate,
                 p_pickYear: this.pickYear,
                 p_pickMonth: this.pickMonth,
                 p_hoverDate: this.hoverDate,
             }
+        },
+        computed: {
+            /*@formatter:off*/
+            /*最大日期的time*/
+            maxTime() {return !!this.maxDate?this.p_getTime(this.maxDate):null},
+            /*最小日期的time*/
+            minTime() {return !!this.minDate?this.p_getTime(this.minDate):null},
+            /*@formatter:on*/
         },
         methods: {
             p_changePickYear(val) {
@@ -92,6 +104,26 @@
             },
             p_pickDate({year, month, day}) {
                 this.$emit('pickDate', new Date(year, month, day))
+            },
+            /*
+                *  获取日期对应的time
+                *  @author     martsforever
+                *  @datetime   2019/3/3 21:15
+                */
+            p_getTime(date) {
+                if (!date) return null
+                /*
+                    遇到很奇怪的bug， 下面这段代码不能使用这种顺序
+                    this.tempDate.setFullYear(date.getFullYear())
+                    this.tempDate.setMonth(date.getMonth())
+                    this.tempDate.setDate(date.getDate())
+                    否则在计算到4月1号的时候，会变成5月一号
+                */
+                this.tempDate.setDate(date.getDate())
+                this.tempDate.setMonth(date.getMonth())
+                this.tempDate.setFullYear(date.getFullYear())
+                // console.log(this.tempDate.getFullYear(), this.tempDate.getMonth(), this.tempDate.getDate(), this.tempDate.getTime())
+                return this.tempDate.getTime()
             },
         },
     }

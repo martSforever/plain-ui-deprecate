@@ -16,7 +16,7 @@
                         slot="time"
                         @input="p_leftTimeChange">
                     <template slot-scope="{value}">
-                        <span class="pl-date-time">{{value}}</span>
+                        <span class="pl-date-time">{{value || '00:00:00'}}</span>
                     </template>
                 </pl-time>
             </pl-date-header>
@@ -49,7 +49,7 @@
                         slot="time"
                         @input="p_rightTimeChange">
                     <template slot-scope="{value}">
-                        <span class="pl-date-time">{{value}}</span>
+                        <span class="pl-date-time">{{value || '00:00:00'}}</span>
                     </template>
                 </pl-time>
             </pl-date-header>
