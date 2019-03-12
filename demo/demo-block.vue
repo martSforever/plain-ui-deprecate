@@ -1,13 +1,15 @@
 <template>
     <div class="demo-block">
-        demo-block
+        <slot></slot>
     </div>
 </template>
 
 <script>
     export default {
         name: "demo-block",
-
+        created(){
+            console.log(this.$el)
+        },
     }
 </script>
 

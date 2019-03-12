@@ -6,9 +6,11 @@ import move from 'src/directives/move'
 
 import DemoRow from './demo-row'
 import DemoRowItem from './demo-row-item'
+import DemoBlock from './demo-block'
 
 Vue.component('demo-row', DemoRow)
 Vue.component('demo-row-item', DemoRowItem)
+Vue.component('demo-block', DemoBlock)
 
 Vue.config.productionTip = false
 Vue.use(plain, {
