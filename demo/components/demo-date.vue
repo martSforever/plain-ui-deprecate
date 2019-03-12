@@ -44,6 +44,9 @@
         <demo-row :title="`日期时间选择:${val[10]}，最大时间：，最小时间`">
             <link-date v-model="val[10]" datetime max="2020-05-05 12:38:38" min="2018-04-04 11:15:16"/>
         </demo-row>
+        <demo-row :title="`日期时间范围选择:${val[10]}，最大时间：，最小时间`">
+            <link-date :start.sync="val[11]" :end.sync="val[12]" range datetime max="2020-05-05 12:38:38" min="2018-04-04 11:15:16"/>
+        </demo-row>
     </div>
 </template>
 

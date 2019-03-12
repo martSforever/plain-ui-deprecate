@@ -132,6 +132,9 @@
                     newDate.setMinutes(this.p_data.minute)
                     newDate.setSeconds(this.p_data.second)
                 }
+                if (!!this.maxDate && newDate.getTime() > this.maxDate.getTime()) newDate.setTime(this.maxDate.getTime())
+                if (!!this.minDate && newDate.getTime() < this.minDate.getTime()) newDate.setTime(this.minDate.getTime())
+
                 this.p_value = this.$plain.$utils.dateFormat(newDate, this.valueFormat)
                 this.$emit('close')
             },

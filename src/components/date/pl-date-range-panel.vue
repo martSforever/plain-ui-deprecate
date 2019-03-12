@@ -326,13 +326,17 @@
                 this.p_startData.date.setHours(this.p_startData.hour)
                 this.p_startData.date.setMinutes(this.p_startData.minute)
                 this.p_startData.date.setSeconds(this.p_startData.second)
+                if (!!this.maxDate && this.p_startData.date.getTime() > this.maxDate.getTime()) this.p_startData.date.setTime(this.maxDate.getTime())
+                if (!!this.minDate && this.p_startData.date.getTime() < this.minDate.getTime()) this.p_startData.date.setTime(this.minDate.getTime())
+                this.p_start = this.$plain.$utils.dateFormat(this.p_startData.date, this.valueFormat)
 
                 this.p_endData.date.setHours(this.p_endData.hour)
                 this.p_endData.date.setMinutes(this.p_endData.minute)
                 this.p_endData.date.setSeconds(this.p_endData.second)
-
-                this.p_start = this.$plain.$utils.dateFormat(this.p_startData.date, this.valueFormat)
+                if (!!this.maxDate && this.p_endData.date.getTime() > this.maxDate.getTime()) this.p_endData.date.setTime(this.maxDate.getTime())
+                if (!!this.minDate && this.p_endData.date.getTime() < this.minDate.getTime()) this.p_endData.date.setTime(this.minDate.getTime())
                 this.p_end = this.$plain.$utils.dateFormat(this.p_endData.date, this.valueFormat)
+
                 await this.$plain.nextTick()
             },
         }
