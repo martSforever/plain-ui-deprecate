@@ -1,9 +1,14 @@
 import Vue from 'vue/dist/vue.min.js'
 import App from './App.vue'
 import plain from 'src'
-import './components.js'
 import DemoChild from './demo-child'
 import move from 'src/directives/move'
+
+import DemoRow from './demo-row'
+import DemoRowItem from './demo-row-item'
+
+Vue.component('demo-row', DemoRow)
+Vue.component('demo-row-item', DemoRowItem)
 
 Vue.config.productionTip = false
 Vue.use(plain, {

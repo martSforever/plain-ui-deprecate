@@ -1,289 +1,136 @@
 <template>
     <div class="demo-button">
-        <link-mavon
-                type="javascript"
-                title="javascript代码"
-                code='
-             export default {
-                name: "demo-button",
-                data() {
-                    return {
-                        current: null,
-                        colors: ["primary", "success", "warn", "error", "info"]
-                    }
-                },
-                methods: {
-                    _click() {
-                        console.log("click");
-                    },
-                }
-            }
-        '>
-            <demo-row>
-                <link-button label="基本用法"/>
-            </demo-row>
-        </link-mavon>
+        <demo-row>
+            <link-button label="基本用法"/>
+        </demo-row>
 
-        <link-mavon code='
+        <demo-row title="颜色">
             <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index"/>
-       '>
-            <demo-row title="颜色">
-                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index"/>
-            </demo-row>
-        </link-mavon>
-
-        <link-mavon code='
-                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" loading :key="index"/>
-        '>
-            <demo-row title="加载按钮">
-                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" loading :key="index"/>
-            </demo-row>
-        </link-mavon>
-
-        <link-mavon code='
+        </demo-row>
+        <demo-row title="加载按钮">
+            <link-button v-for="(item,index) in colors" :label="item" :box-color="item" loading :key="index"/>
+        </demo-row>
+        <demo-row title="左右图标">
             <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
-        '>
-            <demo-row title="左右图标">
-                <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
-            </demo-row>
-        </link-mavon>
+        </demo-row>
 
-        <link-mavon code='
+        <demo-row title="只有图标">
             <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="pl-search" @click="_click"/>
-        '>
-            <demo-row title="只有图标">
-                <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="pl-search" @click="_click"/>
-            </demo-row>
-        </link-mavon>
+        </demo-row>
 
-        <link-mavon code='
-           <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" disabled @click="_click"/>
-           <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index+10" disabled box-type="line" @click="_click"/>
-           <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index+20" disabled box-type="none" @click="_click"/>
-        '>
-            <demo-row title="禁用">
-                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" disabled @click="_click"/>
-                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index+10" disabled box-type="line" @click="_click"/>
-                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index+20" disabled box-type="none" @click="_click"/>
-            </demo-row>
-        </link-mavon>
+        <demo-row title="禁用">
+            <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" disabled @click="_click"/>
+            <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index+10" disabled box-type="line" @click="_click"/>
+            <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index+20" disabled box-type="none" @click="_click"/>
+        </demo-row>
 
-        <link-mavon code='
+        <demo-row title="只读">
             <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" readonly box-type="fill" @click="_click"/>
-        '>
-            <demo-row title="只读">
-                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" readonly box-type="fill" @click="_click"/>
-            </demo-row>
-        </link-mavon>
+        </demo-row>
 
-        <link-mavon code='
-                <demo-row-item title="small">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="small"/>
-                </demo-row-item>
-                <demo-row-item title="default">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="default"/>
-                </demo-row-item>
-                <demo-row-item title="large">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="large"/>
-                </demo-row-item>
-        '>
-            <demo-row title="大小">
-                <demo-row-item title="small">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="small"/>
-                </demo-row-item>
-                <demo-row-item title="default">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="default"/>
-                </demo-row-item>
-                <demo-row-item title="large">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="large"/>
-                </demo-row-item>
-            </demo-row>
-        </link-mavon>
+        <demo-row title="大小">
+            <demo-row-item title="small">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="small"/>
+            </demo-row-item>
+            <demo-row-item title="default">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="default"/>
+            </demo-row-item>
+            <demo-row-item title="large">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-size="large"/>
+            </demo-row-item>
+        </demo-row>
 
-        <link-mavon code='
-                <demo-row-item title="none">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="none"/>
-                </demo-row-item>
-                <demo-row-item title="fillet">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="fillet"/>
-                </demo-row-item>
-                <demo-row-item title="round">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="round"/>
-                </demo-row-item>
-        '>
-            <demo-row title="形状">
-                <demo-row-item title="none">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="none"/>
-                </demo-row-item>
-                <demo-row-item title="fillet">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="fillet"/>
-                </demo-row-item>
-                <demo-row-item title="round">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="round"/>
-                </demo-row-item>
-            </demo-row>
-        </link-mavon>
+        <demo-row title="形状">
+            <demo-row-item title="none">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="none"/>
+            </demo-row-item>
+            <demo-row-item title="fillet">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="fillet"/>
+            </demo-row-item>
+            <demo-row-item title="round">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-shape="round"/>
+            </demo-row-item>
+        </demo-row>
 
 
-        <link-mavon code='
-                <demo-row-item title="fill">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill"/>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="line"/>
-                </demo-row-item>
-                <demo-row-item title="none">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="none"/>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="dashed"/>
-                </demo-row-item>
-        '>
-            <demo-row title="样式">
-                <demo-row-item title="fill">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill"/>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="line"/>
-                </demo-row-item>
-                <demo-row-item title="none">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="none"/>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="dashed"/>
-                </demo-row-item>
-            </demo-row>
-        </link-mavon>
-
-        <link-mavon code='
-                <demo-row-item title="fill">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill"/>
-                    </link-button-group>
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="fill">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill" :active="item === current" @click="current = item"/>
-                    </link-button-group>
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed"/>
-                    </link-button-group>
-                </demo-row-item>
-       '>
-            <demo-row title="按钮组">
-                <demo-row-item title="fill">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill"/>
-                    </link-button-group>
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="fill">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill" :active="item === current" @click="current = item"/>
-                    </link-button-group>
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed"/>
-                    </link-button-group>
-                </demo-row-item>
-            </demo-row>
-        </link-mavon>
-
-        <link-mavon code='
+        <demo-row title="样式">
             <demo-row-item title="fill">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill" :active="item === current" @click="current = item"/>
-                    </link-button-group>
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-        '>
-            <demo-row title="按钮的激活状态">
-                <demo-row-item title="fill">
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill" :active="item === current" @click="current = item"/>
-                    </link-button-group>
-                    <link-button-group>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="line">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-                <demo-row-item title="dashed">
-                    <link-button-group vertical>
-                        <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed" :active="item === current"
-                                     @click="current = item"/>
-                    </link-button-group>
-                </demo-row-item>
-            </demo-row>
-        </link-mavon>
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill"/>
+            </demo-row-item>
+            <demo-row-item title="line">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="line"/>
+            </demo-row-item>
+            <demo-row-item title="none">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="none"/>
+            </demo-row-item>
+            <demo-row-item title="dashed">
+                <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="dashed"/>
+            </demo-row-item>
+        </demo-row>
 
-        <link-doc :pl-props="lvProps" :pl-events="lvEvents" :pl-slots="lvSlots"/>
+        <demo-row title="按钮组">
+            <demo-row-item title="fill">
+                <link-button-group>
+                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill"/>
+                </link-button-group>
+                <link-button-group>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill"/>
+                </link-button-group>
+            </demo-row-item>
+            <demo-row-item title="line">
+                <link-button-group>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line"/>
+                </link-button-group>
+            </demo-row-item>
+            <demo-row-item title="dashed">
+                <link-button-group>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed"/>
+                </link-button-group>
+            </demo-row-item>
+            <demo-row-item title="fill">
+                <link-button-group vertical>
+                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill" :active="item === current" @click="current = item"/>
+                </link-button-group>
+                <link-button-group vertical>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill" :active="item === current"
+                                 @click="current = item"/>
+                </link-button-group>
+            </demo-row-item>
+            <demo-row-item title="line">
+                <link-button-group vertical>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line"/>
+                </link-button-group>
+            </demo-row-item>
+            <demo-row-item title="dashed">
+                <link-button-group vertical>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed"/>
+                </link-button-group>
+            </demo-row-item>
+        </demo-row>
+
+        <demo-row title="按钮的激活状态">
+            <demo-row-item title="fill">
+                <link-button-group>
+                    <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index" box-type="fill" :active="item === current" @click="current = item"/>
+                </link-button-group>
+                <link-button-group>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="fill" :active="item === current"
+                                 @click="current = item"/>
+                </link-button-group>
+            </demo-row-item>
+            <demo-row-item title="line">
+                <link-button-group vertical>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="line" :active="item === current"
+                                 @click="current = item"/>
+                </link-button-group>
+            </demo-row-item>
+            <demo-row-item title="dashed">
+                <link-button-group vertical>
+                    <link-button v-for="(item,index) in colors" :label="item" :key="index" box-type="dashed" :active="item === current"
+                                 @click="current = item"/>
+                </link-button-group>
+            </demo-row-item>
+        </demo-row>
     </div>
 </template>
 
@@ -331,6 +178,5 @@
 
 <style lang="scss">
     .demo-button {
-        padding-top: 16px;
     }
 </style>
