@@ -11,7 +11,7 @@
             <pl-input
                     :value="showValue"
                     v-bind="inputBinding"
-                    clearIcon="pl-date"
+                    :clearIcon="datetime?'pl-datetime':'pl-date'"
                     :readonly="true"
                     :width="inputWidth!=null?inputWidth:range?280:200"
                     :defaultClear="false"
