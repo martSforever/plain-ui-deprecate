@@ -208,7 +208,7 @@
                 /*如果所有列的总宽度小于表格宽度，按照列的权重给列分配剩下的宽度*/
                 if (totalColumnWidth < this.p_tableWidth) {
                     /*额外多出来的宽度*/
-                    let externalWidth = this.p_tableWidth - totalColumnWidth
+                    let externalWidth = this.p_tableWidth - totalColumnWidth -1
                     /*总权重*/
                     let totalColumnFit = cols.reduce((ret, item) => ret + item.fit, 0)
                     /*如果列中没有配置权重，则最后一个非固定列设置权重为1*/
