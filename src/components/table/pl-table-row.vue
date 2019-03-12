@@ -149,9 +149,11 @@
              * @author  韦胜健
              * @date    2019/1/8 10:24
              */
-            enableEdit() {
+            async enableEdit() {
                 this.items.forEach(item => item.enableEdit())
                 this.p_editing = true
+                await this.$nextTick()
+                window.getSelection().empty()
             },
             /**
              * 关闭编辑状态
