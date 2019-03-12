@@ -59,7 +59,6 @@
                             {title: 'Slider滑块', icon: 'pl-sliders', page: '/demo-slider', complete: true},
                             {title: 'Timer时间选择', icon: 'pl-time', page: '/demo-time', complete: true},
                             {title: 'Date日期选择', icon: 'pl-date', page: '/demo-date', complete: true},
-                            {title: 'DateTimePicker时间日期', icon: 'pl-datetime', page: '/demo-icon', complete: false},
                             {title: 'Rate评分', icon: 'pl-star', page: '/demo-rate', complete: true},
                             {title: 'ColorPicker颜色选择', icon: 'pl-color', page: '/demo-color-picker', complete: true},
                             {title: 'Transform穿梭框', icon: 'pl-exchange', page: '/demo-icon', complete: false},
