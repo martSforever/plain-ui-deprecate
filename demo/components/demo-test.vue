@@ -33,7 +33,6 @@
     import Vue from 'vue'
     import hljs from 'highlight.js';
     import 'highlight.js/styles/googlecode.css'
-    import PlHtml from "./pl-html";
 
     Vue.directive('highlight', function (el) {
         let blocks = el.querySelectorAll('pre code');
@@ -71,7 +70,7 @@
 
     export default {
         name: "demo-test",
-        components: {PlHtml, childComponent},
+        components: {childComponent},
         data() {
             return {
                 html: `<link-button v-for="(item,index) in colors" :label="item" @click="type= item" :box-color="item" :key="index"/>`,
