@@ -36,7 +36,6 @@
         overflow: hidden;
         border-bottom: solid $base-table-border-size $base-table-border-color;
         tr:not(.pl-table-column-space) {
-            height: $base-table-head-row-Height;
             font-size: $base-table-font-size;
             font-weight: $base-table-font-weight;
         }
