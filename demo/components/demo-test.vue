@@ -5,7 +5,7 @@
                 v-bind="{name1:'hello',name2:'world'}"
                 :name1="name1"
         />-->
-        <link-button-group>
+        <!--<link-button-group>
             <link-button v-for="(item,index) in ['password','code','third']" :label="item" @click="type= item" :key="index"/>
         </link-button-group>
         <div class="demo-test-rotate-item-wrapper">
@@ -22,7 +22,9 @@
                     第三方登录
                 </div>
             </transition>
-        </div>
+        </div>-->
+        {{html}}
+        <pl-html :html="html" :data="{colors:['primary','success','warn','error','info']}"/>
     </div>
 </template>
 
@@ -30,7 +32,8 @@
 
     import Vue from 'vue'
     import hljs from 'highlight.js';
-    import 'highlight.js/styles/googlecode.css' //样式文件
+    import 'highlight.js/styles/googlecode.css'
+    import PlHtml from "./pl-html";
 
     Vue.directive('highlight', function (el) {
         let blocks = el.querySelectorAll('pre code');
@@ -68,9 +71,10 @@
 
     export default {
         name: "demo-test",
-        components: {childComponent},
+        components: {PlHtml, childComponent},
         data() {
             return {
+                html: `<link-button v-for="(item,index) in colors" :label="item" @click="type= item" :box-color="item" :key="index"/>`,
                 type: 'password',
                 toggleVal: true,
                 keyboardListener: {

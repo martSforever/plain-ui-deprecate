@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.min.js'
 import App from './App.vue'
 import plain from 'src'
 import './components.js'
