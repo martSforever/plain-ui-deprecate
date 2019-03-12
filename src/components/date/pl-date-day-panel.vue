@@ -67,9 +67,9 @@
             /*@formatter:off*/
 
             /*最大日期的time*/
-            maxTime() {return !!this.maxDate ? this.maxDate.getTime() : null},
+            maxTime() {return !!this.maxDate?this.p_getTime(this.maxDate):null},
             /*最小日期的time*/
-            minTime() {return !!this.minDate ? this.minDate.getTime() : null},
+            minTime() {return !!this.minDate?this.p_getTime(this.minDate):null},
 
             /*当前选择年份*/
             selectYear() {return this.year != null ? this.year : new Date().getFullYear()},
@@ -142,12 +142,13 @@
                 const month = date.getMonth()
                 const day = date.getDate()
                 const isToday = (year === this.nowYear) && (month === this.nowMonth) && (day === this.nowDay)
+                const time = this.p_getTime(date)
                 return {
                     year,
                     month,
                     day,
-                    time: this.p_getTime(date),
-                    disabled: (!!this.maxTime && date.getTime() > this.maxTime) || (!!this.minTime && date.getTime() < this.minTime),
+                    time,
+                    disabled: (!!this.maxTime && time > this.maxTime) || (!!this.minTime && time < this.minTime),
                     /*日期是否为今天*/
                     isToday,
                     /*日期是否为选择月份的日期*/

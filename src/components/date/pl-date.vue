@@ -168,10 +168,6 @@
                 if (this.view === 'month') {
                     date.setDate(1)
                 }
-
-                date.setHours(23)
-                date.setMinutes(59)
-                date.setSeconds(59)
                 return date
             },
             p_minDate() {
@@ -185,10 +181,6 @@
                 if (this.view === 'month') {
                     date.setDate(1)
                 }
-
-                date.setHours(0)
-                date.setMinutes(0)
-                date.setSeconds(0)
                 return date
             },
         },
@@ -222,7 +214,10 @@
                     mode: this.view,
 
                     date: null,
+                    time: null,
                     timeString: null,
+                    maxTimeString: null,
+                    minTimeString: null,
                 }
                 if (str == null) {
                     ret.pickYear = this.nowYear
@@ -247,6 +242,23 @@
                     Object.assign(ret, dateInfo)
                     ret.pickYear = dateInfo.year
                     ret.pickMonth = dateInfo.month
+
+                    if (this.datetime) {
+                        if (!!this.max) {
+                            const maxDate = this.$plain.$utils.dateParse(this.max, this.p_vf)
+                            const {year, month, day, hour, minute, second} = this.$plain.$utils.decodeDate(maxDate)
+                            if (year === ret.year && month === ret.month && day === ret.day) {
+                                ret.maxTimeString = `${this.$plain.$utils.zeroize(hour)}:${this.$plain.$utils.zeroize(minute)}:${this.$plain.$utils.zeroize(second)}`
+                            }
+                        }
+                        if (!!this.min) {
+                            const minDate = this.$plain.$utils.dateParse(this.min, this.p_vf)
+                            const {year, month, day, hour, minute, second} = this.$plain.$utils.decodeDate(minDate)
+                            if (year === ret.year && month === ret.month && day === ret.day) {
+                                ret.minTimeString = `${this.$plain.$utils.zeroize(hour)}:${this.$plain.$utils.zeroize(minute)}:${this.$plain.$utils.zeroize(second)}`
+                            }
+                        }
+                    }
                 }
 
                 return ret

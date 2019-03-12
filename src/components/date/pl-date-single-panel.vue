@@ -10,7 +10,9 @@
                     arrow
                     animate="scale"
                     slot="time"
-                    @input="p_timeChange">
+                    @input="p_timeChange"
+                    :max="p_data.maxTimeString"
+                    :min="p_data.minTimeString">
                 <template slot-scope="{value}">
                     <span class="pl-date-time">{{value}}</span>
                 </template>
