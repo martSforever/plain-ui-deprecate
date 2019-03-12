@@ -224,7 +224,7 @@
                     }
                     /*一份权重所增加的宽度*/
                     let externalChunkWidth = Math.floor(externalWidth / totalColumnFit) - 1
-                    cols.forEach(col => col.update({width: col.width + col.fit * externalChunkWidth}))
+                    cols.forEach(col => col.update({width: col.width + Math.floor(col.fit * externalChunkWidth)}))
                 }
                 // console.log(cols.map(i => i.title))
                 return cols
@@ -397,7 +397,7 @@
                 this.$emit('collect', columns)
                 await this.$plain.nextTick()
                 await this.$plain.nextTick()
-                this.p_tableWidth = this.$el.offsetWidth
+                this.p_tableWidth = this.$refs.body.$el.offsetWidth
             },
             /**
              * 复制columns
