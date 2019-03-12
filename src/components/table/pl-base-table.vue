@@ -204,11 +204,15 @@
                 /*首次加载还没有挂载mounted的时候，columns应该是空的，收集的bodyColumns也是空的，直接返回空数组*/
                 if (cols.length === 0) return cols
                 /*计算所有列的总宽度*/
-                const totalColumnWidth = cols.reduce((ret, item) => ret + item.width, 0)
+                const totalColumnWidth = cols.reduce((ret, item) => {
+                    console.log(item)
+                    return ret + item.width
+                }, 0)
+                console.log(totalColumnWidth, this.p_tableWidth)
                 /*如果所有列的总宽度小于表格宽度，按照列的权重给列分配剩下的宽度*/
                 if (totalColumnWidth < this.p_tableWidth) {
                     /*额外多出来的宽度*/
-                    let externalWidth = this.p_tableWidth - totalColumnWidth -1
+                    let externalWidth = this.p_tableWidth - totalColumnWidth
                     /*总权重*/
                     let totalColumnFit = cols.reduce((ret, item) => ret + item.fit, 0)
                     /*如果列中没有配置权重，则最后一个非固定列设置权重为1*/

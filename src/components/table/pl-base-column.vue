@@ -10,7 +10,7 @@
         mixins: [ColumnMixin],
         watch: {
             width(val) {
-                if (this.p_width !== val) this.p_width = val;
+                if (this.p_width !== val) this.p_width = this.$plain.$utils.removePx(val);
             },
             p_width(val) {
                 this.$parent.$emit('update:width', val);
@@ -32,8 +32,8 @@
             return {
                 p_initTitle: this.title,
                 p_title: this.title,
-                p_initWidth: this.width,
-                p_width: this.width,
+                p_initWidth: this.$plain.$utils.removePx(this.width),
+                p_width: this.$plain.$utils.removePx(this.width),
                 p_fit: this.fit,
                 p_initOrder: this.order,
                 p_order: this.order,

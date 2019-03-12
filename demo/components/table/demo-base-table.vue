@@ -2,13 +2,13 @@
     <div class="demo-base-table">
         <demo-row title="基本用法">
             <link-base-table :data="getData()">
-                <link-column field="id" title="编号"/>
+                <link-column field="id" title="编号" width="300px"/>
                 <link-column field="name" title="姓名"/>
                 <link-column field="age" title="年龄"/>
                 <link-column field="age" title="年龄"/>
             </link-base-table>
         </demo-row>
-        <demo-row title="个人感觉斑马纹表格不好看，就不加这个功能了"/>
+        <!--<demo-row title="个人感觉斑马纹表格不好看，就不加这个功能了"/>
         <demo-row title="自动横向以及纵向滚动">
             <link-base-table :data="getData(15)">
                 <link-column field="id" title="编号"/>
@@ -102,7 +102,7 @@
             <link-base-table :data="getData()">
                 <pl-render-func :render-func="renderFunc"/>
             </link-base-table>
-        </demo-row>
+        </demo-row>-->
     </div>
 </template>
 
