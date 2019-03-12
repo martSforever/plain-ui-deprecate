@@ -4,7 +4,7 @@
         @dblclick="p_dblclick"
         @mouseenter="p_enter"
         @mouseleave="p_leave"
-        :class="{'pl-table-row-hover':p_hover,'pl-table-row-selected':p_selected}">
+        :class="{'pl-table-row-hover':p_hover,'pl-table-row-selected':p_selected,'pl-table-row-editing':p_editing}">
         <td v-for="(col,colIndex) in columns" :key="colIndex">
             <pl-table-cell
                     :is-fixed="col.fixed === fixed"
@@ -168,7 +168,13 @@
 
 <style lang="scss">
     .pl-table-row {
-        &.pl-table-row-hover, &.pl-table-row-selected {
+        &.pl-table-row-hover {
+            background-color: $base-table-hover-row-background;
+        }
+        &.pl-table-row-editing {
+            background-color: initial;
+        }
+        &.pl-table-row-selected {
             background-color: $base-table-hover-row-background;
         }
         .pl-table-cell {
