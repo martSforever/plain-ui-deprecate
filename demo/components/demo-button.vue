@@ -178,5 +178,8 @@
 
 <style lang="scss">
     .demo-button {
+        .link-button {
+            background-color: white;
+        }
     }
 </style>
