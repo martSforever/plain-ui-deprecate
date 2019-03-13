@@ -1,20 +1,34 @@
 <template>
     <div class="demo-block">
-        <slot></slot>
+        <demo-block-item v-for="(item,index) in blocks" :key="index" :html="item.html" :js="item.js" :css="item.css"/>
     </div>
 </template>
 
 <script>
+    import DemoBlockItem from "./demo-block-item";
+
     export default {
         name: "demo-block",
+        components: {DemoBlockItem},
         props: {
             file: {type: String, default: 'button.md'},
         },
         async created() {
             const blocks = await this.p_getBlocks()
             console.log(blocks)
+            this.blocks = blocks
+        },
+        data() {
+            return {
+                blocks: [],
+            }
         },
         methods: {
+            /**
+             * 获取要渲染的markdown文件
+             * @author  韦胜健
+             * @date    2019/3/13 19:34
+             */
             async p_decodeFile() {
                 return new Promise((rs, rj) => {
                     import(`demo/md/${this.file}`)
@@ -23,13 +37,23 @@
                         }).catch(rj)
                 })
             },
+            /**
+             * 获取代码块
+             * @author  韦胜健
+             * @date    2019/3/13 19:36
+             */
             async p_getBlocks() {
                 const blocksText = await  this.p_decodeFile()
                 const blocks = blocksText.split("---")
                 return blocks.map(block => this.p_decodeBlock(block))
             },
+            /**
+             * 解析代码块
+             * @author  韦胜健
+             * @date    2019/3/13 19:36
+             */
             p_decodeBlock(block) {
-                let types = ['html', 'js', 'scss']
+                let types = ['html', 'js', 'css']
                 const result = types.reduce((ret, item) => {
                     const {content, block: newBlock} = this.p_decodeBlockType(block, item)
                     block = newBlock
@@ -39,6 +63,11 @@
                 result.md = block
                 return result
             },
+            /**
+             * 解析某种类型的的diamante块
+             * @author  韦胜健
+             * @date    2019/3/13 19:49
+             */
             p_decodeBlockType(block, codeType) {
                 let type = '```' + codeType
                 let startIndex = block.indexOf(type), endIndex, content

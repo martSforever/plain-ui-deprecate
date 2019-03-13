@@ -23,7 +23,7 @@ export default{
 ---
 ### 颜色
 ```html
-<link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index"/>
+<link-button v-for="(item,index) in ['primary','success','warn','error','info']" :label="item" :box-color="item" :key="index"/>
 ```
 ```js
 export default{

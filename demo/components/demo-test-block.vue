@@ -1,9 +1,7 @@
 <template>
     <div class="demo-test-block">
         <demo-row>
-            <demo-block>
-                <link-button label="hello"/>
-            </demo-block>
+            <demo-block/>
         </demo-row>
     </div>
 </template>
