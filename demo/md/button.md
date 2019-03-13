@@ -1,8 +1,8 @@
 ### 基本用法
 ```html
-<link-button label="基本用法"/>
-<link-button label="基本用法"/>
-<link-button label="基本用法"/>
+<link-button label="primary"/>
+<link-button label="success"/>
+<link-button label="warn"/>
 ```
 ```js
 export default{
