@@ -13,11 +13,8 @@ export default{
     }
 }
 ```
-```scss
+```css
 .demo-button {
-    .link-button {
-        background-color: white;
-    }
 }
 ```
 ---

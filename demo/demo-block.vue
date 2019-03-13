@@ -1,15 +1,16 @@
 <template>
     <div class="demo-block">
-        <demo-block-example v-for="(item,index) in blocks" :key="index" :html="item.html" :js="item.js" :css="item.css"/>
+        <demo-block-item v-for="(item,index) in blocks" :key="index" :block="item"/>
     </div>
 </template>
 
 <script>
 
-    import DemoBlockExample from "./demo-block-example";
+    import DemoBlockItem from "./demo-block-item";
+
     export default {
         name: "demo-block",
-        components: {DemoBlockExample},
+        components: {DemoBlockItem},
         props: {
             file: {type: String, default: 'button.md'},
         },
