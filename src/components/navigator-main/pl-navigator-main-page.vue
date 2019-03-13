@@ -72,9 +72,16 @@
              * @param   iframe          打开的页面是否为一个外部地址，使用iframe窗口打开
              */
             async push(path, param, security, iframe = false) {
+                const pageData = {path, param, security, iframe}
+                this.pageStack.length !== 0 && !!this.beforePush && (await this.beforePush(pageData, this.tab))
+                path = pageData.path
+                param = pageData.param
+                security = pageData.security
+                iframe = pageData.iframe
+
                 const component = await this.getPageComponent(path, iframe)
                 const page = {id: this.$plain.$utils.uuid(), path, param, component, init: true, security, iframe}
-                this.pageStack.length !== 0 && !!this.beforePush && (await this.beforePush(page, this.tab))
+
                 this.pageStack.push(page)
                 this.pageStack.length !== 1 && !!this.afterPush && (await this.afterPush(page, this.tab))
                 await this.p_save()
