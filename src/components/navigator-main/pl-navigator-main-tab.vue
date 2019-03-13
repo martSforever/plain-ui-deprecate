@@ -18,8 +18,8 @@
                                 <span class="pl-navigator-main-tab-header-item-label">
                                     <pl-tooltip-text :content="item.title"/>
                                 </span>
-                                <div class="pl-navigator-main-tab-header-item-close" v-if="pageStack.length>1">
-                                    <pl-icon icon="pl-close" @click.stop="p_close(item.id)"/>
+                                <div class="pl-navigator-main-tab-header-item-close" v-if="pageStack.length>1" @click.stop="p_close(item.id)">
+                                    <pl-icon icon="pl-close"/>
                                 </div>
                             </div>
                         </div>
@@ -439,18 +439,27 @@
                             }*/
                             .pl-navigator-main-tab-header-item-close {
                                 position: absolute;
-                                right: 20px;
+                                right: 10px;
                                 top: 0;
                                 bottom: 0;
                                 display: flex;
                                 align-items: center;
+                                justify-content: center;
                                 transform: scale(0.8);
+                                width: 24px;
+                                height: 24px;
+                                border-radius: 24px;
                             }
                             .pl-navigator-main-tab-header-item-label {
                                 width: calc(100% - 15px);
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                                 position: relative;
+                            }
+                            &:hover {
+                                .pl-navigator-main-tab-header-item-close {
+                                    background-color: $color-normal-border;
+                                }
                             }
                         }
                         &.pl-navigator-main-tab-header-item-active {
