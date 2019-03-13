@@ -23,10 +23,15 @@ export default{
 ---
 ### 颜色
 ```html
-<link-button v-for="(item,index) in ['primary','success','warn','error','info']" :label="item" :box-color="item" :key="index"/>
+<link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index"/>
 ```
 ```js
 export default{
+    data(){
+        return{
+            colors:['primary','success','warn','error','info']
+        }
+    },
     methods: {
         _click() {
             console.log("color");
@@ -34,11 +39,8 @@ export default{
     }
 }
 ```
-```scss
-.demo-button {
-    .link-button {
-        background-color: blue;
-    }
+```css
+.demo-test-block {
 }
 ```
 
