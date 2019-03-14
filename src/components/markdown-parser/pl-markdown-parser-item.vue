@@ -1,13 +1,6 @@
 <template>
     <div class="pl-markdown-parser-item">
         <div class="pl-markdown-parser-item-example" v-if="data.isDemo" :style="exampleStyles" :class="exampleClasses">
-            <!-- <div class="pl-markdown-parser-item-title" v-if="!!data.title">{{data.title}}</div>
-         <div class="pl-markdown-parser-item-desc" v-if="!!data.desc">
-             <pl-markdown :value="data.desc"/>
-         </div>-->
-            <!--<div class="pl-markdown-parser-item-md" v-if="!!data.md">
-                <pl-markdown :value="data.md"/>
-            </div>-->
             <div class="pl-markdown-parser-item-left">
                 <pl-markdown-parser-example :html="data.html" :js="data.js" :css="data.css"/>
                 <div class="pl-markdown-parser-item-left-label">
@@ -26,7 +19,7 @@
             <div class="pl-markdown-parser-item-right" ref="code">
                 <pl-markdown :value="markedCode"/>
             </div>
-            <div class="pl-markdown-parser-item-example-toggle" @click="p_open = !p_open">
+            <div class="pl-markdown-parser-item-example-toggle" @click="p_open = !p_open" v-if="openable">
                 <link-button :prefix-icon="!p_open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-color="info" box-type="none"/>
             </div>
         </div>
@@ -50,13 +43,16 @@
             return {
                 p_open: false,
                 codeHeight: null,
-                minHeight: this.data.minHeight || 200
+                minHeight: (this.data.minHeight - 0) || 200
             }
         },
         mounted() {
-            this.codeHeight = this.$refs.code.offsetHeight + 24 + 100
+            this.codeHeight = this.$refs.code.offsetHeight
         },
         computed: {
+            openable() {
+                return !!this.codeHeight && this.codeHeight > this.minHeight
+            },
             markedCode() {
                 if (!this.data) return null
                 let ret = []
@@ -67,12 +63,21 @@
             },
             exampleStyles() {
                 const ret = {}
-                ret.height = (!!this.codeHeight && this.codeHeight > this.minHeight ? this.p_open ? this.codeHeight : this.minHeight : this.minHeight) + "px"
+                if (!this.codeHeight) return ret
+                let height;
+                if (this.codeHeight < this.minHeight) {
+                    this.p_open = true
+                    height = this.minHeight
+                }
+                else
+                    height = this.p_open ? (this.codeHeight+ 24 + 100) : this.minHeight
+                ret.height = height + 'px'
+                console.log(ret)
                 return ret
             },
             exampleClasses() {
                 return {
-                    'pl-markdown-parser-item-example-openable': !!this.codeHeight && this.codeHeight > this.minHeight,
+                    'pl-markdown-parser-item-example-openable': this.openable,
                     'pl-markdown-parser-item-example-open': this.p_open
                 }
             },
