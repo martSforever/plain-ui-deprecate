@@ -16,7 +16,6 @@
         },
         async created() {
             const blocks = await this.p_getBlocks()
-            console.log(blocks)
             this.blocks = blocks
         },
         data() {
@@ -76,7 +75,10 @@
                     })
                     return ret
                 }, [])
-                ret.push(tests[tests.length - 1])
+                ret.push({
+                    isDemo: false,
+                    content: tests[tests.length - 1]
+                })
                 return ret.map(item => this.p_decodeBlock(item))
             },
             /**
