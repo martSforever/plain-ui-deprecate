@@ -1,6 +1,6 @@
 <template>
-    <pl-popover class="pl-cascade" :height="28*5" :width="null" disabled-equal trigger="none" v-model="p_show" @hide="p_hide">
-        <pl-input clear-icon="pl-double-arrow-down" @click="p_show = true" :value="p_showLabel" :defaultClear="false" @clear="p_clear"/>
+    <pl-popover class="pl-cascade" :height="28*5" :width="null" disabled-equal v-model="p_show" @hide="p_hide">
+        <pl-input clear-icon="pl-double-arrow-down" :value="p_showLabel" :defaultClear="false" @clear="p_clear"/>
         <div slot="popper" class="pl-cascade-popper">
             <pl-cascade-option :cascade-width="cascadeWidth"
                                :data="data"

@@ -92,6 +92,14 @@
                 </div>
             </link-popover>
         </demo-row>
+        <demo-row title="取消点击目标的时候切换显隐状态">
+            <link-popover disabled-toggle-on-click-reference ref="popover">
+                <link-button label="reference"/>
+                <div class="test-box" slot="popper">
+                    <link-button label="close" @click="$refs.popover.hide()"/>
+                </div>
+            </link-popover>
+        </demo-row>
 
         <demo-row title="初始化的就初始化内容">
             <link-popover initialized>
@@ -104,6 +112,15 @@
 
         <demo-row title="设置大小">
             <link-popover width="200px" height="200px" disabled-equal>
+                <link-button label="reference"/>
+                <div class="test-box" slot="popper">
+                    设置大小
+                </div>
+            </link-popover>
+        </demo-row>
+
+        <demo-row title="禁用">
+            <link-popover width="200px" height="200px" disabled>
                 <link-button label="reference"/>
                 <div class="test-box" slot="popper">
                     设置大小
@@ -155,7 +172,6 @@
 
 <style lang="scss">
     .demo-popover {
-        padding: 12px;
         .demo-row-content {
             position: relative;
             overflow: hidden;

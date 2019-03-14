@@ -2,7 +2,7 @@
     <pl-popover
             class="pl-select"
             v-model="currentShow"
-            :trigger="!readonly && !disabled ?trigger:null"
+            :disabled="readonly || disabled"
             v-bind="popoverBinding">
         <pl-input
                 :value="showValue"

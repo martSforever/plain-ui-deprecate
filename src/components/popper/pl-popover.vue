@@ -40,7 +40,6 @@
     import Popper from 'popper.js'
     import {POPOVER_TRIGGER, PopoverMixin} from "./index";
 
-
     export default {
         name: "pl-popover",
         mixins: [ValueMixin, MountedMixin, PopoverMixin],
@@ -104,6 +103,7 @@
         },
         methods: {
             show(val = true) {
+                if (this.disabled) return
                 if (!!this.p_timer) {
                     clearTimeout(this.p_timer)
                     this.p_timer = null
@@ -184,7 +184,7 @@
             },
             p_clickReference(e) {
                 this.$emit('clickReference', e)
-                this.trigger === POPOVER_TRIGGER.CLICK && (this.show())
+                this.trigger === POPOVER_TRIGGER.CLICK && (this.disabledToggleOnClickReference ? this.show() : !!this.currentValue ? this.hide() : this.show())
             },
             p_enterReference(e) {
                 this.$emit('enterReference', e)
