@@ -1,6 +1,8 @@
 ## Button按钮
 
-> Plain 的按钮功能比较单一，主要是提供快速设置按钮样式的功能
+**Plain 的按钮功能比较单一，主要是提供快速设置按钮样式的功能**
+
+---
 
 :::demo-start
 
@@ -17,22 +19,9 @@
 <link-button label="success"/>
 <link-button label="warn"/>
 ```
-```js
-export default{
-    methods: {
-        _click() {
-            console.log("click");
-        },
-    }
-}
-```
-```css
-.demo-button {
-}
-```
 :::demo-end
 
-> 按钮支持多种颜色
+**按钮支持多种颜色**
 
 :::demo-start
 ### 颜色

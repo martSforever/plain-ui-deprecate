@@ -1,12 +1,15 @@
 <template>
     <div class="pl-markdown-parser">
-        pl-markdown-parser
+        <pl-markdown-parser-item v-for="(item,index) in demos" :key="index" :data="item"/>
     </div>
 </template>
 
 <script>
+    import PlMarkdownParserItem from "./pl-markdown-parser-item";
+
     export default {
         name: "pl-markdown-parser",
+        components: {PlMarkdownParserItem},
         props: {
             value: {},
         },
@@ -15,7 +18,7 @@
                 immediate: true,
                 async handler(val) {
                     this.demos = await this.p_decodeValue(val)
-                    console.log(this.demos)
+                    // console.log(this.demos)
                 },
             },
         },
@@ -85,6 +88,7 @@
                     return ret
                 }, {})
                 result.md = content
+                result.isDemo = isDemo
                 return result
             },
             /**
@@ -108,5 +112,8 @@
 </script>
 
 <style lang="scss">
-
+    .pl-markdown-parser {
+        @include public-style;
+        padding: 12px;
+    }
 </style>

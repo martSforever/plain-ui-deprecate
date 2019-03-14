@@ -32,5 +32,6 @@
 </script>
 
 <style lang="scss">
-
+    .demo-markdown-parser {
+    }
 </style>

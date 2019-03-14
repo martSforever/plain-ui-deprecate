@@ -41,8 +41,7 @@
 <style lang="scss">
     .pl-markdown {
         border-radius: 3px;
-        background-color: #f2f2f2;
-        padding: 12px;
+        @include public-style;
         & > pre {
             margin: 0;
             &:not(:last-child) {
@@ -59,7 +58,6 @@
             border: none;
             font-size: 1em;
             border-radius: 3px;
-            background-color: #f2f2f2;
             letter-spacing: 1px;
             line-height: 1.5em;
 
