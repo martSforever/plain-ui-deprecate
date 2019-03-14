@@ -508,7 +508,7 @@
                     }
                 }
                 .pl-navigator-main-tab-header-slot {
-                    width: 200px;
+                    width: 124px;
                     text-align: right;
                     flex-shrink: 0;
                 }
