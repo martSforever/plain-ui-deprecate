@@ -2,30 +2,32 @@
     <div class="pl-navigator-main-tab">
         <div class="pl-navigator-main-tab-wrapper">
             <div class="pl-navigator-main-tab-header-wrapper" v-if="!hideHeader">
-                <div class="pl-navigator-main-tab-header">
-                    <div class="pl-navigator-main-tab-header-item"
-                         v-for="(item,index) in pageStack"
-                         :key="index"
-                         :class="{
+                <div class="pl-navigator-main-tab-header-slot-left">
+                    <div class="pl-navigator-main-tab-header">
+                        <div class="pl-navigator-main-tab-header-item"
+                             v-for="(item,index) in pageStack"
+                             :key="index"
+                             :class="{
                             'pl-navigator-main-tab-header-item-active':index === currentValue,
                             'pl-navigator-main-tab-header-item-prev':index === currentValue-1,
                             'pl-navigator-main-tab-header-item-next':index === currentValue+1,
                          }"
-                         @click="p_clickTabTitle(index)"
-                         @contextmenu.prevent="e=>p_contextMenu(e,item,index)">
-                        <div class="pl-navigator-main-tab-header-item-wrapper">
-                            <div class="pl-navigator-main-tab-header-item-inner">
+                             @click="p_clickTabTitle(index)"
+                             @contextmenu.prevent="e=>p_contextMenu(e,item,index)">
+                            <div class="pl-navigator-main-tab-header-item-wrapper">
+                                <div class="pl-navigator-main-tab-header-item-inner">
                                 <span class="pl-navigator-main-tab-header-item-label">
                                     <pl-tooltip-text :content="item.title"/>
                                 </span>
-                                <div class="pl-navigator-main-tab-header-item-close" v-if="pageStack.length>1" @click.stop="p_close(item.id)">
-                                    <pl-icon icon="pl-close"/>
+                                    <div class="pl-navigator-main-tab-header-item-close" v-if="pageStack.length>1" @click.stop="p_close(item.id)">
+                                        <pl-icon icon="pl-close"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="pl-navigator-main-tab-header-item pl-navigator-main-tab-header-item-empty"
-                         :class="{'pl-navigator-main-tab-header-item-next':currentValue === pageStack.length - 1}">
+                        <div class="pl-navigator-main-tab-header-item pl-navigator-main-tab-header-item-empty"
+                             :class="{'pl-navigator-main-tab-header-item-next':currentValue === pageStack.length - 1}">
+                        </div>
                     </div>
                 </div>
                 <div class="pl-navigator-main-tab-header-slot">
@@ -410,100 +412,107 @@
                 display: flex;
                 justify-content: space-between;
                 height: 32px;
-                .pl-navigator-main-tab-header {
-                    height: 100%;
-                    display: inline-flex;
-                    align-items: center;
-                    width: fit-content;
-                    background-color: white;
-                    max-width: 100%;
+                .pl-navigator-main-tab-header-slot-left{
+                    flex: 1;
                     overflow: hidden;
-                    .pl-navigator-main-tab-header-item {
+                    height: 100%;
+                    box-sizing: border-box;
+                    padding-right: 18px;
+                    .pl-navigator-main-tab-header {
                         height: 100%;
-                        font-size: 12px;
-                        background-color: $navigator-main-tab-background-color;
-                        cursor: pointer;
-                        user-select: none;
-                        box-sizing: border-box;
-                        position: relative;
-                        width: 150px;
-                        &.pl-navigator-main-tab-header-item-empty {
-                            cursor: default;
-                            width: 10px;
-                        }
-                        .pl-navigator-main-tab-header-item-wrapper {
+                        display: inline-flex;
+                        align-items: center;
+                        width: fit-content;
+                        background-color: white;
+                        max-width: 100%;
+                        overflow: hidden;
+                        .pl-navigator-main-tab-header-item {
                             height: 100%;
-                            display: flex;
-                            align-items: center;
-                            /*.pl-navigator-main-tab-header-item-close {
-                                opacity: 0;
-                            }*/
-                            .pl-navigator-main-tab-header-item-close {
-                                position: absolute;
-                                right: 10px;
-                                top: 0;
-                                bottom: 0;
+                            font-size: 12px;
+                            background-color: $navigator-main-tab-background-color;
+                            cursor: pointer;
+                            user-select: none;
+                            box-sizing: border-box;
+                            position: relative;
+                            width: 150px;
+                            &.pl-navigator-main-tab-header-item-empty {
+                                cursor: default;
+                                width: 10px;
+                            }
+                            .pl-navigator-main-tab-header-item-wrapper {
+                                height: 100%;
                                 display: flex;
                                 align-items: center;
-                                justify-content: center;
-                                transform: scale(0.8);
-                                width: 24px;
-                                height: 24px;
-                                border-radius: 24px;
-                            }
-                            .pl-navigator-main-tab-header-item-label {
-                                width: calc(100% - 15px);
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                position: relative;
-                            }
-                            &:hover {
+                                /*.pl-navigator-main-tab-header-item-close {
+                                    opacity: 0;
+                                }*/
                                 .pl-navigator-main-tab-header-item-close {
-                                    background-color: $color-normal-border;
+                                    position: absolute;
+                                    right: 10px;
+                                    top: 0;
+                                    bottom: 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    transform: scale(0.8);
+                                    width: 24px;
+                                    height: 24px;
+                                    border-radius: 24px;
+                                }
+                                .pl-navigator-main-tab-header-item-label {
+                                    width: calc(100% - 15px);
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    position: relative;
+                                }
+                                &:hover {
+                                    .pl-navigator-main-tab-header-item-close {
+                                        background-color: $color-normal-border;
+                                    }
                                 }
                             }
-                        }
-                        &.pl-navigator-main-tab-header-item-active {
-                            color: #869eff;
-                            .pl-navigator-main-tab-header-item-wrapper {
-                                background-color: white;
-                                border-top-left-radius: $navigator-main-tab-head-radios;
-                                border-top-right-radius: $navigator-main-tab-head-radios;
+                            &.pl-navigator-main-tab-header-item-active {
+                                color: #869eff;
+                                .pl-navigator-main-tab-header-item-wrapper {
+                                    background-color: white;
+                                    border-top-left-radius: $navigator-main-tab-head-radios;
+                                    border-top-right-radius: $navigator-main-tab-head-radios;
+                                }
+                                &::before {
+                                    border-left: none !important;
+                                }
+                                /*.pl-navigator-main-tab-header-item-close {
+                                    opacity: 1;
+                                }*/
+                            }
+                            &.pl-navigator-main-tab-header-item-prev {
+                                border-bottom-right-radius: $navigator-main-tab-head-radios;
+                            }
+                            &.pl-navigator-main-tab-header-item-next {
+                                border-bottom-left-radius: $navigator-main-tab-head-radios;
+                                &::before {
+                                    border-left: none !important;
+                                }
+                            }
+                            .pl-navigator-main-tab-header-item-inner {
+                                width: 100%;
+                                padding: 0 20px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                white-space: nowrap;
+                                position: relative;
+                                box-sizing: border-box;
                             }
                             &::before {
-                                border-left: none !important;
+                                content: '';
+                                position: absolute;
+                                top: 8px;
+                                bottom: 8px;
+                                left: 0;
+                                right: 0;
+                                border-left: solid 1px #ddd;
                             }
-                            /*.pl-navigator-main-tab-header-item-close {
-                                opacity: 1;
-                            }*/
-                        }
-                        &.pl-navigator-main-tab-header-item-prev {
-                            border-bottom-right-radius: $navigator-main-tab-head-radios;
-                        }
-                        &.pl-navigator-main-tab-header-item-next {
-                            border-bottom-left-radius: $navigator-main-tab-head-radios;
-                            &::before {
-                                border-left: none !important;
-                            }
-                        }
-                        .pl-navigator-main-tab-header-item-inner {
-                            width: 100%;
-                            padding: 0 20px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            white-space: nowrap;
-                            position: relative;
-                            box-sizing: border-box;
-                        }
-                        &::before {
-                            content: '';
-                            position: absolute;
-                            top: 8px;
-                            bottom: 8px;
-                            left: 0;
-                            right: 0;
-                            border-left: solid 1px #ddd;
                         }
                     }
                 }
