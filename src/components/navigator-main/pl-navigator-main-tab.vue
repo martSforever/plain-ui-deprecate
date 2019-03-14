@@ -213,6 +213,14 @@
                 this.refresh(page.id)
             },
             /**
+             * 获取当前显示的tab数据信息
+             * @author  韦胜健
+             * @date    2019/3/14 19:17
+             */
+            getCurrentTab() {
+                return this.pageStack.length > 0 && this.currentValue != null ? this.pageStack[this.currentValue] : null
+            },
+            /**
              * 处理标签标题点击事件
              * @author  韦胜健
              * @date    2019/2/26 16:33
@@ -412,7 +420,7 @@
                 display: flex;
                 justify-content: space-between;
                 height: 32px;
-                .pl-navigator-main-tab-header-slot-left{
+                .pl-navigator-main-tab-header-slot-left {
                     flex: 1;
                     overflow: hidden;
                     height: 100%;

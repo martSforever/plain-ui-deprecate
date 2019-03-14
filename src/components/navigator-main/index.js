@@ -82,6 +82,24 @@ class NavigatorService {
     clearTab = clearTab
 
     /**
+     * 获取当前显示的tab数据信息
+     * @author  韦胜健
+     * @date    2019/3/14 19:17
+     */
+    getCurrentTab() {
+        return this.tab.getCurrentTab()
+    }
+
+    /**
+     * 获取当前所有的tabs
+     * @author  韦胜健
+     * @date    2019/3/14 19:34
+     */
+    getTabs() {
+        return this.tab.pageStack
+    }
+
+    /**
      * 打开页面
      * @author  韦胜健
      * @date    2019/3/6 11:41
@@ -93,6 +111,7 @@ class NavigatorService {
     async push(path, param, security, iframe) {
         if (!!this.page) return await this.page.push(path, param, security, iframe)
     }
+
     /**
      * 重定向到页面
      * @author  韦胜健
@@ -105,6 +124,7 @@ class NavigatorService {
     async redirect(path, param, security, iframe) {
         this.page.redirect(path, param, security, iframe)
     }
+
     /**
      * 回退页面
      * @author  韦胜健
@@ -114,6 +134,7 @@ class NavigatorService {
     async back(num = 1) {
         if (!!this.page) return await this.page.back(num)
     }
+
     /**
      * 某个页签内弹出所有页面
      * @author  韦胜健

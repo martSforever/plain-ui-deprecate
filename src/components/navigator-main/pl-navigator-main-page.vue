@@ -204,6 +204,7 @@
             height: 100%;
             width: 100%;
             position: relative;
+            background-color: white;
             .pl-navigator-main-page-item {
                 position: absolute;
                 top: 0;

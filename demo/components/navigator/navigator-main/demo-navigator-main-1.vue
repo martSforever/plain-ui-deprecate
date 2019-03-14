@@ -25,7 +25,8 @@
         },
         methods: {
             log() {
-                console.log(this.NAV, this.$nav)
+                // console.log(this.NAV, this.$nav)
+                console.log(this.$nav.getCurrentTab())
             },
             openTab() {
                 this.$nav.openTab({
