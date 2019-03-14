@@ -1,6 +1,8 @@
 <template>
     <div class="pl-markdown-parser">
-        <pl-markdown-parser-item v-for="(item,index) in demos" :key="index" :data="item"/>
+        <div v-for="(item,index) in demos" :key="index" :data="item">
+            <pl-markdown-parser-item :data="item" v-if="item.isDemo"/>
+        </div>
     </div>
 </template>
 

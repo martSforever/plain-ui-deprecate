@@ -1,6 +1,6 @@
 <template>
     <div class="pl-markdown-parser-item">
-        <div class="pl-markdown-parser-item-example" v-if="data.isDemo" :style="exampleStyles">
+        <div class="pl-markdown-parser-item-example" v-if="data.isDemo" :style="exampleStyles" :class="exampleClasses">
             <!-- <div class="pl-markdown-parser-item-title" v-if="!!data.title">{{data.title}}</div>
          <div class="pl-markdown-parser-item-desc" v-if="!!data.desc">
              <pl-markdown :value="data.desc"/>
@@ -23,8 +23,11 @@
                     </div>
                 </div>
             </div>
-            <div class="pl-markdown-parser-item-right">
+            <div class="pl-markdown-parser-item-right" ref="code">
                 <pl-markdown :value="markedCode"/>
+            </div>
+            <div class="pl-markdown-parser-item-example-toggle" @click="p_open = !p_open">
+                <link-button :prefix-icon="!p_open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-color="info" box-type="none"/>
             </div>
         </div>
     </div>
@@ -43,6 +46,16 @@
         created() {
             // console.log(this.data)
         },
+        data() {
+            return {
+                p_open: false,
+                codeHeight: null,
+                minHeight: this.data.minHeight || 200
+            }
+        },
+        mounted() {
+            this.codeHeight = this.$refs.code.offsetHeight + 24 + 100
+        },
         computed: {
             markedCode() {
                 if (!this.data) return null
@@ -54,8 +67,14 @@
             },
             exampleStyles() {
                 const ret = {}
-                !!this.data.minHeight && (ret.minHeight = this.data.minHeight)
+                ret.height = (!!this.codeHeight && this.codeHeight > this.minHeight ? this.p_open ? this.codeHeight : this.minHeight : this.minHeight) + "px"
                 return ret
+            },
+            exampleClasses() {
+                return {
+                    'pl-markdown-parser-item-example-openable': !!this.codeHeight && this.codeHeight > this.minHeight,
+                    'pl-markdown-parser-item-example-open': this.p_open
+                }
             },
         },
     }
@@ -75,7 +94,8 @@
             position: relative;
             border: dashed 1px $border-color;
             margin-bottom: 20px;
-            @include transition-all;
+            overflow: hidden;
+            @include transition-all-cubic-bezier;
             &:hover {
                 box-shadow: 0 0 15px $border-color;
                 border-color: transparent;
@@ -129,6 +149,27 @@
                 display: inline-block;
                 padding: 0 $padding;
                 box-sizing: border-box;
+            }
+
+            .pl-markdown-parser-item-example-toggle {
+                @include transition-all;
+                cursor: pointer;
+                height: 100px;
+                position: absolute;
+                bottom: -2px;
+                left: -1px;
+                right: -1px;
+                background: linear-gradient(to top, rgba(#ddd, 0.3), transparent);
+                opacity: 0;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+
+            &.pl-markdown-parser-item-example-openable:hover {
+                .pl-markdown-parser-item-example-toggle {
+                    opacity: 1;
+                }
             }
         }
     }

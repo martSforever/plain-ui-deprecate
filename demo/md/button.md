@@ -15,7 +15,7 @@
 :::desc-end
 
 :::min-height-start
-200px
+250
 :::min-height-end
 
 ```html
