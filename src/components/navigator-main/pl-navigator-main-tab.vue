@@ -409,8 +409,9 @@
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
+                height: 32px;
                 .pl-navigator-main-tab-header {
-                    height: 32px;
+                    height: 100%;
                     display: inline-flex;
                     align-items: center;
                     width: fit-content;
