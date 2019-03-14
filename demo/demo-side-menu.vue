@@ -109,6 +109,7 @@
                             {title: 'Card卡片', icon: 'pl-card', page: '/demo-card', complete: true},
                             {title: 'Carousel轮播', icon: 'pl-carousel', page: '/demo-carousel', complete: true},
                             {title: 'Collapse折叠面板', icon: 'pl-collapse', page: '/demo-collapse', complete: true},
+                            {title: 'MarkdownParser', icon: 'pl-collapse', page: '/demo-markdown-parser', complete: true},
                         ],
                     },
                 ],

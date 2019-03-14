@@ -6,7 +6,7 @@
 </template>
 <script>
     import DemoBlockExample from "./demo-block-example";
-    import PlMarkdown from "../src/components/markdown/pl-markdown";
+    import PlMarkdown from "../src/components/markdown-parser/pl-markdown";
 
     export default {
         name: "demo-block-item",
