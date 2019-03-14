@@ -11,20 +11,28 @@
 :::title-end
 
 :::desc-start
-默认情况下，按钮只需要一个文本，指定label属性即可
-::::desc-end
+默认情况下，可以通过label属性设置按钮文本，可以通过插槽设置文本内容，当设置插槽时，label属性将不可用
+:::desc-end
+
+:::min-height-start
+200px
+:::min-height-end
 
 ```html
-<link-button label="primary"/>
-<link-button label="success"/>
-<link-button label="warn"/>
+<link-button label="简单按钮1"/>
+<link-button>
+    <span>简单按钮2</span>
+    <link-icon icon="pl-search"/>
+</link-button>
 ```
 :::demo-end
 
 **按钮支持多种颜色**
 
 :::demo-start
-### 颜色
+:::title-start
+按钮的颜色:color
+:::title-end
 ```html
 <link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index"/>
 ```

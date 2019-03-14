@@ -80,6 +80,7 @@
                     {key: "css", start: '```css', end: '```'},
                     {key: "title", start: ':::title-start', end: ':::title-end'},
                     {key: "desc", start: ':::desc-start', end: ':::desc-end'},
+                    {key: "minHeight", start: ':::min-height-start', end: ':::min-height-end'},
                 ]
                 const result = types.reduce((ret, {key, start, end}) => {
                     const {content: itemContent, block: newContent} = this.p_decodeBlockType(content, {start, end})
