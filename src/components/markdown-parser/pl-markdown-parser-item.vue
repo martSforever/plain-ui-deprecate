@@ -70,9 +70,8 @@
                     height = this.minHeight
                 }
                 else
-                    height = this.p_open ? (this.codeHeight+ 24 + 100) : this.minHeight
+                    height = this.p_open ? (this.codeHeight+ 40 + 100) : this.minHeight
                 ret.height = height + 'px'
-                console.log(ret)
                 return ret
             },
             exampleClasses() {
@@ -87,7 +86,7 @@
 
 <style lang="scss">
     $left-width: 500px;
-    $padding: 12px;
+    $padding: 20px;
     $border-color: #ddd;
     .pl-markdown-parser-item {
 
