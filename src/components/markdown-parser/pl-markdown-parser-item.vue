@@ -5,14 +5,12 @@
                 <pl-markdown-parser-example :html="data.html" :js="data.js" :css="data.css"/>
                 <div class="pl-markdown-parser-item-left-label">
                     <div class="pl-markdown-parser-item-left-label-title-wrapper">
-                        <div class="pl-markdown-parser-item-left-label-title-wrapper-left"></div>
                         <div class="pl-markdown-parser-item-left-label-title-wrapper-center">
                             {{data.title}}
                         </div>
                         <div class="pl-markdown-parser-item-left-label-title-wrapper-right"></div>
                     </div>
                     <div class="pl-markdown-parser-item-left-desc">
-                        <div>p_showFixedCloser{{p_showFixedCloser}}</div>
                         <pl-markdown :value="data.desc"/>
                     </div>
                 </div>
@@ -174,7 +172,7 @@
                             flex: 1;
                         }
                         .pl-markdown-parser-item-left-label-title-wrapper-center {
-                            padding: 0 12px;
+                            padding: 0 15px;
                         }
                         .pl-markdown-parser-item-left-label-title-wrapper-left, .pl-markdown-parser-item-left-label-title-wrapper-right {
                             background-color: $border-color;
@@ -187,6 +185,7 @@
                     width: 100%;
                     padding: 0 $padding;
                 }
+
             }
             .pl-markdown-parser-item-right {
                 position: relative;

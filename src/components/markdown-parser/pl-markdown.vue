@@ -43,6 +43,11 @@
         border-radius: 3px;
         width: fit-content;
         @include public-style;
+        p {
+            letter-spacing: 1.2px;
+            line-height: 1.8em;
+            font-size: 12px;
+        }
         & > pre {
             margin: 0;
             &:not(:last-child) {
