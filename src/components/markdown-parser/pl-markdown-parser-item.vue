@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="pl-markdown-parser-item-right" ref="code" :style="{left:`${leftWidth}px`}">
+            <div class="pl-markdown-parser-item-right" ref="code" :style="{left:`${leftWidth}px`,width:`calc(100% - ${leftWidth}px)`}">
                 <pl-markdown :value="markedCode"/>
             </div>
             <pl-markdown-parser-item-closer @click="p_open = !p_open" :show="openable" :open="p_open" :left-width="leftWidth"/>
@@ -34,6 +34,7 @@
         components: {PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
         props: {
             data: {},
+            leftWidth: {},
         },
         created() {
             // console.log(this.data)
@@ -43,7 +44,6 @@
                 p_open: false,
                 codeHeight: null,
                 minHeight: (this.data.minHeight - 0) || 140,
-                leftWidth: 500,
             }
         },
         mounted() {
@@ -74,7 +74,7 @@
                     height = this.minHeight
                 }
                 else
-                    height = this.p_open ? (this.rightHeight + 40 + 100) : this.minHeight
+                    height = this.p_open ? (this.rightHeight + 40) : this.minHeight
                 ret.height = height + 'px'
                 return ret
             },
@@ -97,7 +97,6 @@
             font-size: 14px;
             box-sizing: border-box;
             border-radius: 4px;
-            padding: $padding;
             position: relative;
             border: dashed 1px $border-color;
             margin-bottom: 20px;
@@ -114,27 +113,28 @@
                 top: 0;
                 bottom: 0;
                 box-sizing: border-box;
-                padding: $padding $padding 0 0;
+                padding: $padding 0;
                 display: inline-block;
                 &:after {
                     position: absolute;
-                    top: 12px;
-                    bottom: 12px;
+                    top: 0;
+                    bottom: 0;
                     right: 0;
                     width: 1px;
                     border-right: dashed 1px $border-color;
                     content: '';
                 }
                 .pl-markdown-parser-item-left-label {
-                    margin-top: $padding*2;
+                    margin-top: $padding;
                     .pl-markdown-parser-item-left-label-title-wrapper {
                         width: 100%;
                         display: flex;
                         align-items: center;
-                        font-size: 16px;
-                        line-height: 16px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        line-height: 14px;
                         .pl-markdown-parser-item-left-label-title-wrapper-left {
-                            width: 25px;
+                            width: $padding;
                         }
                         .pl-markdown-parser-item-left-label-title-wrapper-right {
                             flex: 1;
@@ -148,12 +148,19 @@
                         }
                     }
                 }
+                .pl-markdown-parser-example,.pl-markdown-parser-item-left-desc{
+                    box-sizing: border-box;
+                    width: 100%;
+                    padding: 0 $padding;
+                }
             }
             .pl-markdown-parser-item-right {
                 position: relative;
                 display: inline-block;
-                padding: 0 $padding;
+                padding: $padding;
                 box-sizing: border-box;
+                overflow: auto;
+                min-height: calc(100% - 36px);
             }
 
             &.pl-markdown-parser-item-example-openable:hover {

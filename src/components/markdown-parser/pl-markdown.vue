@@ -41,6 +41,7 @@
 <style lang="scss">
     .pl-markdown {
         border-radius: 3px;
+        width: fit-content;
         @include public-style;
         & > pre {
             margin: 0;

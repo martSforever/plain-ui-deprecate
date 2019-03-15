@@ -89,7 +89,9 @@ export default{
 只有图标:icon-only
 :::title-end
 ```html
-<link-button label="primary" prefix-icon="pl-search" icon-only/>
+<link-button label="primary" 
+             prefix-icon="pl-search" 
+             icon-only/>
 ```
 :::demo-end
 

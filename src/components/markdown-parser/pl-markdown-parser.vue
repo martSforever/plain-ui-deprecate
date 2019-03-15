@@ -1,21 +1,26 @@
 <template>
     <div class="pl-markdown-parser" @scroll="p_scroll">
-        <div v-for="(item,index) in demos" :key="index" :data="item">
-            <pl-markdown-parser-item :data="item" v-if="item.isDemo"/>
-            <pl-markdown :value="item.md" v-else/>
+        <div class="pl-markdown-parser-wrapper">
+            <div v-for="(item,index) in demos" :key="index" :data="item">
+                <pl-markdown-parser-item :data="item" v-if="item.isDemo" :left-width="leftWidth"/>
+                <pl-markdown :value="item.md" v-else/>
+            </div>
         </div>
+        <!--<pl-markdown-parser-item-closer :left-width="leftWidth" :show="true" :open="true"/>-->
     </div>
 </template>
 
 <script>
     import PlMarkdownParserItem from "./pl-markdown-parser-item";
     import PlMarkdown from "./pl-markdown";
+    import PlMarkdownParserItemCloser from "./pl-markdown-parser-item-closer";
 
     export default {
         name: "pl-markdown-parser",
-        components: {PlMarkdown, PlMarkdownParserItem},
+        components: {PlMarkdownParserItemCloser, PlMarkdown, PlMarkdownParserItem},
         props: {
             value: {},
+            leftWidth: {type: Number, default: 400},
         },
         watch: {
             value: {
@@ -127,8 +132,14 @@
 <style lang="scss">
     .pl-markdown-parser {
         @include public-style;
-        padding: 12px;
         height: 100%;
-        overflow-y: auto;
+        position: relative;
+        width: 900px;
+        .pl-markdown-parser-wrapper {
+            @include public-style;
+            padding: 12px;
+            overflow-y: auto;
+            height: 100%;
+        }
     }
 </style>
