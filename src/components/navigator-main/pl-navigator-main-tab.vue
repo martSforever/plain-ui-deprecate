@@ -480,7 +480,7 @@
                                 }
                             }
                             &.pl-navigator-main-tab-header-item-active {
-                                color: #869eff;
+                                color: $color-primary;
                                 .pl-navigator-main-tab-header-item-wrapper {
                                     background-color: white;
                                     border-top-left-radius: $navigator-main-tab-head-radios;
