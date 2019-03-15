@@ -135,7 +135,7 @@
             box-sizing: border-box;
             border-radius: 4px;
             position: relative;
-            border: dashed 1px $border-color;
+            border: solid 0.5px $border-color;
             margin-bottom: 20px;
             overflow: hidden;
             @include transition-all-cubic-bezier;
@@ -163,20 +163,16 @@
                         display: flex;
                         align-items: center;
                         font-size: 14px;
-                        font-weight: 600;
                         line-height: 14px;
-                        .pl-markdown-parser-item-left-label-title-wrapper-left {
-                            width: $padding;
-                        }
                         .pl-markdown-parser-item-left-label-title-wrapper-right {
                             flex: 1;
                         }
                         .pl-markdown-parser-item-left-label-title-wrapper-center {
                             padding: 0 15px;
+                            color: $color-primary;
                         }
-                        .pl-markdown-parser-item-left-label-title-wrapper-left, .pl-markdown-parser-item-left-label-title-wrapper-right {
-                            background-color: $border-color;
-                            height: 1px;
+                        .pl-markdown-parser-item-left-label-title-wrapper-right {
+                            border: dashed 0.5px $border-color;
                         }
                     }
                 }

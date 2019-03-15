@@ -19,7 +19,7 @@
         components: {PlMarkdownParserItemCloser, PlMarkdown, PlMarkdownParserItem},
         props: {
             value: {},
-            leftWidth: {type: Number, default: 400},
+            leftWidth: {type: Number, default: 300},
         },
         watch: {
             value: {

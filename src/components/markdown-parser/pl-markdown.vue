@@ -64,11 +64,14 @@
             border: none;
             font-size: 1em;
             border-radius: 3px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             line-height: 1.5em;
 
             & > * {
                 box-sizing: border-box;
+            }
+            span{
+                font-weight: 400;
             }
 
             .hljs-name {
