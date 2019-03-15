@@ -23,6 +23,13 @@
     <link-icon icon="pl-search"/>
 </link-button>
 ```
+```js
+export default{
+    data(){
+        return {}
+    },
+}
+```
 :::demo-end
 
 :::demo-start
@@ -36,6 +43,13 @@
 <link-button label="error" box-color="error"/>
 <link-button label="info" box-color="info"/>
 ```
+```js
+export default{
+    data(){
+        return {}
+    },
+}
+```
 :::demo-end
 
 :::demo-start
@@ -45,6 +59,13 @@
 ```html
 <link-button label="加载中" loading/>
 ```
+```js
+export default{
+    data(){
+        return {}
+    },
+}
+```
 :::demo-end
 
 :::demo-start
@@ -53,6 +74,13 @@
 :::title-end
 ```html
 <link-button label="搜索日期"  prefix-icon="pl-date" suffix-icon="pl-search"/>
+```
+```js
+export default{
+    data(){
+        return {}
+    },
+}
 ```
 :::demo-end
 

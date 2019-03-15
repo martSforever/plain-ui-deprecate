@@ -1,7 +1,7 @@
 <template>
     <div class="pl-markdown-parser-item">
         <div class="pl-markdown-parser-item-example" v-if="data.isDemo" :style="exampleStyles" :class="exampleClasses">
-            <div class="pl-markdown-parser-item-left">
+            <div class="pl-markdown-parser-item-left" :style="{width:`${leftWidth}px`}">
                 <pl-markdown-parser-example :html="data.html" :js="data.js" :css="data.css"/>
                 <div class="pl-markdown-parser-item-left-label">
                     <div class="pl-markdown-parser-item-left-label-title-wrapper">
@@ -16,10 +16,10 @@
                     </div>
                 </div>
             </div>
-            <div class="pl-markdown-parser-item-right" ref="code">
+            <div class="pl-markdown-parser-item-right" ref="code" :style="{left:`${leftWidth}px`}">
                 <pl-markdown :value="markedCode"/>
             </div>
-            <pl-markdown-parser-item-closer @click="p_open = !p_open" :show="openable" :open="p_open"/>
+            <pl-markdown-parser-item-closer @click="p_open = !p_open" :show="openable" :open="p_open" :left-width="leftWidth"/>
         </div>
     </div>
 </template>
@@ -42,7 +42,8 @@
             return {
                 p_open: false,
                 codeHeight: null,
-                minHeight: (this.data.minHeight - 0) || 140
+                minHeight: (this.data.minHeight - 0) || 140,
+                leftWidth: 500,
             }
         },
         mounted() {
@@ -60,7 +61,7 @@
                 if (!this.data) return null
                 let ret = []
                 if (!!this.data.html) ret.push(`\`\`\` html ${this.data.html} \n \`\`\``)
-                if (!!this.data.js) ret.push(`\`\`\` javascript ${this.data.js} \n \`\`\``)
+                if (!!this.data.js) ret.push(`\`\`\` js ${this.data.js} \n \`\`\``)
                 if (!!this.data.css) ret.push(`\`\`\` css ${this.data.css} \n \`\`\``)
                 return ret.join("\n")
             },
@@ -88,7 +89,6 @@
 </script>
 
 <style lang="scss">
-    $left-width: 500px;
     $padding: 20px;
     $border-color: #ddd;
     .pl-markdown-parser-item {
@@ -103,13 +103,13 @@
             margin-bottom: 20px;
             overflow: hidden;
             @include transition-all-cubic-bezier;
+            transition-duration: 0.5s;
             &:hover {
                 box-shadow: 0 0 15px $border-color;
                 border-color: transparent;
             }
 
             .pl-markdown-parser-item-left {
-                width: $left-width;
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -150,9 +150,7 @@
                 }
             }
             .pl-markdown-parser-item-right {
-                width: calc(100% - #{$left-width});
                 position: relative;
-                left: $left-width;
                 display: inline-block;
                 padding: 0 $padding;
                 box-sizing: border-box;

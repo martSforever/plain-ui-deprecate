@@ -1,6 +1,8 @@
 <template>
     <div class="pl-markdown-parser-item-closer" @click="e=>$emit('click',e)" v-show="show">
-        <link-button :prefix-icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-type="none"/>
+        <div class="pl-markdown-parser-item-closer-inner" :style="{width:`calc(100% - ${leftWidth}px)`}">
+            <link-button :prefix-icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-type="none"/>
+        </div>
     </div>
 </template>
 
@@ -10,6 +12,7 @@
         props: {
             show: {type: Boolean, default: false},
             open: {type: Boolean, default: false},
+            leftWidth: {},
         },
     }
 </script>
@@ -23,9 +26,18 @@
         bottom: -2px;
         left: -1px;
         right: -1px;
-        background: linear-gradient(to top, rgba(#ddd, 0.3), transparent);
+        background: linear-gradient(to top, rgba(#eee, 0.3), transparent);
         display: flex;
         align-items: flex-end;
         justify-content: center;
+        .pl-markdown-parser-item-closer-inner {
+            float: right;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: absolute;
+            right: 0;
+        }
     }
 </style>
