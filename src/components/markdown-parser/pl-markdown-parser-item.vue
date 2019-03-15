@@ -42,7 +42,7 @@
             return {
                 p_open: false,
                 codeHeight: null,
-                minHeight: (this.data.minHeight - 0) || 200
+                minHeight: (this.data.minHeight - 0) || 140
             }
         },
         mounted() {
@@ -50,7 +50,11 @@
         },
         computed: {
             openable() {
-                return !!this.codeHeight && this.codeHeight > this.minHeight
+                return !!this.rightHeight && this.rightHeight >= this.minHeight
+            },
+            rightHeight() {
+                if (!this.codeHeight) return null
+                return this.codeHeight + 20
             },
             markedCode() {
                 if (!this.data) return null
@@ -62,21 +66,21 @@
             },
             exampleStyles() {
                 const ret = {}
-                if (!this.codeHeight) return ret
+                if (!this.rightHeight) return ret
                 let height;
-                if (this.codeHeight < this.minHeight) {
+                if (this.rightHeight < this.minHeight) {
                     this.p_open = true
                     height = this.minHeight
                 }
                 else
-                    height = this.p_open ? (this.codeHeight + 40 + 100) : this.minHeight
+                    height = this.p_open ? (this.rightHeight + 40 + 100) : this.minHeight
                 ret.height = height + 'px'
                 return ret
             },
             exampleClasses() {
                 return {
                     'pl-markdown-parser-item-example-openable': this.openable,
-                    'pl-markdown-parser-item-example-open': this.p_open
+                    'pl-markdown-parser-item-example-open': this.p_open,
                 }
             },
         },

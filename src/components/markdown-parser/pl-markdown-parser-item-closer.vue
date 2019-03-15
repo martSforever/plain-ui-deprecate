@@ -1,6 +1,6 @@
 <template>
     <div class="pl-markdown-parser-item-closer" @click="e=>$emit('click',e)" v-show="show">
-        <link-button :prefix-icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-color="info" box-type="none"/>
+        <link-button :prefix-icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-type="none"/>
     </div>
 </template>
 

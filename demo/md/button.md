@@ -1,6 +1,7 @@
 ## Button按钮
 
 **Plain 的按钮功能比较单一，主要是提供快速设置按钮样式的功能**
+
 :::demo-start
 
 :::title-start
@@ -24,32 +25,43 @@
 ```
 :::demo-end
 
-**按钮支持多种颜色**
-
 :::demo-start
 :::title-start
 按钮的颜色:color
 :::title-end
 ```html
-<link-button v-for="(item,index) in colors" :label="item" :box-color="item" :key="index"/>
+<link-button label="primary" box-color="primary"/>
+<link-button label="success" box-color="success"/>
+<link-button label="warn" box-color="warn"/>
+<link-button label="error" box-color="error"/>
+<link-button label="info" box-color="info"/>
 ```
-```js
-export default{
-    data(){
-        return{
-            colors:['primary','success','warn','error','info']
-        }
-    },
-    methods: {
-        _click() {
-            console.log("color");
-        },
-    }
-}
+:::demo-end
+
+:::demo-start
+:::title-start
+加载状态的按钮:loading
+:::title-end
+```html
+<link-button label="加载中" loading/>
 ```
-```css
-.demo-test-block {
-}
+:::demo-end
+
+:::demo-start
+:::title-start
+左右图标:prefix-icon, suffix-icon
+:::title-end
+```html
+<link-button label="搜索日期"  prefix-icon="pl-date" suffix-icon="pl-search"/>
+```
+:::demo-end
+
+:::demo-start
+:::title-start
+只有图标:icon-only
+:::title-end
+```html
+<link-button label="primary" prefix-icon="pl-search" icon-only/>
 ```
 :::demo-end
 
