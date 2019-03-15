@@ -2,16 +2,18 @@
     <div class="pl-markdown-parser">
         <div v-for="(item,index) in demos" :key="index" :data="item">
             <pl-markdown-parser-item :data="item" v-if="item.isDemo"/>
+            <pl-markdown :value="item.md" v-else/>
         </div>
     </div>
 </template>
 
 <script>
     import PlMarkdownParserItem from "./pl-markdown-parser-item";
+    import PlMarkdown from "./pl-markdown";
 
     export default {
         name: "pl-markdown-parser",
-        components: {PlMarkdownParserItem},
+        components: {PlMarkdown, PlMarkdownParserItem},
         props: {
             value: {},
         },
