@@ -1,5 +1,5 @@
 <template>
-    <div class="pl-markdown-parser">
+    <div class="pl-markdown-parser" @scroll="p_scroll">
         <div v-for="(item,index) in demos" :key="index" :data="item">
             <pl-markdown-parser-item :data="item" v-if="item.isDemo"/>
             <pl-markdown :value="item.md" v-else/>
@@ -112,6 +112,14 @@
                 }
                 return {content, block}
             },
+            /*
+             *  处理滚动事件
+             *  @author     martsforever
+             *  @datetime   2019/3/15 19:17
+             */
+            p_scroll(e) {
+                // console.log(e)
+            },
         },
     }
 </script>
@@ -120,5 +128,7 @@
     .pl-markdown-parser {
         @include public-style;
         padding: 12px;
+        height: 100%;
+        overflow-y: auto;
     }
 </style>

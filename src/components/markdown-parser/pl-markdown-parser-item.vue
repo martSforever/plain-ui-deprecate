@@ -19,9 +19,7 @@
             <div class="pl-markdown-parser-item-right" ref="code">
                 <pl-markdown :value="markedCode"/>
             </div>
-            <div class="pl-markdown-parser-item-example-toggle" @click="p_open = !p_open" v-if="openable">
-                <link-button :prefix-icon="!p_open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-color="info" box-type="none"/>
-            </div>
+            <pl-markdown-parser-item-closer @click="p_open = !p_open" :show="openable" :open="p_open"/>
         </div>
     </div>
 </template>
@@ -29,10 +27,11 @@
 <script>
     import PlMarkdown from "./pl-markdown";
     import PlMarkdownParserExample from "./pl-markdown-parser-example";
+    import PlMarkdownParserItemCloser from "./pl-markdown-parser-item-closer";
 
     export default {
         name: "pl-markdown-parser-item",
-        components: {PlMarkdownParserExample, PlMarkdown},
+        components: {PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
         props: {
             data: {},
         },
@@ -70,7 +69,7 @@
                     height = this.minHeight
                 }
                 else
-                    height = this.p_open ? (this.codeHeight+ 40 + 100) : this.minHeight
+                    height = this.p_open ? (this.codeHeight + 40 + 100) : this.minHeight
                 ret.height = height + 'px'
                 return ret
             },
@@ -153,21 +152,6 @@
                 display: inline-block;
                 padding: 0 $padding;
                 box-sizing: border-box;
-            }
-
-            .pl-markdown-parser-item-example-toggle {
-                @include transition-all;
-                cursor: pointer;
-                height: 100px;
-                position: absolute;
-                bottom: -2px;
-                left: -1px;
-                right: -1px;
-                background: linear-gradient(to top, rgba(#ddd, 0.3), transparent);
-                opacity: 0;
-                display: flex;
-                align-items: flex-end;
-                justify-content: center;
             }
 
             &.pl-markdown-parser-item-example-openable:hover {
