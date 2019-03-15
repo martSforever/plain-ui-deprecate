@@ -1,12 +1,11 @@
 <template>
-    <div class="pl-markdown-parser" @scroll="p_scroll">
-        <div class="pl-markdown-parser-wrapper">
+    <div class="pl-markdown-parser">
+        <div class="pl-markdown-parser-wrapper" @scroll="e=>$emit('scroll',e)">
             <div v-for="(item,index) in demos" :key="index" :data="item">
-                <pl-markdown-parser-item :data="item" v-if="item.isDemo" :left-width="leftWidth"/>
+                <pl-markdown-parser-item :data="item" v-if="item.isDemo" :left-width="leftWidth" :screen-height="screenHeight"/>
                 <pl-markdown :value="item.md" v-else/>
             </div>
         </div>
-        <!--<pl-markdown-parser-item-closer :left-width="leftWidth" :show="true" :open="true"/>-->
     </div>
 </template>
 
@@ -27,13 +26,13 @@
                 immediate: true,
                 async handler(val) {
                     this.demos = await this.p_decodeValue(val)
-                    // console.log(this.demos)
                 },
             },
         },
         data() {
             return {
-                demos: []
+                demos: [],
+                screenHeight: window.screen.height,
             }
         },
         methods: {
@@ -117,14 +116,6 @@
                 }
                 return {content, block}
             },
-            /*
-             *  处理滚动事件
-             *  @author     martsforever
-             *  @datetime   2019/3/15 19:17
-             */
-            p_scroll(e) {
-                // console.log(e)
-            },
         },
     }
 </script>
@@ -135,6 +126,7 @@
         height: 100%;
         position: relative;
         width: 900px;
+        overflow: hidden;
         .pl-markdown-parser-wrapper {
             @include public-style;
             padding: 12px;

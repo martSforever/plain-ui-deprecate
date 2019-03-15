@@ -12,6 +12,7 @@
                         <div class="pl-markdown-parser-item-left-label-title-wrapper-right"></div>
                     </div>
                     <div class="pl-markdown-parser-item-left-desc">
+                        <div>p_showFixedCloser{{p_showFixedCloser}}</div>
                         <pl-markdown :value="data.desc"/>
                     </div>
                 </div>
@@ -19,8 +20,16 @@
             <div class="pl-markdown-parser-item-right" ref="code" :style="{left:`${leftWidth}px`,width:`calc(100% - ${leftWidth}px)`}">
                 <pl-markdown :value="markedCode"/>
             </div>
-            <pl-markdown-parser-item-closer @click="p_open = !p_open" :show="openable" :open="p_open" :left-width="leftWidth"/>
+            <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
         </div>
+        <pl-markdown-parser-item-closer show
+                                        :left-width="leftWidth"
+                                        open
+                                        v-show="p_showFixedCloser"
+                                        is-fixed
+                                        :client-left="12"
+                                        :client-width="p_clientWidth"
+                                        @click="p_toggle"/>
     </div>
 </template>
 
@@ -35,29 +44,36 @@
         props: {
             data: {},
             leftWidth: {},
+            screenHeight: {},
         },
         created() {
             // console.log(this.data)
         },
         data() {
             return {
+                parser: null,
                 p_open: false,
-                codeHeight: null,
-                minHeight: (this.data.minHeight - 0) || 140,
+                p_codeHeight: null,
+                p_minHeight: (this.data.minHeight - 0) || 140,
+                p_showFixedCloser: false,
+                p_clientLeft: null,
+                p_clientWidth: null,
             }
         },
         mounted() {
-            this.codeHeight = this.$refs.code.offsetHeight
+            this.p_codeHeight = this.$refs.code.offsetHeight
+            this.parser = this.$plain.$dom.findComponentUpward(this, 'pl-markdown-parser')
+            this.parser.$on('scroll', this.p_resetFixedCloser)
         },
         computed: {
             /*是否可展开*/
             openable() {
-                return !!this.rightHeight && this.rightHeight >= this.minHeight
+                return !!this.rightHeight && this.rightHeight >= this.p_minHeight
             },
             /*右边部分内容实际高度*/
             rightHeight() {
-                if (!this.codeHeight) return null
-                return this.codeHeight + 20
+                if (!this.p_codeHeight) return null
+                return this.p_codeHeight + 20
             },
             /*代码markdown文本*/
             markedCode() {
@@ -68,19 +84,21 @@
                 if (!!this.data.css) ret.push(`\`\`\` css\n ${this.data.css} \n \`\`\``)
                 return ret.join("\n")
             },
+            /*示例代码样式*/
             exampleStyles() {
                 const ret = {}
                 if (!this.rightHeight) return ret
                 let height;
-                if (this.rightHeight < this.minHeight) {
+                if (this.rightHeight < this.p_minHeight) {
                     this.p_open = true
-                    height = this.minHeight
+                    height = this.p_minHeight
                 }
                 else
-                    height = this.p_open ? (this.rightHeight + 40) : this.minHeight
+                    height = this.p_open ? (this.rightHeight + 40) : this.p_minHeight
                 ret.height = height + 'px'
                 return ret
             },
+            /*示例代码绑定class*/
             exampleClasses() {
                 return {
                     'pl-markdown-parser-item-example-openable': this.openable,
@@ -88,6 +106,25 @@
                 }
             },
         },
+        methods: {
+            p_resetFixedCloser() {
+                const documentHeight = document.body.clientHeight
+                const {clientHeight, clientWidth} = this.$el
+                const {top: clientTop, left: clientLeft} = this.$el.getBoundingClientRect()
+                this.p_clientWidth = clientWidth
+                this.p_clientLeft = clientLeft
+                if ((documentHeight > clientTop && clientHeight + clientTop > documentHeight) && this.p_open) {
+                    this.p_showFixedCloser = true
+                } else {
+                    this.p_showFixedCloser = false
+                }
+            },
+            async p_toggle() {
+                this.p_open = !this.p_open
+                await this.$plain.$utils.delay(500)
+                this.parser.$emit('scroll')
+            },
+        }
     }
 </script>
 
@@ -95,7 +132,6 @@
     $padding: 20px;
     $border-color: #ddd;
     .pl-markdown-parser-item {
-
         .pl-markdown-parser-item-example {
             font-size: 14px;
             box-sizing: border-box;
@@ -106,11 +142,6 @@
             overflow: hidden;
             @include transition-all-cubic-bezier;
             transition-duration: 0.5s;
-            &:hover {
-                box-shadow: 0 0 15px $border-color;
-                border-color: transparent;
-            }
-
             .pl-markdown-parser-item-left {
                 position: absolute;
                 top: 0;
@@ -151,7 +182,7 @@
                         }
                     }
                 }
-                .pl-markdown-parser-example,.pl-markdown-parser-item-left-desc{
+                .pl-markdown-parser-example, .pl-markdown-parser-item-left-desc {
                     box-sizing: border-box;
                     width: 100%;
                     padding: 0 $padding;
