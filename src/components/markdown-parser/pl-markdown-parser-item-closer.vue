@@ -1,7 +1,7 @@
 <template>
     <div class="pl-markdown-parser-item-closer" @click="e=>$emit('click',e)" v-show="show" :style="{position}">
         <div class="pl-markdown-parser-item-closer-inner" :style="{width:`calc(100% - ${leftWidth}px)`}">
-            <link-button :prefix-icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-type="none"/>
+            <link-button :prefix-icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-type="none" box-color="info"/>
         </div>
     </div>
 </template>

@@ -50,19 +50,22 @@
             this.codeHeight = this.$refs.code.offsetHeight
         },
         computed: {
+            /*是否可展开*/
             openable() {
                 return !!this.rightHeight && this.rightHeight >= this.minHeight
             },
+            /*右边部分内容实际高度*/
             rightHeight() {
                 if (!this.codeHeight) return null
                 return this.codeHeight + 20
             },
+            /*代码markdown文本*/
             markedCode() {
                 if (!this.data) return null
                 let ret = []
-                if (!!this.data.html) ret.push(`\`\`\` html ${this.data.html} \n \`\`\``)
-                if (!!this.data.js) ret.push(`\`\`\` js ${this.data.js} \n \`\`\``)
-                if (!!this.data.css) ret.push(`\`\`\` css ${this.data.css} \n \`\`\``)
+                if (!!this.data.html) ret.push(`\`\`\` html\n ${this.data.html} \n \`\`\``)
+                if (!!this.data.js) ret.push(`\`\`\` javascript\n ${this.data.js} \n \`\`\``)
+                if (!!this.data.css) ret.push(`\`\`\` css\n ${this.data.css} \n \`\`\``)
                 return ret.join("\n")
             },
             exampleStyles() {
