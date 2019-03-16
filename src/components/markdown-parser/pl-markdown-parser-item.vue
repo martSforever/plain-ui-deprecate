@@ -47,22 +47,22 @@
         name: "pl-markdown-parser-item",
         components: {PlIcon, PlScroll, PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
         props: {
-            data: {},
-            leftWidth: {},
-            screenHeight: {},
+            data: {},                                                   //当前示例的数据
+            leftWidth: {},                                              //示例左侧宽度
+            screenHeight: {},                                           //网页宽度
         },
         created() {
             // console.log(this.data)
         },
         data() {
             return {
-                parser: null,
-                p_open: false,
-                p_codeHeight: null,
-                p_minHeight: (this.data.minHeight - 0) || 140,
-                p_showFixedCloser: false,
-                p_clientLeft: null,
-                p_clientWidth: null,
+                parser: null,                                           //父组件pl-markdown-parser
+                p_open: false,                                          //当前是否为打开状态
+                p_codeHeight: null,                                     //代码块的高度
+                p_minHeight: (this.data.minHeight - 0) || 140,          //示例最小高度
+                p_showFixedCloser: false,                               //当前是否展示底部固定器
+                p_clientLeft: null,                                     //当前示例距离网页左侧的距离
+                p_clientWidth: null,                                    //当前示例宽度
             }
         },
         mounted() {
@@ -112,6 +112,11 @@
             },
         },
         methods: {
+            /*
+             *  重新设置固定的关闭其的位置
+             *  @author     martsforever
+             *  @datetime   2019/3/16 22:24
+             */
             p_resetFixedCloser() {
                 const documentHeight = document.body.clientHeight
                 const {clientHeight, clientWidth} = this.$el
@@ -124,11 +129,21 @@
                     this.p_showFixedCloser = false
                 }
             },
+            /*
+             *  处理切换开关动作
+             *  @author     martsforever
+             *  @datetime   2019/3/16 22:24
+             */
             async p_toggle() {
                 this.p_open = !this.p_open
                 await this.$plain.$utils.delay(500)
                 this.parser.$emit('scroll')
             },
+            /*
+             *  在对话框中显示代码块
+             *  @author     martsforever
+             *  @datetime   2019/3/16 22:25
+             */
             showInDialog() {
                 this.$emit('showInDialog', this.markedCode)
             },

@@ -65,11 +65,11 @@
         },
         data() {
             return {
-                demos: [],
-                screenHeight: window.screen.height,
-                dialogShow: false,
-                code: null,
-                position: 0,
+                demos: [],                                          //解析得到的demo数据
+                screenHeight: window.screen.height,                 //屏幕高度
+                dialogShow: false,                                  //显示代码块的对话框是否展示
+                code: null,                                         //对话框展示的代码块
+                position: 0,                                        //当前nav导航展示的demo的索引位置
             }
         },
         computed: {

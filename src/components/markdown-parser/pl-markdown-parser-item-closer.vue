@@ -12,14 +12,14 @@
     export default {
         name: "pl-markdown-parser-item-closer",
         props: {
-            show: {type: Boolean, default: false},
-            open: {type: Boolean, default: false},
-            leftWidth: {},
-            position: {type: String, default: 'absolute'},
+            show: {type: Boolean, default: false},                          //是否需要展示关闭器
+            open: {type: Boolean, default: false},                          //当前是否处于打开状态
+            leftWidth: {},                                                  //示例左侧内容宽度
+            position: {type: String, default: 'absolute'},                  //关闭器的定位方式
 
-            clientWidth: {},
-            clientLeft: {},
-            isFixed: {type: Boolean, default: false},
+            clientWidth: {},                                                //示例组件的宽度
+            clientLeft: {},                                                 //示例组件在网页距离左侧的距离
+            isFixed: {type: Boolean, default: false},                       //当前是否为固定底部的关闭器
         },
         computed: {
             styles() {
@@ -68,7 +68,7 @@
             background: linear-gradient(to top, rgba(#666, 0.5), transparent);
             .pl-markdown-parser-item-closer-inner {
                 box-sizing: border-box;
-                .pl-button{
+                .pl-button {
                     color: white !important;
                 }
             }
