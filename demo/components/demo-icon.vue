@@ -9,6 +9,9 @@
         <demo-row title="loading">
             <link-icon icon="icon-loading" loading/>
         </demo-row>
+        <demo-row title="hover样式">
+            <link-icon icon="pl-star" hover/>
+        </demo-row>
     </div>
 </template>
 

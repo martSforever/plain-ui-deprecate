@@ -22,7 +22,7 @@
             </div>
             <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
             <div class="pl-markdown-parser-item-example-operator">
-                <pl-icon icon="pl-scan"/>
+                <pl-icon icon="pl-scan" hover/>
             </div>
         </div>
         <pl-markdown-parser-item-closer show
