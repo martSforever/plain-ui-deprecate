@@ -1,16 +1,18 @@
 <template>
     <div class="pl-markdown-parser">
-        <pl-scroll class="pl-markdown-parser-scroll" @scroll="e=>$emit('scroll',e)">
+        <pl-scroll class="pl-markdown-parser-scroll" @scroll="e=>$emit('scroll',e)" ref="scroll">
             <div class="pl-markdown-parser-wrapper">
                 <div class="pl-markdown-parser-demo-wrapper">
                     <div v-for="(item,index) in demos" :key="index" :data="item">
                         <pl-markdown-parser-item :data="item"
+                                                 ref="parserItems"
                                                  v-if="item.isDemo"
                                                  :left-width="leftWidth"
                                                  :screen-height="screenHeight"
                                                  @showInDialog="p_showInDialog"
                                                  @created="p_itemCreated"
-                                                 @destroyed="p_itemDestroyed"/>
+                                                 @destroyed="p_itemDestroyed"
+                                                 @active="position = navs.indexOf(item)"/>
                         <pl-markdown :value="item.md" v-else/>
                     </div>
                 </div>
@@ -19,7 +21,7 @@
                          :class="{'pl-markdown-parser-nav-item-active':position === index}"
                          v-for="(item,index) in navs"
                          :key="index"
-                         @click="position = index">
+                         @click="p_clickNavItem(index)">
                         <span>{{item.title}}</span>
                     </div>
                     <div class="pl-markdown-parser-nav-slider">
@@ -176,6 +178,15 @@
             p_showInDialog(code) {
                 this.code = code
                 this.dialogShow = true
+            },
+            /*
+             *  处理点击导航选项事件
+             *  @author     martsforever
+             *  @datetime   2019/3/16 22:44
+             */
+            async p_clickNavItem(val) {
+                this.$refs.scroll.scrollTo({y: this.$refs.parserItems[val].$el.offsetTop})
+                this.position = val
             },
         },
     }

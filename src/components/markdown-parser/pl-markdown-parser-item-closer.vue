@@ -2,7 +2,7 @@
     <transition name="pl-transition-fade">
         <div class="pl-markdown-parser-item-closer" @click="e=>$emit('click',e)" v-show="show" :style="styles" :class="{'pl-markdown-parser-item-closer-fixed':isFixed}">
             <div class="pl-markdown-parser-item-closer-inner" :style="{width:`calc(100% - ${leftWidth}px)`}">
-                <link-button :prefix-icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" icon-only box-type="none" box-color="info"/>
+                <link-icon :icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" hover/>
             </div>
         </div>
     </transition>
@@ -59,8 +59,9 @@
             top: 0;
             bottom: 0;
             box-sizing: border-box;
-            .pl-button {
-                color: #b9b9b9 !important;
+            .pl-icon {
+                color: #d9d9d9 !important;
+                font-size: 12px;
             }
         }
         &.pl-markdown-parser-item-closer-fixed {
