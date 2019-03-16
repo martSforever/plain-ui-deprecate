@@ -72,6 +72,13 @@
         <demo-row title="以option的形式调用">
             <link-button label="option param" @click="$dialog.show({message:'Hello world',noHeader:true,noFooter:true})"/>
         </demo-row>
+        <demo-row title="输入对话框">
+            <link-button label="input dialog" @click="$dialog.show({content:'Hello world',input:true,onConfirm:val=>log(val),confirmButton:true,cancelButton:true})"/>
+        </demo-row>
+        <demo-row title="文本域对话框">
+            <link-button label="textarea dialog"
+                         @click="$dialog.show({content:'Hello world',textarea:true,onConfirm:val=>log(val),confirmButton:true,cancelButton:true,width:'500px',height:'300px',contentReadonly:true})"/>
+        </demo-row>
     </div>
 </template>
 

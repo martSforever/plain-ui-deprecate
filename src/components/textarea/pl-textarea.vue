@@ -1,5 +1,12 @@
 <template>
-    <textarea class="pl-textarea" :cols="cols" :rows="rows" :class="classes" v-model="currentValue"></textarea>
+    <textarea class="pl-textarea"
+              :cols="cols"
+              :rows="rows"
+              :class="classes"
+              v-model="currentValue"
+              :readonly="readonly"
+              :disabled="disabled">
+    </textarea>
 </template>
 
 <script>
@@ -13,6 +20,8 @@
             rows: {type: Number, default: 5},
             color: {type: String, default: 'primary'},
             shape: {type: String, default: 'none'},
+            readonly: {type: Boolean},
+            disabled: {type: Boolean},
         },
         computed: {
             classes() {

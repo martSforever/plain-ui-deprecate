@@ -335,4 +335,16 @@
             align-items: flex-end;
         }
     }
+
+    .pl-dialog-service {
+        .pl-dialog-service-center {
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            .pl-textarea {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
 </style>

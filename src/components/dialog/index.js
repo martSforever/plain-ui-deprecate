@@ -1,5 +1,7 @@
 import PlDialog from './pl-dialog'
 import PlRenderFunc from '../render/pl-render-func'
+import PlInput from '../input/pl-input'
+import PlTextarea from '../textarea/pl-textarea'
 import Vue from 'vue'
 import $utils from 'src/utils/utils'
 
@@ -39,6 +41,10 @@ const DEFAULT_OPTION = {
     onConfirm: null,
     onCancel: null,
     render: null,
+    content: null,
+    contentReadonly: false,
+    input: false,
+    textarea: false,
 }
 
 const $dialog = {
@@ -51,10 +57,11 @@ const $dialog = {
     },
     newInstance() {
         const instance = new Vue({
-            components: {PlDialog, PlRenderFunc},
+            components: {PlDialog, PlRenderFunc, PlInput, PlTextarea},
             render(h) {
                 return (
                     <pl-dialog
+                        class="pl-dialog-service"
                         ref="dialog"
                         type={this.type}
                         title={this.title}
@@ -89,7 +96,7 @@ const $dialog = {
                         footAlign={this.footAlign}
 
                         onConfirm={e => {
-                            !!this.onConfirm && this.onConfirm();
+                            !!this.onConfirm && this.onConfirm({content: this.content});
                             this.hide()
                         }}
                         onCancel={e => {
@@ -97,7 +104,13 @@ const $dialog = {
                             this.hide()
                         }}
                     >
-                        {this.message}
+                        <span>{this.message}</span>
+                        {
+                            (!!this.input || this.textarea) && <div class="pl-dialog-service-center">
+                                {!!this.input && <pl-input value={this.content} onInput={val => this.content = val} long readonly={this.contentReadonly}/>}
+                                {!!this.textarea && <pl-textarea value={this.content} onInput={val => this.content = val} readonly={this.contentReadonly}/>}
+                            </div>
+                        }
                         {!!this.render && <pl-render-func render-func={this.render}/>}
                     </pl-dialog>
                 )
