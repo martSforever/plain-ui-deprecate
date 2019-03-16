@@ -16,7 +16,9 @@
                 </div>
             </div>
             <div class="pl-markdown-parser-item-right" ref="code" :style="{left:`${leftWidth}px`,width:`calc(100% - ${leftWidth}px)`}">
-                <pl-markdown :value="markedCode"/>
+                <pl-scroll :scroll-y="false" scroll-x>
+                    <pl-markdown :value="markedCode"/>
+                </pl-scroll>
             </div>
             <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
         </div>
@@ -35,10 +37,11 @@
     import PlMarkdown from "./pl-markdown";
     import PlMarkdownParserExample from "./pl-markdown-parser-example";
     import PlMarkdownParserItemCloser from "./pl-markdown-parser-item-closer";
+    import PlScroll from "../scroll/pl-scroll";
 
     export default {
         name: "pl-markdown-parser-item",
-        components: {PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
+        components: {PlScroll, PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
         props: {
             data: {},
             leftWidth: {},
