@@ -66,6 +66,7 @@ import scrollOption from './components/scroll-option/pl-scroll-option'
 import navigatorMainTab from './components/navigator-main/pl-navigator-main-tab'
 import date from './components/date/pl-date'
 import tooltipText from './components/tooltip/pl-tooltip-text'
+import textarea from './components/textarea/pl-textarea'
 
 
 const components = {
@@ -121,6 +122,7 @@ const components = {
     navigatorMainTab,
     date,
     tooltipText,
+    textarea,
 
     ...ColumnComponents,
 }

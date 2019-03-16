@@ -51,6 +51,7 @@
                         title: 'Form',
                         menus: [
                             {title: 'Input输入框', icon: 'pl-keyboard', page: '/demo-input', complete: true},
+                            {title: 'Textarea文本域', icon: 'pl-keyboard', page: '/demo-textarea', complete: true},
                             {title: 'Radio单复选框', icon: 'pl-radio-on', page: '/demo-radio', complete: true},
                             {title: 'InputNumber数字输入', icon: 'pl-number', page: '/demo-number', complete: true},
                             {title: 'Loading加载', icon: 'pl-loading', page: '/demo-loading', complete: true},
