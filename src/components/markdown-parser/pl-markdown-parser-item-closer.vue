@@ -59,11 +59,17 @@
             top: 0;
             bottom: 0;
             box-sizing: border-box;
+            .pl-button {
+                color: #b9b9b9 !important;
+            }
         }
         &.pl-markdown-parser-item-closer-fixed {
             background: linear-gradient(to top, rgba(#666, 0.5), transparent);
             .pl-markdown-parser-item-closer-inner {
                 box-sizing: border-box;
+                .pl-button{
+                    color: white !important;
+                }
             }
         }
     }

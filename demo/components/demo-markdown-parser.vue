@@ -33,7 +33,5 @@
 
 <style lang="scss">
     .demo-markdown-parser {
-        display: flex;
-        justify-content: center;
     }
 </style>

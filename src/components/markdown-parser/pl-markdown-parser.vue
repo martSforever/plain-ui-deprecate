@@ -1,11 +1,13 @@
 <template>
     <div class="pl-markdown-parser">
-        <div class="pl-markdown-parser-wrapper" @scroll="e=>$emit('scroll',e)">
-            <div v-for="(item,index) in demos" :key="index" :data="item">
-                <pl-markdown-parser-item :data="item" v-if="item.isDemo" :left-width="leftWidth" :screen-height="screenHeight"/>
-                <pl-markdown :value="item.md" v-else/>
+        <pl-scroll class="pl-markdown-parser-scroll" @scroll="e=>$emit('scroll',e)">
+            <div class="pl-markdown-parser-wrapper">
+                <div v-for="(item,index) in demos" :key="index" :data="item">
+                    <pl-markdown-parser-item :data="item" v-if="item.isDemo" :left-width="leftWidth" :screen-height="screenHeight"/>
+                    <pl-markdown :value="item.md" v-else/>
+                </div>
             </div>
-        </div>
+        </pl-scroll>
     </div>
 </template>
 
@@ -13,10 +15,11 @@
     import PlMarkdownParserItem from "./pl-markdown-parser-item";
     import PlMarkdown from "./pl-markdown";
     import PlMarkdownParserItemCloser from "./pl-markdown-parser-item-closer";
+    import PlScroll from "../scroll/pl-scroll";
 
     export default {
         name: "pl-markdown-parser",
-        components: {PlMarkdownParserItemCloser, PlMarkdown, PlMarkdownParserItem},
+        components: {PlScroll, PlMarkdownParserItemCloser, PlMarkdown, PlMarkdownParserItem},
         props: {
             value: {},
             leftWidth: {type: Number, default: 300},
@@ -124,14 +127,15 @@
     .pl-markdown-parser {
         @include public-style;
         height: 100%;
+        width: 100%;
         position: relative;
-        width: 900px;
         overflow: hidden;
+
         .pl-markdown-parser-wrapper {
-            @include public-style;
+            width: 800px;
             padding: 12px;
-            overflow-y: auto;
-            height: 100%;
+            box-sizing: border-box;
         }
+
     }
 </style>
