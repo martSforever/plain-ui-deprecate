@@ -1,6 +1,6 @@
 <template>
     <div class="pl-markdown-parser">
-        <pl-scroll class="pl-markdown-parser-scroll" @scroll="e=>$emit('scroll',e)" ref="scroll">
+        <pl-scroll class="pl-markdown-parser-scroll" @scroll="p_scroll" ref="scroll">
             <div class="pl-markdown-parser-wrapper">
                 <div class="pl-markdown-parser-demo-wrapper">
                     <div v-for="(item,index) in demos" :key="index" :data="item">
@@ -178,6 +178,28 @@
             p_showInDialog(code) {
                 this.code = code
                 this.dialogShow = true
+            },
+            /*
+             *  处理滚动事件
+             *  @author     martsforever
+             *  @datetime   2019/3/16 23:47
+             */
+            p_scroll(e) {
+                this.$emit('scroll', e)
+                if (!!this.timer) {
+                    clearTimeout(this.timer)
+                    this.timer = null
+                }
+                this.timer = setTimeout(() => {
+                    for (let i = 0; i < this.$refs.parserItems.length; i++) {
+                        const parserItem = this.$refs.parserItems[i];
+                        if (parserItem.$el.offsetTop >= e.target.scrollTop) {
+                            this.position = i
+                            break
+                        }
+                    }
+                }, 200)
+
             },
             /*
              *  处理点击导航选项事件
