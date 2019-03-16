@@ -27,7 +27,7 @@
                                         open
                                         v-show="p_showFixedCloser"
                                         is-fixed
-                                        :client-left="12"
+                                        :client-left="p_clientLeft"
                                         :client-width="p_clientWidth"
                                         @click="p_toggle"/>
     </div>
