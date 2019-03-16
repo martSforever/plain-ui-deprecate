@@ -23,6 +23,7 @@
         vertical-align: bottom;
         display: inline;
         position: relative;
+        color: inherit;
         .pl-icon-svg {
             width: $icon-size;
             height: $icon-size;
@@ -51,19 +52,18 @@
         &.pl-icon-enable-hover:hover {
             cursor: pointer;
             user-select: none;
-            &:after {
+            &:before {
                 position: absolute;
-                top: -6px;
-                bottom: -6px;
-                left: -6px;
-                right: -6px;
+                top: -4px;
+                bottom: -4px;
+                left: -4px;
+                right: -4px;
                 content: '';
                 background-color: #f2f2f2;
                 border-radius: 100px;
-                z-index: -1;
             }
             &:active{
-                &:after {
+                &:before {
                     background-color: #eae3f2;
                 }
             }

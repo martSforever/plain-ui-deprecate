@@ -9,7 +9,7 @@
                 <pl-icon :icon="TYPE[type].icon"/>
                 {{title}}
             </div>
-            <pl-icon icon="pl-close" class="pl-notice-item-close-icon" @click="close"/>
+            <pl-icon icon="pl-close" class="pl-notice-item-close-icon" @click="close" hover/>
         </div>
         <div class="pl-notice-item-body">
             <span v-if="!!text">{{text}}</span>
