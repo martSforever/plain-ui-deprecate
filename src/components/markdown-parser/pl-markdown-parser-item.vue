@@ -22,7 +22,7 @@
             </div>
             <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
             <div class="pl-markdown-parser-item-example-operator">
-                <pl-icon icon="pl-scan" hover @click="showInDialog"/>
+                <pl-icon icon="pl-scan" hover @click="showInDialog" v-link-tooltip="{content:'放大显示',placement:'top'}"/>
             </div>
         </div>
         <pl-markdown-parser-item-closer show
@@ -84,9 +84,9 @@
             markedCode() {
                 if (!this.data) return null
                 let ret = []
-                if (!!this.data.html) ret.push(`\`\`\` html\n ${this.data.html} \n \`\`\``)
-                if (!!this.data.js) ret.push(`\`\`\` javascript\n ${this.data.js} \n \`\`\``)
-                if (!!this.data.css) ret.push(`\`\`\` css\n ${this.data.css} \n \`\`\``)
+                if (!!this.data.html) ret.push(`\`\`\` html ${this.data.html} \`\`\``)
+                if (!!this.data.js) ret.push(`\`\`\` javascript ${this.data.js} \`\`\``)
+                if (!!this.data.css) ret.push(`\`\`\` css ${this.data.css} \`\`\``)
                 return ret.join("\n")
             },
             /*示例代码样式*/
@@ -130,7 +130,7 @@
                 this.parser.$emit('scroll')
             },
             showInDialog() {
-                this.$dialog.show(this.markedCode)
+                this.$emit('showInDialog', this.markedCode)
             },
         }
     }
@@ -205,8 +205,8 @@
                 position: absolute;
                 top: 0;
                 right: 0;
-                height: 36px;
-                padding: 0 12px;
+                height: 30px;
+                padding: 0 6px;
                 display: flex;
                 align-items: center;
             }

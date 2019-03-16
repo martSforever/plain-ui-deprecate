@@ -3,11 +3,16 @@
         <pl-scroll class="pl-markdown-parser-scroll" @scroll="e=>$emit('scroll',e)">
             <div class="pl-markdown-parser-wrapper">
                 <div v-for="(item,index) in demos" :key="index" :data="item">
-                    <pl-markdown-parser-item :data="item" v-if="item.isDemo" :left-width="leftWidth" :screen-height="screenHeight"/>
+                    <pl-markdown-parser-item :data="item" v-if="item.isDemo" :left-width="leftWidth" :screen-height="screenHeight" @showInDialog="p_showInDialog"/>
                     <pl-markdown :value="item.md" v-else/>
                 </div>
             </div>
         </pl-scroll>
+        <pl-dialog width="650px" height="300px" v-model="dialogShow">
+            <pl-scroll scroll-x scroll-y>
+                <pl-markdown :value="code"/>
+            </pl-scroll>
+        </pl-dialog>
     </div>
 </template>
 
@@ -16,10 +21,11 @@
     import PlMarkdown from "./pl-markdown";
     import PlMarkdownParserItemCloser from "./pl-markdown-parser-item-closer";
     import PlScroll from "../scroll/pl-scroll";
+    import PlDialog from "../dialog/pl-dialog";
 
     export default {
         name: "pl-markdown-parser",
-        components: {PlScroll, PlMarkdownParserItemCloser, PlMarkdown, PlMarkdownParserItem},
+        components: {PlDialog, PlScroll, PlMarkdownParserItemCloser, PlMarkdown, PlMarkdownParserItem},
         props: {
             value: {},
             leftWidth: {type: Number, default: 300},
@@ -36,6 +42,8 @@
             return {
                 demos: [],
                 screenHeight: window.screen.height,
+                dialogShow: false,
+                code: null,
             }
         },
         methods: {
@@ -118,6 +126,15 @@
                     content = content.replace(end, '')
                 }
                 return {content, block}
+            },
+            /*
+             *  在对话框中显示源码
+             *  @author     martsforever
+             *  @datetime   2019/3/16 20:37
+             */
+            p_showInDialog(code) {
+                this.code = code
+                this.dialogShow = true
             },
         },
     }

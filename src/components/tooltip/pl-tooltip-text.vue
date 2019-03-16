@@ -67,4 +67,8 @@
             width: 100%;
         }
     }
+
+    .pl-tooltip-target {
+        outline: none;
+    }
 </style>
