@@ -22,7 +22,7 @@
             </div>
             <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
             <div class="pl-markdown-parser-item-example-operator">
-                <pl-icon icon="pl-scan" hover/>
+                <pl-icon icon="pl-scan" hover @click="showInDialog"/>
             </div>
         </div>
         <pl-markdown-parser-item-closer show
@@ -128,6 +128,9 @@
                 this.p_open = !this.p_open
                 await this.$plain.$utils.delay(500)
                 this.parser.$emit('scroll')
+            },
+            showInDialog() {
+                this.$dialog.show(this.markedCode)
             },
         }
     }

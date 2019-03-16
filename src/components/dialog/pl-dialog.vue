@@ -20,7 +20,7 @@
                         <!--<pl-icon icon="pl-minimize"/>-->
                         <pl-icon icon="pl-maximize" v-show="!p_isFull && !!max" @click="p_isFull=true"/>
                         <pl-icon icon="pl-maxmin" v-show="!!p_isFull && !!max" @click="p_isFull=false"/>
-                        <pl-icon icon="pl-close" @click="hide" class="pl-dialog-close-icon" v-if="!noClose"/>
+                        <pl-icon icon="pl-close" @click="hide" class="pl-dialog-close-icon" v-if="!noClose" hover/>
                     </div>
                 </div>
                 <div class="pl-dialog-body" :style="bodyStyles">
