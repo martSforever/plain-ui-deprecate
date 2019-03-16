@@ -21,6 +21,9 @@
                 </pl-scroll>
             </div>
             <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
+            <div class="pl-markdown-parser-item-example-operator">
+                <pl-icon icon="pl-scan"/>
+            </div>
         </div>
         <pl-markdown-parser-item-closer show
                                         :left-width="leftWidth"
@@ -38,10 +41,11 @@
     import PlMarkdownParserExample from "./pl-markdown-parser-example";
     import PlMarkdownParserItemCloser from "./pl-markdown-parser-item-closer";
     import PlScroll from "../scroll/pl-scroll";
+    import PlIcon from "../icon/pl-icon";
 
     export default {
         name: "pl-markdown-parser-item",
-        components: {PlScroll, PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
+        components: {PlIcon, PlScroll, PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
         props: {
             data: {},
             leftWidth: {},
@@ -194,7 +198,15 @@
                 overflow: auto;
                 min-height: calc(100% - 36px);
             }
-
+            .pl-markdown-parser-item-example-operator {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 36px;
+                padding: 0 12px;
+                display: flex;
+                align-items: center;
+            }
             &.pl-markdown-parser-item-example-openable:hover {
                 .pl-markdown-parser-item-example-toggle {
                     opacity: 1;
