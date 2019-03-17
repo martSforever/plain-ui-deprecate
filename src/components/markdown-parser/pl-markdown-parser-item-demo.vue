@@ -141,7 +141,7 @@
              *  @datetime   2019/3/16 22:25
              */
             showInDialog() {
-                this.$emit('showInDialog', this.markedCode)
+                this.parser.showInDialog(this.markedCode)
             },
         }
     }

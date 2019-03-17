@@ -10,7 +10,7 @@
                                              ref="parserItems"
                                              :left-width="leftWidth"
                                              :screen-height="screenHeight"
-                                             @showInDialog="p_showInDialog"/>
+                    />
                 </div>
                 <div class="pl-markdown-parser-nav" :style="navStyles" ref="nav">
                     <template v-for="(item,index) in blocks">
@@ -241,7 +241,7 @@
              *  @author     martsforever
              *  @datetime   2019/3/16 20:37
              */
-            p_showInDialog(code) {
+            showInDialog(code) {
                 this.code = code
                 this.dialogShow = true
             },
