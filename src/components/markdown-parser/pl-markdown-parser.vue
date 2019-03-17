@@ -3,27 +3,26 @@
         <pl-scroll class="pl-markdown-parser-scroll" @scroll="p_scroll" ref="scroll">
             <div class="pl-markdown-parser-wrapper">
                 <div class="pl-markdown-parser-demo-wrapper">
-                    <div v-for="(item,index) in demos" :key="index" :data="item">
-                        <pl-markdown-parser-item :data="item"
-                                                 ref="parserItems"
-                                                 v-if="item.isBlock"
-                                                 :left-width="leftWidth"
-                                                 :screen-height="screenHeight"
-                                                 @showInDialog="p_showInDialog"
-                                                 @created="p_itemCreated"
-                                                 @destroyed="p_itemDestroyed"
-                                                 @active="position = navs.indexOf(item)"/>
-                        <pl-markdown :value="item.md" v-else/>
-                    </div>
+                    <pl-markdown-parser-item v-for="(item,index) in blocks"
+                                             :key="index"
+                                             :data="item"
+                                             :index="index"
+                                             ref="parserItems"
+                                             :left-width="leftWidth"
+                                             :screen-height="screenHeight"
+                                             @showInDialog="p_showInDialog"/>
                 </div>
                 <div class="pl-markdown-parser-nav" :style="navStyles" ref="nav">
-                    <div class="pl-markdown-parser-nav-item"
-                         :class="{'pl-markdown-parser-nav-item-active':position === index}"
-                         v-for="(item,index) in navs"
-                         :key="index"
-                         @click="p_clickNavItem(index)">
-                        <span>{{item.title}}</span>
-                    </div>
+                    <template v-for="(item,index) in blocks">
+                        <template v-if="!!item.setting.title && (item.setting.nav !== false)">
+                            <div class="pl-markdown-parser-nav-item"
+                                 :class="{'pl-markdown-parser-nav-item-active':position === index}"
+                                 :key="index"
+                                 @click="p_clickNavItem(index)">
+                                <span>{{item.setting.title}}</span>
+                            </div>
+                        </template>
+                    </template>
                     <div class="pl-markdown-parser-nav-slider">
                         <div class="pl-markdown-parser-nav-slider-indicator" :style="{top:`${position*28+9}px`}">
                             <pl-icon icon="pl-radio-on"/>
@@ -61,13 +60,14 @@
             value: {
                 immediate: true,
                 async handler(val) {
-                    this.demos = await this.p_decodeValue(val)
+                    this.blocks = await this.p_decodeValue(val)
+                    console.log(this.blocks)
                 },
             },
         },
         data() {
             return {
-                demos: [],                                          //解析得到的demo数据
+                blocks: [],                                         //解析得到的demo数据
                 screenHeight: window.screen.height,                 //屏幕高度
                 dialogShow: false,                                  //显示代码块的对话框是否展示
                 code: null,                                         //对话框展示的代码块
@@ -75,9 +75,6 @@
             }
         },
         computed: {
-            navs() {
-                return this.demos.filter(item => item.isBlock)
-            },
             navStyles() {
                 if (!this.p_mounted) return null
                 const {left, top} = this.$refs.nav.getBoundingClientRect()
@@ -137,7 +134,7 @@
              * @param   isBlock             是否为特殊块
              */
             p_decodeBlock({content, isBlock}) {
-                if (!isBlock) return {md: content}
+                if (!isBlock) return {md: content, setting: {}}
 
                 /*解析结果*/
                 let ret = {}
@@ -155,7 +152,9 @@
                 /*解析参数内容*/
                 if (!!ret.setting) {
                     ret.setting = ret.setting.trim().split('\n').reduce((result, item) => {
-                        const [key, value] = item.split(":")
+                        const separatorIndex = item.indexOf(":")
+                        let key = item.substring(0, separatorIndex)
+                        let value = item.substring(separatorIndex + 1)
                         result[key] = eval(value)
                         return result
                     }, {})
@@ -166,6 +165,8 @@
                             end: `:::${item}-end`,
                         })
                     })
+                } else {
+                    ret.setting = {}
                 }
 
                 /*解析types中的标签*/
@@ -175,11 +176,8 @@
                     result[key] = value
                     return result
                 }, {}))
-
                 ret.md = content
                 ret.isBlock = isBlock
-
-                console.log(ret)
                 return ret
             },
             /**
@@ -220,12 +218,15 @@
                     this.timer = null
                 }
                 this.timer = setTimeout(() => {
+                    let position = 0
                     for (let i = 0; i < this.$refs.parserItems.length; i++) {
                         const parserItem = this.$refs.parserItems[i];
+                        if (!(!!parserItem.data.setting.title && (parserItem.data.setting.nav !== false))) continue;
                         if (parserItem.$el.offsetTop >= e.target.scrollTop) {
-                            this.position = i
+                            this.position = position
                             break
                         }
+                        position++
                     }
                 }, 200)
 

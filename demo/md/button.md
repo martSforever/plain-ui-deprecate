@@ -4,7 +4,6 @@
 
 :::block-start
 :::setting-start
-type:'demo'
 title:'按钮的基本用法'
 collect:['desc'] 
 nav:true
@@ -37,9 +36,11 @@ export default{
 :::block-end
 
 :::block-start
-:::title-start
-按钮的颜色:color
-:::title-end
+
+:::setting-start
+title:'按钮的颜色color'
+:::setting-end
+
 ```html
 <link-button label="primary" box-color="primary"/>
 <link-button label="success" box-color="success"/>
@@ -57,9 +58,9 @@ export default{
 :::block-end
 
 :::block-start
-:::title-start
-加载状态的按钮:loading
-:::title-end
+:::setting-start
+title:'加载状态的按钮loading'
+:::setting-end
 ```html
 <link-button label="加载中" loading/>
 ```
@@ -73,9 +74,9 @@ export default{
 :::block-end
 
 :::block-start
-:::title-start
-左右图标:prefix-icon, suffix-icon
-:::title-end
+:::setting-start
+title:'左右图标prefix-icon, suffix-icon'
+:::setting-end
 ```html
 <link-button label="搜索日期"  prefix-icon="pl-date" suffix-icon="pl-search"/>
 ```
@@ -89,9 +90,9 @@ export default{
 :::block-end
 
 :::block-start
-:::title-start
-只有图标:icon-only
-:::title-end
+:::setting-start
+title:'只有图标icon-only'
+:::setting-end
 ```html
 <link-button label="primary" 
              prefix-icon="pl-search" 
