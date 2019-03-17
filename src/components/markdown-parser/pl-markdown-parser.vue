@@ -19,12 +19,12 @@
                                  :class="{'pl-markdown-parser-nav-item-active':position === index}"
                                  :key="index"
                                  @click="p_clickNavItem(index)">
-                                <span>{{item.setting.title}}</span>
+                                {{index}}-{{position}}-<span>{{item.setting.title}}</span>
                             </div>
                         </template>
                     </template>
                     <div class="pl-markdown-parser-nav-slider">
-                        <div class="pl-markdown-parser-nav-slider-indicator" :style="{top:`${position*28+9}px`}">
+                        <div class="pl-markdown-parser-nav-slider-indicator" :style="navIndicatorStyles">
                             <pl-icon icon="pl-radio-on"/>
                         </div>
                     </div>
@@ -61,6 +61,13 @@
                 immediate: true,
                 async handler(val) {
                     this.blocks = await this.p_decodeValue(val)
+                    for (let i = 0; i < this.blocks.length; i++) {
+                        const block = this.blocks[i];
+                        if (!!block.setting.title && (block.setting.nav !== false)) {
+                            this.position = i
+                            break
+                        }
+                    }
                     console.log(this.blocks)
                 },
             },
@@ -72,6 +79,7 @@
                 dialogShow: false,                                  //显示代码块的对话框是否展示
                 code: null,                                         //对话框展示的代码块
                 position: 0,                                        //当前nav导航展示的demo的索引位置
+                listenScroll: true,                                 //是否监听滚动事件
             }
         },
         computed: {
@@ -84,6 +92,37 @@
                     left: `${left}px`,
                     right: null,
                 }
+            },
+            navIndicatorStyles() {
+                let position = 0;
+                for (let i = 0; i < this.blocks.length; i++) {
+                    const item = this.blocks[i];
+                    if (!!item.setting.title && (item.setting.nav !== false)) position++
+                    if (this.position === i) {
+                        break
+                    }
+                }
+                return {
+                    top: `${(position - 1) * 28 + 9}px`
+                }
+            },
+            navBoundary() {
+                let start, end;
+                for (let i = 0; i < this.blocks.length; i++) {
+                    const item = this.blocks[i];
+                    if (!!item.setting.title && (item.setting.nav !== false)) {
+                        start = i
+                        break
+                    }
+                }
+                for (let i = this.blocks.length - 1; i >= 0; i--) {
+                    const item = this.blocks[i];
+                    if (!!item.setting.title && (item.setting.nav !== false)) {
+                        end = i
+                        break
+                    }
+                }
+                return {start, end}
             },
         },
         methods: {
@@ -124,7 +163,7 @@
                     isBlock: false,
                     content: tests[tests.length - 1]
                 })
-                return ret.map(item => this.p_decodeBlock(item))
+                return ret.map(item => this.p_decodeBlock(item)).filter(item => !!item.isBlock || item.md.trim() !== '')
             },
             /**
              * 解析代码块
@@ -134,7 +173,7 @@
              * @param   isBlock             是否为特殊块
              */
             p_decodeBlock({content, isBlock}) {
-                if (!isBlock) return {md: content, setting: {}}
+                if (!isBlock) return {md: content, setting: {}, isBlock: false,}
 
                 /*解析结果*/
                 let ret = {}
@@ -212,24 +251,25 @@
              *  @datetime   2019/3/16 23:47
              */
             p_scroll(e) {
+                if (!this.listenScroll) return
                 this.$emit('scroll', e)
+                this.p_clearTimer()
+                this.timer = setTimeout(() => {
+                    for (let i = 0; i < this.$refs.parserItems.length; i++) {
+                        const parserItem = this.$refs.parserItems[i];
+                        if (parserItem.$el.offsetTop >= e.target.scrollTop + 20) {
+                            this.position = Math.max(Math.min(this.navBoundary.end, i), this.navBoundary.start)
+                            break
+                        }
+                    }
+                }, 200)
+
+            },
+            p_clearTimer() {
                 if (!!this.timer) {
                     clearTimeout(this.timer)
                     this.timer = null
                 }
-                this.timer = setTimeout(() => {
-                    let position = 0
-                    for (let i = 0; i < this.$refs.parserItems.length; i++) {
-                        const parserItem = this.$refs.parserItems[i];
-                        if (!(!!parserItem.data.setting.title && (parserItem.data.setting.nav !== false))) continue;
-                        if (parserItem.$el.offsetTop >= e.target.scrollTop) {
-                            this.position = position
-                            break
-                        }
-                        position++
-                    }
-                }, 200)
-
             },
             /*
              *  处理点击导航选项事件
@@ -237,8 +277,12 @@
              *  @datetime   2019/3/16 22:44
              */
             async p_clickNavItem(val) {
+                this.p_clearTimer()
+                this.listenScroll = false
                 this.$refs.scroll.scrollTo({y: this.$refs.parserItems[val].$el.offsetTop})
-                this.position = val
+                this.position = Math.max(Math.min(this.navBoundary.end, val), this.navBoundary.start)
+                await this.$plain.$utils.delay(1000)
+                this.listenScroll = true
             },
         },
     }
