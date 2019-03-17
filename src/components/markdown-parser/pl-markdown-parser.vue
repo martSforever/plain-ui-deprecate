@@ -252,22 +252,12 @@
             p_scroll(e) {
                 if (!this.listenScroll) return
                 this.$emit('scroll', e)
-                this.p_clearTimer()
-                this.timer = setTimeout(() => {
-                    for (let i = 0; i < this.$refs.parserItems.length; i++) {
-                        const parserItem = this.$refs.parserItems[i];
-                        if (parserItem.$el.offsetTop >= e.target.scrollTop + 20) {
-                            this.position = Math.max(Math.min(this.navBoundary.end, i), this.navBoundary.start)
-                            break
-                        }
+                for (let i = 0; i < this.$refs.parserItems.length; i++) {
+                    const parserItem = this.$refs.parserItems[i];
+                    if (Math.abs(parserItem.$el.offsetTop - e.target.scrollTop) < 10) {
+                        this.position = Math.max(Math.min(this.navBoundary.end, i), this.navBoundary.start)
+                        break
                     }
-                }, 200)
-
-            },
-            p_clearTimer() {
-                if (!!this.timer) {
-                    clearTimeout(this.timer)
-                    this.timer = null
                 }
             },
             /*
@@ -276,7 +266,6 @@
              *  @datetime   2019/3/16 22:44
              */
             async p_clickNavItem(val) {
-                this.p_clearTimer()
                 this.listenScroll = false
                 this.$refs.scroll.scrollTo({y: this.$refs.parserItems[val].$el.offsetTop})
                 this.position = Math.max(Math.min(this.navBoundary.end, val), this.navBoundary.start)
