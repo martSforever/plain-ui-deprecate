@@ -48,12 +48,12 @@
         components: {PlIcon, PlScroll, PlMarkdownParserItemCloser, PlMarkdownParserExample, PlMarkdown},
         props: {
             data: {},                                                   //当前示例的数据
-            leftWidth: {},                                              //示例左侧宽度
             screenHeight: {},                                           //网页宽度
         },
         data() {
             return {
                 parser: null,                                           //父组件pl-markdown-parser
+                leftWidth: this.data.setting.leftWidth || 300,                  //示例左侧宽度
                 p_open: false,                                          //当前是否为打开状态
                 p_codeHeight: null,                                     //代码块的高度
                 p_minHeight: (this.data.setting.minHeight - 0) || 140,  //示例最小高度

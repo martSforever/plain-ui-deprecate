@@ -4,7 +4,6 @@
                 v-if="data.isBlock"
                 :is="`pl-markdown-parser-item-${data.setting.type || 'demo'}`"
                 :data="data"
-                :leftWidth="leftWidth"
                 :screenHeight="screenHeight"
         />
         <pl-markdown v-else :value="data.md"/>
@@ -22,7 +21,6 @@
         props: {
             data: {},                                                   //当前示例的数据
             index: {},                                                  //索引
-            leftWidth: {},                                              //示例左侧宽度
             screenHeight: {},                                           //网页宽度
         },
     }

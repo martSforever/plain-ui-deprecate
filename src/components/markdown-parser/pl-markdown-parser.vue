@@ -8,7 +8,6 @@
                                              :data="item"
                                              :index="index"
                                              ref="parserItems"
-                                             :left-width="leftWidth"
                                              :screen-height="screenHeight"
                     />
                 </div>
@@ -32,7 +31,7 @@
                 </div>
             </div>
         </pl-scroll>
-        <pl-dialog width="650px" height="300px" v-model="dialogShow">
+        <pl-dialog width="800px" height="400px" v-model="dialogShow">
             <pl-scroll scroll-x scroll-y>
                 <pl-markdown :value="code"/>
             </pl-scroll>
@@ -55,7 +54,6 @@
         mixins: [MountedMixin],
         props: {
             value: {},
-            leftWidth: {type: Number, default: 300},
         },
         watch: {
             value: {

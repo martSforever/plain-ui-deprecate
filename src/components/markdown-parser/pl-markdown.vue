@@ -78,10 +78,10 @@
                 color: $color-primary;
             }
             .hljs-attr {
-                color: $color-warn;
+                color: $color-success;
             }
             .hljs-string {
-                color: $color-success;
+                color: $color-normal-title;
             }
         }
     }

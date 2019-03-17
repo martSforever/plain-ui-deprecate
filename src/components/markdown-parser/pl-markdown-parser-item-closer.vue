@@ -98,16 +98,17 @@
         .pl-icon {
             margin-left: 1em;
         }
-        &.pl-markdown-parser-item-closer-fixed {
-            position: fixed !important;
-            bottom: 0;
+        &.pl-markdown-parser-item-closer-open {
             .pl-markdown-parser-item-closer-inner {
                 background: #f9f9f9;
             }
         }
-        &.pl-markdown-parser-item-closer-open {
+        &.pl-markdown-parser-item-closer-fixed {
+            position: fixed !important;
+            bottom: 0;
             .pl-markdown-parser-item-closer-inner {
-                background: #f9f9f9;
+                background: $color-primary;
+                color: white;
             }
         }
         .pl-markdown-parser-item-closer-left, .pl-markdown-parser-item-closer-right {
