@@ -19,7 +19,8 @@
                                  :class="{'pl-markdown-parser-nav-item-active':position === index}"
                                  :key="index"
                                  @click="p_clickNavItem(index)">
-                                {{index}}-{{position}}-<span>{{item.setting.title}}</span>
+                                <!--{{index}}-{{position}}- -->
+                                <span>{{item.setting.title}}</span>
                             </div>
                         </template>
                     </template>

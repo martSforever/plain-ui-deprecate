@@ -20,18 +20,19 @@
                     <pl-markdown :value="markedCode"/>
                 </pl-scroll>
             </div>
-            <div class="pl-markdown-parser-item-demo-example-operator">
-                <pl-icon icon="pl-scan" hover @click="showInDialog" v-link-tooltip="{content:'放大显示',placement:'top'}"/>
-            </div>
         </div>
-        <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
+        <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth">
+            <pl-icon icon="pl-scan" hover @click="showInDialog" v-link-tooltip="{content:'放大显示',placement:'top'}" slot="right"/>
+        </pl-markdown-parser-item-closer>
         <pl-markdown-parser-item-closer :left-width="leftWidth"
                                         open
                                         v-show="p_showFixedCloser"
                                         is-fixed
                                         :client-left="p_clientLeft"
                                         :client-width="p_clientWidth"
-                                        @click="p_toggle"/>
+                                        @click.stop="p_toggle">
+            <pl-icon icon="pl-scan" hover @click.stop="showInDialog" v-link-tooltip="{content:'放大显示',placement:'top'}" slot="right"/>
+        </pl-markdown-parser-item-closer>
     </div>
 </template>
 

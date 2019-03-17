@@ -1,6 +1,6 @@
 ## Button按钮
 
-**Plain 的按钮功能比较单一，主要是提供快速设置按钮样式的功能**
+Plain 的按钮功能比较单一，主要是提供快速设置按钮样式的功能
 
 :::block-start
 :::setting-start
