@@ -21,7 +21,7 @@
         components: {PlMarkdown, PlMarkdownParserItemDemo},
         props: {
             data: {},                                                   //当前示例的数据
-            index:{},                                                   //索引
+            index: {},                                                  //索引
             leftWidth: {},                                              //示例左侧宽度
             screenHeight: {},                                           //网页宽度
         },
@@ -29,5 +29,7 @@
 </script>
 
 <style lang="scss">
-
+    .pl-markdown-parser-item {
+        margin-bottom: 40px;
+    }
 </style>

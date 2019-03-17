@@ -25,8 +25,7 @@
             </div>
         </div>
         <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
-        <pl-markdown-parser-item-closer show
-                                        :left-width="leftWidth"
+        <pl-markdown-parser-item-closer :left-width="leftWidth"
                                         open
                                         v-show="p_showFixedCloser"
                                         is-fixed
@@ -158,6 +157,7 @@
             position: relative;
             overflow: hidden;
             border: solid 0.5px $border-color;
+            border-bottom: none;
             @include transition-all-cubic-bezier;
             transition-duration: 0.5s;
             .pl-markdown-parser-item-demo-left {

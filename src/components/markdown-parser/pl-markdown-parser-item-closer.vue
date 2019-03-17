@@ -2,12 +2,13 @@
     <transition name="pl-transition-fade">
         <div class="pl-markdown-parser-item-closer"
              @click="e=>$emit('click',e)"
-             v-show="show"
              :style="styles"
              :class="{'pl-markdown-parser-item-closer-fixed':isFixed}">
-            <div class="pl-markdown-parser-item-closer-inner">
-                <span>显示全部</span>
-                <pl-icon :icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'"/>
+            <div class="pl-markdown-parser-item-closer-content">
+                <div class="pl-markdown-parser-item-closer-inner">
+                    <span>显示全部</span>
+                    <pl-icon :icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'"/>
+                </div>
             </div>
         </div>
     </transition>
@@ -20,7 +21,6 @@
         name: "pl-markdown-parser-item-closer",
         components: {PlIcon},
         props: {
-            show: {type: Boolean, default: false},                          //是否需要展示关闭器
             open: {type: Boolean, default: false},                          //当前是否处于打开状态
             leftWidth: {},                                                  //示例左侧内容宽度
 
@@ -50,11 +50,30 @@
         height: 36px;
         font-size: 12px;
         border: #ddd solid 1px;
-        box-sizing: border-box;
         border-top: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        box-sizing: border-box;
+        position: relative;
+        &:before {
+            box-shadow: 0 0 15px #999;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            content: '';
+            z-index: 0;
+        }
+
+        .pl-markdown-parser-item-closer-content {
+            background-color: white;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
 
         .pl-markdown-parser-item-closer-inner {
             transform: scale(0.8);
@@ -66,8 +85,7 @@
         }
         &:hover {
             .pl-markdown-parser-item-closer-inner {
-                background: $color-primary;
-                color: white;
+                background: #f2f2f2;
             }
         }
         .pl-icon {
@@ -75,12 +93,9 @@
         }
         &.pl-markdown-parser-item-closer-fixed {
             position: fixed !important;
-            background: linear-gradient(to top, rgba(#666, 0.5), transparent);
+            bottom: 0;
             .pl-markdown-parser-item-closer-inner {
-                box-sizing: border-box;
-                .pl-icon {
-                    color: white !important;
-                }
+                background: #f2f2f2;
             }
         }
     }

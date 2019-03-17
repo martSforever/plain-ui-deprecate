@@ -35,4 +35,74 @@ export default{
 ```
 :::block-end
 
+:::block-start
+
+:::setting-start
+title:'按钮的颜色color'
+:::setting-end
+
+```html
+<link-button label="primary" box-color="primary"/>
+<link-button label="success" box-color="success"/>
+<link-button label="warn" box-color="warn"/>
+<link-button label="error" box-color="error"/>
+<link-button label="info" box-color="info"/>
+```
+```js
+export default{
+    data(){
+        return {}
+    },
+}
+```
+:::block-end
+
+:::block-start
+:::setting-start
+title:'加载状态的按钮loading'
+:::setting-end
+```html
+<link-button label="加载中" loading/>
+```
+```js
+export default{
+    data(){
+        return {}
+    },
+}
+```
+:::block-end
+
+:::block-start
+:::setting-start
+title:'左右图标prefix-icon, suffix-icon'
+:::setting-end
+```html
+<link-button label="搜索日期"  prefix-icon="pl-date" suffix-icon="pl-search"/>
+```
+```js
+export default{
+    data(){
+        return {}
+    },
+}
+```
+:::block-end
+
+:::block-start
+:::setting-start
+title:'只有图标icon-only'
+:::setting-end
+```html
+<link-button label="primary" 
+             prefix-icon="pl-search" 
+             icon-only/>
+```
+:::block-end
+
+
+| 一个普通标题 | 一个普通标题 | 一个普通标题 |
+| ------ | ------ | ------ |
+| 短文本 | 中等文本 | 稍微长一点的文本 |
+| 稍微长一点的文本 | 短文本 | 中等文本 |
 
