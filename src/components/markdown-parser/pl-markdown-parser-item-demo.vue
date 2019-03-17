@@ -20,11 +20,11 @@
                     <pl-markdown :value="markedCode"/>
                 </pl-scroll>
             </div>
-            <pl-markdown-parser-item-demo-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
             <div class="pl-markdown-parser-item-demo-example-operator">
                 <pl-icon icon="pl-scan" hover @click="showInDialog" v-link-tooltip="{content:'放大显示',placement:'top'}"/>
             </div>
         </div>
+        <pl-markdown-parser-item-closer @click="p_toggle" :show="openable" :open="p_open" :left-width="leftWidth"/>
         <pl-markdown-parser-item-closer show
                                         :left-width="leftWidth"
                                         open
@@ -56,7 +56,7 @@
                 parser: null,                                           //父组件pl-markdown-parser
                 p_open: false,                                          //当前是否为打开状态
                 p_codeHeight: null,                                     //代码块的高度
-                p_minHeight: (this.data.minHeight - 0) || 140,          //示例最小高度
+                p_minHeight: (this.data.setting.minHeight - 0) || 140,  //示例最小高度
                 p_showFixedCloser: false,                               //当前是否展示底部固定器
                 p_clientLeft: null,                                     //当前示例距离网页左侧的距离
                 p_clientWidth: null,                                    //当前示例宽度
@@ -155,11 +155,9 @@
         .pl-markdown-parser-item-demo-example {
             font-size: 14px;
             box-sizing: border-box;
-            border-radius: 4px;
             position: relative;
-            border: solid 0.5px $border-color;
-            margin-bottom: 20px;
             overflow: hidden;
+            border: solid 0.5px $border-color;
             @include transition-all-cubic-bezier;
             transition-duration: 0.5s;
             .pl-markdown-parser-item-demo-left {
@@ -213,6 +211,7 @@
                 overflow: auto;
                 min-height: calc(100% - 36px);
             }
+
             .pl-markdown-parser-item-demo-example-operator {
                 position: absolute;
                 top: 0;

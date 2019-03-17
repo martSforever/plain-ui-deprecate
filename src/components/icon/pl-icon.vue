@@ -19,11 +19,9 @@
 
 <style lang="scss">
     .pl-icon {
-        @include public-style;
         vertical-align: bottom;
         display: inline;
         position: relative;
-        color: inherit;
         .pl-icon-svg {
             width: $icon-size;
             height: $icon-size;

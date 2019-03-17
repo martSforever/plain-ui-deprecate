@@ -1,21 +1,28 @@
 <template>
     <transition name="pl-transition-fade">
-        <div class="pl-markdown-parser-item-closer" @click="e=>$emit('click',e)" v-show="show" :style="styles" :class="{'pl-markdown-parser-item-closer-fixed':isFixed}">
-            <div class="pl-markdown-parser-item-closer-inner" :style="{width:`calc(100% - ${leftWidth}px)`}">
-                <link-icon :icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'" hover/>
+        <div class="pl-markdown-parser-item-closer"
+             @click="e=>$emit('click',e)"
+             v-show="show"
+             :style="styles"
+             :class="{'pl-markdown-parser-item-closer-fixed':isFixed}">
+            <div class="pl-markdown-parser-item-closer-inner">
+                <span>显示全部</span>
+                <pl-icon :icon="!open?'pl-double-arrow-down':'pl-double-arrow-up'"/>
             </div>
         </div>
     </transition>
 </template>
 
 <script>
+    import PlIcon from "../icon/pl-icon";
+
     export default {
         name: "pl-markdown-parser-item-closer",
+        components: {PlIcon},
         props: {
             show: {type: Boolean, default: false},                          //是否需要展示关闭器
             open: {type: Boolean, default: false},                          //当前是否处于打开状态
             leftWidth: {},                                                  //示例左侧内容宽度
-            position: {type: String, default: 'absolute'},                  //关闭器的定位方式
 
             clientWidth: {},                                                //示例组件的宽度
             clientLeft: {},                                                 //示例组件在网页距离左侧的距离
@@ -38,31 +45,33 @@
 <style lang="scss">
     .pl-markdown-parser-item-closer {
         @include transition-all;
+        width: 100%;
         cursor: pointer;
-        height: 28px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        height: 36px;
+        font-size: 12px;
+        border: #ddd solid 1px;
+        box-sizing: border-box;
+        border-top: none;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         justify-content: center;
-        &:hover {
-            background: linear-gradient(to top, rgba(#999, 0.1), transparent);
-        }
+
         .pl-markdown-parser-item-closer-inner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            box-sizing: border-box;
-            .pl-icon {
-                color: #d9d9d9 !important;
-                font-size: 12px;
+            transform: scale(0.8);
+            width: fit-content;
+            border: solid 1px #ddd;
+            display: inline-block;
+            padding: 6px 24px;
+            border-radius: 100px;
+        }
+        &:hover {
+            .pl-markdown-parser-item-closer-inner {
+                background: $color-primary;
+                color: white;
             }
+        }
+        .pl-icon {
+            margin-left: 1em;
         }
         &.pl-markdown-parser-item-closer-fixed {
             position: fixed !important;
