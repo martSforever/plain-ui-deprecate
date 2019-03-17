@@ -69,7 +69,7 @@
             background: linear-gradient(to top, rgba(#666, 0.5), transparent);
             .pl-markdown-parser-item-closer-inner {
                 box-sizing: border-box;
-                .pl-button {
+                .pl-icon {
                     color: white !important;
                 }
             }
