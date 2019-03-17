@@ -6,7 +6,7 @@
                     <div v-for="(item,index) in demos" :key="index" :data="item">
                         <pl-markdown-parser-item :data="item"
                                                  ref="parserItems"
-                                                 v-if="item.isDemo"
+                                                 v-if="item.isBlock"
                                                  :left-width="leftWidth"
                                                  :screen-height="screenHeight"
                                                  @showInDialog="p_showInDialog"
@@ -76,7 +76,7 @@
         },
         computed: {
             navs() {
-                return this.demos.filter(item => item.isDemo)
+                return this.demos.filter(item => item.isBlock)
             },
             navStyles() {
                 if (!this.p_mounted) return null
@@ -98,33 +98,33 @@
             p_decodeValue(val) {
                 if (!val) return []
                 let blocksText = val
-                let demos = []
-                const startTag = ':::demo-start'
-                const endTag = ':::demo-end'
-                const splitTag = ":::demo"
+                let blocks = []
+                const startTag = ':::block-start'
+                const endTag = ':::block-end'
+                const splitTag = ":::block"
                 let demoStartIndex = blocksText.indexOf(startTag)
                 let demoEndIndex = blocksText.indexOf(endTag, demoStartIndex + startTag.length) + endTag.length
                 while (demoStartIndex > -1) {
                     const blockText = blocksText.substring(demoStartIndex, demoEndIndex)
-                    demos.push(blockText.replace(startTag, '').replace(endTag, ''))
+                    blocks.push(blockText.replace(startTag, '').replace(endTag, ''))
                     blocksText = blocksText.replace(blockText, splitTag)
                     demoStartIndex = blocksText.indexOf(startTag)
                     demoEndIndex = blocksText.indexOf(endTag, demoStartIndex + startTag.length) + endTag.length
                 }
                 const tests = blocksText.split(splitTag)
-                const ret = demos.reduce((ret, demo, index) => {
+                const ret = blocks.reduce((ret, demo, index) => {
                     ret.push({
                         content: tests[index],
-                        isDemo: false
+                        isBlock: false
                     })
                     ret.push({
-                        content: demos[index],
-                        isDemo: true
+                        content: blocks[index],
+                        isBlock: true
                     })
                     return ret
                 }, [])
                 ret.push({
-                    isDemo: false,
+                    isBlock: false,
                     content: tests[tests.length - 1]
                 })
                 return ret.map(item => this.p_decodeBlock(item))
@@ -133,26 +133,54 @@
              * 解析代码块
              * @author  韦胜健
              * @date    2019/3/13 19:36
+             * @param   content             字符串内容
+             * @param   isBlock             是否为特殊块
              */
-            p_decodeBlock({content, isDemo}) {
-                if (!isDemo) return {md: content}
+            p_decodeBlock({content, isBlock}) {
+                if (!isBlock) return {md: content}
+
+                /*解析结果*/
+                let ret = {}
+                /*需要收集的标签*/
                 let types = [
                     {key: "html", start: '```html', end: '```'},
                     {key: "js", start: '```js', end: '```'},
                     {key: "css", start: '```css', end: '```'},
-                    {key: "title", start: ':::title-start', end: ':::title-end'},
-                    {key: "desc", start: ':::desc-start', end: ':::desc-end'},
-                    {key: "minHeight", start: ':::min-height-start', end: ':::min-height-end'},
                 ]
-                const result = types.reduce((ret, {key, start, end}) => {
-                    const {content: itemContent, block: newContent} = this.p_decodeBlockType(content, {start, end})
+
+                /*获取设置参数内容*/
+                let {value, newContent} = this.p_decodeBlockType(content, {start: ':::setting-start', end: ':::setting-end'})
+                content = newContent
+                ret.setting = value
+                /*解析参数内容*/
+                if (!!ret.setting) {
+                    ret.setting = ret.setting.trim().split('\n').reduce((result, item) => {
+                        const [key, value] = item.split(":")
+                        result[key] = eval(value)
+                        return result
+                    }, {})
+                    !!ret.setting.collect && ret.setting.collect.forEach(item => {
+                        types.push({
+                            key: item,
+                            start: `:::${item}-start`,
+                            end: `:::${item}-end`,
+                        })
+                    })
+                }
+
+                /*解析types中的标签*/
+                ret = Object.assign(ret, types.reduce((result, {key, start, end}) => {
+                    let {value, newContent} = this.p_decodeBlockType(content, {start, end})
                     content = newContent
-                    ret[key] = itemContent
-                    return ret
-                }, {})
-                result.md = content
-                result.isDemo = isDemo
-                return result
+                    result[key] = value
+                    return result
+                }, {}))
+
+                ret.md = content
+                ret.isBlock = isBlock
+
+                console.log(ret)
+                return ret
             },
             /**
              * 解析某种类型的的代码块
@@ -160,6 +188,7 @@
              * @date    2019/3/13 19:49
              */
             p_decodeBlockType(block, {start, end}) {
+                block = block.trim()
                 let startIndex = block.indexOf(start), endIndex, content
                 if (startIndex > -1) {
                     endIndex = block.indexOf(end, startIndex + start.length) + end.length
@@ -168,7 +197,7 @@
                     content = content.replace(start, '')
                     content = content.replace(end, '')
                 }
-                return {content, block}
+                return {value: content, newContent: block}
             },
             /*
              *  在对话框中显示源码

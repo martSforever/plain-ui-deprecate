@@ -1,6 +1,6 @@
 <template>
     <div class="pl-markdown-parser-item">
-        <div class="pl-markdown-parser-item-example" v-if="data.isDemo" :style="exampleStyles" :class="exampleClasses">
+        <div class="pl-markdown-parser-item-example" v-if="data.isBlock" :style="exampleStyles" :class="exampleClasses">
             <div class="pl-markdown-parser-item-left" :style="{width:`${leftWidth}px`}">
                 <pl-markdown-parser-example :html="data.html" :js="data.js" :css="data.css"/>
                 <div class="pl-markdown-parser-item-left-label">

@@ -2,19 +2,18 @@
 
 **Plain 的按钮功能比较单一，主要是提供快速设置按钮样式的功能**
 
-:::demo-start
-
-:::title-start
-按钮的基本用法
-:::title-end
+:::block-start
+:::setting-start
+type:'demo'
+title:'按钮的基本用法'
+collect:['desc'] 
+nav:true
+minHeight:200
+:::setting-end
 
 :::desc-start
 默认情况下，可以通过label属性设置按钮文本，可以通过插槽设置文本内容，当设置插槽时，label属性将不可用
 :::desc-end
-
-:::min-height-start
-200
-:::min-height-end
 
 ```html
 <link-button label="简单按钮1"/>
@@ -30,9 +29,14 @@ export default{
     },
 }
 ```
-:::demo-end
+```css
+.demo-start{
+    color:blue
+}
+```
+:::block-end
 
-:::demo-start
+:::block-start
 :::title-start
 按钮的颜色:color
 :::title-end
@@ -50,9 +54,9 @@ export default{
     },
 }
 ```
-:::demo-end
+:::block-end
 
-:::demo-start
+:::block-start
 :::title-start
 加载状态的按钮:loading
 :::title-end
@@ -66,9 +70,9 @@ export default{
     },
 }
 ```
-:::demo-end
+:::block-end
 
-:::demo-start
+:::block-start
 :::title-start
 左右图标:prefix-icon, suffix-icon
 :::title-end
@@ -82,9 +86,9 @@ export default{
     },
 }
 ```
-:::demo-end
+:::block-end
 
-:::demo-start
+:::block-start
 :::title-start
 只有图标:icon-only
 :::title-end
@@ -93,7 +97,7 @@ export default{
              prefix-icon="pl-search" 
              icon-only/>
 ```
-:::demo-end
+:::block-end
 
 
 | 一个普通标题 | 一个普通标题 | 一个普通标题 |
