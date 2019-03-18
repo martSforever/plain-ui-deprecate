@@ -14,10 +14,11 @@
 
     import PlMarkdownParserItemDemo from "./pl-markdown-parser-item-demo";
     import PlMarkdown from "./pl-markdown";
+    import PlMarkdownParserItemTable from "./pl-markdown-parser-item-table";
 
     export default {
         name: "pl-markdown-parser-item",
-        components: {PlMarkdown, PlMarkdownParserItemDemo},
+        components: {PlMarkdownParserItemTable, PlMarkdown, PlMarkdownParserItemDemo},
         props: {
             data: {},                                                   //当前示例的数据
             index: {},                                                  //索引

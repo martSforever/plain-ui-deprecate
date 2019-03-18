@@ -82,6 +82,13 @@
             }
         },
         computed: {
+            navIsExist() {
+                for (let i = 0; i < this.blocks.length; i++) {
+                    const item = this.blocks[i];
+                    if (!!item.setting.title && (item.setting.nav !== false)) return true
+                }
+                return false
+            },
             navStyles() {
                 if (!this.p_mounted) return null
                 const {left, top} = this.$refs.nav.getBoundingClientRect()
@@ -90,6 +97,7 @@
                     top: `${top}px`,
                     left: `${left}px`,
                     right: null,
+                    opacity: this.navIsExist ? 1 : 0
                 }
             },
             navIndicatorStyles() {
