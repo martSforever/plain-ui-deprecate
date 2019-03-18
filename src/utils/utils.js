@@ -204,6 +204,7 @@ function oneOf(val, array) {
  */
 function dateFormat(date, format) {
     if (date == null) return null
+    format = format || 'YYYY-MM-DD';
     return fecha.format(date, format)
 }
 
@@ -216,6 +217,7 @@ function dateFormat(date, format) {
  */
 function dateParse(string, format) {
     if (string == null) return null
+    format = format || 'YYYY-MM-DD';
     return fecha.parse(string, format)
 }
 
