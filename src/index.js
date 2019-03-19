@@ -159,6 +159,7 @@ const PlainUI = {
         iconfont,
         zIndex = 2000,
         pageRegistry = null,
+        tableColumns = []
     } = {}) {
         this.zIndex = zIndex
         this._pageRegistry = pageRegistry
@@ -175,6 +176,8 @@ const PlainUI = {
         Vue.directive(`${prefix}-tooltip`, tooltip)
         $utils.addScript('https://at.alicdn.com/t/font_948159_a3g9gsak29t.js')
         !!iconfont && $utils.addScript(iconfont)
+
+
     },
 }
 

@@ -1,15 +1,16 @@
 <template>
-    <div class="pl-base-table-cell" :style="styles" :class="{'pl-base-table-cell-costume':!!scopeSlotFunc}">
+    <div class="pl-base-table-cell" :style="styles">
         <template v-if="isFixed">
-            <pl-scope-slot v-if="!!scopeSlotFunc"
-                           :scope-slot-func="scopeSlotFunc"
-                           :data="data"/>
-            <template v-else>
-                <div class="pl-base-table-cell-default-text">
-                    <pl-tooltip-text :content="text"/>
-                </div>
-                <slot></slot>
+            <template v-if="editing">
+                <pl-scope-slot v-if="editScopedSlots" :scope-slot-func="editScopedSlots" :data="{}"/>
+                <pl-render-func v-else-if="editRenderFunc" :render-func="editRenderFunc" :data="{}"/>
             </template>
+            <template v-else>
+                <pl-scope-slot v-if="defaultScopedSlots" :scope-slot-func="defaultScopedSlots" :data="{}"/>
+                <pl-render-func v-else-if="defaultRenderFunc" :render-func="defaultRenderFunc" :data="{}"/>
+            </template>
+
+            <slot></slot>
         </template>
     </div>
 </template>
@@ -18,18 +19,25 @@
     import PlScopeSlot from "../render/pl-scope-slot";
     import {TableMixin} from "./index";
     import PlTooltipText from "../tooltip/pl-tooltip-text";
+    import PlRenderFunc from "../render/pl-render-func";
 
     export default {
         name: "pl-base-table-cell",
-        components: {PlTooltipText, PlScopeSlot},
+        components: {PlRenderFunc, PlTooltipText, PlScopeSlot},
         mixins: [TableMixin],
         props: {
-            scopeSlotFunc: {},                  //作用域渲染函数
             data: {},                           //作用域渲染函数渲染的数据
             text: {},                           //没有有作用域渲染函数的时候显示的文本
             width: {},                          //单元格宽度
             height: {},                         //单元格高度
             isFixed: {default: false},          //是否为对应fixed table的cell
+            editing: {},                        //当前是否为编辑状态
+
+            editScopedSlots: {},                //作用域插槽：编辑
+            defaultScopedSlots: {},             //作用域插槽：正常
+
+            editRenderFunc: {},                 //渲染函数：编辑
+            defaultRenderFunc: {},              //渲染函数：正常
         },
         computed: {
             styles() {

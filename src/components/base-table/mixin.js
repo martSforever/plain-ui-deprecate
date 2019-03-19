@@ -36,6 +36,10 @@ const props = {
     filterName: {type: String, default: 'input'},                                                                   //筛选组件名称
     filterOption: {type: Object},                                                                                   //筛选参数
     lov: {type: String},                                                                                            //值列表类型
+
+    /*不可配置信息*/
+    scopedSlots: {type: Object},                                                                                    //作用域插槽
+    renderFunc: {type: Object},                                                                                     //渲染函数
 }
 
 const BaseColumnMixin = {

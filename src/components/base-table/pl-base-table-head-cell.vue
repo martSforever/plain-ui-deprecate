@@ -2,12 +2,15 @@
     <td class="pl-base-table-head-cell" :colspan="col.colspan" :rowspan="col.rowspan" @click="p_click">
         <pl-base-table-cell
                 :is-fixed="fixed === col.fixed"
-                :scope-slot-func="col.titleScopedSlot"
                 :data="{col}"
                 :text="col.title"
                 :height="headRowHeight"
                 :width="col.width"
-                :class="[`pl-base-table-cell-${col.align}`]">
+                :class="[`pl-base-table-cell-${col.align}`]"
+
+                :default-scoped-slots="col.scopedSlots.head"
+                :default-render="col.renderFunc.head"
+                :editing="false">
             <div class="pl-base-table-head-cell-sort" :class="classes" v-if="!!col.sort">
                 <pl-icon icon="pl-triangle-up-fill" class="pl-sort-asc-icon"/>
                 <pl-icon icon="pl-triangle-down-fill" class="pl-sort-desc-icon"/>
