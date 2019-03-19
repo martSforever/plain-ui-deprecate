@@ -23,6 +23,7 @@ export const ValidMixin = {
     props: {
         required: {type: Boolean},                                      //是否必输
         rules: {type: Array},                                           //校验规则
+        validFunc: {type: Function},                                    //自定义验证函数
         validOnInit: {type: Boolean},                                   //是否在初始化的时候进行校验
     }
 }
