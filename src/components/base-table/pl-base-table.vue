@@ -234,7 +234,7 @@
             this.$on('rowEnter', ({row, rowIndex, position}) => this.pl_rowIterate(row => row.p_hover = true, rowIndex))       //监听行鼠标覆盖行事件
             this.$on('rowLeave', ({row, rowIndex, position}) => this.pl_rowIterate(row => row.p_hover = false, rowIndex))      //监听行鼠标覆盖行事件
             // this.$on('rowDblClick',({row,rowIndex,position})=>this.p_rowDblClick({row,rowIndex,position}))                  //监听行鼠标双击行事件
-            this.$on('rowClick', this.pl_click)                                                                                 //监听行鼠标单击行事件
+            this.$on('rowClick', this.pl_click)                                                                                //监听行鼠标单击行事件
             this.$on('scrollLeft', (val) => this.p_scrollLeft = val)                                                           //内容滑动到左端
             this.$on('scrollRight', (val) => this.p_scrollRight = val)                                                         //内容滑动到右端
             this.$on('clickTitle', this.pl_clickTitle)                                                                          //点击标题动作

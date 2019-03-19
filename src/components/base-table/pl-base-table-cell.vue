@@ -1,7 +1,7 @@
 <template>
     <div class="pl-base-table-cell" :style="styles">
         <template v-if="isFixed">
-            <template v-if="!!editing">
+            <template v-if="!!p_editing">
                 <pl-scope-slot v-if="editScopedSlots" :scope-slot-func="editScopedSlots" :data="data"/>
                 <pl-render-func v-else-if="editRenderFunc" :render-func="editRenderFunc" :data="data"/>
             </template>
@@ -45,6 +45,11 @@
                     width: this.$plain.$utils.unit(this.width),
                 }
                 return styles
+            },
+            p_editing() {
+                if (this.data.rowIndex == null && this.data.colIndex == null) return
+                const editable = this.editing && this.data.col.editable
+                return editable && (!this.data.col.editableFunc || this.data.col.editableFunc(this.data))
             },
         },
     }

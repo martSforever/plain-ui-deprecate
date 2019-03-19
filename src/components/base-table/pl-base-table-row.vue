@@ -8,7 +8,7 @@
         <td v-for="(col,colIndex) in columns" :key="colIndex">
             <pl-base-table-cell
                     :is-fixed="fixed === col.fixed"
-                    :data="{row,rowIndex,col,colIndex,editRow}"
+                    :data="{row,editRow,rowIndex,col,colIndex,showRow:p_editing?editRow:row}"
                     :text="row[col.field]"
                     :height="rowHeight"
                     :width="col.width"

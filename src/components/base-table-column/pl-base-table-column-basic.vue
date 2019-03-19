@@ -21,11 +21,11 @@
             col() {
                 return this.$refs.column.col()
             },
-            renderNormal(h, {row, editRow, rowIndex, col, colIndex, props}) {
-                return <span>{row[col.field]}</span>
+            renderNormal(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
+                return <span>{showRow[col.field]}</span>
             },
-            renderEdit(h, {row, editRow, rowIndex, col, colIndex, props}) {
-                return <link-input value={editRow[col.field]} onInput={val => this.$set(editRow, col.field, val)}/>
+            renderEdit(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
+                return <link-input value={showRow[col.field]} onInput={val => this.$set(showRow, col.field, val)}/>
             },
             renderHead(h, {col}) {
                 return <span>{col.title}</span>

@@ -35,8 +35,16 @@
                 <link-radio v-model="multiSelect" label="多选"/>
             </demo-row-item>
         </demo-row>
-        <pl-base-table :data="data" ref="baseTable">
+        <pl-base-table :data="data"
+                       ref="baseTable"
+                       sort-field="trainno"
+                       :sort-desc="true"
+                       :multi-select="multiSelect"
+                       @rowClick="rowClick"
+                       @rowDblClick="rowDblClick"
+                       @sortChange="sortChange">
             <pl-base-table-column-basic title="车次" field="trainno"/>
+            <pl-base-table-column-basic title="车次" field="trainno" :editable="false"/>
             <pl-base-table-column-basic title="类型" field="type"/>
             <!--<pl-base-table-column-group title="车次信息">
                 <pl-base-table-column title="车次" field="trainno"/>
