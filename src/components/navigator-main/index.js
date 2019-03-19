@@ -143,6 +143,44 @@ class NavigatorService {
     async backoff() {
         if (!!this.page) return await this.page.backoff()
     }
+
+
+    /*---------------------------------------事件-------------------------------------------*/
+    /**
+     * 监听事件
+     * @author  韦胜健
+     * @date    2019/3/19 18:50
+     */
+    $on(event, callback, global = false) {
+        (global ? this.tab : this.page).on(event, callback)
+    }
+
+    /**
+     * 只监听一次事件
+     * @author  韦胜健
+     * @date    2019/3/19 18:51
+     */
+    $once(event, callback, global = false) {
+        (global ? this.tab : this.page).once(event, callback)
+    }
+
+    /**
+     * 移除事件
+     * @author  韦胜健
+     * @date    2019/3/19 18:51
+     */
+    $off(event, callback, global = false) {
+        (global ? this.tab : this.page).off(event, callback)
+    }
+
+    /**
+     * 派发事件
+     * @author  韦胜健
+     * @date    2019/3/19 18:51
+     */
+    $emit(event, param, global = false) {
+        (global ? this.tab : this.page).emit(event, param)
+    }
 }
 
 const NavigatorMixin = {

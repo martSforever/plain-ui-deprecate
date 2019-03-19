@@ -54,7 +54,13 @@
                 pageStack,
                 componentStorage,
                 selfStorage,
+
+                mainTab: null,
+                listenEvents: [],
             }
+        },
+        created() {
+            this.mainTab = this.$plain.$dom.findComponentUpward(this, 'pl-navigator-main-tab')
         },
         computed: {
             tabData() {
@@ -187,7 +193,66 @@
                     if (!!page.init && !page.component) page.component = await this.getPageComponent(page.path, page.iframe)
                 }
             },
-        }
+
+            /*---------------------------------------导航事件-------------------------------------------*/
+
+            /**
+             * 监听事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:50
+             */
+            on(event, callback) {
+                this.listenEvents.push({event, callback})
+                this.mainTab.on(`${this.id}-${event}`, callback)
+            },
+
+            /**
+             * 只监听一次事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:51
+             */
+            once(event, callback) {
+                this.listenEvents.push({event, callback})
+                this.mainTab.once(`${this.id}-${event}`, callback)
+            },
+
+            /**
+             * 移除事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:51
+             */
+            off(event, callback) {
+                for (let i = 0; i < this.listenEvents.length; i++) {
+                    const {event: e, callback: c} = this.listenEvents[i];
+                    if (event !== e) continue
+                    if (callback == null || callback === c) {
+                        this.listenEvents.splice(i, 1)
+                        this.mainTab.off(`${this.id}-${event}`, callback)
+                        i--
+                        return true
+                    }
+                }
+                return false
+            },
+
+            /**
+             * 派发事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:51
+             */
+            emit(event, ...args) {
+                this.mainTab.emit(`${this.id}-${event}`, ...args)
+            },
+        },
+        beforeDestroy() {
+            /*页面销毁*/
+            for (let i = 0; i < this.listenEvents.length; i++) {
+                const {event, callback} = this.listenEvents[i];
+                if (this.off({event, callback})) {
+                    i--
+                }
+            }
+        },
     }
 </script>
 

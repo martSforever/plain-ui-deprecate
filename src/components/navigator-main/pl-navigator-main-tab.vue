@@ -97,6 +97,8 @@
                 selfStorage,
                 currentValue: null,
                 url,
+
+                listener: new this.$plain.Vue({}).$mount(),
             }
         },
         created() {
@@ -385,6 +387,46 @@
                 }
                 this.$plain.$storage.set(key, componentStorage)
             },
+
+
+            /*---------------------------------------导航事件-------------------------------------------*/
+
+            /**
+             * 监听事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:50
+             */
+            on(event, callback) {
+                this.listener.$on(event, callback)
+            },
+
+            /**
+             * 只监听一次事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:51
+             */
+            once(event, callback) {
+                this.listener.$once(event, callback)
+            },
+
+            /**
+             * 移除事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:51
+             */
+            off(event, callback) {
+                this.listener.$off(event, callback)
+            },
+
+            /**
+             * 派发事件
+             * @author  韦胜健
+             * @date    2019/3/19 18:51
+             */
+            emit(event, ...args) {
+                this.listener.$emit(event, ...args)
+            },
+
         },
         beforeDestroy() {
             // console.log('pl-navigator-main-tab beforeDestroy')
