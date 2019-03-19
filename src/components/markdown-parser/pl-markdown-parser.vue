@@ -67,7 +67,7 @@
                             break
                         }
                     }
-                    console.log(this.blocks)
+                    // console.log(this.blocks)
                 },
             },
         },

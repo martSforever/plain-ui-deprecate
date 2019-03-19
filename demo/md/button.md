@@ -320,7 +320,7 @@ export default{
 :::block-start
 
 :::setting-start
-title:'Props'
+title:'属性Props'
 type:'table'
 :::setting-end
 
@@ -355,4 +355,28 @@ type:'table'
 | hover | boolean | --- | --- | 是否监听鼠标hover事件，不设置为true，则无法监听hover事件：@hover |
 
 :::block-end
+
+:::block-start
+
+:::setting-start
+title:'插槽SLots'
+type:'table'
+:::setting-end
+## 插槽SLots
+| 插槽名称 | 说明 |
+| :------ | :------ |
+| default | 按钮默认插槽 |
+:::block-end
+
+:::block-start
+:::setting-start
+title:'事件Event'
+type:'table'
+:::setting-end
+## 事件Event
+| 事件名称 | 说明 |
+| :------ | :------ |
+| click(e) | 按钮点击事件,e:按钮点击原生事件 |
+:::block-end
+
 
