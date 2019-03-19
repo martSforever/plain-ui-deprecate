@@ -1,7 +1,10 @@
 <template>
     <div class="demo-basic-table">
         <pl-base-table :data="data">
-            <pl-base-table-column-group title="车次信息">
+            <pl-base-table-column title="车次" field="trainno"/>
+            <pl-base-table-column title="类型" field="type"/>
+
+            <!--<pl-base-table-column-group title="车次信息">
                 <pl-base-table-column title="车次" field="trainno"/>
                 <pl-base-table-column title="类型" field="type"/>
                 <pl-base-table-column-group title="站点信息">
@@ -21,8 +24,9 @@
             <pl-base-table-column title="特等座票价" field="pricetd"/>
             <pl-base-table-column title="高级软卧上票价" field="pricegr1"/>
             <pl-base-table-column title="高级软卧下票价" field="pricegr2"/>
+
             <pl-base-table-column title="软卧上票价" field="pricerw1"/>
-            <pl-base-table-column title="软卧下票价" field="pricerw2"/>
+            <pl-base-table-column title="软卧下票价" field="pricerw2"/>-->
         </pl-base-table>
     </div>
 </template>

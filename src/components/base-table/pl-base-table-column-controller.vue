@@ -9,15 +9,21 @@
 <script>
 
     import PlBaseTableColumnGroup from "./pl-base-table-column-group";
+
     export default {
         name: "pl-base-table-column-controller",
         components: {PlBaseTableColumnGroup},
+        data() {
+            return {
+                observer: new MutationObserver(() => this.pl_detect())
+            }
+        },
         mounted() {
             this.collect()
+            this.observer.observe(this.$el, {childList: true, subtree: true})
         },
         methods: {
             collect() {
-                console.log('this.$children', this.$children)
                 const columns = this.$refs.group.col().children
                 let hasFixedLeft = false
                 let hasFixedRight = false
@@ -30,6 +36,9 @@
                     hasFixedRight && col.placeRight && (col.fixed = 'right')
                 })
                 this.$emit('collect', columns)
+            },
+            pl_detect() {
+                this.collect()
             },
         }
     }

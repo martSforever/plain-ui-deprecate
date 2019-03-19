@@ -43,10 +43,10 @@
         },
         mounted() {
             this.p_baseTable = this.$plain.$dom.findComponentUpward(this, 'pl-base-table')
-            this.p_baseTable.p_rowAdd({row: this, position: this.fixed})
+            this.p_baseTable.pl_rowAdd({row: this, position: this.fixed})
         },
         beforeDestroy() {
-            this.p_baseTable.p_rowRemove({row: this, position: this.fixed})
+            this.p_baseTable.pl_rowRemove({row: this, position: this.fixed})
         },
         methods: {
             /**

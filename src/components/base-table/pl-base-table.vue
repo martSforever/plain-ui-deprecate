@@ -2,7 +2,7 @@
     <div class="pl-base-table"
          :class="classes"
          @mouseleave="p_hover=null">
-        <pl-base-table-column-controller @collect="p_collect" ref="controller">
+        <pl-base-table-column-controller @collect="pl_collect" ref="controller">
             <slot></slot>
         </pl-base-table-column-controller>
         <pl-base-table-head
@@ -136,7 +136,7 @@
             p_headColumns() {
                 if (!this.p_mounted) return []
                 let maxLevel = 1;
-                let columns = this.p_copyColumns(this.columns)
+                let columns = this.pl_copyColumns(this.columns)
 
                 /*计算最大层数*/
                 const calculateLavel = (cols, level) => {
@@ -224,27 +224,27 @@
                     }
                     /*一份权重所增加的宽度*/
                     let externalChunkWidth = Math.floor(externalWidth / totalColumnFit) - 1
-                    cols.forEach(col => col.update({width: col.width + Math.floor(col.fit * externalChunkWidth)}))
+                    cols.forEach(col => col.width = this.$plain.$utils.removePx(col.originalProps.width) + Math.floor(col.fit * externalChunkWidth))
                 }
                 // console.log(cols.map(i => i.title))
                 return cols
             },
         },
         created() {
-            this.$on('rowEnter', ({row, rowIndex, position}) => this.p_rowIterate(row => row.p_hover = true, rowIndex))       //监听行鼠标覆盖行事件
-            this.$on('rowLeave', ({row, rowIndex, position}) => this.p_rowIterate(row => row.p_hover = false, rowIndex))      //监听行鼠标覆盖行事件
+            this.$on('rowEnter', ({row, rowIndex, position}) => this.pl_rowIterate(row => row.p_hover = true, rowIndex))       //监听行鼠标覆盖行事件
+            this.$on('rowLeave', ({row, rowIndex, position}) => this.pl_rowIterate(row => row.p_hover = false, rowIndex))      //监听行鼠标覆盖行事件
             // this.$on('rowDblClick',({row,rowIndex,position})=>this.p_rowDblClick({row,rowIndex,position}))                  //监听行鼠标双击行事件
-            this.$on('rowClick', this.p_click)                                                                                 //监听行鼠标单击行事件
+            this.$on('rowClick', this.pl_click)                                                                                 //监听行鼠标单击行事件
             this.$on('scrollLeft', (val) => this.p_scrollLeft = val)                                                           //内容滑动到左端
             this.$on('scrollRight', (val) => this.p_scrollRight = val)                                                         //内容滑动到右端
-            this.$on('clickTitle', this.p_clickTitle)                                                                          //点击标题动作
+            this.$on('clickTitle', this.pl_clickTitle)                                                                          //点击标题动作
         },
         async mounted() {
-            this.p_calculateWidth()
-            window.addEventListener('resize', this.p_calculateWidth)
+            this.pl_calculateWidth()
+            window.addEventListener('resize', this.pl_calculateWidth)
         },
         beforeDestroy() {
-            window.removeEventListener('resize', this.p_calculateWidth)
+            window.removeEventListener('resize', this.pl_calculateWidth)
         },
         methods: {
             /**
@@ -253,7 +253,7 @@
              * @date    2019/1/8 10:49
              */
             enableEdit(rowIndex) {
-                this.p_rowIterate(row => row.enableEdit(), rowIndex)
+                this.pl_rowIterate(row => row.enableEdit(), rowIndex)
             },
             /**
              * 关闭编辑状态
@@ -261,7 +261,7 @@
              * @date    2019/1/8 10:28
              */
             disableEdit(rowIndex) {
-                this.p_rowIterate(row => row.disableEdit(), rowIndex)
+                this.pl_rowIterate(row => row.disableEdit(), rowIndex)
             },
             /**
              * 开始编辑
@@ -337,7 +337,7 @@
              * @date    2019/1/11 16:37
              */
             selectRow(rowIndex) {
-                this.p_rowIterate((row, index) => row.p_selected = rowIndex === index)
+                this.pl_rowIterate((row, index) => row.p_selected = rowIndex === index)
             },
             /**
              * 校验数据
@@ -350,7 +350,7 @@
                 /*输入不通过的提示消息*/
                 let validateMsg = null;
 
-                this.p_rowIterate((row) => {
+                this.pl_rowIterate((row) => {
                     if (!row.p_editing || !!inValidField) return
                     const {flag, validateMsg: msg, field} = row.validate()
                     if (!flag) {
@@ -365,7 +365,7 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 23:09
              */
-            p_calculateWidth() {
+            pl_calculateWidth() {
                 this.p_hostWidth = this.$el.offsetWidth
             },
             /*
@@ -373,15 +373,15 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 20:44
              */
-            async p_collect(columns) {
-                console.log(columns)
+            async pl_collect(columns) {
+                // console.log(columns)
                 /*等待属性变化完成*/
                 await this.$plain.nextTick()
                 /*保存原本的列信息*/
-                this.originalColumns = this.p_copyColumns(columns)
-                !!this.beforeConfigColumnFunc && this.beforeConfigColumnFunc(columns, this.p_colIterate)
+                this.originalColumns = this.pl_copyColumns(columns)
+                !!this.beforeConfigColumnFunc && this.beforeConfigColumnFunc(columns, this.pl_colIterate)
                 /*配置列*/
-                this.p_colIterate(columns, (col, isGroup, cols) => {
+                this.pl_colIterate(columns, (col, isGroup, cols) => {
                     if (col.disabledConfig) return
                     // !isGroup && col.reset()
                     !!this.configColumnFunc && this.configColumnFunc(col, isGroup, cols)
@@ -390,7 +390,7 @@
                 })
 
                 /*递归遍历子节点，如果是多级表头，则对子列进行插入排序*/
-                this.p_colIterate(columns, (col, isGroup) => (isGroup && !!col.children && col.children.length > 0) && this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order))
+                this.pl_colIterate(columns, (col, isGroup) => (isGroup && !!col.children && col.children.length > 0) && this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order))
                 /*对最外层列或者列组进行插入排序*/
                 this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
 
@@ -405,12 +405,12 @@
              * @author  韦胜健
              * @date    2019/2/20 16:13
              */
-            p_copyColumns(columns) {
+            pl_copyColumns(columns) {
                 const ret = []
                 if (!columns || columns.length === 0) return ret
                 for (let i = 0; i < columns.length; i++) {
                     const col = columns[i];
-                    if (col.group) col.children = this.p_copyColumns(col.children)
+                    if (col.group) col.children = this.pl_copyColumns(col.children)
                     ret.push(col)
                 }
                 return ret
@@ -420,13 +420,13 @@
              * @author  韦胜健
              * @date    2019/2/20 09:45
              */
-            p_colIterate(columns, fn) {
+            pl_colIterate(columns, fn) {
                 if (!columns || columns.length === 0) return
                 else {
                     for (let i = 0; i < columns.length; i++) {
                         const col = columns[i];
                         fn(col, !!col.group, columns)
-                        if (!!col.group) this.p_colIterate(col.children, fn)
+                        if (!!col.group) this.pl_colIterate(col.children, fn)
                     }
                 }
             },
@@ -435,7 +435,7 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 20:55
              */
-            p_rowIterate(fn, index) {
+            pl_rowIterate(fn, index) {
                 Object.keys(this.content).forEach(position => {
                     if (this.content[position].rows.length > 0) {
                         if (index != null && index !== '') {
@@ -457,21 +457,21 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 20:46
              */
-            p_rowAdd({row, position}) {
+            pl_rowAdd({row, position}) {
                 this.content[position].rows.push(row)
                 if (!!this.content[position].timer) {
                     clearTimeout(this.content[position].timer)
                     this.content[position].timer = null
                 }
                 /*如果rows的长度小于data的长度，表明还有row没有初始化完成，等待10毫秒再对row进行排序*/
-                this.content[position].rows.length < this.data.length ? (this.content[position].timer = setTimeout(() => this.p_sortRows(position), 10)) : this.p_sortRows(position)
+                this.content[position].rows.length < this.data.length ? (this.content[position].timer = setTimeout(() => this.pl_sortRows(position), 10)) : this.pl_sortRows(position)
             },
             /*
              *  删除行组件对象
              *  @author     martsforever
              *  @datetime   2019/1/6 20:46
              */
-            p_rowRemove({row, position}) {
+            pl_rowRemove({row, position}) {
                 !!this.content[position] && this.$plain.$utils.removeFromArray(this.content[position].rows, row)
             },
             /*
@@ -479,9 +479,9 @@
              *  @author     martsforever
              *  @datetime   2019/1/6 21:00
              */
-            p_rowHover({row, rowIndex, position}) {
-                this.p_hoverIndex != null && (this.p_rowIterate((row) => row.p_hover = false, this.p_hoverIndex))
-                this.p_rowIterate((row) => row.p_hover = true, rowIndex)
+            pl_rowHover({row, rowIndex, position}) {
+                this.p_hoverIndex != null && (this.pl_rowIterate((row) => row.p_hover = false, this.p_hoverIndex))
+                this.pl_rowIterate((row) => row.p_hover = true, rowIndex)
                 this.p_hoverIndex = rowIndex
             },
             /**
@@ -489,7 +489,7 @@
              * @author  韦胜健
              * @date    2019/1/9 10:32
              */
-            p_sortRows(position) {
+            pl_sortRows(position) {
                 this.content[position].rows.sort((a, b) => this.data.indexOf(a.row) - this.data.indexOf(b.row))
                 // console.log(this.content[position].rows.map(item => item.row.left))
             },
@@ -498,7 +498,7 @@
              * @author  韦胜健
              * @date    2019/1/9 14:39
              */
-            p_clickTitle({col}) {
+            pl_clickTitle({col}) {
                 /*派发排序事件*/
                 if (!col.sort) return
                 if (!col.children) {
@@ -526,9 +526,9 @@
              * @author  韦胜健
              * @date    2019/1/9 18:05
              */
-            p_click({row, rowIndex}) {
-                if (!this.multiSelect) this.p_rowIterate(row => row.unselect())
-                this.p_rowIterate(row => row.select(), this.selectIndex != null ? this.selectIndex : rowIndex)
+            pl_click({row, rowIndex}) {
+                if (!this.multiSelect) this.pl_rowIterate(row => row.unselect())
+                this.pl_rowIterate(row => row.select(), this.selectIndex != null ? this.selectIndex : rowIndex)
             },
         }
     }
