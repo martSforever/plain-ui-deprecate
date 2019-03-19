@@ -17,8 +17,9 @@
             configColumnFunc: {type: Function},         //配置column的函数
             beforeConfigColumnFunc: {type: Function},   //在配置column之前触发的函数
         },
-        data(){
-
+        data() {
+            return {
+            }
         },
     }
 </script>

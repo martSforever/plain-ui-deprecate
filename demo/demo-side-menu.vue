@@ -24,7 +24,13 @@
             return {
                 menuGroups: [
                     {
-                        title: 'Table相关',
+                        title: 'BasicTable',
+                        menus: [
+                            {title: 'BasicTable基础表格', icon: 'pl-table', page: '/basic-table/demo-basic-table', complete: true},
+                        ],
+                    },
+                    {
+                        title: 'BaseTable',
                         menus: [
                             {title: 'BaseTable基础表格', icon: 'pl-table', page: '/table/demo-base-table', complete: true},
                             {title: 'BaseTable基础表格测试', icon: 'pl-table', page: '/table/demo-base-table-test', complete: true},
