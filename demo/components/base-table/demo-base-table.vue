@@ -1,9 +1,43 @@
 <template>
     <div class="demo-basic-table">
-        <pl-base-table :data="data">
-            <pl-base-table-column title="车次" field="trainno"/>
-            <pl-base-table-column title="类型" field="type"/>
-
+        <demo-row title="操作按钮">
+            <demo-row-item width="0">
+                <link-button label="查看columns" @click="checkColumns"/>
+                <link-button label="添加数据" @click="push"/>
+                <link-button label="删除数据" @click="pop"/>
+                <link-button label="查看配置信息" @click="logContent"/>
+            </demo-row-item>
+            <demo-row-item width="0">
+                <link-button @click="enableEdit">开启编辑状态</link-button>
+                <link-button @click="disableEdit">关闭编辑状态</link-button>
+                <link-button @click="startEdit">开始编辑</link-button>
+                <link-button @click="cancelEdit">取消编辑</link-button>
+                <link-number v-model="targetIndex" placeholder="目标行索引"/>
+            </demo-row-item>
+            <demo-row-item width="0">
+                <link-button @click="add" label="添加"/>
+                <link-button @click="cancel" label="取消"/>
+                <link-button @click="save" label="保存"/>
+            </demo-row-item>
+            <demo-row-item width="0">
+                <link-button label="状态：" box-type="line"/>
+                <link-button v-for="(item,index) in Object.keys(EDIT_STATUS)" :label="item" :active="EDIT_STATUS[item] === status" :key="index"/>
+            </demo-row-item>
+            <demo-row-item width="0">
+                <link-radio v-model="multiInsert" label="批量新建"/>
+                <link-radio v-model="multiUpdate" label="批量更新"/>
+            </demo-row-item>
+            <demo-row-item width="0">
+                <link-button :label="`sortField:${sortField}`" box-type="line"/>
+                <link-button :label="`sortDesc:${sortDesc}`" :active="sortDesc"/>
+            </demo-row-item>
+            <demo-row-item width="0">
+                <link-radio v-model="multiSelect" label="多选"/>
+            </demo-row-item>
+        </demo-row>
+        <pl-base-table :data="data" ref="baseTable">
+            <pl-base-table-column-basic title="车次" field="trainno"/>
+            <pl-base-table-column-basic title="类型" field="type"/>
             <!--<pl-base-table-column-group title="车次信息">
                 <pl-base-table-column title="车次" field="trainno"/>
                 <pl-base-table-column title="类型" field="type"/>
@@ -37,14 +71,228 @@
     import PlBaseTable from "../../../src/components/base-table/pl-base-table";
     import PlBaseTableColumn from "../../../src/components/base-table/pl-base-table-column";
     import PlBaseTableColumnGroup from "../../../src/components/base-table/pl-base-table-column-group";
+    import PlBaseTableColumnBasic from "../../../src/components/base-table-column/pl-base-table-column-basic";
 
     export default {
         name: "demo-basic-table",
-        components: {PlBaseTableColumnGroup, PlBaseTableColumn, PlBaseTable},
+        components: {PlBaseTableColumnBasic, PlBaseTableColumnGroup, PlBaseTableColumn, PlBaseTable},
         data() {
             return {
+                EDIT_STATUS: {
+                    INSERT: 'insert',
+                    UPDATE: 'update',
+                    NORMAL: 'normal'
+                },
+                status: 'normal',
+                indexing: true,
+                multiInsert: true,
+                multiUpdate: true,
+                multiSelect: false,
+                sortDesc: true,
+                sortField: 'left1',
+
+                newData: [],
+                targetIndex: null,
+
                 data: TableData
             }
+        },
+        mounted() {
+            this.baseTable = this.$refs.baseTable
+        },
+        methods: {
+            checkColumns() {
+            },
+            push() {
+                this.data.unshift(this.data[this.data.length + 15])
+            },
+            pop() {
+                this.data.shift()
+            },
+            logContent() {
+                console.log(this.baseTable.content)
+            },
+
+            enableEdit() {
+                this.baseTable.enableEdit(this.targetIndex)
+            },
+            disableEdit() {
+                this.baseTable.disableEdit(this.targetIndex)
+            },
+            startEdit() {
+                this.baseTable.startEdit(this.targetIndex)
+            },
+            cancelEdit() {
+                this.baseTable.cancelEdit(this.targetIndex)
+            },
+
+            /**
+             * 处理排序变化事件
+             * @author  韦胜健
+             * @date    2019/1/9 15:04
+             */
+            sortChange({field, desc}) {
+                this.sortField = field || 'created'
+                this.sortDesc = !!field ? desc : true
+            },
+            /**
+             * 工具函数，判断当前状态
+             * @author  韦胜健
+             * @date    2019/1/9 11:12
+             */
+            checkStatus({insert, update, normal, final}) {
+                switch (this.status) {
+                    case this.EDIT_STATUS.NORMAL:
+                        !!normal && normal.apply(this)
+                        break;
+                    case this.EDIT_STATUS.INSERT:
+                        !!insert && insert.apply(this)
+                        break;
+                    case this.EDIT_STATUS.UPDATE:
+                        !!update && update.apply(this)
+                        break;
+                }
+                !!final && final.apply(this)
+            },
+            /**
+             * 监听行单击事件
+             * @author  韦胜健
+             * @date    2019/1/9 11:13
+             */
+            rowClick({row, rowIndex, position}) {
+                console.log('rowClick', rowIndex)
+            },
+            /**
+             * 监听行双击事件
+             * @author  韦胜健
+             * @date    2019/1/9 11:13
+             */
+            rowDblClick({row, rowIndex, position}) {
+                this.checkStatus({
+                    update() {
+                        if (this.multiUpdate && !row.p_editing) this.baseTable.enableEdit(rowIndex)
+                    },
+                    normal() {
+                        this.baseTable.enableEdit(rowIndex)
+                        this.status = this.EDIT_STATUS.UPDATE
+                    },
+                })
+            },
+            /**
+             * 模拟新建动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:13
+             */
+            add() {
+                const addNew = () => {
+                    const newRow = {right: 1, right1: 2, right2: 3, left: this.$plain.$utils.uuid(), left1: 5, left2: 6, center: 7, center1: 8, center2: 9}
+                    this.newData.push(newRow)
+                    this.data.unshift(newRow)
+                    this.$nextTick(() => this.baseTable.enableEdit(0))
+                    this.status = this.EDIT_STATUS.INSERT
+                }
+                this.checkStatus({
+                    insert() {
+                        this.multiInsert && addNew()
+                    },
+                    normal() {
+                        addNew()
+                    },
+                })
+            },
+            /**
+             * 模拟取消dongzuo
+             * @author  韦胜健
+             * @date    2019/1/9 11:13
+             */
+            cancel() {
+                this.checkStatus({
+                    insert() {
+                        this.data.splice(0, this.newData.length)
+                        this.newData.splice(0, this.newData.length)
+                    },
+                    update() {
+                        this.baseTable.cancelEdit()
+                    },
+                    final() {
+                        this.status = this.EDIT_STATUS.NORMAL
+                    },
+                })
+            },
+            /**
+             * 模拟保存动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:14
+             */
+            save() {
+                const editData = this.baseTable.getEdit()
+                this.checkStatus({
+                    insert() {
+                        if (this.multiInsert) this.saveRows({editData})
+                        else this.saveRow({editData})
+                        this.newData.splice(0, this.newData.length)
+                        this.baseTable.disableEdit()
+                    },
+                    update() {
+                        if (this.multiUpdate) this.saveRows({editData})
+                        else this.saveRow({editData})
+                        this.baseTable.disableEdit()
+                    },
+                    final() {
+                        this.status = this.EDIT_STATUS.NORMAL
+                    },
+                })
+            },
+
+            /**
+             * 无论是新建还是编辑，保存单条数据动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:16
+             */
+            saveRow({editData}) {
+                const {row, editRow} = editData[0]
+                const newRow = this.requestSaveRow(editRow)
+                this.baseTable.saveEdit([{row, editRow, newRow}])
+            },
+            /**
+             * 无论是新建还是编辑，保存多条数据动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:17
+             */
+            saveRows({editData}) {
+                const editRows = editData.map(item => item.editRow)
+                const newRows = this.requestSaveRows(editRows)
+                this.baseTable.saveEdit(editData.map(({row, editRow}, index) => ({row, editRow, newRow: newRows[index]})))
+            },
+
+            /**
+             * 模拟请求保存单条数据
+             * @author  韦胜健
+             * @date    2019/1/9 11:14
+             */
+            requestSaveRow(row) {
+                const newRow = this.$plain.$utils.deepCopy(row)
+                newRow.left1 = this.$plain.$utils.uuid()
+                return newRow
+            },
+            /**
+             * 模拟保存多条数据
+             * @author  韦胜健
+             * @date    2019/1/9 11:14
+             */
+            requestSaveRows(rows) {
+                return rows.reduce((ret, item) => {
+                    const newRow = this.$plain.$utils.deepCopy(item)
+                    newRow.left1 = this.$plain.$utils.uuid()
+                    ret.push(newRow)
+                    return ret
+                }, [])
+            },
+
+            requiredFunc({row, rowIndex, editRow}) {
+                console.log('valid', editRow.left == '4')
+                return editRow.left2 == '4'
+            },
         },
     }
 </script>

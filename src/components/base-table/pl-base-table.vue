@@ -204,7 +204,7 @@
                 /*首次加载还没有挂载mounted的时候，columns应该是空的，收集的bodyColumns也是空的，直接返回空数组*/
                 if (cols.length === 0) return cols
                 /*计算所有列的总宽度*/
-                const totalColumnWidth = cols.reduce((ret, item) => ret + item.width, 0)
+                const totalColumnWidth = cols.reduce((ret, item) => ret + item.originalProps.width, 0)
                 /*如果所有列的总宽度小于表格宽度，按照列的权重给列分配剩下的宽度*/
                 if (totalColumnWidth < this.p_tableWidth) {
                     /*额外多出来的宽度*/
@@ -576,6 +576,12 @@
             .pl-base-table-body-item-right, .pl-base-table-head-item-right {
                 box-shadow: 0 0 10px rgba(black, 0.12);
             }
+        }
+    }
+
+    .pl-base-table {
+        .pl-box {
+            width: 100% !important;
         }
     }
 </style>
