@@ -3,9 +3,9 @@
             ref="column"
             v-bind="columnBinding"
             :scopedSlots="$scopedSlots || {}"
-            :renderNormal="renderNormal"
-            :renderEdit="renderEdit"
-            :renderHead="renderHead"
+            :renderNormal="normal"
+            :renderEdit="edit"
+            :renderHead="head"
     />
 </template>
 
@@ -21,13 +21,13 @@
             col() {
                 return this.$refs.column.col()
             },
-            renderNormal(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
+            normal(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
                 return <span>{showRow[col.field]}</span>
             },
-            renderEdit(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
-                return <link-input value={showRow[col.field]} onInput={val => this.$set(showRow, col.field, val)}/>
+            edit(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
+                return <span>{showRow[col.field]}</span>
             },
-            renderHead(h, {col}) {
+            head(h, {col}) {
                 return <span>{col.title}</span>
             },
         }

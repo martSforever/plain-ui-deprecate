@@ -44,6 +44,20 @@ const props = {
     renderHead: {type: Object},                                                                                     //渲染函数：列头
 }
 
+const refreshProps = [
+    'fit',
+    'order',
+    'fixed,',
+    'placeLeft',
+    'placeRight',
+    'hide',
+    'disabledConfig',
+    'scopedSlots',
+    'renderNormal',
+    'renderEdit',
+    'renderHead',
+]
+
 const BaseColumnMixin = {
     props,
     computed: {
@@ -106,6 +120,7 @@ class TableColumnGroup {
 }
 
 export {
+    refreshProps,
     BaseColumnMixin,
     BasicColumnGroupMixin,
     TableColumn,

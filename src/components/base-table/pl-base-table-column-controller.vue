@@ -15,7 +15,8 @@
         components: {PlBaseTableColumnGroup},
         data() {
             return {
-                observer: new MutationObserver(() => this.pl_detect())
+                observer: new MutationObserver(() => this.pl_detect()),
+                timer: null,
             }
         },
         mounted() {
@@ -39,6 +40,13 @@
             },
             pl_detect() {
                 this.collect()
+            },
+            pl_refresh() {
+                if (!!this.timer) {
+                    clearTimeout(this.timer)
+                    this.timer = null
+                }
+                this.timer = setTimeout(() => this.collect(), 100)
             },
         }
     }
