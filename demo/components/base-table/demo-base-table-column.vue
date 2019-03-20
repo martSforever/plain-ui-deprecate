@@ -75,7 +75,7 @@
              </pl-base-table>
          </demo-row>-->
 
-        <demo-row title="隐藏列">
+        <!--<demo-row title="隐藏列">
             <demo-row-item>
                 <link-toggle v-model="val[0]"/>
             </demo-row-item>
@@ -85,6 +85,25 @@
                 <link-tc-column title="用时,hide" field="costtime" :hide="val[0]"/>
                 <link-tc-column title="出发站" field="station"/>
                 <link-tc-column title="到达站" field="endstation"/>
+            </pl-base-table>
+        </demo-row>-->
+
+        <demo-row title="对其方式">
+            <pl-base-table :data="data" :row-num="data.length">
+                <link-tc-column title="车次,align=right" field="trainno" align="right"/>
+                <link-tc-column title="类型,align=left" field="type" align="left"/>
+                <link-tc-column title="用时,align=center" field="costtime" align="center"/>
+                <link-tc-column title="车次,align=right" field="trainno" align="right">
+                    <template slot-scope="{showRow,rowIndex}">
+                        {{rowIndex}}、{{showRow.trainno}}
+                    </template>
+                    <template slot="head" slot-scope="{col}">
+                        T-{{col.title}}
+                    </template>
+                    <template slot="edit" slot-scope="{editRow,rowIndex}">
+                        <link-radio v-model="editRow.trainno" true-value="Y" false-value="N"/>
+                    </template>
+                </link-tc-column>
             </pl-base-table>
         </demo-row>
 

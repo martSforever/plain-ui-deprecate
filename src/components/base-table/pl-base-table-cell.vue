@@ -1,5 +1,5 @@
 <template>
-    <div class="pl-base-table-cell" :style="styles">
+    <div class="pl-base-table-cell" :style="styles" :class="[`pl-base-table-cell-${col.align}`]">
         <template v-if="isFixed">
             <template v-if="!!p_editing">
                 <pl-scope-slot v-if="editScopedSlots" :scope-slot-func="editScopedSlots" :data="data"/>
@@ -31,6 +31,7 @@
             height: {},                             //单元格高度
             isFixed: {default: false},              //是否为对应fixed table的cell
             editing: {},                            //当前是否为编辑状态
+            col: {},                                 //列信息数据
 
             editScopedSlots: {type: Function},      //作用域插槽：编辑
             defaultScopedSlots: {type: Function},   //作用域插槽：正常
@@ -62,52 +63,29 @@
         justify-content: flex-start;
         padding: 0 $base-table-cell-padding;
         min-width: 100%;
+        &.pl-base-table-cell {
+            &.pl-base-table-cell-left {
+                .pl-render-func, .pl-scope-slot {
+                    text-align: left;
+                }
+            }
+            &.pl-base-table-cell-right {
+                flex-flow: row-reverse;
+                .pl-render-func, .pl-scope-slot {
+                    text-align: right;
+                }
+            }
+            &.pl-base-table-cell-center {
+                .pl-render-func, .pl-scope-slot {
+                    text-align: center;
+                }
+            }
+        }
         &, & > div {
             width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-        .pl-scope-slot {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            & > div {
-                width: 100%;
-                .link-input-wrapper {
-                    width: initial;
-                    flex: 1;
-                }
-            }
-        }
-        .pl-column-text-default-text, .pl-base-table-cell-default-text {
-            width: 100%;
-        }
-
-        &.pl-base-table-cell-left {
-            justify-content: flex-start;
-            .pl-base-table-cell-default-text {
-                text-align: left;
-            }
-        }
-        &.pl-base-table-cell-center {
-            justify-content: center;
-            padding: 0;
-            .pl-base-table-cell-default-text {
-                text-align: center;
-            }
-        }
-        &.pl-base-table-cell-right {
-            justify-content: flex-end;
-            flex-wrap: revert;
-            .pl-base-table-head-cell-sort {
-                order: -1;
-            }
-            .pl-base-table-cell-default-text {
-                text-align: right;
-            }
         }
     }
 </style>

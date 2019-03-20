@@ -47,7 +47,7 @@
             <link-tc-column title="车次" field="trainno"/>
             <link-tc-column title="车次" field="trainno"/>
             <link-tc-input title="车次,input" field="trainno"/>
-            <link-tc-column title="车次,column custom" field="trainno">
+            <link-tc-column title="车次,column custom" field="trainno" align="right">
                 <template slot="head" slot-scope="{col}">
                     T-{{col.title}}
                 </template>
