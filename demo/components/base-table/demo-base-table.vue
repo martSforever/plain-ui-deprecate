@@ -48,7 +48,7 @@
             <link-tc-column title="车次" field="trainno"/>
             <link-tc-input title="车次" field="trainno"/>
 
-            <!--<pl-base-table-column-basic title="车次" field="trainno">
+            <!--<link-tc-column title="车次" field="trainno">
                 <template slot="head" slot-scope="{col}">
                     T-{{col.title}}
                 </template>
@@ -58,32 +58,32 @@
                 <template slot="edit" slot-scope="{editRow,rowIndex}">
                     <link-radio v-model="editRow.trainno" true-value="Y" false-value="N"/>
                 </template>
-            </pl-base-table-column-basic>
-            <pl-base-table-column-basic title="车次" field="trainno" :editable="false"/>
-            <pl-base-table-column-basic title="类型" field="type"/>-->
-            <!--<pl-base-table-column-group title="车次信息">
-                <pl-base-table-column title="车次" field="trainno"/>
-                <pl-base-table-column title="类型" field="type"/>
-                <pl-base-table-column-group title="站点信息">
-                    <pl-base-table-column title="出发站" field="station"/>
-                    <pl-base-table-column title="到达站" field="endstation"/>
+            </link-tc-column>
+            <link-tc-column title="车次" field="trainno" :editable="false"/>
+            <link-tc-column title="类型" field="type"/>-->
+            <!--link-tc-column-group title="车次信息">
+                link-tc-column title="车次" field="trainno"/>
+                link-tc-column title="类型" field="type"/>
+                link-tc-column-group title="站点信息">
+                    link-tc-column title="出发站" field="station"/>
+                    link-tc-column title="到达站" field="endstation"/>
                 </pl-base-table-column-group>
-                <pl-base-table-column-group titile="时间范围">
-                    <pl-base-table-column title="出发时间" field="departuretime"/>
-                    <pl-base-table-column title="到达时间" field="arrivaltime"/>
+                link-tc-column-group titile="时间范围">
+                    link-tc-column title="出发时间" field="departuretime"/>
+                    link-tc-column title="到达时间" field="arrivaltime"/>
                 </pl-base-table-column-group>
             </pl-base-table-column-group>
-            <pl-base-table-column title="顺序" field="sequenceno"/>
-            <pl-base-table-column title="用时" field="costtime"/>
-            <pl-base-table-column title="距离" field="distance"/>
-            <pl-base-table-column title="是否终点" field="isend"/>
-            <pl-base-table-column title="商务座票价" field="pricesw"/>
-            <pl-base-table-column title="特等座票价" field="pricetd"/>
-            <pl-base-table-column title="高级软卧上票价" field="pricegr1"/>
-            <pl-base-table-column title="高级软卧下票价" field="pricegr2"/>
+            link-tc-column title="顺序" field="sequenceno"/>
+            link-tc-column title="用时" field="costtime"/>
+            link-tc-column title="距离" field="distance"/>
+            link-tc-column title="是否终点" field="isend"/>
+            link-tc-column title="商务座票价" field="pricesw"/>
+            link-tc-column title="特等座票价" field="pricetd"/>
+            link-tc-column title="高级软卧上票价" field="pricegr1"/>
+            link-tc-column title="高级软卧下票价" field="pricegr2"/>
 
-            <pl-base-table-column title="软卧上票价" field="pricerw1"/>
-            <pl-base-table-column title="软卧下票价" field="pricerw2"/>-->
+            link-tc-column title="软卧上票价" field="pricerw1"/>
+            link-tc-column title="软卧下票价" field="pricerw2"/>-->
         </pl-base-table>
     </div>
 </template>
@@ -94,11 +94,10 @@
     import PlBaseTable from "../../../src/components/base-table/pl-base-table";
     import PlBaseTableColumn from "../../../src/components/base-table/pl-base-table-column";
     import PlBaseTableColumnGroup from "../../../src/components/base-table/pl-base-table-column-group";
-    import PlBaseTableColumnBasic from "../../../src/components/base-table-column/pl-base-table-column-basic";
 
     export default {
         name: "demo-basic-table",
-        components: {PlBaseTableColumnBasic, PlBaseTableColumnGroup, PlBaseTableColumn, PlBaseTable},
+        components: { PlBaseTableColumnGroup, PlBaseTableColumn, PlBaseTable},
         data() {
             return {
                 EDIT_STATUS: {
