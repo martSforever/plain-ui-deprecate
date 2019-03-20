@@ -43,9 +43,22 @@
                        @rowClick="rowClick"
                        @rowDblClick="rowDblClick"
                        @sortChange="sortChange">
-            <pl-base-table-column-basic title="车次" field="trainno"/>
+
+            <link-tc-column title="车次" field="trainno"/>
+
+            <!--<pl-base-table-column-basic title="车次" field="trainno">
+                <template slot="head" slot-scope="{col}">
+                    T-{{col.title}}
+                </template>
+                <template slot-scope="{showRow,rowIndex}">
+                    {{rowIndex}}、{{showRow.trainno}}
+                </template>
+                <template slot="edit" slot-scope="{editRow,rowIndex}">
+                    <link-radio v-model="editRow.trainno" true-value="Y" false-value="N"/>
+                </template>
+            </pl-base-table-column-basic>
             <pl-base-table-column-basic title="车次" field="trainno" :editable="false"/>
-            <pl-base-table-column-basic title="类型" field="type"/>
+            <pl-base-table-column-basic title="类型" field="type"/>-->
             <!--<pl-base-table-column-group title="车次信息">
                 <pl-base-table-column title="车次" field="trainno"/>
                 <pl-base-table-column title="类型" field="type"/>

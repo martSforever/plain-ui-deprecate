@@ -1,22 +1,12 @@
+const renderNormal = function (h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
+    return <span>{showRow[col.field]}</span>
+}
 export default {
-    name: 'input',
+    name: 'column',
     props: {},
-    data() {
-        return {
-            renderFunc: {
-                head(h) {
-
-                },
-                edit(h, {row, editRow, require, props}) {
-                    return <link-input value={editRow[field]}
-                                       required={require}
-                                       rules={props.rules}
-                                       validOnInit={props.validOnInit}/>
-                },
-                normal(h) {
-
-                },
-            }
-        }
-    },
+    methods: {
+        renderNormal,
+        renderEdit: renderNormal,
+        renderHead: (h, {col}) => <span>{col.title}</span>,
+    }
 }
