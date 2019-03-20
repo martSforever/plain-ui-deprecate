@@ -7,13 +7,16 @@
         :class="{'pl-base-table-row-hover':p_hover,'pl-base-table-row-selected':p_selected,'pl-base-table-row-editing':p_editing}">
         <td v-for="(col,colIndex) in columns" :key="colIndex">
             <pl-base-table-cell
-                    :is-fixed="col.fixed === fixed"
-                    :scope-slot-func="col.colScopedSlot"
-                    :data="{row,rowIndex,col,colIndex,editRow}"
+                    :is-fixed="fixed === col.fixed"
+                    :data="{row,editRow,rowIndex,col,colIndex,showRow:p_editing?editRow:row}"
                     :text="row[col.field]"
                     :height="rowHeight"
                     :width="col.width"
-            />
+                    :default-scoped-slots="col.scopedSlots.default"
+                    :default-render-func="col.renderNormal"
+                    :edit-scoped-slots="col.scopedSlots.edit"
+                    :edit-render-func="col.renderEdit"
+                    :editing="p_editing"/>
         </td>
     </tr>
 </template>

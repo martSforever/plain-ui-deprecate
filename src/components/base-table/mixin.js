@@ -3,7 +3,7 @@ import $utils from '../../utils/utils'
 const props = {
     title: {type: String},                                                                                          //列标题
     field: {type: String},                                                                                          //列绑定的字段
-    width: {default: 200},                                                                                          //列宽度
+    width: {default: '200px'},                                                                                      //列宽度
     fit: {type: Number, default: 0},                                                                                //当列不满表格宽度时，该列所占剩下宽度的权重
     order: {type: Number, default: 0},                                                                              //列排序
     fixed: {type: String, default: 'center', validator: val => $utils.oneOf(val, ['left', 'center', 'right'])},     //固定列位置
@@ -39,7 +39,9 @@ const props = {
 
     /*不可配置信息*/
     scopedSlots: {type: Object},                                                                                    //作用域插槽
-    renderFunc: {type: Object},                                                                                     //渲染函数
+    renderNormal: {type: Object},                                                                                   //渲染函数:非编辑状态
+    renderEdit: {type: Object},                                                                                     //渲染函数：编辑状态
+    renderHead: {type: Object},                                                                                     //渲染函数：列头
 }
 
 const BaseColumnMixin = {
@@ -73,6 +75,7 @@ class TableColumn {
             ret[key] = context[key]
             return ret
         }, {})
+        originalProps.width = context.$plain.$utils.removePx(originalProps.width)
         this.originalProps = originalProps
         Object.assign(this, originalProps)
     }

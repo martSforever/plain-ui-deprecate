@@ -9,8 +9,7 @@
                 :class="[`pl-base-table-cell-${col.align}`]"
 
                 :default-scoped-slots="col.scopedSlots.head"
-                :default-render="col.renderFunc.head"
-                :editing="false">
+                :default-render-func="col.renderHead">
             <div class="pl-base-table-head-cell-sort" :class="classes" v-if="!!col.sort">
                 <pl-icon icon="pl-triangle-up-fill" class="pl-sort-asc-icon"/>
                 <pl-icon icon="pl-triangle-down-fill" class="pl-sort-desc-icon"/>
@@ -98,7 +97,7 @@
                 let width = this.dragColumn.width
                 width = width + durX
                 width = width > 30 ? width : 30
-                this.dragColumn.update({width})
+                this.dragColumn.width = width
             },
         }
     }

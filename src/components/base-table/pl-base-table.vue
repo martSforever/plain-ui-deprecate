@@ -204,7 +204,7 @@
                 /*首次加载还没有挂载mounted的时候，columns应该是空的，收集的bodyColumns也是空的，直接返回空数组*/
                 if (cols.length === 0) return cols
                 /*计算所有列的总宽度*/
-                const totalColumnWidth = cols.reduce((ret, item) => ret + item.width, 0)
+                const totalColumnWidth = cols.reduce((ret, item) => ret + item.originalProps.width, 0)
                 /*如果所有列的总宽度小于表格宽度，按照列的权重给列分配剩下的宽度*/
                 if (totalColumnWidth < this.p_tableWidth) {
                     /*额外多出来的宽度*/
@@ -234,7 +234,7 @@
             this.$on('rowEnter', ({row, rowIndex, position}) => this.pl_rowIterate(row => row.p_hover = true, rowIndex))       //监听行鼠标覆盖行事件
             this.$on('rowLeave', ({row, rowIndex, position}) => this.pl_rowIterate(row => row.p_hover = false, rowIndex))      //监听行鼠标覆盖行事件
             // this.$on('rowDblClick',({row,rowIndex,position})=>this.p_rowDblClick({row,rowIndex,position}))                  //监听行鼠标双击行事件
-            this.$on('rowClick', this.pl_click)                                                                                 //监听行鼠标单击行事件
+            this.$on('rowClick', this.pl_click)                                                                                //监听行鼠标单击行事件
             this.$on('scrollLeft', (val) => this.p_scrollLeft = val)                                                           //内容滑动到左端
             this.$on('scrollRight', (val) => this.p_scrollRight = val)                                                         //内容滑动到右端
             this.$on('clickTitle', this.pl_clickTitle)                                                                          //点击标题动作
@@ -576,6 +576,12 @@
             .pl-base-table-body-item-right, .pl-base-table-head-item-right {
                 box-shadow: 0 0 10px rgba(black, 0.12);
             }
+        }
+    }
+
+    .pl-base-table {
+        .pl-box {
+            width: 100% !important;
         }
     }
 </style>

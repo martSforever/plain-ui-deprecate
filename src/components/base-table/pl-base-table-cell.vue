@@ -1,15 +1,14 @@
 <template>
     <div class="pl-base-table-cell" :style="styles">
         <template v-if="isFixed">
-            <template v-if="editing">
-                <pl-scope-slot v-if="editScopedSlots" :scope-slot-func="editScopedSlots" :data="{}"/>
-                <pl-render-func v-else-if="editRenderFunc" :render-func="editRenderFunc" :data="{}"/>
+            <template v-if="!!p_editing">
+                <pl-scope-slot v-if="editScopedSlots" :scope-slot-func="editScopedSlots" :data="data"/>
+                <pl-render-func v-else-if="editRenderFunc" :render-func="editRenderFunc" :data="data"/>
             </template>
             <template v-else>
-                <pl-scope-slot v-if="defaultScopedSlots" :scope-slot-func="defaultScopedSlots" :data="{}"/>
-                <pl-render-func v-else-if="defaultRenderFunc" :render-func="defaultRenderFunc" :data="{}"/>
+                <pl-scope-slot v-if="defaultScopedSlots" :scope-slot-func="defaultScopedSlots" :data="data"/>
+                <pl-render-func v-else-if="defaultRenderFunc" :render-func="defaultRenderFunc" :data="data"/>
             </template>
-
             <slot></slot>
         </template>
     </div>
@@ -26,18 +25,18 @@
         components: {PlRenderFunc, PlTooltipText, PlScopeSlot},
         mixins: [TableMixin],
         props: {
-            data: {},                           //作用域渲染函数渲染的数据
-            text: {},                           //没有有作用域渲染函数的时候显示的文本
-            width: {},                          //单元格宽度
-            height: {},                         //单元格高度
-            isFixed: {default: false},          //是否为对应fixed table的cell
-            editing: {},                        //当前是否为编辑状态
+            data: {},                               //作用域渲染函数渲染的数据
+            text: {},                               //没有有作用域渲染函数的时候显示的文本
+            width: {},                              //单元格宽度
+            height: {},                             //单元格高度
+            isFixed: {default: false},              //是否为对应fixed table的cell
+            editing: {},                            //当前是否为编辑状态
 
-            editScopedSlots: {},                //作用域插槽：编辑
-            defaultScopedSlots: {},             //作用域插槽：正常
+            editScopedSlots: {type: Function},      //作用域插槽：编辑
+            defaultScopedSlots: {type: Function},   //作用域插槽：正常
 
-            editRenderFunc: {},                 //渲染函数：编辑
-            defaultRenderFunc: {},              //渲染函数：正常
+            editRenderFunc: {type: Function},       //渲染函数：编辑
+            defaultRenderFunc: {type: Function},    //渲染函数：正常
         },
         computed: {
             styles() {
@@ -46,6 +45,11 @@
                     width: this.$plain.$utils.unit(this.width),
                 }
                 return styles
+            },
+            p_editing() {
+                if (this.data.rowIndex == null && this.data.colIndex == null) return
+                const editable = this.editing && this.data.col.editable
+                return editable && (!this.data.col.editableFunc || this.data.col.editableFunc(this.data))
             },
         },
     }
