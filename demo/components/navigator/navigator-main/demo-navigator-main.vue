@@ -20,7 +20,7 @@
             </link-button-group>
         </demo-row>
         <div class="demo-navigator-main-body">
-            <link-navigator-main-tab ref="navigator"
+            <link-navigator-main ref="navigator"
                                      :beforeOpenTab="beforeOpenTab"
                                      :afterOpenTab="afterOpenTab"
                                      :beforePush="beforePush"
@@ -42,12 +42,12 @@
             >
                 <div slot="tab">
                     <link-button-group>
-                        <link-button label="安全性菜单"/>
-                        <link-button label="安全性菜单"/>
-                        <link-button label="安全性菜单"/>
+                        <!--<link-button label="安全性菜单"/>-->
+                        <!--<link-button label="安全性菜单"/>-->
+                        <!--<link-button label="安全性菜单"/>-->
                     </link-button-group>
                 </div>
-            </link-navigator-main-tab>
+            </link-navigator-main>
         </div>
     </div>
 </template>
@@ -75,7 +75,7 @@
                     {id: 'lll', title: 'Input输入框Input输入框Input输入框', path: '/demo-input', param: {}, security: {}, data: {}},
                     {id: 'mmm', title: 'Radio单选复选框Radio单选复选框', path: '/demo-radio', param: {}, security: {}, data: {}},
                     {id: 'nnn', title: 'Rate评分', path: '/demo-rate', param: {}, security: {}, data: {}},
-                    {id: 'nnn', title: '页签：VueCLI3', path: 'https://cli.vuejs.org/zh/config/', param: {}, security: {}, data: {}, iframe: true},
+                    {id: 'ooo', title: '页签：VueCLI3', path: 'https://cli.vuejs.org/zh/config/', param: {}, security: {}, data: {}, iframe: true},
                 ]
             }
         },

@@ -20,10 +20,16 @@ async function clearTab() {
 class NavigatorService {
 
     context;
+    _tab;
     _page;
 
-    get tab() {
+    get main() {
         return this.context.$plain.$tab
+    }
+
+    get tab() {
+        if (!this._tab) this._tab = this.context.$plain.$dom.findComponentUpward(this.context, 'pl-navigator-main-tab')
+        return this._tab
     }
 
     get page() {
@@ -49,7 +55,7 @@ class NavigatorService {
      * @param   iframe      页签是否显示的是一个外部网页地址
      */
     async openTab({id, title, path, param, security, data, iframe}, refresh = false) {
-        return await this.tab.open({id, title, path, param, security, data, iframe}, refresh)
+        return await this.main.open({id, title, path, param, security, data, iframe}, refresh)
     }
 
     /**
@@ -58,7 +64,7 @@ class NavigatorService {
      * @date    2019/3/6 11:23
      */
     async closeTab(id) {
-        return await this.tab.close(id)
+        return await this.main.close(id)
     }
 
     /**
@@ -67,7 +73,7 @@ class NavigatorService {
      * @date    2019/3/6 11:24
      */
     async refreshTab(id) {
-        return await this.tab.refresh(id)
+        return await this.main.refresh(id)
     }
 
     /**
@@ -76,7 +82,7 @@ class NavigatorService {
      * @date    2019/3/6 11:38
      */
     async updateTab(id, newTabData) {
-        return await this.tab.update(id, newTabData)
+        return await this.main.update(id, newTabData)
     }
 
     clearTab = clearTab
@@ -87,7 +93,7 @@ class NavigatorService {
      * @date    2019/3/14 19:17
      */
     getCurrentTab() {
-        return this.tab.getCurrentTab()
+        return this.main.getCurrentTab()
     }
 
     /**
@@ -96,7 +102,7 @@ class NavigatorService {
      * @date    2019/3/14 19:34
      */
     getTabs() {
-        return this.tab.pageStack
+        return this.main.pageStack
     }
 
     /**
@@ -109,7 +115,7 @@ class NavigatorService {
      * @param   iframe          打开的页面是否为一个外部地址，使用iframe窗口打开
      */
     async push(path, param, security, iframe) {
-        if (!!this.page) return await this.page.push(path, param, security, iframe)
+        if (!!this.tab) return await this.tab.push(path, param, security, iframe)
     }
 
     /**
@@ -122,7 +128,7 @@ class NavigatorService {
      * @param   iframe          同push的iframe参数
      */
     async redirect(path, param, security, iframe) {
-        this.page.redirect(path, param, security, iframe)
+        this.tab.redirect(path, param, security, iframe)
     }
 
     /**
@@ -132,7 +138,7 @@ class NavigatorService {
      * @param   num             回退的页面的个数，默认回退一个页面
      */
     async back(num = 1) {
-        if (!!this.page) return await this.page.back(num)
+        if (!!this.tab) return await this.tab.back(num)
     }
 
     /**
@@ -141,7 +147,7 @@ class NavigatorService {
      * @date    2019/2/27 15:40
      */
     async backoff() {
-        if (!!this.page) return await this.page.backoff()
+        if (!!this.tab) return await this.tab.backoff()
     }
 
 
@@ -151,8 +157,8 @@ class NavigatorService {
      * @author  韦胜健
      * @date    2019/3/19 18:50
      */
-    $on(event, callback, global = false) {
-        (global ? this.tab : this.page).on(event, callback)
+    $on(event, callback) {
+        this.page.on(event, callback)
     }
 
     /**
@@ -160,8 +166,8 @@ class NavigatorService {
      * @author  韦胜健
      * @date    2019/3/19 18:51
      */
-    $once(event, callback, global = false) {
-        (global ? this.tab : this.page).once(event, callback)
+    $once(event, callback) {
+        this.page.once(event, callback)
     }
 
     /**
@@ -169,8 +175,8 @@ class NavigatorService {
      * @author  韦胜健
      * @date    2019/3/19 18:51
      */
-    $off(event, callback, global = false) {
-        (global ? this.tab : this.page).off(event, callback)
+    $off(event, callback) {
+        this.page.off(event, callback)
     }
 
     /**
@@ -179,7 +185,7 @@ class NavigatorService {
      * @date    2019/3/19 18:51
      */
     $emit(event, param, global = false) {
-        (global ? this.tab : this.page).emit(event, param)
+        this.page.emit(event, param, global)
     }
 }
 

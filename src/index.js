@@ -63,7 +63,7 @@ import header from './components/navigator-page/pl-header'
 import backButton from './components/navigator-page/pl-back-button'
 import time from './components/time/pl-time'
 import scrollOption from './components/scroll-option/pl-scroll-option'
-import navigatorMainTab from './components/navigator-main/pl-navigator-main-tab'
+import navigatorMain from './components/navigator-main/pl-navigator-main'
 import date from './components/date/pl-date'
 import tooltipText from './components/tooltip/pl-tooltip-text'
 import textarea from './components/textarea/pl-textarea'
@@ -119,7 +119,7 @@ const components = {
     backButton,
     time,
     scrollOption,
-    navigatorMainTab,
+    navigatorMain,
     date,
     tooltipText,
     textarea,

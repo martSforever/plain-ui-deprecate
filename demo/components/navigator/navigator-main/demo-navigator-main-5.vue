@@ -10,9 +10,10 @@
             </div>
         </div>
         <link-button label="回退页面" @click="back"/>
+        &nbsp;
+        <link-button label="监听事件" @click="listenEvent"/>
         <link-button label="派发页签内事件" @click="$nav.$emit('hello','页面五数据1')"/>
-        <link-button label="派发全局事件事件" @click="$nav.$emit('hello','页面五数据2',true)"/>
-        <link-button label="监听全局事件" @click="listenTabEvent"/>
+        <link-button label="派发全局事件" @click="$nav.$emit('hello','页面五数据2',true)"/>
         <div>
             页面六传递参数：
             <link-input v-model="msg"/>
@@ -37,10 +38,11 @@
                 this.$nav.back()
             },
 
-            listenTabEvent() {
-                this.$nav.$on('hello', (...args) => {
-                    console.log('页面五接受全局事件：hello', ...args)
-                }, true)
+            listenEvent() {
+                this.$nav.$on('hello',
+                    (...args) => {
+                        console.log('页面五接受页签内事件：hello', ...args)
+                    })
             },
         },
     }
