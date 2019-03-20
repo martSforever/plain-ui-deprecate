@@ -23,7 +23,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G20",
         "type": "G",
         "station": "杭州东",
@@ -47,7 +48,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G58",
         "type": "G",
         "station": "杭州东",
@@ -71,7 +73,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G36",
         "type": "G",
         "station": "杭州东",
@@ -95,7 +98,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G42",
         "type": "G",
         "station": "杭州东",
@@ -119,7 +123,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "1048.5",
         "priceed": "626.0"
-    }, {
+    },
+    {
         "trainno": "G46",
         "type": "G",
         "station": "杭州东",
@@ -143,7 +148,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G38",
         "type": "G",
         "station": "杭州东",
@@ -167,7 +173,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G168",
         "type": "G",
         "station": "杭州东",
@@ -191,7 +198,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G56",
         "type": "G",
         "station": "杭州东",
@@ -215,7 +223,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G32",
         "type": "G",
         "station": "杭州东",
@@ -239,7 +248,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G164",
         "type": "G",
         "station": "杭州东",
@@ -263,7 +273,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G166",
         "type": "G",
         "station": "杭州东",
@@ -287,7 +298,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G60",
         "type": "G",
         "station": "杭州东",
@@ -311,7 +323,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "G44",
         "type": "G",
         "station": "杭州东",
@@ -335,7 +348,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "1048.5",
         "priceed": "626.0"
-    }, {
+    },
+    {
         "trainno": "Z282",
         "type": "Z",
         "station": "杭州",
@@ -348,7 +362,8 @@ const TableData = [
         "isend": "0",
         "trainno12306": "560000Z28230",
         "typename": "直达特快"
-    }, {
+    },
+    {
         "trainno": "Z283",
         "type": "Z",
         "station": "杭州",
@@ -361,7 +376,8 @@ const TableData = [
         "isend": "0",
         "trainno12306": "560000Z28230",
         "typename": "直达特快"
-    }, {
+    },
+    {
         "trainno": "D718",
         "type": "D",
         "station": "杭州",
@@ -385,7 +401,8 @@ const TableData = [
         "typename": "动车",
         "priceyd": "",
         "priceed": "504.0"
-    }, {
+    },
+    {
         "trainno": "G40",
         "type": "G",
         "station": "杭州东",
@@ -409,7 +426,8 @@ const TableData = [
         "typename": "高铁",
         "priceyd": "907.0",
         "priceed": "538.5"
-    }, {
+    },
+    {
         "trainno": "K102",
         "type": "K",
         "station": "杭州",
@@ -433,7 +451,8 @@ const TableData = [
         "priceyw2": "",
         "priceyw3": "",
         "typename": "快速"
-    }, {
+    },
+    {
         "trainno": "D712",
         "type": "D",
         "station": "杭州",
@@ -460,6 +479,135 @@ const TableData = [
     }
 ]
 
+const SimpleTableData = [
+    {
+        "trainno": "G34",
+        "type": "G",
+        "station": "杭州东",
+        "endstation": "北京南",
+        "departuretime": "06:55",
+        "arrivaltime": "13:03",
+        "sequenceno": "1",
+        "costtime": "6时8分",
+        "distance": "0",
+        "isend": "1",
+        "trainno12306": "5600000G3490",
+        "pricesw": "1701",
+        "pricetd": "",
+        "pricegr1": "",
+        "pricegr2": "",
+        "pricerw1": "",
+        "pricerw2": "",
+        "priceyw1": "",
+        "priceyw2": "",
+        "priceyw3": "",
+        "typename": "高铁",
+        "priceyd": "907.0",
+        "priceed": "538.5"
+    },
+    {
+        "trainno": "G20",
+        "type": "G",
+        "station": "杭州东",
+        "endstation": "北京南",
+        "departuretime": "07:48",
+        "arrivaltime": "12:20",
+        "sequenceno": "1",
+        "costtime": "4时32分",
+        "distance": "0",
+        "isend": "1",
+        "trainno12306": "5600000G2011",
+        "pricesw": "1701",
+        "pricetd": "",
+        "pricegr1": "",
+        "pricegr2": "",
+        "pricerw1": "",
+        "pricerw2": "",
+        "priceyw1": "",
+        "priceyw2": "",
+        "priceyw3": "",
+        "typename": "高铁",
+        "priceyd": "907.0",
+        "priceed": "538.5"
+    },
+    {
+        "trainno": "G58",
+        "type": "G",
+        "station": "杭州东",
+        "endstation": "北京南",
+        "departuretime": "08:50",
+        "arrivaltime": "14:43",
+        "sequenceno": "4",
+        "costtime": "5时53分",
+        "distance": "0",
+        "isend": "1",
+        "trainno12306": "5e00000G5840",
+        "pricesw": "1701",
+        "pricetd": "",
+        "pricegr1": "",
+        "pricegr2": "",
+        "pricerw1": "",
+        "pricerw2": "",
+        "priceyw1": "",
+        "priceyw2": "",
+        "priceyw3": "",
+        "typename": "高铁",
+        "priceyd": "907.0",
+        "priceed": "538.5"
+    },
+    {
+        "trainno": "G36",
+        "type": "G",
+        "station": "杭州东",
+        "endstation": "北京南",
+        "departuretime": "09:05",
+        "arrivaltime": "14:53",
+        "sequenceno": "2",
+        "costtime": "5时48分",
+        "distance": "0",
+        "isend": "1",
+        "trainno12306": "5600000G3660",
+        "pricesw": "1701",
+        "pricetd": "",
+        "pricegr1": "",
+        "pricegr2": "",
+        "pricerw1": "",
+        "pricerw2": "",
+        "priceyw1": "",
+        "priceyw2": "",
+        "priceyw3": "",
+        "typename": "高铁",
+        "priceyd": "907.0",
+        "priceed": "538.5"
+    },
+    {
+        "trainno": "G42",
+        "type": "G",
+        "station": "杭州东",
+        "endstation": "北京南",
+        "departuretime": "09:24",
+        "arrivaltime": "16:08",
+        "sequenceno": "1",
+        "costtime": "6时44分",
+        "distance": "0",
+        "isend": "1",
+        "trainno12306": "5600000G4200",
+        "pricesw": "1966",
+        "pricetd": "",
+        "pricegr1": "",
+        "pricegr2": "",
+        "pricerw1": "",
+        "pricerw2": "",
+        "priceyw1": "",
+        "priceyw2": "",
+        "priceyw3": "",
+        "typename": "高铁",
+        "priceyd": "1048.5",
+        "priceed": "626.0"
+    },
+]
+
 export {
-    TableData
+    TableData,
+    SimpleTableData,
 }

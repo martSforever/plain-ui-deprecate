@@ -1,4 +1,5 @@
 import fecha from 'fecha'
+import DM from 'deepmerge'
 import keyboard from './keyboard'
 
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g;
@@ -413,6 +414,14 @@ export function percentNumFormat(d) {
     return parseFloat(d).toFixed(4) * 100 + '%';
 }
 
+/*
+ *  深度合并
+ *  @author     martsforever
+ *  @datetime   2019/3/20 20:51
+ */
+function deepmerge(...args) {
+    return DM(...args)
+}
 
 const $utils = {
     getKebabCase,                               //驼峰命名转横杠命名
@@ -441,7 +450,8 @@ const $utils = {
     moneyFormat,                                //金额格式化
     cnyFormat,                                  //人民币格式化
     percentNumFormat,                           //百分比格式化
-    keyboard,
+    keyboard,                                   //监听键盘事件
+    deepmerge,                                  //深度合并
 }
 
 export default $utils

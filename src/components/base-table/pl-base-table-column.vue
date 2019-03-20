@@ -8,6 +8,15 @@
     export default {
         name: "pl-base-table-column",
         mixins: [BaseColumnMixin],
+        watch: {
+            ...Object.keys(BaseColumnMixin.props).reduce((ret, key) => {
+                ret[key] = function (val) {
+                    if (val === undefined) return
+                    this.p_col[key] = val
+                }
+                return ret
+            }, {})
+        },
         data() {
             return {
                 p_col: null

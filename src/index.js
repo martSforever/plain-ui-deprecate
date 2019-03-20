@@ -181,9 +181,8 @@ const PlainUI = {
         !!iconfont && $utils.addScript(iconfont)
 
         standardTableColumns.concat(tableColumns).forEach(col => {
-            const component = Object.assign({}, baseTableColumnBasic, col)
+            const component = $utils.deepmerge(baseTableColumnBasic, col)
             component.name = `${prefix}-tc-${col.name}`
-            console.log(component)
             Vue.component(component.name, component)
         })
     },
