@@ -4,7 +4,7 @@
                :is="page.component"
                :src="page.path"
 
-               :pageTabData="tabData"
+               :pageTabData="tab"
                :pageSecurity="page.security || tab.security"
                :pageParam="page.param || {}"/>
 </template>
@@ -77,6 +77,7 @@
         },
         beforeDestroy() {
             /*页面销毁*/
+            if (!this.parent) return
             this.listenEvents.forEach(({event, callback, global}) => this.parent.off(event, callback, global))
         },
     }
