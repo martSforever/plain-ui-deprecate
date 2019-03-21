@@ -26,7 +26,6 @@
                         item.$children.forEach(c => ret.push(c.col()))
                     } else {
                         const c = item.col()
-                        !this.isCtrlGroup && (c.fixed = col.fixed)
                         ret.push(c)
                     }
                     return ret

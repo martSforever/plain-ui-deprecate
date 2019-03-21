@@ -118,7 +118,6 @@
             p_fixedExist() {
                 const ret = {left: false, center: false, right: false}
                 this.columns.forEach(col => Object.keys(ret).forEach(position => !ret[position] && (ret[position] = col.fixed === position)))
-                // console.log('==>>', ret)
                 return ret
             },
             /*
@@ -219,7 +218,6 @@
                     let externalChunkWidth = Math.floor(externalWidth / totalColumnFit) - 1
                     cols.forEach(col => col.update({width: col.width + Math.floor(col.fit * externalChunkWidth)}))
                 }
-                // console.log(cols.map(i => i.title))
                 return cols
             },
         },
@@ -382,7 +380,12 @@
                 })
 
                 /*递归遍历子节点，如果是多级表头，则对子列进行插入排序*/
-                this.p_colIterate(columns, (col, isGroup) => (isGroup && !!col.children && col.children.length > 0) && this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order))
+                this.p_colIterate(columns, (col, isGroup) => {
+                    if (isGroup && !!col.children && col.children.length > 0) {
+                        col.children.forEach(item => item.fixed = col.fixed)
+                        this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order)
+                    }
+                })
                 /*对最外层列或者列组进行插入排序*/
                 this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
 
@@ -483,7 +486,6 @@
              */
             p_sortRows(position) {
                 this.content[position].rows.sort((a, b) => this.data.indexOf(a.row) - this.data.indexOf(b.row))
-                // console.log(this.content[position].rows.map(item => item.row.left))
             },
             /**
              * 处理点击标题事件

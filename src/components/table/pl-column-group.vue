@@ -50,7 +50,7 @@
                         item.$children.forEach(c => ret.push(c.group ? c.getCol() : c.col))
                     } else {
                         const c = item.group ? item.getCol() : item.col
-                        !this.isCtrlGroup && (c.fixed = this.p_fixed)
+                        // !this.isCtrlGroup && (c.fixed = this.p_fixed)
                         ret.push(c)
                     }
                     return ret
