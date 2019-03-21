@@ -391,7 +391,7 @@
                 }
 
                 /*递归遍历子节点，如果是多级表头，则对子列进行插入排序*/
-                this.p_colIterate(columns, (col, isGroup) => {
+                this.pl_colIterate(columns, (col, isGroup) => {
                     if (isGroup && !!col.children && col.children.length > 0) {
                         col.children.forEach(item => item.fixed = col.fixed)
                         this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order)
