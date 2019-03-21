@@ -1,6 +1,6 @@
 <template>
     <div class="demo-row-item">
-        <span class="demo-row-item-title" :style="titleStyles">{{title}}</span>
+        <span class="demo-row-item-title" :style="titleStyles" v-if="title">{{title}}</span>
         <div class="demo-row-item-content">
             <slot></slot>
         </div>

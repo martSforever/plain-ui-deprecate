@@ -27,6 +27,7 @@
                         title: 'BasicTable',
                         menus: [
                             {title: 'BaseTable基础表格', icon: 'pl-table', page: '/base-table/demo-base-table', complete: true},
+                            {title: 'BaseTable基础表格列', icon: 'pl-table', page: '/base-table/demo-base-table-column', complete: true},
                         ],
                     },
                     {

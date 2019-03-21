@@ -6,7 +6,7 @@
                 :text="col.title"
                 :height="headRowHeight"
                 :width="col.width"
-                :class="[`pl-base-table-cell-${col.align}`]"
+                :col="col"
 
                 :default-scoped-slots="col.scopedSlots.head"
                 :default-render-func="col.renderHead">

@@ -12,6 +12,9 @@ import {$notice} from "./components/notice";
 import {NavigatorMixin} from "./components/navigator-main";
 import ContextMenu from './components/context-menu/ContextMenu'
 
+import baseTableColumnBasic from './components/base-table-column/pl-base-table-column-basic'
+import {standardTableColumns} from "./components/base-table-column";
+
 import ColumnComponents from './components/table-columns'
 import icon from './components/icon/pl-icon'
 import scroll from './components/scroll/pl-scroll'
@@ -177,7 +180,11 @@ const PlainUI = {
         $utils.addScript('https://at.alicdn.com/t/font_948159_a3g9gsak29t.js')
         !!iconfont && $utils.addScript(iconfont)
 
-
+        standardTableColumns.concat(tableColumns).forEach(col => {
+            const component = $utils.deepmerge(baseTableColumnBasic, col)
+            component.name = `${prefix}-tc-${col.name}`
+            Vue.component(component.name, component)
+        })
     },
 }
 

@@ -1,22 +1,3 @@
 export default {
-    name: 'input',
-    props: {},
-    data() {
-        return {
-            renderFunc: {
-                head(h) {
-
-                },
-                edit(h, {row, editRow, require, props}) {
-                    return <link-input value={editRow[field]}
-                                       required={require}
-                                       rules={props.rules}
-                                       validOnInit={props.validOnInit}/>
-                },
-                normal(h) {
-
-                },
-            }
-        }
-    },
+    name: 'column',
 }

@@ -12,6 +12,7 @@
                     :text="row[col.field]"
                     :height="rowHeight"
                     :width="col.width"
+                    :col="col"
                     :default-scoped-slots="col.scopedSlots.default"
                     :default-render-func="col.renderNormal"
                     :edit-scoped-slots="col.scopedSlots.edit"
