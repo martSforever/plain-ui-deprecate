@@ -193,7 +193,7 @@
              * @date    2019/1/9 11:13
              */
             rowClick({row, rowIndex, position}) {
-                console.log('rowClick', rowIndex)
+                // console.log('rowClick', rowIndex)
             },
             /**
              * 监听行双击事件

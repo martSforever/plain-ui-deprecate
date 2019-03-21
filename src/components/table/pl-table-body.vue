@@ -9,7 +9,7 @@
                 :body-columns="bodyColumns"
                 :fixed-exist="fixedExist"
                 :data="data"
-                :edit-data="editData"
+                :table-data="tableData"
                 :row-height="rowHeight"
                 :row-num="rowNum"
 

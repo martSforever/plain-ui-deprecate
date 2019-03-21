@@ -7,7 +7,7 @@ const TableMixin = {
         headRowHeight: {type: Number, default: 40},     //表头标题行显示高度
         noHeader: {type: Boolean},                      //不显示表头
         /*以下为base table不可设置属性*/
-        editData: {},                                   //编辑数据数组
+        tableData: {},                                  //表格数据
         headColumns: {type: Array},                     //渲染表格头列信息数组
         bodyColumns: {type: Array},                     //渲染表体列信息数组
         fixedExist: {type: Object},                     //固定列是否存在

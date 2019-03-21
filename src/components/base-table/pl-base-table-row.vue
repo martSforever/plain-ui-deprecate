@@ -42,7 +42,6 @@
                 p_hover: false,
                 p_selected: false,
                 p_editing: false,
-                items: [],
             }
         },
         mounted() {
@@ -80,7 +79,7 @@
                 let validateMsg = null;             //输入不通过提示信息
                 let field = null;                   //输入不通过字段
 
-                this.items.forEach(item => {
+                /*this.items.forEach(item => {
                     const inputs = this.$plain.$dom.findComponentsDownward(item, 'link-input')
                     inputs.forEach(input => {
                         if (!flag) return
@@ -90,7 +89,7 @@
                             field = item.field
                         }
                     })
-                })
+                })*/
 
                 return {flag, field, validateMsg}
             },
@@ -131,30 +130,11 @@
                 this.p_baseTable.$emit('rowLeave', {row: this, rowIndex: this.rowIndex, position: this.fixed})
             },
             /**
-             * 添加子编辑组件
-             * @author  韦胜健
-             * @date    2019/1/8 10:23
-             */
-            p_add(item) {
-                this.items.push(item)
-            },
-            /**
-             * 不添加子编辑组件
-             * @author  韦胜健
-             * @date    2019/1/8 10:23
-             */
-            p_remove(item) {
-                this.$plain.$utils.removeFromArray(this.items, item)
-            },
-
-
-            /**
              * 开启编辑状态
              * @author  韦胜健
              * @date    2019/1/8 10:24
              */
             async enableEdit() {
-                this.items.forEach(item => item.enableEdit())
                 this.p_editing = true
                 await this.$nextTick()
                 window.getSelection().empty()
@@ -165,7 +145,6 @@
              * @date    2019/1/8 10:24
              */
             disableEdit() {
-                this.items.forEach(item => item.disableEdit())
                 this.p_editing = false
             },
         }

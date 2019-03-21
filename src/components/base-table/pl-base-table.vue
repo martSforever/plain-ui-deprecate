@@ -19,7 +19,7 @@
         <pl-base-table-body
                 ref="body"
                 :data="data"
-                :edit-data="p_editData"
+                :table-data="p_tableData"
                 :body-columns="p_bodyColumns"
                 :fixed-exist="p_fixedExist"
                 :row-height="rowHeight"
@@ -57,7 +57,6 @@
                 columns: [],                           //所有列（去除hide的列）
                 originalColumns: [],                   //所有列（原本的列）
 
-                p_editData: [],                        //编辑数据数组
                 p_hoverIndex: null,                    //鼠标浮动所在的行索引
                 p_selectedIndex: [],                   //选中的行索引数组
                 p_hostWidth: null,                     //表格显示宽度
@@ -67,6 +66,7 @@
                 p_sortField: this.sortField,           //排序字段
                 p_sortDesc: this.sortDesc,             //排序方式，先序降序
                 p_tableWidth: null,                    //表格宽度
+                p_tableDataCache: [],                  //p_tableData缓存数据
                 content: {                             //各个表格的数据对象，rows：pl-table-row组件对象、timer排序定时器
                     left: {rows: [], timer: null},
                     center: {rows: [], timer: null},
@@ -75,31 +75,6 @@
             }
         },
         watch: {
-            /**
-             * 监听data变化，设置editData
-             * @author  韦胜健
-             * @date    2019/1/8 19:19
-             */
-            data: {
-                immediate: true,
-                handler(newVal) {
-                    if (!newVal || newVal.length === 0) return
-                    newVal.forEach((row, index) => {
-                        row.p_id == null && (this.$set(row, 'p_id', this.$plain.$utils.uuid()))
-                        const editRow = this.$plain.$utils.findOne(this.p_editData, item => item.p_id === row.p_id)
-                        if (!editRow) this.p_editData.splice(index, 0, deepCopy(row))
-                    })
-
-                    for (let i = 0; i < this.p_editData.length; i++) {
-                        const editRow = this.p_editData[i];
-                        if (newVal.every(row => row.p_id !== editRow.p_id)) {
-                            this.p_editData.splice(i, 1)
-                            i--
-                        }
-                    }
-
-                }
-            },
             /**
              * 监听selectIndex的变化，设置选中的行
              * @author  韦胜健
@@ -229,6 +204,25 @@
                 // console.log(cols.map(i => i.title))
                 return cols
             },
+            /**
+             * 表格数据
+             * @author  韦胜健
+             * @date    2019/3/21 19:14
+             */
+            p_tableData() {
+                console.log('p_tableData change')
+                const ret = (this.data || []).map(item => {
+                    const cacheItem = this.$plain.$utils.findOne(this.p_tableDataCache, (ci) => ci.row === item)
+                    if (!!cacheItem) return cacheItem
+                    else return {
+                        id: this.$plain.$utils.uuid(),
+                        row: item,
+                        editRow: this.$plain.$utils.deepCopy(item),
+                    }
+                })
+                this.p_tableDataCache = [...ret]
+                return ret
+            },
         },
         created() {
             this.$on('rowEnter', ({row, rowIndex, position}) => this.pl_rowIterate(row => row.p_hover = true, rowIndex))       //监听行鼠标覆盖行事件
@@ -270,12 +264,12 @@
              */
             startEdit(rowIndex) {
                 if (rowIndex != null && rowIndex !== '') {
-                    const row = this.data[rowIndex]
-                    const editRow = this.p_editData[rowIndex]
+                    const {row, editRow} = this.p_tableData[rowIndex]
                     Object.keys(row).forEach(key => editRow[key] = row[key])
                 } else {
-                    this.data.forEach((row, index) => {
-                        Object.keys(row).forEach(key => this.p_editData[index][key] = row[key])
+                    this.p_tableData.forEach(item => {
+                        const {row, editRow} = item
+                        Object.keys(row).forEach(key => editRow[key] = row[key])
                     })
                 }
                 this.enableEdit(rowIndex)
@@ -287,12 +281,12 @@
              */
             cancelEdit(rowIndex) {
                 if (rowIndex != null && rowIndex !== '') {
-                    const row = this.data[rowIndex]
-                    const editRow = this.p_editData[rowIndex]
+                    const {row, editRow} = this.p_tableData[rowIndex]
                     Object.keys(row).forEach(key => editRow[key] = row[key])
                 } else {
-                    this.data.forEach((row, index) => {
-                        Object.keys(row).forEach(key => this.p_editData[index][key] = row[key])
+                    this.p_tableData.forEach(item => {
+                        const {row, editRow} = item
+                        Object.keys(row).forEach(key => editRow[key] = row[key])
                     })
                 }
                 this.disableEdit(rowIndex)

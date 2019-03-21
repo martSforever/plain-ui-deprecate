@@ -9,10 +9,10 @@
                 @scroll="e=>$emit('scroll',e)">
             <table cellspacing="0" cellpadding="0" border="0">
                 <pl-table-column-space :columns="bodyColumns"/>
-                <pl-table-row v-for="(row,rowIndex) in data"
-                              :key="row.p_id"
-                              :row="row"
-                              :edit-row="editData[rowIndex]"
+                <pl-table-row v-for="(item,rowIndex) in tableData"
+                              :key="item.id"
+                              :row="item.row"
+                              :edit-row="item.editRow"
                               :row-index="rowIndex"
                               :columns="bodyColumns"
                               :row-height="rowHeight"

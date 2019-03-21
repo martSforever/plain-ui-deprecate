@@ -3,7 +3,7 @@ export default {
     props: {},
     methods: {
         edit(h, {row, editRow, col, colIndex, require, props}) {
-            return <link-input value={editRow[col.field]}/>
+            return <link-input value={editRow[col.field]} onInput={val => this.$set(editRow, col.field, val)}/>
         },
     }
 }
