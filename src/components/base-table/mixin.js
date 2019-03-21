@@ -42,6 +42,7 @@ const props = {
     renderNormal: {type: Object},                                                                                   //渲染函数:非编辑状态
     renderEdit: {type: Object},                                                                                     //渲染函数：编辑状态
     renderHead: {type: Object},                                                                                     //渲染函数：列头
+    propData: {type: Object},                                                                                       //列额外数据信息
 }
 
 const refreshProps = [

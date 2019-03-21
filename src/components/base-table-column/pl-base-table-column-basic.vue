@@ -6,6 +6,7 @@
             :renderNormal="normal"
             :renderEdit="edit"
             :renderHead="head"
+            :propData="prop || {}"
     />
 </template>
 
@@ -17,19 +18,18 @@
         name: "pl-base-table-column-basic",
         components: {PlBaseTableColumn},
         mixins: [BaseColumnMixin],
+        computed: {
+            /*@formatter:off*/
+            prop() {return {}},
+            /*@formatter:on*/
+        },
         methods: {
-            col() {
-                return this.$refs.column.col()
-            },
-            normal(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
-                return <span>{showRow[col.field]}</span>
-            },
-            edit(h, {row, editRow, showRow, rowIndex, col, colIndex, props}) {
-                return <span>{showRow[col.field]}</span>
-            },
-            head(h, {col}) {
-                return <span>{col.title}</span>
-            },
+           /*@formatter:off*/
+            col() {return this.$refs.column.col()},
+            normal(h, {row, editRow, showRow, rowIndex, col, colIndex, prop}) {return <span>{showRow[col.field]}</span>},
+            edit(h, {row, editRow, showRow, rowIndex, col, colIndex, prop}) {return <span>{showRow[col.field]}</span>},
+            head(h, {col}) {return <span>{col.title}</span>},
+           /*@formatter:on*/
         }
     }
 </script>

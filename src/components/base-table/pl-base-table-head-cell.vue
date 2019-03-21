@@ -2,7 +2,7 @@
     <td class="pl-base-table-head-cell" :colspan="col.colspan" :rowspan="col.rowspan" @click="p_click">
         <pl-base-table-cell
                 :is-fixed="fixed === col.fixed"
-                :data="{col}"
+                :data="{col,prop:col.propData}"
                 :text="col.title"
                 :height="headRowHeight"
                 :width="col.width"
