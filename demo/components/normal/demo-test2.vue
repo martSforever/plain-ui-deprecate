@@ -1,12 +1,15 @@
 <template>
     <div class="demo-test2">
-        demo-test2
+        <demo-test-ss/>
     </div>
 </template>
 
 <script>
+    import DemoTestSs from "../demo-test-ss";
+
     export default {
-        name: "demo-test2"
+        name: "demo-test2",
+        components: {DemoTestSs}
     }
 </script>
 
