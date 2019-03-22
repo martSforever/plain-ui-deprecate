@@ -216,7 +216,7 @@
                     }
                     /*一份权重所增加的宽度*/
                     let externalChunkWidth = Math.floor(externalWidth / totalColumnFit) - 1
-                    cols.forEach(col => col.update({width: col.width + Math.floor(col.fit * externalChunkWidth)}))
+                    cols.forEach(col => col.width = (col.width + Math.floor(col.fit * externalChunkWidth)))
                 }
                 return cols
             },
@@ -373,21 +373,27 @@
                 /*配置列*/
                 this.p_colIterate(columns, (col, isGroup, cols) => {
                     if (col.disabledConfig) return
-                    !isGroup && col.reset()
                     !!this.configColumnFunc && this.configColumnFunc(col, isGroup, cols)
                     if (isGroup) return
                     if (col.hide) cols.splice(cols.indexOf(col), 1)
                 })
 
+                /*---------------------------------------排序-------------------------------------------*/
+                function orderFunc(a, b) {
+                    const aOrder = a.order + (a.fixed === 'left' ? 999 : a.fixed === 'right' ? -999 : 0)
+                    const bOrder = b.order + (b.fixed === 'left' ? 999 : b.fixed === 'right' ? -999 : 0)
+                    return aOrder < bOrder
+                }
+
                 /*递归遍历子节点，如果是多级表头，则对子列进行插入排序*/
                 this.p_colIterate(columns, (col, isGroup) => {
                     if (isGroup && !!col.children && col.children.length > 0) {
                         col.children.forEach(item => item.fixed = col.fixed)
-                        this.$plain.$utils.insertSort(col.children, (a, b) => a.order - 0 < b.order)
+                        this.$plain.$utils.insertSort(col.children, orderFunc)
                     }
                 })
                 /*对最外层列或者列组进行插入排序*/
-                this.$plain.$utils.insertSort(columns, (a, b) => a.order - 0 < b.order);
+                this.$plain.$utils.insertSort(columns, orderFunc);
 
                 this.columns = columns
                 this.$emit('collect', columns)

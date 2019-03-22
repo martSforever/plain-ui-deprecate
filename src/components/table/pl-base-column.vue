@@ -3,91 +3,40 @@
 </template>
 
 <script>
-    import {ColumnMixin} from "../table-columns/mixins";
+    import {ColumnProps, refreshProps, TableColumn} from "../table-columns/mixins";
 
     export default {
         name: "pl-base-column",
-        mixins: [ColumnMixin],
+        props: ColumnProps,
         watch: {
-            width(val) {
-                if (this.p_width !== val) this.p_width = this.$plain.$utils.removePx(val);
-            },
-            p_width(val) {
-                this.$parent.$emit('update:width', val);
-            },
-            fixed(val) {
-                if (this.p_fixed !== val) this.p_fixed = val;
-            },
-            p_fixed(val) {
-                this.$emit('update:fixed', val);
-            },
-            order(val) {
-                if (this.p_order !== val) this.p_order = val;
-            },
-            p_order(val) {
-                this.$parent.$emit('update:order', val);
-            },
+            ...Object.keys(ColumnProps).reduce((ret, key) => {
+                ret[key] = function (val) {
+                    if (val === undefined) return
+                    if (refreshProps.indexOf(key) > -1) {
+                        this.controller.pl_refresh()
+                        return
+                    }
+                    this.p_col[key] = val
+                }
+                return ret
+            }, {})
         },
         data() {
             return {
-                p_initTitle: this.title,
-                p_title: this.title,
-                p_initWidth: this.$plain.$utils.removePx(this.width),
-                p_width: this.$plain.$utils.removePx(this.width),
-                p_fit: this.fit,
-                p_initOrder: this.order,
-                p_order: this.order,
-                p_initFixed: this.fixed,
-                p_fixed: this.fixed,
-                p_initHide: this.hide,
-                p_hide: this.hide,
+                p_col: null,
+                p_controller: null,
             }
         },
         computed: {
+            controller() {
+                if (!this.p_controller) this.p_controller = this.$plain.$dom.findComponentUpward(this, 'pl-table-column-controller')
+                return this.p_controller
+            },
+        },
+        methods: {
             col() {
-                const that = this;
-                /*@formatter:off*/
-                const col = {
-                    get title() {return that.p_title},
-                    get previousTitle(){return that.title},
-                    get field() {return that.field},
-                    get width() {return that.p_width},
-                    get fit() {return that.p_fit},
-                    get order() {return that.p_order+(that.p_fixed === 'left'?999:that.p_fixed === 'right'?-999:0)},
-                    get fixed() {return that.p_fixed},
-                    get hide() {return that.p_hide},
-                    get search() {return that.search},
-                    get sort() {return that.sort},
-                    get quickFilter() {return that.quickFilter},
-                    get filterName() {return that.filterName},
-                    get filterOption() {return that.filterOption},
-                    get lov() {return that.lov},
-                    get placeLeft() {return that.placeLeft},
-                    get placeRight() {return that.placeRight},
-                    get align() {return that.align},
-                    get disabledConfig(){return that.disabledConfig},
-                    get editable(){return that.editable},
-
-                    get titleScopedSlot() {return that.$scopedSlots.title},
-                    get colScopedSlot() {return that.$scopedSlots.default},
-
-                    set fixed(val){that.p_fixed = val},
-                    set order(val){that.p_order = val},
-                    set title(val){that.p_title = val},
-                    set hide(val){that.p_hide = val},
-                    set fit(val){that.p_fit = val},
-                    update({width}){
-                        that.p_width = width
-                    },
-                    reset(){
-                        that.p_width = that.p_initWidth
-                        that.p_title = that.p_initTitle
-                        that.p_fixed = that.p_initFixed
-                        that.p_hide = that.p_initHide
-                    },
-                }
-                /*@formatter:on*/
-                return col
+                this.p_col = new TableColumn(this)
+                return this.p_col
             },
         },
     }

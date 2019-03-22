@@ -95,7 +95,7 @@
                 let width = this.dragColumn.width
                 width = width + durX
                 width = width > 30 ? width : 30
-                this.dragColumn.update({width})
+                this.dragColumn.width = width
             },
         }
     }

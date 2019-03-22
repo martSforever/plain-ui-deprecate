@@ -1,63 +1,55 @@
 import $utils from '../../utils/utils'
 import {ValidMixin} from "../../mixin/component-mixin";
 
+export const ColumnProps = {
+    title: {type: String},                                                                                          //列标题
+    field: {type: String},                                                                                          //列绑定的字段
+    width: {default: 200},                                                                                          //列宽度
+    fit: {type: Number, default: 0},                                                                                //当列不满表格宽度时，该列所占剩下宽度的权重
+    order: {type: Number, default: 0},                                                                              //列排序
+    fixed: {type: String, default: 'center', validator: val => $utils.oneOf(val, ['left', 'center', 'right'])},     //固定列位置
+    search: {type: Boolean, default: true},                                                                         //可查询
+    sort: {type: Boolean, default: true},                                                                           //可排序
+    quickFilter: {type: Boolean, default: false},                                                                   //可快速筛选，仅值列表列有效
+    filterName: {type: String, default: 'input'},                                                                   //筛选组件名称
+    filterOption: {type: Object},                                                                                   //筛选参数
+    lov: {type: String},                                                                                            //值列表类型
+    placeLeft: {type: Boolean},                                                                                     //当出现左滚动列的时候，是否自动设置为左固定列
+    placeRight: {type: Boolean},                                                                                    //当出现右滚动列的时候，是否自动设置为右固定列
+    align: {type: String, default: 'left'},                                                                         //非编辑状态下文本对其方式
+    editable: {type: Boolean, default: true},                                                                       //是否可编辑
+    hide: {type: Boolean},                                                                                          //是否隐藏
+    disabledConfig: {type: Boolean},                                                                                //禁止配置改列
+
+    dataType: {type: String},                                                                                       //数据格式化方式:tel,cny,money,percent
+    tooltip: {type: Boolean},                                                                                       //是否tooltip显示文本
+    link: {type: Boolean},                                                                                          //是否以超链接的形式展示文本，并且点击的时候回派发事件
+    clickWhenIneditable: {type: Boolean, default: true},                                                            //只有非编辑状态下才能出发点击事件，否则任何状态都会触发点击事件
+    showInDialog: {type: Boolean},                                                                                  //非编辑状态下是否点击后再dialog中显示
+
+    editableFunc: {type: Function},                                                                                 //是否可编辑判断函数
+    requiredFunc: {type: Function},                                                                                 //是否必输
+}
+
+export const refreshProps = [
+    'fit',
+    'order',
+    'fixed,',
+    'placeLeft',
+    'placeRight',
+    'hide',
+    'disabledConfig',
+]
+
 export const ColumnMixin = {
     mixins: [ValidMixin],
-    props: {
-        title: {type: String},                                                                                          //列标题
-        field: {type: String},                                                                                          //列绑定的字段
-        width: {default: 200},                                                                                          //列宽度
-        fit: {type: Number, default: 0},                                                                                //当列不满表格宽度时，该列所占剩下宽度的权重
-        order: {type: Number, default: 0},                                                                              //列排序
-        fixed: {type: String, default: 'center', validator: val => $utils.oneOf(val, ['left', 'center', 'right'])},     //固定列位置
-        search: {type: Boolean, default: true},                                                                         //可查询
-        sort: {type: Boolean, default: true},                                                                           //可排序
-        quickFilter: {type: Boolean, default: false},                                                                   //可快速筛选，仅值列表列有效
-        filterName: {type: String, default: 'input'},                                                                   //筛选组件名称
-        filterOption: {type: Object},                                                                                   //筛选参数
-        lov: {type: String},                                                                                            //值列表类型
-        placeLeft: {type: Boolean},                                                                                     //当出现左滚动列的时候，是否自动设置为左固定列
-        placeRight: {type: Boolean},                                                                                    //当出现右滚动列的时候，是否自动设置为右固定列
-        align: {type: String, default: 'left'},                                                                         //非编辑状态下文本对其方式
-        editable: {type: Boolean, default: true},                                                                       //是否可编辑
-        hide: {type: Boolean},                                                                                          //是否隐藏
-        disabledConfig: {type: Boolean},                                                                                //禁止配置改列
-
-        dataType: {type: String},                                                                                       //数据格式化方式:tel,cny,money,percent
-        tooltip: {type: Boolean},                                                                                       //是否tooltip显示文本
-        link: {type: Boolean},                                                                                          //是否以超链接的形式展示文本，并且点击的时候回派发事件
-        clickWhenIneditable: {type: Boolean, default: true},                                                            //只有非编辑状态下才能出发点击事件，否则任何状态都会触发点击事件
-        showInDialog: {type: Boolean},                                                                                  //非编辑状态下是否点击后再dialog中显示
-
-        editableFunc: {type: Function},                                                                                 //是否可编辑判断函数
-        requiredFunc: {type: Function},                                                                                 //是否必输
-    },
+    props: ColumnProps,
     computed: {
-        col() {
-            return this.$refs.column.col;
-        },
         columnBinding() {
-            return {
-                title: this.title,
-                field: this.field,
-                width: this.width,
-                fit: this.fit,
-                order: this.order,
-                fixed: this.fixed,
-                search: this.search,
-                sort: this.sort,
-                quickFilter: this.quickFilter,
-                filterName: this.filterName,
-                filterOption: this.filterOption,
-                lov: this.lov,
-                placeLeft: this.placeLeft,
-                placeRight: this.placeRight,
-                align: this.align,
-                hide: this.hide,
-                disabledConfig: this.disabledConfig,
-
-                editable: this.editable,
-            }
+            return Object.keys(ColumnProps).reduce((ret, key) => {
+                ret[key] = this[key]
+                return ret
+            }, {})
         },
         columnItemBinding() {
             return {
@@ -86,6 +78,9 @@ export const ColumnMixin = {
             if (!editable && this.showInDialog) this.$dialog.show(row[field])
             if (!!this.clickWhenIneditable && !!editable) return
             this.$emit('click', {row, editRow, rowIndex, field, editable})
+        },
+        col() {
+            return this.$refs.column.col();
         },
     }
 }
@@ -189,5 +184,43 @@ export const ColumnItemMixin = {
         disableEdit() {
             this.currentEditable = false
         },
+    }
+}
+
+export class TableColumn {
+    constructor(context) {
+        console.log('new TableColumn', context.title)
+        const originalProps = Object.keys(ColumnProps).reduce((ret, key) => {
+            // context.$set(ret, key, context[key])
+            ret[key] = context[key]
+            return ret
+        }, {})
+        originalProps.width = context.$plain.$utils.removePx(originalProps.width)
+        this.originalProps = originalProps
+        this.colScopedSlot = context.$scopedSlots.default
+        this.titleScopedSlot = context.$scopedSlots.title
+        Object.assign(this, originalProps)
+    }
+}
+
+export const ColumnGroupProps = {
+    title: {},                                  //多级表头标题
+    order: {type: Number, default: 0},          //多级表头排序序号
+    fixed: {type: String, default: 'center'},   //多级表头固定位置
+    placeLeft: {type: Boolean},                 //当出现左滚动列的时候，是否自动设置为左固定列
+    placeRight: {type: Boolean},                //当出现右滚动列的时候，是否自动设置为右固定列
+
+    isCtrlGroup: {type: Boolean},               //是否为列控制器服务
+}
+
+export class TableColumnGroup {
+    constructor(context) {
+        const originalProps = Object.keys(ColumnGroupProps).reduce((ret, key) => {
+            // context.$set(ret, key, context[key])
+            ret[key] = context[key]
+            return ret
+        }, {})
+        this.originalProps = originalProps
+        Object.assign(this, originalProps)
     }
 }
