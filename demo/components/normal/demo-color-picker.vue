@@ -31,7 +31,7 @@
 
 <script>
 
-    import PlColorPickerPanel from "../../src/components/color-picker/pl-color-picker-panel";
+    import PlColorPickerPanel from "../../../src/components/color-picker/pl-color-picker-panel";
 
     export default {
         name: "demo-color-picker",

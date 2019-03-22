@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import PlMarkdownParser from "../../src/components/markdown-parser/pl-markdown-parser";
+    import PlMarkdownParser from "../../../src/components/markdown-parser/pl-markdown-parser";
 
     export default {
         name: "demo-markdown-parser",
