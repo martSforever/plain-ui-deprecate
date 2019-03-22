@@ -49,6 +49,7 @@
         cursor: pointer;
         user-select: none;
         min-width: 65px;
+        margin: 0;
 
         .pl-box-content {
             display: flex;
