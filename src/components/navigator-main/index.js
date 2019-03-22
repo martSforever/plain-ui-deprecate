@@ -156,6 +156,8 @@ class NavigatorService {
      * 监听事件
      * @author  韦胜健
      * @date    2019/3/19 18:50
+     * @param   event       监听事件的名称
+     * @param   callback    派发事件时的回调动作
      */
     $on(event, callback) {
         this.page.on(event, callback)
@@ -165,6 +167,8 @@ class NavigatorService {
      * 只监听一次事件
      * @author  韦胜健
      * @date    2019/3/19 18:51
+     * @param   event       监听事件的名称
+     * @param   callback    派发事件时的回调动作
      */
     $once(event, callback) {
         this.page.once(event, callback)
@@ -174,6 +178,8 @@ class NavigatorService {
      * 移除事件
      * @author  韦胜健
      * @date    2019/3/19 18:51
+     * @param   event       监听事件的名称
+     * @param   callback    派发事件时的回调动作
      */
     $off(event, callback) {
         this.page.off(event, callback)
@@ -183,6 +189,9 @@ class NavigatorService {
      * 派发事件
      * @author  韦胜健
      * @date    2019/3/19 18:51
+     * @param   event       派发事件的名称
+     * @param   param       派发事件传递的参数
+     * @param   global      是否为全局事件，是则所有页签内注册event事件的页面都可以监听，否则只有同页签内注册事件的页面才能监听event事件
      */
     $emit(event, param, global = false) {
         this.page.emit(event, param, global)
