@@ -43,7 +43,7 @@
                         title: 'Basic',
                         menus: [
                             {title: 'Test测试', icon: 'pl-tools', page: '/demo-test', complete: true},
-                            {title: 'Block代码块', icon: 'pl-tools', page: '/demo-test-block', complete: true},
+                            {title: 'Test测试2', icon: 'pl-tools', page: '/demo-test2', complete: true},
                         ],
                     },
                     {
