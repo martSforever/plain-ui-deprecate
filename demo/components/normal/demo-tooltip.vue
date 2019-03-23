@@ -25,11 +25,14 @@
         </demo-row>
         <demo-row title="其他更多配置参考Tippy.js"/>
         <demo-row title="tooltip-text组件，超长省略号显示并且鼠标悬浮时tooltip显示">
+            <demo-row-item title="基本用法">
+                <link-tooltip-text :content="tooltipText"/>
+            </demo-row-item>
             <div class="demo-tooltip-box">
-                <link-tooltip-text content="tooltip-text组件，超长省略号显示并且鼠标悬浮时tooltip显示"/>
+                <link-tooltip-text content="tooltip-text组件，超长省略号显示并且鼠标悬浮时tooltip显示" showOverflowTooltip/>
             </div>
             <div class="demo-tooltip-box">
-                <link-tooltip-text :content="tooltipText"/>
+                <link-tooltip-text :content="tooltipText" showOverflowTooltip/>
             </div>
             <div>
                 <link-input v-model="tooltipText"/>

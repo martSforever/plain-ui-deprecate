@@ -1,25 +1,53 @@
 <template>
-    <div class="pl-tooltip-text" @mouseenter="p_mouseenter">
-        <div class="pl-tooltip-text-content" ref="content" v-tooltip="tooltipOption">
-            <span ref="text">{{content}}</span>
-        </div>
+    <div class="pl-tooltip-text"
+         :class="{'pl-tooltip-text-show-overflow-tooltip':showOverFlowTooltip}"
+         @mouseenter="p_mouseenter"
+         @mouseleave="p_mouseleave">
+        <span ref="content" class="pl-tooltip-text-content">
+            <slot>{{content}}</slot>
+        </span>
     </div>
 </template>
 
 <script>
 
-    import tooltip from 'src/directives/tooltip'
+    import Tippy from 'tippy.js';
+    import 'tippy.js/dist/tippy.css';
 
     export default {
         name: "pl-tooltip-text",
-        directives: {tooltip},
         props: {
             content: {required: true},                                      //显示以及tooltip悬浮显示的文本
+            showOverflowTooltip: {type: Boolean, default: false},           //内容超长时才会显示
+
             arrow: {type: Boolean, default: true},                          //是否显示箭头
             placement: {type: String, default: 'top'},                      //悬浮位置
-            trigger: {type: String, default: 'mouseenter'},                 //悬浮触发方式
+            trigger: {type: String, default: 'manual'},                     //悬浮触发方式
             theme: {type: String, default: 'dark'},                         //悬浮的主题色
+            boundary: {default: 'window'},                                  //边界元素
             disabled: {type: Boolean},                                      //是否禁用
+        },
+        watch: {
+            disabled: {
+                immediate: true,
+                handler(val) {
+                    if (!val && !this.tippy) {
+                        this.$nextTick(() => {
+                            Tippy(this.$el, this.tooltipOption)
+                            this.tippy = this.$el._tippy
+                        })
+                    } else if (!!val && !!this.tippy) {
+                        this.tippy.hide(0)
+                        this.tippy.destroy(true)
+                    }
+                },
+            }
+        },
+        data() {
+            return {
+                tippy: null,
+                p_show: false,
+            }
         },
         computed: {
             tooltipOption() {
@@ -29,26 +57,30 @@
                     placement: this.placement,
                     trigger: this.trigger,
                     theme: this.theme,
-                    disabled: this.disabled || !(this.textWidth != null && this.hostWidth != null && this.textWidth > this.hostWidth)
                 }
             },
         },
-        data() {
-            return {
-                hostWidth: null,
-                textWidth: null,
-            }
-        },
-        mounted() {
-            this.p_resetWidth()
-        },
         methods: {
-            p_resetWidth() {
-                this.hostWidth = this.$refs.content.offsetWidth
-                this.textWidth = this.$refs.text.offsetWidth
-            },
             p_mouseenter() {
-                this.p_resetWidth()
+                if (this.disabled || !this.content || this.p_show) return
+                const next = () => {
+                    this.tippy.show()
+                    this.p_show = true
+                }
+                if (!this.showOverflowTooltip) {
+                    next()
+                } else {
+                    const hostWidth = this.$el.offsetWidth
+                    const contentWidth = this.$refs.content.offsetWidth
+                    if (contentWidth > hostWidth) {
+                        next()
+                    }
+                }
+            },
+            p_mouseleave() {
+                if (this.disabled || !this.content || !this.p_show) return
+                this.tippy.hide()
+                this.p_show = false
             },
         },
     }
@@ -58,17 +90,12 @@
     .pl-tooltip-text {
         display: block;
         height: fit-content;
-        padding: 3px 0;
-        .pl-tooltip-text-content {
-            outline: none;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        outline: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &.pl-tooltip-text-show-overflow-tooltip {
             width: 100%;
         }
-    }
-
-    .pl-tooltip-target {
-        outline: none;
     }
 </style>
