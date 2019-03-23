@@ -18,11 +18,6 @@
         name: "pl-base-table-column-basic",
         components: {PlBaseTableColumn},
         mixins: [BaseColumnMixin],
-        computed: {
-            /*@formatter:off*/
-            prop() {return {}},
-            /*@formatter:on*/
-        },
         methods: {
            /*@formatter:off*/
             col() {return this.$refs.column.col()},
