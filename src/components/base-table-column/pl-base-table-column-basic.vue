@@ -19,10 +19,10 @@
         components: {PlBaseTableColumn},
         mixins: [BaseColumnMixin],
         methods: {
-           /*@formatter:off*/
+            /*@formatter:off*/
             col() {return this.$refs.column.col()},
-            normal(h, {row, editRow, showRow, rowIndex, col, colIndex, prop}) {return <span>{showRow[col.field]}</span>},
-            edit(h, {row, editRow, showRow, rowIndex, col, colIndex, prop}) {return <span>{showRow[col.field]}</span>},
+            normal(h, {row, editRow, showRow,text, rowIndex, col, colIndex, prop}) {return <span>{text}</span>},
+            edit(h, {row, editRow, showRow, text,rowIndex, col, colIndex, prop}) {return <span>{text}</span>},
             head(h, {col}) {return <span>{col.title}</span>},
            /*@formatter:on*/
         }

@@ -3,15 +3,15 @@
         <template v-if="isFixed">
             <keep-alive>
                 <template v-if="!!p_editing">
-                    <pl-scope-slot v-if="editScopedSlots" :scope-slot-func="editScopedSlots" :data="data"/>
-                    <pl-render-func v-else-if="editRenderFunc" :render-func="editRenderFunc" :data="data"/>
+                    <pl-scope-slot v-if="editScopedSlots" :scope-slot-func="editScopedSlots" :data="p_data"/>
+                    <pl-render-func v-else-if="editRenderFunc" :render-func="editRenderFunc" :data="p_data"/>
                 </template>
                 <template v-else>
                     <pl-tooltip-text :disabled="!col.tooltip"
                                      :content="p_text"
                                      show-overflow-tooltip>
-                        <pl-scope-slot v-if="defaultScopedSlots" :scope-slot-func="defaultScopedSlots" :data="data"/>
-                        <pl-render-func v-else-if="defaultRenderFunc" :render-func="defaultRenderFunc" :data="data"/>
+                        <pl-scope-slot v-if="defaultScopedSlots" :scope-slot-func="defaultScopedSlots" :data="p_data"/>
+                        <pl-render-func v-else-if="defaultRenderFunc" :render-func="defaultRenderFunc" :data="p_data"/>
                     </pl-tooltip-text>
                 </template>
             </keep-alive>
@@ -38,6 +38,7 @@
             isFixed: {default: false},              //是否为对应fixed table的cell
             editing: {},                            //当前是否为编辑状态
             col: {},                                //列信息数据
+            row: {},                                //渲染的行数据，如果是渲染表头，则该属性不存在
 
             editScopedSlots: {type: Function},      //作用域插槽：编辑
             defaultScopedSlots: {type: Function},   //作用域插槽：正常
@@ -53,7 +54,17 @@
         watch: {
             text: {
                 immediate: true,
-                handler(val) {
+                async handler(val) {
+                    if (!!this.col.formatter) {
+                        this.p_text = await this.col.formatter(val)
+                        return
+                    }
+                    if (!!this.col.dataType) {
+                        const map = {tel: 'telFormat', money: 'moneyFormat', cny: 'cnyFormat', percent: 'percentNumFormat',}
+                        if (Object.keys(map).indexOf(this.col.dataType) === -1) return Promise.reject("dataType is invalid:" + this.col.dataType)
+                        this.p_text = this.$plain.$utils[map[this.col.dataType]](val)
+                        return
+                    }
                     this.p_text = val
                 },
             }
@@ -70,6 +81,12 @@
                 if (this.data.rowIndex == null && this.data.colIndex == null) return
                 const editable = this.editing && this.data.col.editable
                 return editable && (!this.data.col.editableFunc || this.data.col.editableFunc(this.data))
+            },
+            p_data() {
+                return {
+                    ...this.data,
+                    text: this.p_text
+                }
             },
         },
     }

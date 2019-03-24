@@ -44,7 +44,9 @@
                        @rowDblClick="rowDblClick"
                        @sortChange="sortChange">
 
-            <link-tc-column title="车次" field="trainno" tooltip/>
+            <link-tc-column title="车次" field="trainno" tooltip dataType="tel"/>
+            <link-tc-column title="车次" field="trainno" tooltip dataType="money"/>
+            <link-tc-column title="车次" field="trainno" tooltip dataType="cny"/>
             <link-tc-input title="车次" field="trainno" box-shape="round"/>
             <!--<link-tc-input title="车次,input" field="trainno" box-shape="round"/>
             <link-tc-input title="车次,input" field="trainno" box-shape="round">
@@ -114,7 +116,7 @@
         name: "demo-basic-table",
         components: {PlBaseTableColumnGroup, PlBaseTableColumn, PlBaseTable},
         data() {
-            TableData[0].trainno = 'G34-KKHKJWEKBWEJWHKEJHWJKEBN'
+            TableData[0].trainno = '13924569321'
             TableData[1].trainno = 'G34-WIOEUOQNJKLJDKLSDJLWKL'
             return {
                 EDIT_STATUS: {

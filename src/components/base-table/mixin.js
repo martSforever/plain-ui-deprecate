@@ -21,6 +21,7 @@ const props = {
     editableFunc: {type: Function},                                                                                 //是否可编辑判断函数
 
     dataType: {type: String},                                                                                       //数据格式化方式:tel,cny,money,percent
+    formater: {type: Function},                                                                                     //文本格式化函数，支持异步格式化
     tooltip: {type: Boolean},                                                                                       //是否tooltip显示文本
     link: {type: Boolean},                                                                                          //是否以超链接的形式展示文本，并且点击的时候回派发事件
     clickWhenIneditable: {type: Boolean, default: true},                                                            //只有非编辑状态下才能出发点击事件，否则任何状态都会触发点击事件

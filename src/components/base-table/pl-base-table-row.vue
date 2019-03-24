@@ -8,8 +8,8 @@
         <td v-for="(col,colIndex) in columns" :key="colIndex">
             <pl-base-table-cell
                     :is-fixed="fixed === col.fixed"
-                    :data="{row,editRow,rowIndex,col,colIndex,showRow:p_editing?editRow:row,prop:col.propData}"
-                    :text="row[col.field]"
+                    :data="{row,editRow,rowIndex,col,colIndex,showRow,prop:col.propData}"
+                    :text="showRow[col.field]"
                     :height="rowHeight"
                     :width="col.width"
                     :col="col"
@@ -43,6 +43,11 @@
                 p_selected: false,
                 p_editing: false,
             }
+        },
+        computed: {
+            showRow() {
+                return this.p_editing ? this.editRow : this.row
+            },
         },
         mounted() {
             this.p_baseTable = this.$plain.$dom.findComponentUpward(this, 'pl-base-table')
