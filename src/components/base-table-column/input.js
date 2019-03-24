@@ -1,5 +1,6 @@
 import {InputMixin} from "../../mixin/component-mixin";
 
+
 export default {
     name: 'input',
     mixins: [InputMixin],
@@ -10,11 +11,7 @@ export default {
     },
     methods: {
         edit(h, {row, editRow, col, colIndex, require, prop}) {
-            return <link-input value={editRow[col.field]}
-                               onInput={val => this.$set(editRow, col.field, val)}
-                               {...{props: this.inputBinding}}
-                               color={this.inputBinding.boxColor}
-            />
+            return (<link-input {...{props: {...this.inputBinding, value: editRow[col.field]}, on: {input: (val) => this.$set(editRow, col.field, val),}}}/>)
         },
     },
 }

@@ -45,7 +45,7 @@
                        @sortChange="sortChange">
 
             <link-tc-column title="车次" field="trainno" tooltip/>
-            <link-tc-input title="车次" field="trainno"/>
+            <link-tc-input title="车次" field="trainno" box-shape="round"/>
             <!--<link-tc-input title="车次,input" field="trainno" box-shape="round"/>
             <link-tc-input title="车次,input" field="trainno" box-shape="round">
                 <template slot-scope="{showRow,rowIndex,prop}">
