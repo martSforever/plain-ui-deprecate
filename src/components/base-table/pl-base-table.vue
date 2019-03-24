@@ -210,7 +210,6 @@
              * @date    2019/3/21 19:14
              */
             p_tableData() {
-                console.log('p_tableData change')
                 const ret = (this.data || []).map(item => {
                     const cacheItem = this.$plain.$utils.findOne(this.p_tableDataCache, (ci) => ci.row === item)
                     if (!!cacheItem) return cacheItem

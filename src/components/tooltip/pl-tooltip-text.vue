@@ -57,6 +57,7 @@
                     placement: this.placement,
                     trigger: this.trigger,
                     theme: this.theme,
+                    boundary: this.boundary
                 }
             },
         },
