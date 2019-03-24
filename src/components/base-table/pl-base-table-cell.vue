@@ -48,24 +48,33 @@
         },
         data() {
             return {
-                p_text: this.text
+                p_text: this.text,
+                p_timer: null,
             }
         },
         watch: {
             text: {
                 immediate: true,
-                async handler(val) {
-                    if (!!this.col.formatter) {
-                        this.p_text = await this.col.formatter(val)
+                handler(val) {
+                    if (!this.col.formatter && !this.col.dataType) {
+                        this.p_text = val
                         return
                     }
-                    if (!!this.col.dataType) {
-                        const map = {tel: 'telFormat', money: 'moneyFormat', cny: 'cnyFormat', percent: 'percentNumFormat',}
-                        if (Object.keys(map).indexOf(this.col.dataType) === -1) return Promise.reject("dataType is invalid:" + this.col.dataType)
-                        this.p_text = this.$plain.$utils[map[this.col.dataType]](val)
-                        return
+                    if (!!this.p_timer) {
+                        clearTimeout(this.p_timer)
+                        this.p_timer = null
                     }
-                    this.p_text = val
+                    this.p_timer = setTimeout(async () => {
+                        if (!!this.col.formatter) {
+                            this.p_text = await this.col.formatter(val, this.data)
+                            return
+                        }
+                        if (!!this.col.dataType) {
+                            const map = {tel: 'telFormat', money: 'moneyFormat', cny: 'cnyFormat', percent: 'percentNumFormat',}
+                            if (Object.keys(map).indexOf(this.col.dataType) === -1) return Promise.reject("dataType is invalid:" + this.col.dataType)
+                            this.p_text = this.$plain.$utils[map[this.col.dataType]](val)
+                        }
+                    }, 300)
                 },
             }
         },
@@ -89,6 +98,7 @@
                 }
             },
         },
+        methods: {}
     }
 </script>
 

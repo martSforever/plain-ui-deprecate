@@ -47,6 +47,7 @@
             <link-tc-column title="车次" field="trainno" tooltip dataType="tel"/>
             <link-tc-column title="车次" field="trainno" tooltip dataType="money"/>
             <link-tc-column title="车次" field="trainno" tooltip dataType="cny"/>
+            <link-tc-column title="车次" field="trainno" tooltip :formatter="myFormatter"/>
             <link-tc-input title="车次" field="trainno" box-shape="round"/>
             <!--<link-tc-input title="车次,input" field="trainno" box-shape="round"/>
             <link-tc-input title="车次,input" field="trainno" box-shape="round">
@@ -334,6 +335,14 @@
             requiredFunc({row, rowIndex, editRow}) {
                 console.log('valid', editRow.left == '4')
                 return editRow.left2 == '4'
+            },
+
+            myFormatter(value) {
+                return new Promise((rs) => {
+                    setTimeout(() => {
+                        rs(`[${value}]`)
+                    }, 1000)
+                })
             },
         },
     }
