@@ -144,7 +144,6 @@
         .pl-navigator-tab-content {
             flex: 1;
             width: 100%;
-            overflow: auto;
             position: relative;
             border: solid 1px $tab-color;
             box-sizing: border-box;
