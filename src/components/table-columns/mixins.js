@@ -164,7 +164,7 @@ export const ColumnItemMixin = {
         },
     },
     mounted() {
-        this.rowIndex != null && this.colIndex != null && this.p_row.p_add(this)
+        !!this.p_row && this.rowIndex != null && this.colIndex != null && this.p_row.p_add(this)
     },
     beforeDestroy() {
         !!this.p_row && this.p_row.p_remove(this)

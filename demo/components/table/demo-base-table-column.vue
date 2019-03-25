@@ -12,7 +12,7 @@
                 <link-button @click="cancel" label="取消"/>
                 <link-button @click="save" label="保存"/>
             </demo-row-item>
-            <link-base-table :data="list" :rowNum="5" @rowDblClick="rowDblClick" ref="baseTable">
+            <link-base-table :data="list" :rowNum="5" @rowDblClick="rowDblClick" ref="baseTable" @collect="pl_collect">
                 <link-column field="trainno" title="车次"/>
                 <link-column-input title="顺序" field="sequenceno">
                     <template slot-scope="{row,rowIndex}">
@@ -28,14 +28,22 @@
                 <link-column-input title="是否终点" field="isend"/>
             </link-base-table>
         </demo-row>
+        <demo-row>
+            <div v-for="(col,colIndex) in columns" :key="colIndex" class="link-form-item">
+                <span>{{col.title}}</span>
+                <pl-scope-slot :scope-slot-func="col.colScopedSlot" :data="{row:formData,rowIndex:0}"/>
+            </div>
+        </demo-row>
     </div>
 </template>
 
 <script>
     import {SimpleTableData, TableData} from "../../data";
+    import PlScopeSlot from "../../../src/components/render/pl-scope-slot";
 
     export default {
         name: "demo-base-table-column",
+        components: {PlScopeSlot},
         data() {
             return {
                 list: SimpleTableData,
@@ -47,6 +55,9 @@
                 },
                 status: 'normal',
                 newData: [],
+
+                columns: null,
+                formData: {},
             }
         },
         mounted() {
@@ -153,10 +164,23 @@
                 }
                 !!final && final.apply(this)
             },
+
+            async pl_collect() {
+                await this.$plain.nextTick()
+                await this.$plain.nextTick()
+                await this.$plain.nextTick()
+                this.columns = this.baseTable.p_bodyColumns
+                console.log(this.columns)
+            },
         }
     }
 </script>
 
 <style lang="scss">
-
+    .demo-base-table-column {
+        .link-form-item {
+            display: flex;
+            align-items: center;
+        }
+    }
 </style>
