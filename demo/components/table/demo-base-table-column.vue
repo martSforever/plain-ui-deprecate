@@ -29,10 +29,14 @@
             </link-base-table>
         </demo-row>
         <demo-row>
-            <div v-for="(col,colIndex) in columns" :key="colIndex" class="link-form-item">
-                <span>{{col.title}}</span>
-                <pl-scope-slot :scope-slot-func="col.colScopedSlot" :data="{row:formData,rowIndex:0}"/>
-            </div>
+            <pl-table-cell-controller ref="controller" tag="div" default-editing>
+                <template v-for="(col,colIndex) in columns">
+                    <div class="link-form-item" v-if="!col.disabledFormEdit" :key="colIndex">
+                        <span>{{col.title}}</span>
+                        <pl-scope-slot :scope-slot-func="col.colScopedSlot" :data="{row:formData,editRow:editData,rowIndex:0,colIndex:0,}"/>
+                    </div>
+                </template>
+            </pl-table-cell-controller>
         </demo-row>
     </div>
 </template>
@@ -40,10 +44,11 @@
 <script>
     import {SimpleTableData, TableData} from "../../data";
     import PlScopeSlot from "../../../src/components/render/pl-scope-slot";
+    import PlTableCellController from "../../../src/components/table/pl-table-cell-controller";
 
     export default {
         name: "demo-base-table-column",
-        components: {PlScopeSlot},
+        components: {PlTableCellController, PlScopeSlot},
         data() {
             return {
                 list: SimpleTableData,
@@ -58,6 +63,7 @@
 
                 columns: null,
                 formData: {},
+                editData: {},
             }
         },
         mounted() {
@@ -129,6 +135,52 @@
                     },
                 })
             },
+
+            /**
+             * 无论是新建还是编辑，保存单条数据动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:16
+             */
+            saveRow({editData}) {
+                const {row, editRow} = editData[0]
+                const newRow = this.requestSaveRow(editRow)
+                this.baseTable.saveEdit([{row, editRow, newRow}])
+            },
+            /**
+             * 无论是新建还是编辑，保存多条数据动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:17
+             */
+            saveRows({editData}) {
+                const editRows = editData.map(item => item.editRow)
+                const newRows = this.requestSaveRows(editRows)
+                this.baseTable.saveEdit(editData.map(({row, editRow}, index) => ({row, editRow, newRow: newRows[index]})))
+            },
+
+            /**
+             * 模拟请求保存单条数据
+             * @author  韦胜健
+             * @date    2019/1/9 11:14
+             */
+            requestSaveRow(row) {
+                const newRow = this.$plain.$utils.deepCopy(row)
+                newRow.left1 = this.$plain.$utils.uuid()
+                return newRow
+            },
+            /**
+             * 模拟保存多条数据
+             * @author  韦胜健
+             * @date    2019/1/9 11:14
+             */
+            requestSaveRows(rows) {
+                return rows.reduce((ret, item) => {
+                    const newRow = this.$plain.$utils.deepCopy(item)
+                    newRow.left1 = this.$plain.$utils.uuid()
+                    ret.push(newRow)
+                    return ret
+                }, [])
+            },
+
             /**
              * 监听行双击事件
              * @author  韦胜健
@@ -170,7 +222,6 @@
                 await this.$plain.nextTick()
                 await this.$plain.nextTick()
                 this.columns = this.baseTable.p_bodyColumns
-                console.log(this.columns)
             },
         }
     }

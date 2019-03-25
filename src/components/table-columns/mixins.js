@@ -20,6 +20,7 @@ export const ColumnProps = {
     editable: {type: Boolean, default: true},                                                                       //是否可编辑
     hide: {type: Boolean},                                                                                          //是否隐藏
     disabledConfig: {type: Boolean},                                                                                //禁止配置改列
+    disabledFormEdit: {type: Boolean},                                                                              //禁止在form表单中编辑
 
     dataType: {type: String},                                                                                       //数据格式化方式:tel,cny,money,percent
     tooltip: {type: Boolean},                                                                                       //是否tooltip显示文本
@@ -109,7 +110,7 @@ export const ColumnItemMixin = {
     data() {
         return {
             currentEditable: false,                                                                                     //当前行是否被设置为可编辑
-            _p_row: null,
+            temp_controller: null,
         }
     },
     computed: {
@@ -118,9 +119,9 @@ export const ColumnItemMixin = {
          * @author  韦胜健
          * @date    2019/1/8 10:21
          */
-        p_row() {
-            if (!this._p_row) this._p_row = this.$plain.$dom.findComponentUpward(this, 'pl-table-row')
-            return this._p_row
+        p_controller() {
+            if (!this.temp_controller) this.temp_controller = this.$plain.$dom.findComponentUpward(this, 'pl-table-cell-controller')
+            return this.temp_controller
         },
         /**
          * 当前是否可编辑
@@ -164,10 +165,10 @@ export const ColumnItemMixin = {
         },
     },
     mounted() {
-        !!this.p_row && this.rowIndex != null && this.colIndex != null && this.p_row.p_add(this)
+        !!this.p_controller && this.rowIndex != null && this.colIndex != null && this.p_controller.p_add(this)
     },
     beforeDestroy() {
-        !!this.p_row && this.p_row.p_remove(this)
+        !!this.p_controller && this.p_controller.p_remove(this)
     },
     methods: {
         /**

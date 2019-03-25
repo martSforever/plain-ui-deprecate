@@ -1,10 +1,12 @@
 <template>
-    <tr class="pl-table-row"
-        @click="p_click"
-        @dblclick="p_dblclick"
-        @mouseenter="p_enter"
-        @mouseleave="p_leave"
-        :class="{'pl-table-row-hover':p_hover,'pl-table-row-selected':p_selected,'pl-table-row-editing':p_editing}">
+    <pl-table-cell-controller
+            ref="controller"
+            class="pl-table-row"
+            @click.native="p_click"
+            @dblclick.native="p_dblclick"
+            @mouseenter.native="p_enter"
+            @mouseleave.native="p_leave"
+            :class="{'pl-table-row-hover':p_hover,'pl-table-row-selected':p_selected,'pl-table-row-editing':p_editing}">
         <td v-for="(col,colIndex) in columns" :key="colIndex">
             <pl-table-cell
                     :is-fixed="col.fixed === fixed"
@@ -15,16 +17,17 @@
                     :width="col.width"
             />
         </td>
-    </tr>
+    </pl-table-cell-controller>
 </template>
 
 <script>
     import PlTableCell from "./pl-table-cell";
     import {TableMixin} from "./index";
+    import PlTableCellController from "./pl-table-cell-controller";
 
     export default {
         name: "pl-table-row",
-        components: {PlTableCell},
+        components: {PlTableCellController, PlTableCell},
         mixins: [TableMixin],
         props: {
             columns: {},
@@ -38,7 +41,6 @@
                 p_hover: false,
                 p_selected: false,
                 p_editing: false,
-                items: [],
             }
         },
         mounted() {
@@ -71,25 +73,28 @@
              * @date    2019/1/14 16:52
              */
             validate() {
-                // TODO 这里校验规则需要修正
-                let flag = true                     //输入是否通过标识
-                let validateMsg = null;             //输入不通过提示信息
-                let field = null;                   //输入不通过字段
-
-                this.items.forEach(item => {
-                    const inputs = this.$plain.$dom.findComponentsDownward(item, 'link-input')
-                    inputs.forEach(input => {
-                        if (!flag) return
-                        if (!input.validate()) {
-                            flag = false
-                            validateMsg = input.validateMsg
-                            field = item.field
-                        }
-                    })
-                })
-
-                return {flag, field, validateMsg}
+                return this.$refs.controller.validate()
             },
+
+            /**
+             * 开启编辑状态
+             * @author  韦胜健
+             * @date    2019/1/8 10:24
+             */
+            async enableEdit() {
+                this.p_editing = true
+                this.$refs.controller.enableEdit()
+            },
+            /**
+             * 关闭编辑状态
+             * @author  韦胜健
+             * @date    2019/1/8 10:24
+             */
+            disableEdit() {
+                this.p_editing = false
+                this.$refs.controller.disableEdit()
+            },
+
             /**
              * 单击事件
              * @author  韦胜健
@@ -125,44 +130,6 @@
              */
             p_leave() {
                 this.p_baseTable.$emit('rowLeave', {row: this, rowIndex: this.rowIndex, position: this.fixed})
-            },
-            /**
-             * 添加子编辑组件
-             * @author  韦胜健
-             * @date    2019/1/8 10:23
-             */
-            p_add(item) {
-                this.items.push(item)
-            },
-            /**
-             * 不添加子编辑组件
-             * @author  韦胜健
-             * @date    2019/1/8 10:23
-             */
-            p_remove(item) {
-                this.$plain.$utils.removeFromArray(this.items, item)
-            },
-
-
-            /**
-             * 开启编辑状态
-             * @author  韦胜健
-             * @date    2019/1/8 10:24
-             */
-            async enableEdit() {
-                this.items.forEach(item => item.enableEdit())
-                this.p_editing = true
-                await this.$nextTick()
-                window.getSelection().empty()
-            },
-            /**
-             * 关闭编辑状态
-             * @author  韦胜健
-             * @date    2019/1/8 10:24
-             */
-            disableEdit() {
-                this.items.forEach(item => item.disableEdit())
-                this.p_editing = false
             },
         }
     }

@@ -24,6 +24,9 @@
         name: "pl-column-input",
         components: {PlColumnItem, PlBaseColumn,},
         mixins: [ColumnMixin],
+        props: {
+            disabledFormEdit: {default: true},
+        },
     }
 </script>
 
