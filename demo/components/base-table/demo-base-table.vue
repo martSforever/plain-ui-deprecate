@@ -83,7 +83,7 @@
                 link-tc-column title="车次" field="trainno"/>
                 link-tc-column title="类型" field="type"/>
                 link-tc-column-group title="站点信息">
-                    link-tc-column title="出发站" field="station"/>
+                        link-tc-column title="出发站" field="station"/>
                     link-tc-column title="到达站" field="endstation"/>
                 </pl-base-table-column-group>
                 link-tc-column-group titile="时间范围">
