@@ -1,8 +1,7 @@
 <template>
     <pl-base-column
             ref="column"
-            v-bind="columnBinding"
-            :title-scoped-slot="$scopedSlots.title">
+            v-bind="columnBinding">
         <template slot-scope="{row,rowIndex,col,colIndex,editRow}">
             <pl-column-input-item
                     :row="row"

@@ -46,10 +46,12 @@ export const ColumnMixin = {
     props: ColumnProps,
     computed: {
         columnBinding() {
-            return Object.keys(ColumnProps).reduce((ret, key) => {
+            const ret = Object.keys(ColumnProps).reduce((ret, key) => {
                 ret[key] = this[key]
                 return ret
             }, {})
+            ret.titleScopedSlot = this.$scopedSlots.title
+            return ret
         },
         columnItemBinding() {
             return {
