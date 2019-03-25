@@ -23,7 +23,7 @@
         computed: {
             styles() {
                 return {
-                    height: `${this.headColumns.length * this.headRowHeight}px`
+                    height: `${this.headColumns.length * this.headRowHeight + 1}px`
                 }
             },
         },
