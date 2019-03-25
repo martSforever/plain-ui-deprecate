@@ -13,7 +13,7 @@
                  @contextmenu.prevent.stop="p_contextmenu(item,index)">
                 <span>{{item}}</span>
                 <div class="pl-tab-header-item-close" @click.stop="p_close(item,index)" v-if="clearIcon">
-                    <pl-icon icon="pl-close-circle-fill"/>
+                    <pl-icon icon="pl-close" hover/>
                 </div>
             </div>
         </pl-item>
@@ -52,35 +52,36 @@
 </script>
 
 <style lang="scss">
-    $tab-color: #eee;
-
     .pl-tab-header {
         @include public-style;
         display: flex;
         align-items: center;
         border-bottom: solid 1px $tab-color;
-        padding: 0 12px;
+
+        .pl-item {
+            &:not(:last-child) .pl-tab-header-item {
+                border-right: none;
+            }
+        }
+
         .pl-tab-header-item {
             padding: 0 24px;
             font-size: 12px;
-            height: 30px;
+            min-width: 96px;
+            height: 40px;
             display: flex;
             align-items: center;
+            justify-content: center;
             background-color: white;
             position: relative;
             top: 1px;
             box-sizing: border-box;
             cursor: pointer;
-            border: solid 1px transparent;
-            border-bottom-color: $tab-color;
-            border-top: solid 3px white;
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            color: #aaa;
+            border: solid 1px $tab-color;
 
             .pl-tab-header-item-close {
                 position: absolute;
-                top: 0;
+                top: 1px;
                 right: 6px;
                 display: flex;
                 align-items: center;
@@ -90,21 +91,14 @@
             }
 
             &.pl-tab-header-item-active {
-                border-bottom: solid 1px white;
-                border-top-color: $color-normal-content;
-                border-left-color: $tab-color;
-                border-right-color: $tab-color;
-                color: $color-normal-content;
+                border-bottom-color: white;
+                color: $color-primary;
             }
             &:hover {
                 .pl-tab-header-item-close {
-                    opacity: 0.5;
-                }
-                &:not(.pl-tab-header-item-active) {
-                    color: $color-primary;
+                    opacity: 1;
                 }
             }
-
         }
     }
 </style>

@@ -146,7 +146,11 @@
             width: 100%;
             overflow: auto;
             position: relative;
-            .pl-navigator-tab-item{
+            border: solid 1px $tab-color;
+            box-sizing: border-box;
+            overflow: hidden;
+            border-top: none;
+            .pl-navigator-tab-item {
                 height: 100%;
                 overflow: auto;
             }
