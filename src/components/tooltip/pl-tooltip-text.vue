@@ -1,6 +1,6 @@
 <template>
     <div class="pl-tooltip-text"
-         :class="{'pl-tooltip-text-show-overflow-tooltip':showOverFlowTooltip}"
+         :class="{'pl-tooltip-text-show-overflow-tooltip':showOverflowTooltip}"
          @mouseenter="p_mouseenter"
          @mouseleave="p_mouseleave">
         <span ref="content" class="pl-tooltip-text-content">
