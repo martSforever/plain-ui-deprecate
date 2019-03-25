@@ -36,7 +36,8 @@
                             {title: 'BaseTable基础表格', icon: 'pl-table', page: '/table/demo-base-table', complete: true},
                             {title: 'BaseTable基础表格编辑', icon: 'pl-table', page: '/table/demo-base-table-edit', complete: true},
                             {title: 'BaseTable基础表格测试', icon: 'pl-table', page: '/table/demo-base-table-test', complete: true},
-                            {title: 'BaseTable基础表格列组件测试', icon: 'pl-table', page: '/table/demo-base-table-column', complete: true},
+                            {title: 'BaseTable列基本属性测试', icon: 'pl-table', page: '/table/demo-base-table-column-prop', complete: true},
+                            {title: 'BaseTable基础表格列测试', icon: 'pl-table', page: '/table/demo-base-table-column', complete: true},
                         ],
                     },
                     {
