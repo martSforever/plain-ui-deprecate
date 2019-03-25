@@ -6,7 +6,7 @@
                            :data="data"/>
             <template v-else>
                 <div class="pl-table-cell-default-text">
-                    <pl-tooltip-text :content="text"/>
+                    <pl-tooltip-text :content="text" show-overflow-tooltip/>
                 </div>
                 <slot></slot>
             </template>

@@ -2,7 +2,7 @@
     <div class="pl-column-text" :class="[`pl-column-text-${align}`,{'pl-column-text-link':link}]">
         <slot :row="row" :rowIndex="rowIndex" :align="align" :field="field" :editable="editable">
             <div class="pl-column-text-default-text">
-                <pl-tooltip-text :content="label!=null?label:showValue" v-if="tooltip"/>
+                <pl-tooltip-text :content="label!=null?label:showValue" v-if="tooltip" show-overflow-tooltip/>
                 <span v-else>{{label!=null?label:showValue}}</span>
             </div>
         </slot>
