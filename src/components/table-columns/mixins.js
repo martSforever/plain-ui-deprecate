@@ -189,7 +189,7 @@ export const ColumnItemMixin = {
 
 export class TableColumn {
     constructor(context) {
-        console.log('new TableColumn', context.title)
+        // console.log('new TableColumn', context.title)
         const originalProps = Object.keys(ColumnProps).reduce((ret, key) => {
             // context.$set(ret, key, context[key])
             ret[key] = context[key]
