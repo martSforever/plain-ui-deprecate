@@ -198,7 +198,7 @@ export class TableColumn {
         originalProps.width = context.$plain.$utils.removePx(originalProps.width)
         this.originalProps = originalProps
         this.colScopedSlot = context.$scopedSlots.default
-        this.titleScopedSlot = context.$scopedSlots.title
+        this.titleScopedSlot = context.titleScopedSlot || context.$scopedSlots.title
         Object.assign(this, originalProps)
     }
 }

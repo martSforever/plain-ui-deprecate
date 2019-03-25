@@ -7,7 +7,10 @@
 
     export default {
         name: "pl-base-column",
-        props: ColumnProps,
+        props: {
+            ...ColumnProps,
+            titleScopedSlot: {},
+        },
         watch: {
             ...Object.keys(ColumnProps).reduce((ret, key) => {
                 ret[key] = function (val) {
