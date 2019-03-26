@@ -116,6 +116,7 @@
                             {title: 'Dialog对话框', icon: 'pl-dialog', page: '/normal/demo-dialog', complete: true},
                             {title: 'Tooltip文字提示', icon: 'pl-message2', page: '/normal/demo-tooltip', complete: true},
                             {title: 'Popover弹出框', icon: 'pl-message1', page: '/normal/demo-popover', complete: true},
+                            {title: 'Popper悬浮框', icon: 'pl-message1', page: '/normal/demo-popper', complete: true},
                             {title: 'Card卡片', icon: 'pl-card', page: '/normal/demo-card', complete: true},
                             {title: 'Carousel轮播', icon: 'pl-carousel', page: '/normal/demo-carousel', complete: true},
                             {title: 'Collapse折叠面板', icon: 'pl-collapse', page: '/normal/demo-collapse', complete: true},
