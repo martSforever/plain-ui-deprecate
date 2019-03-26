@@ -160,7 +160,10 @@
             p_clickShadow(e) {
                 if (!this.$refs.content.contains(e.target)) {
                     this.$emit('clickShadow', e)
-                    !this.disabledHideOnClickShadow && this.hide()
+                    if (!this.disabledHideOnClickShadow) {
+                        this.p_cancel()
+                        this.hide()
+                    }
                 }
             },
             p_clickContent(e) {
