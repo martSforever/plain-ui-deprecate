@@ -7,7 +7,7 @@ import $dom from './utils/dom'
 import $storage from './utils/storage'
 import $validate from './utils/validate'
 import {$dialog} from './components/dialog/index'
-import {$message} from "./components/message";
+import {MessageService} from "./components/message";
 import {$notice} from "./components/notice";
 import {NavigatorMixin} from "./components/navigator-main";
 import ContextMenu from './components/context-menu/ContextMenu'
@@ -147,7 +147,6 @@ const PlainUI = {
     $dom,
     $storage,
     $validate,
-    $message,
     TYPE,
     zIndex: null,
     transitionTime: 150,
@@ -172,10 +171,10 @@ const PlainUI = {
         PlainUI.nextTick = () => new Promise((rs) => Vue.prototype.$nextTick(() => rs()))
         PlainUI.Vue = Vue
         Vue.prototype.$plain = PlainUI
-        Vue.prototype.$message = $message
         Vue.prototype.$notice = $notice
         Vue.prototype.$dialog = $dialog
         Vue.prototype.$contextMenu = new ContextMenu(Vue)
+        Vue.prototype.$message = new MessageService(Vue)
         Vue.mixin(NavigatorMixin)
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)

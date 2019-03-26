@@ -3,8 +3,11 @@ import Vue from 'vue'
 import utils from '../../utils/utils'
 import dom from '../../utils/dom'
 
-const $message = {
-    _el: null,
+class MessageService {
+    _el;
+    Vue;
+    containers = {}
+
     get el() {
         if (!this._el) {
             this._el = document.createElement('div')
@@ -12,15 +15,20 @@ const $message = {
             document.body.appendChild(this._el)
         }
         return this._el
-    },
-    containers: {},
+    }
+
+    constructor(Vue) {
+        this.Vue = Vue
+    }
+
     newInstance(horizontal, vertical) {
-        const instance = new Vue(PlMessageContainer).$mount()
+        const instance = new this.Vue(PlMessageContainer).$mount()
         instance.p_horizontal = horizontal
         instance.p_vertical = vertical
         this.el.appendChild(instance.$el)
         return instance
-    },
+    }
+
     /**
      * 显示提示消息
      * @author  韦胜健
@@ -58,12 +66,13 @@ const $message = {
         }
         Vue.prototype.$nextTick(() => container.add(messageOption))
         return messageOption
-    },
+    }
+
     close(messageOption) {
         this.containers[`${messageOption.horizontal}-${messageOption.vertical}`].remove(messageOption)
-    },
+    }
 }
 
 export {
-    $message,
+    MessageService
 }
