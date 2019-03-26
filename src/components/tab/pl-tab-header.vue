@@ -54,11 +54,11 @@
 <style lang="scss">
     .pl-tab-header {
         @include public-style;
-        display: flex;
-        align-items: center;
+        display: block;
         border-bottom: solid 1px $tab-color;
 
         .pl-item {
+            display: inline-block;
             &:not(:last-child) .pl-tab-header-item {
                 border-right: none;
             }
