@@ -375,7 +375,10 @@
                     if (col.disabledConfig) return
                     !!this.configColumnFunc && this.configColumnFunc(col, isGroup, cols)
                     if (isGroup) return
-                    if (col.hide) cols.splice(cols.indexOf(col), 1)
+                    if (col.hide) {
+                        cols.splice(cols.indexOf(col), 1)
+                        return 1
+                    }
                 })
 
                 /*---------------------------------------排序-------------------------------------------*/
@@ -426,7 +429,7 @@
                 else {
                     for (let i = 0; i < columns.length; i++) {
                         const col = columns[i];
-                        fn(col, !!col.group, columns)
+                        i -= (fn(col, !!col.group, columns) || 0)
                         if (!!col.group) this.p_colIterate(col.children, fn)
                     }
                 }
