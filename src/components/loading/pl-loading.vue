@@ -1,30 +1,15 @@
 <template>
-    <div class="pl-loading" :style="styles">
-        <img :src="src" class="pl-loading-img"/>
-    </div>
+    <pl-icon loading :icon="`pl-loading-${type}`"/>
 </template>
 
 <script>
-    import svgs from './index'
+    import PlIcon from "../icon/pl-icon";
 
     export default {
         name: "pl-loading",
+        components: {PlIcon},
         props: {
-            type: {type: String, default: 'spinner3'},
-            size: {type: Number | String, default: '48px'},
-        },
-        computed: {
-            src() {
-                return svgs[this.type]
-            },
-            styles() {
-                const styles = {}
-                !!this.size && Object.assign(styles, {
-                    width: this.$plain.$utils.typeOf(this.size) === 'string' ? this.size : `${this.size}px`,
-                    height: this.$plain.$utils.typeOf(this.size) === 'string' ? this.size : `${this.size}px`,
-                })
-                return styles
-            },
+            type: {type: String, default: 'section-one'},
         },
     }
 </script>

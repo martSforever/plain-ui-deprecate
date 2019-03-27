@@ -3,12 +3,13 @@
          @click="e=>!readonly && !disabled && $emit('click',e)"
     >
         <pl-icon v-if="!!prefixIcon" :icon="prefixIcon" class="pl-box-prefix-icon"/>
-        <pl-icon v-if="!!loading" icon="pl-loading" loading/>
+        <pl-loading v-if="!!loading" style="margin-right: 0.5em"/>
         <div class="pl-box-content" v-if="!iconOnly">
             <slot></slot>
         </div>
         <pl-icon v-if="!!suffixIcon" :icon="suffixIcon" class="pl-box-suffix-icon"/>
-        <pl-icon v-if="!!clearIcon && clearable" :hover="clearable&&hovering&&value!=null" :icon="clearable&&hovering&&value!=null ?'pl-close':clearIcon" @click.stop.prevent="e=>clearable && $emit('clear',e)" class="pl-box-clear-icon"/>
+        <pl-icon v-if="!!clearIcon && clearable" :hover="clearable&&hovering&&value!=null" :icon="clearable&&hovering&&value!=null ?'pl-close':clearIcon"
+                 @click.stop.prevent="e=>clearable && $emit('clear',e)" class="pl-box-clear-icon"/>
         <div class="pl-box-tooltip" v-if="!!passValidMsg && passValidMsg!=='必填'">
             <span>{{passValidMsg}}</span>
         </div>
@@ -18,11 +19,12 @@
 <script>
     import PlIcon from "../icon/pl-icon";
     import {BoxMixin} from "../../mixin/component-mixin";
+    import PlLoading from "../loading/pl-loading";
 
     export default {
         name: "pl-box",
-        components: {PlIcon},
-        mixins:[BoxMixin],
+        components: {PlLoading, PlIcon},
+        mixins: [BoxMixin],
         watch: {
             value() {
                 this.validate()

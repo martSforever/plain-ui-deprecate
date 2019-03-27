@@ -178,7 +178,7 @@ const PlainUI = {
         Vue.mixin(NavigatorMixin)
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
-        $utils.addScript('https://at.alicdn.com/t/font_948159_vzetxolp8t.js')
+        $utils.addScript('https://at.alicdn.com/t/font_948159_znmi923b03k.js')
         !!iconfont && $utils.addScript(iconfont)
 
         standardTableColumns.concat(tableColumns).forEach(col => {
