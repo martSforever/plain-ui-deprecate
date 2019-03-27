@@ -31,8 +31,8 @@
               @click="e=>$emit('click',e)"
     >
         <div slot="append" class="pl-number-controller" v-if="!noController">
-            <link-icon icon="pl-triangle-up-fill" @click.stop="e=>!disabled&&!readonly&&p_add(e)"/>
-            <link-icon icon="pl-triangle-down-fill" @click.stop="e=>!disabled&&!readonly&&p_subtract(e)"/>
+            <link-icon class="pl-number-icon-up" icon="pl-triangle-up-fill" @click.stop="e=>!disabled&&!readonly&&p_add(e)"/>
+            <link-icon class="pl-number-icon-down" icon="pl-triangle-down-fill" @click.stop="e=>!disabled&&!readonly&&p_subtract(e)"/>
         </div>
     </pl-input>
 </template>
@@ -100,7 +100,6 @@
 
 <style lang="scss">
     .pl-number {
-        padding-right: 0 !important;
         .pl-number-controller {
             display: flex;
             align-items: center;
@@ -108,12 +107,23 @@
             height: 100%;
             flex-direction: column;
             cursor: pointer;
-            width: 2*$icon-size;
+            width: $icon-size;
+            user-select: none;
             .pl-icon:active {
                 background-color: #f2f2f2;
             }
             .pl-icon:not(:last-child) {
                 margin-bottom: 1px;
+            }
+
+            .pl-number-icon-up, .pl-number-icon-down {
+                position: relative;
+            }
+            .pl-number-icon-up {
+                top: 2px;
+            }
+            .pl-number-icon-down {
+                bottom: 2px;
             }
         }
         @each $key, $value in $list-size {

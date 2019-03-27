@@ -137,6 +137,9 @@
             &.pl-box-invalid {
                 border-color: $color-error;
             }
+            .pl-icon {
+                color: $color-primary !important;
+            }
         }
     }
 </style>
