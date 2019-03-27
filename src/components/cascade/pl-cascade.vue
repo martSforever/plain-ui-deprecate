@@ -1,6 +1,6 @@
 <template>
     <pl-popover class="pl-cascade" :height="28*5" :width="null" disabled-equal v-model="p_show" @hide="p_hide">
-        <pl-input clear-icon="pl-double-arrow-down" :value="p_showLabel" :defaultClear="false" @clear="p_clear"/>
+        <pl-input :clear-icon="p_suffixIcon" :value="p_showLabel" :defaultClear="false" @clear="p_clear"/>
         <div slot="popper" class="pl-cascade-popper">
             <pl-cascade-option :cascade-width="cascadeWidth"
                                :data="data"
@@ -39,7 +39,7 @@
     export default {
         name: "pl-cascade",
         components: {PlCascadeOption, PlInput, PlPopover},
-        mixins:[CascadeMixin],
+        mixins: [CascadeMixin],
         props: {
             value: {type: Array, default: () => []},                                //双向绑定的数据
         },
@@ -59,6 +59,9 @@
                 } else {
                     return array[array.length - 1][this.labelKey]
                 }
+            },
+            p_suffixIcon() {
+                return this.p_show ? 'pl-double-arrow-up' : 'pl-double-arrow-down'
             },
         },
         methods: {
