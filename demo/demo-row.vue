@@ -38,7 +38,7 @@
             }
         }
         .demo-row-content {
-            padding: 12px;
+            padding: 12px 0;
             & > * {
                 margin-right: 12px;
             }
