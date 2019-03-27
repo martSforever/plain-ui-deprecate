@@ -1,10 +1,16 @@
 import PlNoticeContainer from './pl-notice-container'
-import Vue from 'vue'
 import utils from '../../utils/utils'
 import dom from '../../utils/dom'
 
-const $notice = {
-    _el: null,
+class NoticeService {
+    Vue;
+    _el = null;
+    containers = {}
+
+    constructor(Vue){
+        this.Vue = Vue
+    }
+
     get el() {
         if (!this._el) {
             this._el = document.createElement('div')
@@ -12,15 +18,16 @@ const $notice = {
             document.body.appendChild(this._el)
         }
         return this._el
-    },
-    containers: {},
+    }
+
     newInstance(horizontal, vertical) {
-        const instance = new Vue(PlNoticeContainer).$mount()
+        const instance = new this.Vue(PlNoticeContainer).$mount()
         instance.p_horizontal = horizontal
         instance.p_vertical = vertical
         this.el.appendChild(instance.$el)
         return instance
-    },
+    }
+
     /**
      * 显示提示消息
      * @author  韦胜健
@@ -65,14 +72,15 @@ const $notice = {
             noHeader,
             renderFunc,
         }
-        Vue.prototype.$nextTick(() => container.add(messageOption))
+        this.Vue.prototype.$nextTick(() => container.add(messageOption))
         return messageOption
-    },
+    }
+
     close(messageOption) {
         this.containers[`${messageOption.horizontal}-${messageOption.vertical}`].remove(messageOption)
-    },
+    }
 }
 
 export {
-    $notice,
+    NoticeService
 }

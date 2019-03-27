@@ -8,7 +8,7 @@ import $storage from './utils/storage'
 import $validate from './utils/validate'
 import {DialogService} from './components/dialog/index'
 import {MessageService} from "./components/message";
-import {$notice} from "./components/notice";
+import {NoticeService} from "./components/notice";
 import {NavigatorMixin} from "./components/navigator-main";
 import ContextMenu from './components/context-menu/ContextMenu'
 
@@ -171,7 +171,7 @@ const PlainUI = {
         PlainUI.nextTick = () => new Promise((rs) => Vue.prototype.$nextTick(() => rs()))
         PlainUI.Vue = Vue
         Vue.prototype.$plain = PlainUI
-        Vue.prototype.$notice = $notice
+        Vue.prototype.$notice = new NoticeService(Vue)
         Vue.prototype.$dialog = new DialogService(Vue)
         Vue.prototype.$contextMenu = new ContextMenu(Vue)
         Vue.prototype.$message = new MessageService(Vue)
