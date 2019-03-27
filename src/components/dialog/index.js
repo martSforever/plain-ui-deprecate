@@ -2,7 +2,6 @@ import PlDialog from './pl-dialog'
 import PlRenderFunc from '../render/pl-render-func'
 import PlInput from '../input/pl-input'
 import PlTextarea from '../textarea/pl-textarea'
-import Vue from 'vue'
 import $utils from 'src/utils/utils'
 
 const DEFAULT_OPTION = {
@@ -47,16 +46,21 @@ const DEFAULT_OPTION = {
     textarea: false,
 }
 
-const $dialog = {
-    _ins: null,
+class DialogService {
+    _ins = null;
+    Vue;
+
     get instance() {
-        if (!this._ins) {
-            this._ins = this.newInstance()
-        }
+        if (!this._ins) this._ins = this.newInstance()
         return this._ins;
-    },
+    }
+
+    constructor(Vue) {
+        this.Vue = Vue
+    }
+
     newInstance() {
-        const instance = new Vue({
+        const instance = new this.Vue({
             components: {PlDialog, PlRenderFunc, PlInput, PlTextarea},
             render(h) {
                 return (
@@ -132,7 +136,8 @@ const $dialog = {
         }).$mount()
         document.body.appendChild(instance.$el)
         return instance;
-    },
+    }
+
     show(message, option) {
         let msg, opt;
         const firstArgType = $utils.typeOf(message)
@@ -149,9 +154,9 @@ const $dialog = {
         Object.assign(this.instance, DEFAULT_OPTION, opt)
         this.instance.message = msg
         this.instance.show()
-    },
+    }
 }
 
 export {
-    $dialog
+    DialogService
 }

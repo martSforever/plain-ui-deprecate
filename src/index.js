@@ -6,7 +6,7 @@ import $utils from './utils/utils'
 import $dom from './utils/dom'
 import $storage from './utils/storage'
 import $validate from './utils/validate'
-import {$dialog} from './components/dialog/index'
+import {DialogService} from './components/dialog/index'
 import {MessageService} from "./components/message";
 import {$notice} from "./components/notice";
 import {NavigatorMixin} from "./components/navigator-main";
@@ -172,7 +172,7 @@ const PlainUI = {
         PlainUI.Vue = Vue
         Vue.prototype.$plain = PlainUI
         Vue.prototype.$notice = $notice
-        Vue.prototype.$dialog = $dialog
+        Vue.prototype.$dialog = new DialogService(Vue)
         Vue.prototype.$contextMenu = new ContextMenu(Vue)
         Vue.prototype.$message = new MessageService(Vue)
         Vue.mixin(NavigatorMixin)
