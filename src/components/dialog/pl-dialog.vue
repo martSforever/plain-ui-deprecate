@@ -26,9 +26,11 @@
                 <div class="pl-dialog-body" :style="bodyStyles">
                     <slot></slot>
                 </div>
-                <div class="pl-dialog-foot" :class="[`pl-dialog-foot-align-${footAlign}`]" v-if="!noFooter && (cancelButton || confirmButton)">
-                    <pl-button box-type="line" label="取消" @click="p_cancel" v-if="!!cancelButton"/>
-                    <pl-button label="确认" @click="p_confirm" v-if="!!confirmButton"/>
+                <div class="pl-dialog-foot" :class="[`pl-dialog-foot-align-${footAlign}`]" v-if="!noFooter && (cancelButton || confirmButton || !!$slots.foot)">
+                    <slot name="foot">
+                        <pl-button box-type="line" label="取消" @click="p_cancel" v-if="!!cancelButton"/>
+                        <pl-button label="确认" @click="p_confirm" v-if="!!confirmButton"/>
+                    </slot>
                 </div>
             </div>
         </div>
