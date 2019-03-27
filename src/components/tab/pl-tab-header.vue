@@ -11,7 +11,7 @@
                  :class="{'pl-tab-header-item-active':index === currentValue}"
                  @click="p_click(item,index)"
                  @contextmenu.prevent.stop="p_contextmenu(item,index)">
-                <span>{{item}}</span>
+                <div class="pl-tab-header-item-text"><pl-tooltip-text :content="item" show-overflow-tooltip/></div>
                 <div class="pl-tab-header-item-close" @click.stop="p_close(item,index)" v-if="clearIcon">
                     <pl-icon icon="pl-close" hover/>
                 </div>
@@ -25,10 +25,11 @@
     import PlIcon from "../icon/pl-icon";
     import PlList from "../list/pl-list";
     import PlItem from "../list/pl-item";
+    import PlTooltipText from "../tooltip/pl-tooltip-text";
 
     export default {
         name: "pl-tab-header",
-        components: {PlItem, PlList, PlIcon},
+        components: {PlTooltipText, PlItem, PlList, PlIcon},
         mixins: [ValueMixin],
         props: {
             value: {type: Number, default: 0},
@@ -65,39 +66,36 @@
         }
 
         .pl-tab-header-item {
-            padding: 0 24px;
+            padding: 0 16px;
             font-size: 12px;
-            min-width: 96px;
-            height: 40px;
+            height: 36px;
+            line-height: 36px;
             display: flex;
             align-items: center;
-            justify-content: center;
             background-color: white;
             position: relative;
             top: 1px;
             box-sizing: border-box;
             cursor: pointer;
             border: solid 1px $tab-color;
+            width: 150px;
+            .pl-tab-header-item-text {
+                flex: 1;
+                flex-shrink: 0;
+                overflow: hidden;
+            }
 
             .pl-tab-header-item-close {
-                position: absolute;
-                top: 1px;
-                right: 6px;
                 display: flex;
                 align-items: center;
-                height: 100%;
                 color: #aaa;
-                opacity: 0;
+                margin-left: 3px;
+                line-height: initial;
             }
 
             &.pl-tab-header-item-active {
                 border-bottom-color: white;
                 color: $color-primary;
-            }
-            &:hover {
-                .pl-tab-header-item-close {
-                    opacity: 1;
-                }
             }
         }
     }
