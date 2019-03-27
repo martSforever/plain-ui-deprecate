@@ -45,6 +45,8 @@
             title: {default: '#'},
             align: {default: 'center'},
             disabledConfig: {default: true},
+            disabledBatchModify: {default: true},
+
         },
     }
 </script>

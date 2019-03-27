@@ -21,6 +21,7 @@ export const ColumnProps = {
     hide: {type: Boolean},                                                                                          //是否隐藏
     disabledConfig: {type: Boolean},                                                                                //禁止配置改列
     disabledFormEdit: {type: Boolean},                                                                              //禁止在form表单中编辑
+    disabledBatchModify: {type: Boolean},                                                                           //禁止批量修改
 
     dataType: {type: String},                                                                                       //数据格式化方式:tel,cny,money,percent
     tooltip: {type: Boolean},                                                                                       //是否tooltip显示文本
@@ -110,19 +111,12 @@ export const ColumnItemMixin = {
     data() {
         return {
             currentEditable: false,                                                                                     //当前行是否被设置为可编辑
-            temp_controller: null,
+            p_controller: null,                                                                                         //pl-table-cell-controller
+            controllerEditable: null,                                                                                   //controller是否指明是否可编辑
+            controllerRequired: null,                                                                                   //controller是否指明required
         }
     },
     computed: {
-        /**
-         * 行编辑单元格所属ROW组件对象
-         * @author  韦胜健
-         * @date    2019/1/8 10:21
-         */
-        p_controller() {
-            if (!this.temp_controller) this.temp_controller = this.$plain.$dom.findComponentUpward(this, 'pl-table-cell-controller')
-            return this.temp_controller
-        },
         /**
          * 当前是否可编辑
          * @author  韦胜健
@@ -130,6 +124,7 @@ export const ColumnItemMixin = {
          */
         p_editable() {
             if (this.rowIndex == null && this.colIndex == null) return
+            if (this.controllerEditable != null) return this.controllerEditable
             const editable = this.currentEditable && this.editable
             return editable && (!this.editableFunc || this.editableFunc(this.p_data))
         },
@@ -140,6 +135,7 @@ export const ColumnItemMixin = {
          */
         p_required() {
             if (this.rowIndex == null && this.colIndex == null) return
+            if (this.controllerRequired != null) return this.controllerRequired
             return !!this.requiredFunc ? this.requiredFunc(this.p_data) : this.required
         },
         /**
@@ -165,7 +161,8 @@ export const ColumnItemMixin = {
         },
     },
     mounted() {
-        !!this.p_controller && this.rowIndex != null && this.colIndex != null && this.p_controller.p_add(this)
+        this.p_controller = this.$plain.$dom.findComponentUpward(this, 'pl-table-cell-controller')
+        if (!!this.p_controller) this.rowIndex != null && this.colIndex != null && this.p_controller.p_add(this)
     },
     beforeDestroy() {
         !!this.p_controller && this.p_controller.p_remove(this)

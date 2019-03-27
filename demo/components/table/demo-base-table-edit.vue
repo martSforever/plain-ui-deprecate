@@ -146,6 +146,51 @@
                 }
                 !!final && final.apply(this)
             },
+
+            /**
+             * 无论是新建还是编辑，保存单条数据动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:16
+             */
+            saveRow({editData}) {
+                const {row, editRow} = editData[0]
+                const newRow = this.requestSaveRow(editRow)
+                this.baseTable.saveEdit([{row, editRow, newRow}])
+            },
+            /**
+             * 无论是新建还是编辑，保存多条数据动作
+             * @author  韦胜健
+             * @date    2019/1/9 11:17
+             */
+            saveRows({editData}) {
+                const editRows = editData.map(item => item.editRow)
+                const newRows = this.requestSaveRows(editRows)
+                this.baseTable.saveEdit(editData.map(({row, editRow}, index) => ({row, editRow, newRow: newRows[index]})))
+            },
+
+            /**
+             * 模拟请求保存单条数据
+             * @author  韦胜健
+             * @date    2019/1/9 11:14
+             */
+            requestSaveRow(row) {
+                const newRow = this.$plain.$utils.deepCopy(row)
+                newRow.left1 = this.$plain.$utils.uuid()
+                return newRow
+            },
+            /**
+             * 模拟保存多条数据
+             * @author  韦胜健
+             * @date    2019/1/9 11:14
+             */
+            requestSaveRows(rows) {
+                return rows.reduce((ret, item) => {
+                    const newRow = this.$plain.$utils.deepCopy(item)
+                    newRow.left1 = this.$plain.$utils.uuid()
+                    ret.push(newRow)
+                    return ret
+                }, [])
+            },
         }
     }
 </script>

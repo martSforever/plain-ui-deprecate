@@ -26,6 +26,7 @@
         mixins: [ColumnMixin],
         props: {
             disabledFormEdit: {default: true},
+            disabledBatchModify: {default: true},
         },
     }
 </script>
