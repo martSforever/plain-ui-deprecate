@@ -88,7 +88,7 @@
         },
         computed: {
             p_suffixIcon() {
-                return this.currentShow ? 'pl-arrow-up' : 'pl-arrow-down'
+                return this.currentShow ? 'pl-arrow-top-light' : 'pl-arrow-down-light'
             },
             showValue() {
                 return this.p_data.reduce((ret, item) => {
