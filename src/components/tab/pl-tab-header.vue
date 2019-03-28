@@ -8,10 +8,12 @@
         <pl-item v-for="(item,index) in data"
                  :key="!!ids&&ids[index]?ids[index]:item">
             <div class="pl-tab-header-item"
-                 :class="{'pl-tab-header-item-active':index === currentValue}"
                  @click="p_click(item,index)"
+                 :class="{'pl-tab-header-item-active':index === currentValue}"
                  @contextmenu.prevent.stop="p_contextmenu(item,index)">
-                <div class="pl-tab-header-item-text"><pl-tooltip-text :content="item" show-overflow-tooltip/></div>
+                <div class="pl-tab-header-item-text">
+                    <pl-tooltip-text :content="item" show-overflow-tooltip/>
+                </div>
                 <div class="pl-tab-header-item-close" @click.stop="p_close(item,index)" v-if="clearIcon">
                     <pl-icon icon="pl-close" hover/>
                 </div>
@@ -57,12 +59,10 @@
         @include public-style;
         display: block;
         border-bottom: solid 1px $tab-color;
-
         .pl-item {
             display: inline-block;
-            &:not(:last-child) .pl-tab-header-item {
-                border-right: none;
-            }
+            margin-right: 16px;
+            padding-bottom: 16px;
         }
 
         .pl-tab-header-item {
@@ -72,13 +72,31 @@
             line-height: 36px;
             display: flex;
             align-items: center;
-            background-color: white;
-            position: relative;
-            top: 1px;
-            box-sizing: border-box;
+            background-color: #f9f9f9;
             cursor: pointer;
-            border: solid 1px $tab-color;
             width: 150px;
+            position: relative;
+            &:before {
+                border: solid 1px $tab-color;
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+            &.pl-tab-header-item-active {
+                color: $color-primary;
+                background-color: white;
+                &:before {
+                    bottom: -17px;
+                    border-bottom-color: white;
+                }
+            }
+            &:hover:not(.pl-tab-header-item-active) {
+                background-color: $color-primary-light;
+            }
+
             .pl-tab-header-item-text {
                 flex: 1;
                 flex-shrink: 0;
@@ -92,11 +110,7 @@
                 margin-left: 3px;
                 line-height: initial;
             }
-
-            &.pl-tab-header-item-active {
-                border-bottom-color: white;
-                color: $color-primary;
-            }
         }
+
     }
 </style>
