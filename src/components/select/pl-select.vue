@@ -15,10 +15,11 @@
         />
         <pl-scroll :scroll-x="false" slot="popper">
             <div class="pl-select-content">
-                <div class="link-select-item" v-for="(item,index) in p_data" :label="item.label" :value="item.value" :key="index" @click="p_click(item,index)">
+                <div class="link-select-item" :class="{'link-select-item-active':item.checked}" v-for="(item,index) in p_data" :label="item.label" :value="item.value" :key="index"
+                     @click="p_click(item,index)">
                     <slot :item="item.item" :index="index" :checked="item.checked">
+                        <pl-radio :value="item.checked" readonly style="margin-right: 0.5em" inactive-icon="pl-square-light" v-if="multiple"/>
                         <span>{{item.label}}</span>
-                        <pl-icon icon="pl-check" v-if="item.checked"/>
                     </slot>
                 </div>
             </div>
@@ -33,11 +34,12 @@
     import PlIcon from "../icon/pl-icon";
     import PlScroll from "../scroll/pl-scroll";
     import {PopoverMixin} from "../popper";
+    import PlRadio from "../radio/pl-radio";
 
     export default {
         name: "pl-select",
         mixins: [BoxMixin, InputMixin, PopoverMixin],
-        components: {PlScroll, PlIcon, PlInput, PlPopover},
+        components: {PlRadio, PlScroll, PlIcon, PlInput, PlPopover},
         props: {
             show: {type: Boolean},                                                  //打开下拉框，双向绑定属性
             multiple: {type: Boolean},                                              //是否多选
@@ -148,11 +150,13 @@
         .link-select-item {
             font-size: 12px;
             height: 28px;
-            line-height: 28px;
             padding: 0 12px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
+            &.link-select-item-active {
+                background-color: $color-primary-light;
+            }
             &:hover {
                 background-color: $color-primary-light;
                 cursor: pointer;

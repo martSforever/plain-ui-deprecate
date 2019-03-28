@@ -1,7 +1,7 @@
 <template>
     <div class="demo-radio">
         <demo-row title="基本用法">
-            <link-radio v-model="val1"/>
+            <link-radio v-model="val1"/><span>hello</span>
             <link-button @click="val1=!val1" label="button"/>
         </demo-row>
         <demo-row title="设置真假值">
