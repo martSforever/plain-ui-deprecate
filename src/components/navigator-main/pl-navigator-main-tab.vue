@@ -50,7 +50,7 @@
 
                 main: null,
                 listenEvents: [],
-                listener: new this.$plain.Vue({}).$mount()
+                listener: new this.$plain.Vue({template:'<div></div>'}).$mount()
             }
         },
         created() {

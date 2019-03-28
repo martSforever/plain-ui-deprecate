@@ -97,8 +97,6 @@
                 selfStorage,
                 currentValue: null,
                 url,
-
-                listener: new this.$plain.Vue({}).$mount(),
             }
         },
         created() {
