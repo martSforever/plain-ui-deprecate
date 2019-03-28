@@ -11,11 +11,13 @@
                  @click="p_click(item,index)"
                  :class="{'pl-tab-header-item-active':index === currentValue}"
                  @contextmenu.prevent.stop="p_contextmenu(item,index)">
-                <div class="pl-tab-header-item-text">
-                    <pl-tooltip-text :content="item" show-overflow-tooltip/>
-                </div>
-                <div class="pl-tab-header-item-close" @click.stop="p_close(item,index)" v-if="clearIcon">
-                    <pl-icon icon="pad-close" hover/>
+                <div class="pl-tab-header-item-content">
+                    <div class="pl-tab-header-item-text">
+                        <pl-tooltip-text :content="item" show-overflow-tooltip/>
+                    </div>
+                    <div class="pl-tab-header-item-close" @click.stop="p_close(item,index)" v-if="clearIcon">
+                        <pl-icon icon="pad-close" hover/>
+                    </div>
                 </div>
             </div>
         </pl-item>
@@ -70,12 +72,21 @@
             font-size: 12px;
             height: 36px;
             line-height: 36px;
-            display: flex;
-            align-items: center;
             background-color: #f9f9f9;
             cursor: pointer;
             width: 150px;
             position: relative;
+
+            .pl-tab-header-item-content {
+                height: 100%;
+                line-height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                position: relative;
+                z-index: 1;
+            }
+
             &:before {
                 border: solid 1px $tab-color;
                 content: '';
