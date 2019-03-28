@@ -46,7 +46,7 @@
             </demo-row-item>
         </demo-row>
         <demo-row title="前置图标以及后置图标">
-            <link-input v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
+            <link-input v-for="(item,index) in colors" :box-color="item" :key="index" prefix-icon="pl-date-fill" suffix-icon="pad-search"/>
         </demo-row>
         <demo-row title="加载图标">
             <link-input v-for="(item,index) in colors" :box-color="item" :key="index" loading/>

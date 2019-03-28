@@ -24,7 +24,7 @@ type:'table'
 | boxSize | string | large,default,small | default | 盒子大小 |
 | prefixIcon | string | --- | --- | 前置图标 |
 | suffixIcon | string | --- | --- | 后置图标 |
-| clearIcon | string | --- | --- | 清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pl-close，否则显示clearIcon |
+| clearIcon | string | --- | --- | 清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pad-close，否则显示clearIcon |
 | clearable | boolean | --- | true | 是否可清除,为false，则点击之后清空的默认动作不会执行 |
 | loading | boolean | --- | --- | 显示loading状态 |
 | iconOnly | boolean | --- | --- | 只有图标，设置为true，则为圆形 |

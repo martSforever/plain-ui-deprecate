@@ -54,10 +54,10 @@
                 return !!this.color ? this.color : (!!this.p_group && !!this.p_group.color) ? this.p_group.color : 'primary';
             },
             p_activeIcon() {
-                return !this.p_group ? !!this.activeIcon ? this.activeIcon : 'pl-check-square' : !!this.p_group.activeIcon ? this.p_group.activeIcon : !!this.p_group.multiple ? 'pl-check-square' : 'pl-radio-on'
+                return !this.p_group ? !!this.activeIcon ? this.activeIcon : 'pad-check-square-fill' : !!this.p_group.activeIcon ? this.p_group.activeIcon : !!this.p_group.multiple ? 'pad-check-square-fill' : 'pl-circle-radio'
             },
             p_inactiveIcon() {
-                return !this.p_group ? !!this.inactiveIcon ? this.inactiveIcon : 'pl-square' : !!this.p_group.inactiveIcon ? this.p_group.inactiveIcon : !!this.p_group.multiple ? 'pl-square' : 'pl-radio-off'
+                return !this.p_group ? !!this.inactiveIcon ? this.inactiveIcon : 'pl-square' : !!this.p_group.inactiveIcon ? this.p_group.inactiveIcon : !!this.p_group.multiple ? 'pl-square' : 'pl-circle'
             },
             p_activeColor() {
                 return !!this.activeColor ? this.activeColor : (!!this.p_group && !!this.p_group.activeColor) ? this.p_group.activeColor : 'primary';

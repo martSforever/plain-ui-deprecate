@@ -136,7 +136,7 @@
                 <link-column field="id" title="编号"/>
                 <link-column field="name" title="姓名">
                     <template slot-scope="{row}">
-                        <link-icon icon="pl-check-square"/>
+                        <link-icon icon="pad-check-square-fill"/>
                         <span>hello:{{row.name}}</span>
                     </template>
                 </link-column>

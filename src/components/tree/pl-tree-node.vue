@@ -1,7 +1,7 @@
 <template>
     <div class="pl-tree-node" :class="classes">
         <div class="pl-tree-node-content" :style="styles">
-            <pl-radio active-icon="pl-square-minus-light" inactive-icon="pl-plus-square-light" :value="p_open" size="small" color="primary" @click.stop="toggle"/>
+            <pl-radio active-icon="pad-minus-square" inactive-icon="pad-plus-square" :value="p_open" size="small" color="primary" @click.stop="toggle"/>
             <pl-check-all :label="null" size="small" :status="checkStatus" @click="p_clickCheck" v-if="checkbox"/>
             <div @click="!!toggleOnClickContent && toggle()">
                 <slot :data="data"></slot>

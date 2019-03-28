@@ -61,7 +61,7 @@
                 }
             },
             p_suffixIcon() {
-                return this.p_show ? 'pl-double-arrow-up' : 'pl-double-arrow-down'
+                return this.p_show ? 'pad-doubleup' : 'pad-doubledown'
             },
         },
         methods: {

@@ -18,7 +18,7 @@ minHeight:200
 <link-button label="简单按钮1"/>
 <link-button>
     <span>简单按钮2</span>
-    <link-icon icon="pl-search"/>
+    <link-icon icon="pad-search"/>
 </link-button>
 ```
 ```js
@@ -78,7 +78,7 @@ export default{
 title:'左右图标:prefixIcon, suffixIcon'
 :::setting-end
 ```html
-<link-button label="搜索日期"  prefix-icon="pl-date" suffix-icon="pl-search"/>
+<link-button label="搜索日期"  prefix-icon="pl-date-fill" suffix-icon="pad-search"/>
 ```
 ```js
 export default{
@@ -95,7 +95,7 @@ title:'只有图标:iconOnly'
 :::setting-end
 ```html
 <link-button label="primary" 
-             prefix-icon="pl-search" 
+             prefix-icon="pad-search" 
              icon-only/>
 ```
 :::block-end
@@ -343,7 +343,7 @@ type:'table'
 | boxSize | string | large,default,small | default | 盒子大小 |
 | prefixIcon | string | --- | --- | 前置图标 |
 | suffixIcon | string | --- | --- | 后置图标 |
-| clearIcon | string | --- | --- | 清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pl-close，否则显示clearIcon |
+| clearIcon | string | --- | --- | 清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pad-close，否则显示clearIcon |
 | clearable | boolean | --- | true | 是否可清除,为false，则点击之后清空的默认动作不会执行 |
 | loading | boolean | --- | --- | 显示loading状态 |
 | iconOnly | boolean | --- | --- | 只有图标，设置为true，则为圆形 |

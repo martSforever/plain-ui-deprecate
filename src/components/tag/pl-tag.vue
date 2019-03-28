@@ -2,7 +2,7 @@
     <div class="pl-tag" :class="classes">
         {{label}}
         <slot></slot>
-        <pl-icon icon="pl-close" class="pl-tag-close"/>
+        <pl-icon icon="pad-close" class="pl-tag-close"/>
     </div>
 </template>
 

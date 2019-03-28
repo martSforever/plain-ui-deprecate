@@ -32,7 +32,7 @@
             <link-radio v-for="(color,index) in colors" :key="index" :color="color" v-model="val1" readonly/>
         </demo-row>
         <demo-row title="设置激活icon与未激活icon">
-            <link-radio v-for="(color,index) in colors" :key="index" :color="color" v-model="val1" active-icon="pl-star-fill" inactive-icon="pl-star"/>
+            <link-radio v-for="(color,index) in colors" :key="index" :color="color" v-model="val1" active-icon="pad-star-fill" inactive-icon="pad-star"/>
         </demo-row>
         <demo-row title="设置激活颜色与未激活颜色">
             <link-radio active-color="#7109AA" inactive-color="#009999"/>

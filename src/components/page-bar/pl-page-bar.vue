@@ -12,7 +12,7 @@
                     :input-width="100"
                     :height="120"/>
             <div class="pl-page-bar-operation">
-                <pl-icon icon="pl-arrow-left-light" class="pl-page-bar-operate-icon"/>
+                <pl-icon icon="pad-left" class="pl-page-bar-operate-icon"/>
                 <div class="pl-page-bar-operate-num-wrapper">
                     <template v-if="p_page-availablePage-1>0">
                         <div class="pl-page-bar-operate-num" @click="p_clickPage(1)">1</div>
@@ -29,7 +29,7 @@
                         <div class="pl-page-bar-operate-num" @click="p_clickPage(totalPage)">{{totalPage}}</div>
                     </template>
                 </div>
-                <pl-icon icon="pl-arrow-right-light" class="pl-page-bar-operate-icon"/>
+                <pl-icon icon="pad-right" class="pl-page-bar-operate-icon"/>
                 <pl-icon icon="pl-refresh" class="pl-page-bar-operate-icon pl-page-bar-operate-refresh-icon" :loading="loading"/>
             </div>
 

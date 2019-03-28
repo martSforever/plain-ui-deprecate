@@ -20,7 +20,7 @@
                                     <pl-tooltip-text :content="item.title"/>
                                 </span>
                                     <div class="pl-navigator-main-header-item-close" v-if="pageStack.length>1" @click.stop="p_close(item.id)">
-                                        <pl-icon icon="pl-close"/>
+                                        <pl-icon icon="pad-close"/>
                                     </div>
                                 </div>
                             </div>

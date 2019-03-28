@@ -12,7 +12,7 @@
             <pl-input
                     v-bind="inputBinding"
                     :value="currentValue"
-                    clearIcon="pl-time"
+                    clearIcon="pl-time-circle-light"
                     :readonly="inputReadonly"
                     :width="inputWidth"
                     :defaultClear="false"

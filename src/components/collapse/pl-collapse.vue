@@ -5,7 +5,7 @@
                 <span v-if="!!title">{{title}}</span>
             </slot>
             <div class="pl-collapse-head-icon-wrapper" v-if="!noIcon">
-                <pl-icon icon="pl-arrow-down" :color="iconColor"/>
+                <pl-icon icon="pad-down" :color="iconColor"/>
             </div>
         </div>
         <pl-collapse-transition>

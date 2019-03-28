@@ -133,13 +133,13 @@ const components = {
 }
 
 const TYPE = {
-    white: {icon: 'pl-info-circle-fill', color: 'white'},
-    black: {icon: 'pl-info-circle-fill', color: 'black'},
-    info: {icon: 'pl-info-circle-fill', color: 'primary'},
-    warn: {icon: 'pl-alert', color: 'warn'},
-    success: {icon: 'pl-checked-circle-fill', color: 'success'},
-    error: {icon: 'pl-close-circle-fill', color: 'error'},
-    help: {icon: 'pl-help-circle-fill', color: 'info'},
+    white: {icon: 'pad-info-circle-fill', color: 'white'},
+    black: {icon: 'pad-info-circle-fill', color: 'black'},
+    info: {icon: 'pad-info-circle-fill', color: 'primary'},
+    warn: {icon: 'pad-warning-circle-fill', color: 'warn'},
+    success: {icon: 'pad-check-circle-fill', color: 'success'},
+    error: {icon: 'pad-close-circle-fill', color: 'error'},
+    help: {icon: 'pad-question-circle-fill', color: 'info'},
 }
 
 const PlainUI = {
@@ -178,7 +178,8 @@ const PlainUI = {
         Vue.mixin(NavigatorMixin)
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
-        $utils.addScript('https://at.alicdn.com/t/font_948159_4fzi6ab0znp.js')
+        $utils.addScript('https://at.alicdn.com/t/font_948159_orxbrsb878.js')                  //plain
+        $utils.addScript('https://at.alicdn.com/t/font_1113642_ny96uri8cbm.js')                 //ant-design
         !!iconfont && $utils.addScript(iconfont)
 
         standardTableColumns.concat(tableColumns).forEach(col => {

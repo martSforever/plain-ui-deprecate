@@ -11,7 +11,7 @@
             <pl-input
                     :value="showValue"
                     v-bind="inputBinding"
-                    :clearIcon="datetime?'pl-datetime':'pl-date'"
+                    :clearIcon="datetime?'pl-date-time-fill':'pad-calendar-fill'"
                     :readonly="true"
                     :width="inputWidth!=null?inputWidth:range?280:200"
                     :defaultClear="false"

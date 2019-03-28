@@ -1,10 +1,10 @@
 <template>
     <div class="pl-rate" @mousedown="p_mousedown" :class="classes">
         <div class="pl-rate-active" :style="activeStyles">
-            <pl-icon v-for="(index) in data" :icon="activeIcon||'pl-star-fill'" :key="index"/>
+            <pl-icon v-for="(index) in data" :icon="activeIcon||'pad-star-fill'" :key="index"/>
         </div>
         <div class="pl-rate-inactive">
-            <pl-icon v-for="(index) in data" :icon="inactiveIcon||'pl-star'" :key="index"/>
+            <pl-icon v-for="(index) in data" :icon="inactiveIcon||'pad-star'" :key="index"/>
         </div>
     </div>
 </template>

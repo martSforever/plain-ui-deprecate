@@ -41,8 +41,8 @@
         data() {
             return {
                 STATUS: {
-                    'all': 'pl-check-square',
-                    'some': 'pl-square-minus',
+                    'all': 'pad-check-square-fill',
+                    'some': 'pad-minus-square-fill',
                     'none': 'pl-square',
                 },
             }

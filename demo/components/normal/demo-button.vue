@@ -11,11 +11,11 @@
             <link-button v-for="(item,index) in colors" :label="item" :box-color="item" loading :key="index"/>
         </demo-row>
         <demo-row title="左右图标">
-            <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="pl-date" suffix-icon="pl-search"/>
+            <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="pl-date-fill" suffix-icon="pad-search"/>
         </demo-row>
 
         <demo-row title="只有图标">
-            <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="pl-search" @click="_click"/>
+            <link-button v-for="(item,index) in colors" :key="index" :box-color="item" icon-only suffix-icon="pad-search" @click="_click"/>
         </demo-row>
 
         <demo-row title="禁用">
@@ -151,7 +151,7 @@
                     {name: 'boxSize', type: 'String', select: 'large|default|small', default: 'default', desc: '盒子大小'},
                     {name: 'prefixIcon', type: 'String', select: null, default: null, desc: '前置图标'},
                     {name: 'suffixIcon', type: 'String', select: null, default: null, desc: '后置图标'},
-                    {name: 'clearIcon', type: 'String', select: null, default: null, desc: '清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pl-close，否则显示clearIcon'},
+                    {name: 'clearIcon', type: 'String', select: null, default: null, desc: '清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pad-close，否则显示clearIcon'},
                     {name: 'loading', type: 'Boolean', select: null, default: null, desc: '显示按钮loading图标'},
                     {name: 'iconOnly', type: 'Boolean', select: null, default: null, desc: '只有图标，设置为true则盒子宽高相等，并且为圆形'},
                     {name: 'readonly', type: 'Boolean', select: null, default: null, desc: '只读'},

@@ -15,7 +15,7 @@
                     <pl-tooltip-text :content="item" show-overflow-tooltip/>
                 </div>
                 <div class="pl-tab-header-item-close" @click.stop="p_close(item,index)" v-if="clearIcon">
-                    <pl-icon icon="pl-close" hover/>
+                    <pl-icon icon="pad-close" hover/>
                 </div>
             </div>
         </pl-item>

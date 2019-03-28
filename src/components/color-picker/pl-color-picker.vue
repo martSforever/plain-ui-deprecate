@@ -13,7 +13,7 @@
                       :disabled="disabled">
 
                 <pl-color :color="currentValue" :round="boxShape === 'round'" slot="append" @click="!readonly&&!disabled && (p_show = true)">
-                    <pl-icon icon="pl-arrow-down"/>
+                    <pl-icon icon="pad-down"/>
                 </pl-color>
             </pl-input>
             <pl-color-picker-panel slot="popper" :value="currentValue" @input="p_select" :enable-alpha="enableAlpha" :format="format"/>
