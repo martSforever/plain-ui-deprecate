@@ -1,5 +1,5 @@
 <template>
-    <transition-group :name="`pl-list-${direction}`" tag="div" class="pl-list">
+    <transition-group :name="`pl-list-move-${direction}`" tag="div" class="pl-list">
         <slot></slot>
     </transition-group>
 </template>
@@ -11,6 +11,7 @@
             direction: {                            //item入场出场动画 'left', 'right', 'top', 'bottom', 'left-top', 'top-left', 'right-top', 'top-right', 'left-bottom', 'bottom-left', 'right-bottom', 'bottom-right'
                 type: String,
                 default: 'bottom-right',
+                
             },
         },
     }
@@ -41,11 +42,11 @@
     );
 
     @each $key, $value in $directions {
-        .pl-list-#{$key}-enter, .pl-list-#{$key}-leave-to {
+        .pl-list-move-#{$key}-enter, .pl-list-move-#{$key}-leave-to {
             opacity: 0;
             transform: translateX(map_get($value, x)) translateY(map_get($value, y));
         }
-        .pl-list-#{$key}-leave-active {
+        .pl-list-move-#{$key}-leave-active {
             position: absolute;
         }
     }
