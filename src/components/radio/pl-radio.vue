@@ -101,18 +101,19 @@
         methods: {
             p_click(e) {
                 if (!!this.disabled || !!this.readonly) return;
-                this.currentValue = !this.currentValue;
-                this.$emit('click', e);
-                this.$emit('change', this.currentValue);
                 if (!!this.p_group) {
                     if (!this.p_group.multiple) {
+                        if (!!this.currentValue) return
                         this.p_group.p_radios.forEach(radio => radio !== this && (radio.currentValue = false))
-                        this.p_group.singleValue = !!this.currentValue ? this.id : null;
+                        this.p_group.singleValue = this.id
                     } else {
-                        if (!!this.currentValue) this.p_group.multipleValue.push(this.id);
+                        if (!this.currentValue) this.p_group.multipleValue.push(this.id);
                         else this.$plain.$utils.removeFromArray(this.p_group.multipleValue, this.id);
                     }
                 }
+                this.currentValue = !this.currentValue;
+                this.$emit('click', e);
+                this.$emit('change', this.currentValue);
             },
         }
     }

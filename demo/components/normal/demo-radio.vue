@@ -1,6 +1,6 @@
 <template>
     <div class="demo-radio">
-        <!--<demo-row title="基本用法">
+        <demo-row title="基本用法">
             <link-radio v-model="val1"/>
             <link-button @click="val1=!val1" label="button"/>
         </demo-row>
@@ -36,7 +36,7 @@
         </demo-row>
         <demo-row title="设置激活颜色与未激活颜色">
             <link-radio active-color="#7109AA" inactive-color="#009999"/>
-        </demo-row>-->
+        </demo-row>
         <demo-row title="组">
             <demo-row-item title="默认单选">
                 <link-radio-group v-model="val2">
