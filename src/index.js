@@ -71,6 +71,7 @@ import date from './components/date/pl-date'
 import tooltipText from './components/tooltip/pl-tooltip-text'
 import textarea from './components/textarea/pl-textarea'
 import popper from './components/popper/pl-popper'
+import navTabs from './components/nav/tabs/pl-nav-tabs'
 
 
 const components = {
@@ -128,6 +129,7 @@ const components = {
     tooltipText,
     textarea,
     popper,
+    navTabs,
 
     ...ColumnComponents,
 }

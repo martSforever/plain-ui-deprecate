@@ -87,6 +87,7 @@
                             {title: 'Badge标记', icon: 'pl-badge', page: '/normal/demo-badge', complete: true},
                             {title: 'ScrollOption滚动选择', icon: 'icon-scroll', page: '/normal/demo-scroll-option', complete: true},
                             {title: 'Mavon编辑器', icon: 'icon-code', page: '/normal/demo-mavon', complete: true},
+                            {title: 'Steps步骤条', icon: 'pl-step', page: '/normal/demo-step', complete: true},
                         ],
                     },
                     {
@@ -106,7 +107,8 @@
                             {title: 'NavigatorTab页签导航', icon: 'pl-tabs', page: '/navigator/demo-navigator-tab', complete: true},
                             {title: 'NavigatorPage页面导航', icon: 'pl-page', page: '/navigator/navigator-page/demo-navigator-page', complete: true},
                             {title: 'NavigatorMain系统导航', icon: 'pl-tabs-main', page: '/navigator/navigator-main/demo-navigator-main', complete: true},
-                            {title: 'Steps步骤条', icon: 'pl-step', page: '/normal/demo-step', complete: true},
+                            {title: 'NavTabs页签导航', icon: 'pl-tabs', page: '/nav/tabs/demo-nav-tabs', complete: true},
+
                         ],
                     },
                     {
