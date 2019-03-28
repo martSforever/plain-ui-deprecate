@@ -1,8 +1,14 @@
 <template>
     <div class="pl-nav-tabs">
-        <transition-group name="pl-nav-tabs-header"
-                          tag="div"
-                          class="pl-nav-tabs-header">
+        <transition-group
+                ref="header"
+                tag="div"
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @afterEnter="afterEnter"
+                @before-leave="beforeLeave"
+                @leave="leave"
+                class="pl-nav-tabs-header">
             <div class="pl-nav-tabs-header-item"
                  @click="p_remove(item)"
                  v-for="(item) in list"
@@ -35,6 +41,25 @@
             p_remove(item) {
                 this.list.splice(this.list.indexOf(item), 1)
             },
+
+            beforeEnter(el) {
+                el.style.flex = 'initial'
+                el.style.width = 0
+            },
+            enter(el) {
+                el.style.width = `${Math.floor(this.$refs.header.offsetWidth / this.list.length)}px`
+            },
+            afterEnter(el) {
+                el.style.width = null
+                el.style.flex = 1
+            },
+            beforeLeave(el) {
+                el.style.width = `${el.offsetWidth}px`
+                el.style.flex = 'initial'
+            },
+            leave(el) {
+                el.style.width = 0
+            },
         }
     }
 </script>
@@ -45,22 +70,22 @@
         height: 100%;
         border: solid 1px $tab-color;
         box-sizing: border-box;
-
+        padding: 12px;
         .pl-nav-tabs-header {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
             .pl-nav-tabs-header-item {
                 display: inline-block;
-
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                box-sizing: border-box;
+                border: solid 1px #ddd;
+                flex: 1;
                 @include transition-all;
             }
         }
-    }
-
-    .pl-nav-tabs-header-enter, .pl-nav-tabs-header-leave-to {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    .pl-nav-tabs-header-leave-active {
-        position: absolute;
     }
 </style>
