@@ -39,9 +39,6 @@
     .pl-nav-tabs {
         width: 100%;
         height: 100%;
-        border: solid 1px $tab-color;
         box-sizing: border-box;
-        padding: 12px;
-
     }
 </style>
