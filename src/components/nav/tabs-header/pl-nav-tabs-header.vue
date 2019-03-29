@@ -6,12 +6,13 @@
             @leave="leave"
             class="pl-nav-tabs-header">
         <div class="pl-nav-tabs-header-item pl-nav-tabs-target"
+             :class="{'pl-nav-tabs-header-item-active':index === currentValue}"
              v-for="(item,index) in list"
              @click="$emit('click',{item,index})"
              :key="item">
             <div class="pl-nav-tabs-header-item-content">
                 <pl-tooltip-text show-overflow-tooltip :content="item"/>
-                <div class="pl-nav-tabs-header-item-close" @click="$emit('close',{item,index})">
+                <div class="pl-nav-tabs-header-item-close" @click.stop="$emit('close',{item,index})">
                     <pl-icon icon="pad-close" hover/>
                 </div>
             </div>
@@ -23,10 +24,12 @@
 <script>
     import PlTooltipText from "../../tooltip/pl-tooltip-text";
     import PlIcon from "../../icon/pl-icon";
+    import {ValueMixin} from "../../../mixin/component-mixin";
 
     export default {
         name: "pl-nav-tabs-header",
         components: {PlIcon, PlTooltipText},
+        mixins: [ValueMixin],
         props: {
             list: {type: Array, default: () => []},
         },
@@ -79,6 +82,10 @@
                     bottom: 0;
                     right: 12px;
                 }
+            }
+
+            &.pl-nav-tabs-header-item-active {
+                background-color: $color-primary-light !important;
             }
         }
     }

@@ -72,6 +72,7 @@
                 if (!this.showOverflowTooltip) {
                     next()
                 } else {
+                    if (!this.$el || !this.$refs.content) return
                     const hostWidth = this.$el.offsetWidth
                     const contentWidth = this.$refs.content.offsetWidth
                     if (contentWidth > hostWidth) {
