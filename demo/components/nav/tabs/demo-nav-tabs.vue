@@ -12,5 +12,7 @@
 
 <style lang="scss">
     .demo-nav-tabs {
+        padding: 12px;
+        box-sizing: border-box;
     }
 </style>

@@ -63,7 +63,7 @@
         },
         methods: {
             p_mouseenter() {
-                console.log(this.disabled || !this.content || this.p_show)
+                // console.log(this.disabled || !this.content || this.p_show)
                 if (this.disabled || !this.content || this.p_show) return
                 const next = () => {
                     this.tippy.show()

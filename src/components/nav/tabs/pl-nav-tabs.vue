@@ -1,6 +1,13 @@
 <template>
     <div class="pl-nav-tabs">
-        <pl-nav-tabs-header :list="list" @click="p_remove"/>
+        <div class="pl-nav-tabs-wrapper">
+            <div class="pl-nav-tabs-wrapper-left">
+                <pl-nav-tabs-header :list="list" @close="p_remove"/>
+            </div>
+            <div class="pl-nav-tabs-wrapper-right pl-nav-tabs-target">
+                <pl-icon icon="pad-plus"/>
+            </div>
+        </div>
         <div>
             <link-button @click="p_add">add</link-button>
         </div>
@@ -9,10 +16,11 @@
 
 <script>
     import PlNavTabsHeader from "../tabs-header/pl-nav-tabs-header";
+    import PlIcon from "../../icon/pl-icon";
 
     export default {
         name: "pl-nav-tabs",
-        components: {PlNavTabsHeader},
+        components: {PlIcon, PlNavTabsHeader},
         data() {
             const list = []
             for (let i = 0; i < 5; i++) {
@@ -40,5 +48,27 @@
         width: 100%;
         height: 100%;
         box-sizing: border-box;
+        .pl-nav-tabs-wrapper {
+            width: 100%;
+            display: flex;
+            border: solid 1px $tab-color;
+            cursor: pointer;
+            .pl-nav-tabs-wrapper-left {
+                flex: 1;
+                overflow: hidden;
+            }
+            .pl-nav-tabs-wrapper-right {
+                width: 40px;
+                text-align: center;
+                line-height: 40px;
+                font-size: 13px;
+            }
+
+            .pl-nav-tabs-target {
+                &:hover {
+                    background-color: rgba($tab-color, 0.35);
+                }
+            }
+        }
     }
 </style>

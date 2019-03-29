@@ -5,17 +5,18 @@
             @afterEnter="afterEnter"
             @leave="leave"
             class="pl-nav-tabs-header">
-        <div class="pl-nav-tabs-header-item"
+        <div class="pl-nav-tabs-header-item pl-nav-tabs-target"
              v-for="(item,index) in list"
              @click="$emit('click',{item,index})"
              :key="item">
             <div class="pl-nav-tabs-header-item-content">
                 <pl-tooltip-text show-overflow-tooltip :content="item"/>
-                <div class="pl-nav-tabs-header-item-close">
+                <div class="pl-nav-tabs-header-item-close" @click="$emit('close',{item,index})">
                     <pl-icon icon="pad-close" hover/>
                 </div>
             </div>
         </div>
+
     </transition-group>
 </template>
 
@@ -57,12 +58,9 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             box-sizing: border-box;
-            border: solid 1px #ddd;
             font-size: 12px;
+            border-right: solid 1px $tab-color;
             @include transition-all;
-            &:not(:last-child) {
-                border-right: initial;
-            }
             .pl-nav-tabs-header-item-content {
                 width: 100%;
                 height: 40px;
@@ -71,6 +69,7 @@
                 padding: 0 12px;
                 position: relative;
                 color: $color-normal-content;
+                cursor: pointer;
                 .pl-tooltip-text {
                     text-align: center;
                 }
