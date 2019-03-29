@@ -1,26 +1,26 @@
 <template>
-    <div class="pl-nav-tabs">
-        <div class="pl-nav-tabs-header-wrapper">
-            <div class="pl-nav-tabs-header-wrapper-left">
-                <pl-nav-tabs-header :list="list" @close="p_remove" @click="({index})=>p_index = index" :value="p_index"/>
+    <div class="pl-nav">
+        <div class="pl-nav-header-wrapper">
+            <div class="pl-nav-header-wrapper-left">
+                <pl-nav-header :list="list" @close="p_remove" @click="({index})=>p_index = index" :value="p_index"/>
             </div>
-            <div class="pl-nav-tabs-header-wrapper-right pl-nav-tabs-target">
+            <div class="pl-nav-header-wrapper-right pl-nav-target">
                 <pl-icon icon="pad-plus"/>
             </div>
         </div>
-        <div class="pl-nav-tabs-body">
+        <div class="pl-nav-body">
             <link-button @click="p_add">add</link-button>
         </div>
     </div>
 </template>
 
 <script>
-    import PlNavTabsHeader from "./pl-nav-tabs-header";
     import PlIcon from "../icon/pl-icon";
+    import PlNavHeader from "./pl-nav-header";
 
     export default {
-        name: "pl-nav-tabs",
-        components: {PlIcon, PlNavTabsHeader},
+        name: "pl-nav",
+        components: {PlNavHeader, PlIcon},
         props: {
             noHeader: {type: Boolean},                                          //不显示页签标题
             default: {type: Object},                                            //默认页面
@@ -61,12 +61,12 @@
 </script>
 
 <style lang="scss">
-    .pl-nav-tabs {
+    .pl-nav {
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         position: relative;
-        .pl-nav-tabs-header-wrapper {
+        .pl-nav-header-wrapper {
             display: flex;
             border: solid 1px $tab-color;
             box-sizing: border-box;
@@ -75,24 +75,24 @@
             left: 0;
             right: 0;
             height: 40px;
-            .pl-nav-tabs-header-wrapper-left {
+            .pl-nav-header-wrapper-left {
                 flex: 1;
                 overflow: hidden;
             }
-            .pl-nav-tabs-header-wrapper-right {
+            .pl-nav-header-wrapper-right {
                 width: 40px;
                 text-align: center;
                 line-height: 40px;
                 font-size: 13px;
             }
-            .pl-nav-tabs-target {
+            .pl-nav-target {
                 &:hover {
                     background-color: rgba($tab-color, 0.35);
                 }
             }
         }
 
-        .pl-nav-tabs-body {
+        .pl-nav-body {
             position: absolute;
             top: 56px;
             bottom: 0;

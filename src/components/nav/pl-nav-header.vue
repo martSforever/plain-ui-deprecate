@@ -4,15 +4,15 @@
             @enter="enter"
             @afterEnter="afterEnter"
             @leave="leave"
-            class="pl-nav-tabs-header">
-        <div class="pl-nav-tabs-header-item pl-nav-tabs-target"
-             :class="{'pl-nav-tabs-header-item-active':index === currentValue}"
+            class="pl-nav-header">
+        <div class="pl-nav-header-item pl-nav-target"
+             :class="{'pl-nav-header-item-active':index === currentValue}"
              v-for="(item,index) in list"
              @click="$emit('click',{item,index})"
              :key="item">
-            <div class="pl-nav-tabs-header-item-content">
+            <div class="pl-nav-header-item-content">
                 <pl-tooltip-text show-overflow-tooltip :content="item"/>
-                <div class="pl-nav-tabs-header-item-close" @click.stop="$emit('close',{item,index})">
+                <div class="pl-nav-header-item-close" @click.stop="$emit('close',{item,index})">
                     <pl-icon icon="pad-close" hover/>
                 </div>
             </div>
@@ -27,7 +27,7 @@
     import {ValueMixin} from "../../mixin/component-mixin";
 
     export default {
-        name: "pl-nav-tabs-header",
+        name: "pl-nav-header",
         components: {PlIcon, PlTooltipText},
         mixins: [ValueMixin],
         props: {
@@ -48,13 +48,13 @@
 </script>
 
 <style lang="scss">
-    .pl-nav-tabs-header {
+    .pl-nav-header {
         width: 100%;
         display: flex;
         flex-wrap: nowrap;
         white-space: nowrap;
         overflow: hidden;
-        .pl-nav-tabs-header-item {
+        .pl-nav-header-item {
             display: inline-block;
             flex: 1;
             overflow: hidden;
@@ -64,7 +64,7 @@
             font-size: 12px;
             border-right: solid 1px $tab-color;
             @include transition-all;
-            .pl-nav-tabs-header-item-content {
+            .pl-nav-header-item-content {
                 width: 100%;
                 height: 40px;
                 line-height: 40px;
@@ -76,7 +76,7 @@
                 .pl-tooltip-text {
                     text-align: center;
                 }
-                .pl-nav-tabs-header-item-close {
+                .pl-nav-header-item-close {
                     position: absolute;
                     top: 0;
                     bottom: 0;
@@ -84,7 +84,7 @@
                 }
             }
 
-            &.pl-nav-tabs-header-item-active {
+            &.pl-nav-header-item-active {
                 background-color: $color-primary-light !important;
             }
         }
