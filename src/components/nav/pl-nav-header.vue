@@ -62,7 +62,9 @@
             white-space: nowrap;
             box-sizing: border-box;
             font-size: 12px;
-            border-right: solid 1px $tab-color;
+            &:not(:last-child) {
+                border-right: solid 1px $tab-color;
+            }
             @include transition-all;
             .pl-nav-header-item-content {
                 width: 100%;

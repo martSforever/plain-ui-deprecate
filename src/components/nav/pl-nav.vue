@@ -65,25 +65,28 @@
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        position: relative;
+        display: flex;
+        flex-direction: column;
         .pl-nav-header-wrapper {
             display: flex;
-            border: solid 1px $tab-color;
             box-sizing: border-box;
             cursor: pointer;
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 40px;
+            height: 56px;
+            position: relative;
             .pl-nav-header-wrapper-left {
                 flex: 1;
                 overflow: hidden;
+                border: solid 1px $tab-color;
+                height: 40px;
             }
             .pl-nav-header-wrapper-right {
                 width: 40px;
+                height: 40px;
                 text-align: center;
                 line-height: 40px;
                 font-size: 13px;
+                border: solid 1px $tab-color;
+                border-left: initial;
             }
             .pl-nav-target {
                 &:hover {
@@ -91,13 +94,8 @@
                 }
             }
         }
-
         .pl-nav-body {
-            position: absolute;
-            top: 56px;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            flex: 1;
             border: solid 1px $tab-color;
             box-sizing: border-box;
         }
