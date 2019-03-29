@@ -22,9 +22,9 @@
 </template>
 
 <script>
-    import PlTooltipText from "../../tooltip/pl-tooltip-text";
-    import PlIcon from "../../icon/pl-icon";
-    import {ValueMixin} from "../../../mixin/component-mixin";
+    import PlTooltipText from "../tooltip/pl-tooltip-text";
+    import PlIcon from "../icon/pl-icon";
+    import {ValueMixin} from "../../mixin/component-mixin";
 
     export default {
         name: "pl-nav-tabs-header",

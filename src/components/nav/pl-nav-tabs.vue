@@ -15,12 +15,28 @@
 </template>
 
 <script>
-    import PlNavTabsHeader from "../tabs-header/pl-nav-tabs-header";
-    import PlIcon from "../../icon/pl-icon";
+    import PlNavTabsHeader from "./pl-nav-tabs-header";
+    import PlIcon from "../icon/pl-icon";
 
     export default {
         name: "pl-nav-tabs",
         components: {PlIcon, PlNavTabsHeader},
+        props: {
+            noHeader: {type: Boolean},                                          //不显示页签标题
+            default: {type: Object},                                            //默认页面
+            maxTabs: {type: Number},                                            //最大可以打开的tabs数目
+
+            beforeOpenTab: {type: Function},                                    //打开页签之前的钩子函数
+            afterOpenTab: {type: Function},                                     //打开页签之后的钩子函数
+            beforePush: {type: Function},                                       //打开页面之前的钩子函数
+            afterPush: {type: Function},                                        //跳转页面之后的钩子函数
+
+            pageRegistryErrorHandler: {type: Function},                         //请求页面js文件出错处理
+            page404: {type: String},                                            //找不到页面时，显示的404页面
+            storageKey: {type: String},                                         //多页面应用同时使用这个导航组件的话，缓存可能会冲突，这里未设置缓存的关键字，不同单页面应用的key应该不同
+            showPathInUrl: {type: Boolean, default: true},                      //是否在地址栏显示页面路径
+            disabledStorage: {type: Boolean},                                   //是否缓存页面历史
+        },
         data() {
             const list = []
             for (let i = 0; i < 5; i++) {
