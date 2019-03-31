@@ -47,5 +47,6 @@
         width: 100%;
         overflow: auto;
         background-color: white;
+        @include transition-all;
     }
 </style>

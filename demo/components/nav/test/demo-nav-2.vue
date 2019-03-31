@@ -1,8 +1,7 @@
 <template>
     <div class="demo-nav-2">
-        <demo-row>
-            <link-button @click="back" label="返回"/>
-        </demo-row>
+        <h2>页面二</h2>
+        <link-button @click="back" label="返回"/>
     </div>
 </template>
 

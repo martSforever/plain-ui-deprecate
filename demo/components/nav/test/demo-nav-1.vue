@@ -1,5 +1,6 @@
 <template>
     <div class="demo-nav-1">
+        <h2>页面一</h2>
         demo-nav-1
     </div>
 </template>

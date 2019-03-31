@@ -1,12 +1,12 @@
 <template>
-    <div class="pl-nav-pages">
+    <transition-group tag="div" class="pl-nav-pages" name="pl-transition-from-right">
         <pl-nav-page
                 ref="pages"
                 v-for="(item) in pages"
                 :key="item.id"
                 :id="item.id"
                 :page="item"/>
-    </div>
+    </transition-group>
 </template>
 
 <script>
@@ -167,5 +167,6 @@
         height: 100%;
         width: 100%;
         position: relative;
+        overflow: hidden;
     }
 </style>
