@@ -1,6 +1,7 @@
 <template>
     <div class="pl-nav-page">
         <component
+                class="pl-nav-page-target"
                 ref="page"
                 :is="page.component"
                 :param="page.param"
