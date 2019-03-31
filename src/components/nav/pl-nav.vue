@@ -2,7 +2,7 @@
     <div class="pl-nav">
         <div class="pl-nav-header-wrapper">
             <div class="pl-nav-header-wrapper-left">
-                <pl-nav-header :list="tabs.map(item=>item.title)" @close="pl_headCloseTab" @click="({index})=>p_index = index" :value="p_index"/>
+                <pl-nav-header :list="tabs.map(item=>item.title)" @close="pl_headCloseTab" @click="({index})=>pl_showTab(index)" :value="p_index"/>
             </div>
             <div class="pl-nav-header-wrapper-right pl-nav-target">
                 <pl-icon icon="pad-plus"/>
@@ -18,7 +18,6 @@
     import PlIcon from "../icon/pl-icon";
     import PlNavHeader from "./pl-nav-header";
     import {NAV_STORAGE_KEY, Tab} from "./index";
-    import {NAVIGATOR_CONSTANT} from "../navigator-main";
 
     export default {
         name: "pl-nav",
@@ -135,7 +134,7 @@
              *  @author     martsforever
              *  @datetime   2019/3/31 20:02
              */
-            setStorage(key) {
+            setStorage(key, value) {
                 let storage = this.$plain.$storage.get(key) || {}
                 if (!!this.storageKey) {
                     storage[this.storageKey] = value
@@ -143,22 +142,6 @@
                     storage = value
                 }
                 this.$plain.$storage.set(key, storage)
-            },
-            /*
-             *  初始化数据信息
-             *  @author     martsforever
-             *  @datetime   2019/3/31 21:00
-             */
-            pl_init() {
-                let tabs = []
-                /*从缓存中获取页面信息*/
-                let selfStorage = this.getStorage(NAVIGATOR_CONSTANT.TAB)
-                if (selfStorage.index != null && !!selfStorage.tabs && selfStorage.tabs.length > 0) {
-                    tabs = selfStorage.pageStack.map((item) => new Tab(item))
-                    this.$nextTick(() => this.pl_showTab(selfStorage.index))
-                }
-                this.tabs = tabs
-                this.selfStorage = selfStorage
             },
             /*
              *  根据id找到对应的tab
@@ -195,12 +178,28 @@
                 this.setStorage(NAV_STORAGE_KEY.TAB, this.selfStorage)
             },
             /*
+             *  初始化数据信息
+             *  @author     martsforever
+             *  @datetime   2019/3/31 21:00
+             */
+            pl_init() {
+                let tabs = []
+                /*从缓存中获取页面信息*/
+                let selfStorage = this.getStorage(NAV_STORAGE_KEY.TAB)
+                if (selfStorage.index != null && !!selfStorage.tabs && selfStorage.tabs.length > 0) {
+                    tabs = selfStorage.tabs.map((item) => new Tab(item))
+                    this.$nextTick(() => this.pl_showTab(selfStorage.index))
+                }
+                this.tabs = tabs
+                this.selfStorage = selfStorage
+            },
+            /*
              *  关闭tab
              *  @author     martsforever
              *  @datetime   2019/3/31 20:51
              */
             async pl_closeTab(id) {
-                if (this.pageStack.length === 1) {
+                if (this.tabs.length === 1) {
                     const msg = "不能关闭所有页面！"
                     this.$message.show("不能关闭所有页面！")
                     return Promise.reject(msg)
@@ -223,14 +222,17 @@
              */
             async pl_showTab(index) {
                 if (!!this.p_index === index) return
-                return await this.openTab(this.tabs[index], false)
+                this.p_index = index
+                const ret = await this.openTab(this.tabs[index], false)
+                this.pl_save()
+                return ret
             },
             /*
              *  关闭tab
              *  @author     martsforever
              *  @datetime   2019/3/31 21:03
              */
-            pl_headCloseTab(item, index) {
+            pl_headCloseTab({index}) {
                 this.pl_closeTab(this.tabs[index].id)
             },
         }

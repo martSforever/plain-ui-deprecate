@@ -156,6 +156,7 @@ const PlainUI = {
     transitionTime: 150,
     _pageRegistry: null,
     async pageRegistry(path) {
+        console.log(path)
         if (!this._pageRegistry) {
             return Promise.reject('plain ui need pageRegistry function when installed.')
         } else {

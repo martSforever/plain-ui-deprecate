@@ -2,11 +2,10 @@
     <div class="demo-nav-tabs">
         <div class="demo-nav-tabs-content">
             <div class="demo-nav-tabs-left">
-                <link-button label="页面一" box-type="line" long/>
-                <link-button label="页面二" box-type="line" long/>
+                <link-button :label="item.title" box-type="line" long v-for="(item,index) in menus" :key="index" @click="openTab(item)"/>
             </div>
             <div class="demo-nav-tabs-right">
-                <link-nav></link-nav>
+                <link-nav ref="nav"></link-nav>
             </div>
         </div>
     </div>
@@ -15,6 +14,22 @@
 <script>
     export default {
         name: "demo-nav-tabs",
+        data() {
+            return {
+                menus: [
+                    {id: 1, title: '页面一', path: '/nav/test/demo-nav-1.vue', param: {msg: 'page1'}},
+                    {id: 2, title: 'Icon图标', path: '/normal/demo-icon', param: {msg: 'icon'}},
+                    {id: 3, title: 'Button按钮', path: '/normal/demo-button', param: {msg: 'button'}},
+                    {id: 4, title: 'Input输入框', path: '/normal/demo-input', param: {msg: 'input'}},
+                    {id: 5, title: 'Radio单复选按钮', path: '/normal/demo-radio', param: {msg: 'radio'}},
+                ]
+            }
+        },
+        methods: {
+            openTab(tab) {
+                this.$refs.nav.openTab(tab)
+            },
+        }
     }
 </script>
 

@@ -6,7 +6,7 @@
                 <demo-side-menu @clickMenu="menu=>$refs.tabs.push(menu.page,menu.title)"/>
             </div>
             <div class="demo-right-side">
-                <link-navigator-tab ref="tabs" id="1544529635688" :initPages="[{title:'Button按钮',path:'/demo-button'}]"/>
+                <link-navigator-tab ref="tabs" id="1544529635688" :initPages="[{title:'Button按钮',path:'/normal/demo-button'}]"/>
             </div>
         </div>
     </div>
