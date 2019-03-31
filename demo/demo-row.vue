@@ -1,7 +1,7 @@
 <template>
     <div class="demo-row">
         <div class="demo-row-title">
-            <span>{{title}}</span>
+            <span v-if="!!title">{{title}}</span>
             <div class="demo-row-title-segment"></div>
         </div>
         <div class="demo-row-content">

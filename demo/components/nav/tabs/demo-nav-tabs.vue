@@ -1,6 +1,6 @@
 <template>
     <div class="demo-nav-tabs">
-        <link-nav-tabs></link-nav-tabs>
+        <link-nav></link-nav>
     </div>
 </template>
 

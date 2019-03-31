@@ -108,6 +108,7 @@
                             {title: 'NavigatorPage页面导航', icon: 'pl-page', page: '/navigator/navigator-page/demo-navigator-page', complete: true},
                             {title: 'NavigatorMain系统导航', icon: 'pl-tabs-main', page: '/navigator/navigator-main/demo-navigator-main', complete: true},
                             {title: 'NavTabs页签导航', icon: 'pl-tabs', page: '/nav/tabs/demo-nav-tabs', complete: true},
+                            {title: 'NavPages页面导航', icon: 'pl-page', page: '/nav/demo-nav-page', complete: true},
 
                         ],
                     },
