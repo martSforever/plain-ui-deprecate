@@ -42,6 +42,10 @@
                     }
                 })
             },
+
+            onBack(data) {
+                this.$notice.show(`页面二监听到回退事件` + JSON.stringify(data))
+            },
         }
     }
 </script>

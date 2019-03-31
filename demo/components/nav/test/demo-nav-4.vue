@@ -11,8 +11,11 @@
         </demo-row>
         <demo-row>
             <link-button label="打开页面五" @click="openPage"/>
-            <link-button label="打开页面五参数:" box-type="line"/>
+            <link-button label="打开页面五或者重定向到页面六参数:" box-type="line"/>
             <link-input v-model="msg"/>
+        </demo-row>
+        <demo-row>
+            <link-button label="重定向到页面6" @click="redirect"/>
         </demo-row>
     </div>
 </template>
@@ -39,8 +42,24 @@
                     }
                 })
             },
+            redirect() {
+                this.nav.redirect({
+                    path: '/nav/test/demo-nav-6',
+                    param: {
+                        msg: this.msg
+                    }
+                })
+            },
             onBack(data) {
                 this.$notice.show(`页面四监听到回退事件` + JSON.stringify(data))
+            },
+
+            beforeBack(data) {
+                if (!!data && data.indexOf('4') > -1) {
+                    const msg = '页面四，返回参数中含4，不可回退'
+                    this.$notice.show(msg)
+                    return Promise.reject(msg)
+                }
             },
         }
     }

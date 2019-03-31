@@ -112,7 +112,7 @@
                 await this.push({path, param, frame, props})
                 await this.$plain.nextTick()
                 this.pages.splice(this.pages.length - 2, 1)
-                this.p_save()
+                this.pl_save()
                 this.$emit('redirect')
                 this.$emit('change')
             },
