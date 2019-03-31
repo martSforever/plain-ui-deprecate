@@ -39,7 +39,7 @@
         }
         .demo-row-content {
             padding: 12px 0;
-            & > * {
+            & > *:not(:last-child) {
                 margin-right: 12px;
             }
         }

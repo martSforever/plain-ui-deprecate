@@ -9,7 +9,12 @@
             </div>
         </div>
         <div class="pl-nav-body">
-
+            <pl-nav-pages v-for="(tab,index) in tabs"
+                          :key="tab.id"
+                          :id="tab.id"
+                          :root-page="tab"
+                          v-if="tab.init"
+                          v-show="tab.init && p_index === index"/>
         </div>
     </div>
 </template>
@@ -18,10 +23,11 @@
     import PlIcon from "../icon/pl-icon";
     import PlNavHeader from "./pl-nav-header";
     import {NAV_STORAGE_KEY, Tab} from "./index";
+    import PlNavPages from "./pl-nav-pages";
 
     export default {
         name: "pl-nav",
-        components: {PlNavHeader, PlIcon},
+        components: {PlNavPages, PlNavHeader, PlIcon},
         props: {
             noHeader: {type: Boolean},                                          //不显示页签标题
             default: {type: Object},                                            //默认页面
@@ -56,7 +62,7 @@
              *  @datetime   2019/3/31 19:47
              */
             async openTab({id, title, path, param, frame, props}, refresh = false) {
-                let tab = new Tab({id, title, path, param, frame, props})
+                let tab = new Tab({id, title, path, param, frame, props, init: true})
                 !!this.beforeOpenTab && await this.beforeOpenTab(tab)
                 if (!tab.id) return Promise.reject('id can not be null!')
 
@@ -277,6 +283,10 @@
             flex: 1;
             border: solid 1px $tab-color;
             box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+
         }
     }
 </style>

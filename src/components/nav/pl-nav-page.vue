@@ -75,5 +75,10 @@
         overflow: auto;
         background-color: white;
         @include transition-all;
+        .pl-nav-page-target{
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
     }
 </style>

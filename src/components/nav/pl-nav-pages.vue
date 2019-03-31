@@ -17,7 +17,7 @@
         name: "pl-nav-pages",
         components: {PlNavPage},
         props: {
-            id: {type: String, required: true},                 //pages的id
+            id: {required: true},                 //pages的id
             rootPage: {},                                        //根页面
             before: {type: Function},                           //在push页面之前
             after: {type: Function},                            //在push页面之后
@@ -174,7 +174,7 @@
     .pl-nav-pages {
         height: 100%;
         width: 100%;
-        position: relative;
+        position: absolute;
         overflow: hidden;
     }
 </style>
