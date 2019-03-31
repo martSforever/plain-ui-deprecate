@@ -64,7 +64,7 @@
              *  @author     martsforever
              *  @datetime   2019/3/31 19:47
              */
-            async openTab({id, title, path, param, frame, props, storage}, refresh = false) {
+            async openTab({id, title, path, param, frame, props, storage = true}, refresh = false) {
                 let tab = new Tab({id, title, path, param, frame, props, storage, init: true})
                 !!this.beforeOpenTab && await this.beforeOpenTab(tab)
                 if (!tab.id) return Promise.reject('id can not be null!')

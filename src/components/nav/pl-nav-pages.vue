@@ -27,22 +27,14 @@
             getComponent: {type: Function},                     //获取页面
         },
         data() {
-            let pages = []
-            const pagesStorage = this.$plain.$storage.get(NAV_STORAGE_KEY.PAGE + (this.storageKey || '')) || {}
-            const selfStorage = pagesStorage[this.id] || {}
-            const storagePages = selfStorage.pages
-            if (!!storagePages && storagePages.length > 0) {
-                pages = storagePages.map((item, index) => new Page(Object.assign({}, item, {id: this.$plain.$utils.uuid(), init: index >= storagePages.length - 2})))
-                this.$nextTick(async () => await this.pl_init())
-            } else {
-                !!this.rootPage && this.$nextTick(async () => await this.push(this.rootPage))
-            }
-
             return {
-                pagesStorage,
-                selfStorage,
-                pages,
+                pagesStorage: null,
+                selfStorage: null,
+                pages: [],
             }
+        },
+        created() {
+            this.pl_init()
         },
         methods: {
 
@@ -135,7 +127,7 @@
                 if (!this.storage) return
                 this.selfStorage.pages = this.pages.map(item => item.saveData())
                 this.pagesStorage[this.id] = this.selfStorage
-                this.$plain.$storage.set(NAV_STORAGE_KEY.PAGE + (this.storageKey || ''), this.pagesStorage)
+                this.pl_setStorage(NAV_STORAGE_KEY.PAGE, this.pagesStorage)
             },
             /*
              *  初始化页面组件
@@ -143,12 +135,23 @@
              *  @datetime   2019/3/30 22:33
              */
             async pl_init() {
-                for (let i = this.pages.length - 1; i >= 0; i--) {
-                    const page = this.pages[i];
-                    if (page.init && !page.component) {
-                        page.component = await this.pl_registryPage(page.path, page.frame)
-                    }
+                let pages = []
+                const pagesStorage = this.pl_getStorage(NAV_STORAGE_KEY.PAGE)
+                const selfStorage = pagesStorage[this.id] || {}
+                const storagePages = selfStorage.pages
+                Object.assign(this, {pagesStorage, selfStorage})
+                if (!!storagePages && storagePages.length > 0) {
+                    pages = storagePages.map((item, index) => new Page(Object.assign({}, item, {id: this.$plain.$utils.uuid(), init: index >= storagePages.length - 2})))
+                    this.$nextTick(async () => {
+                        for (let i = pages.length - 1; i >= 0; i--) {
+                            const page = pages[i];
+                            if (page.init && !page.component) page.component = await this.pl_registryPage(page.path, page.frame)
+                        }
+                    })
+                } else {
+                    !!this.rootPage && this.$nextTick(async () => await this.push(this.rootPage))
                 }
+                this.pages = pages
             },
             /*
              *  注册页面组件
@@ -184,6 +187,21 @@
                 }
                 this.pages.splice(0, this.pages.length)
                 this.pl_save()
+            },
+            pl_getStorage(key) {
+                if (!!this.getStorage) return this.getStorage(key)
+                const storage = this.$plain.$storage.get(key) || {}
+                return !!this.storageKey ? storage[this.storageKey] : storage
+            },
+            pl_setStorage(key, value) {
+                if (!!this.setStorage) return this.setStorage(key, value)
+                let storage = this.$plain.$storage.get(key) || {}
+                if (!!this.storageKey) {
+                    storage[this.storageKey] = value
+                } else {
+                    storage = value
+                }
+                this.$plain.$storage.set(key, storage)
             },
         }
     }

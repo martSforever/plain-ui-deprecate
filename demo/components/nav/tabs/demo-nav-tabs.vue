@@ -17,7 +17,7 @@
         data() {
             return {
                 menus: [
-                    {id: -1, title: '页面一（缓存）', path: '/nav/test/demo-nav-1.vue', param: {msg: 'page1'}},
+                    {id: 'a', title: '页面一（缓存）', path: '/nav/test/demo-nav-1.vue', param: {msg: 'page1'}},
                     {id: 1, title: '页面一（不缓存）', path: '/nav/test/demo-nav-1.vue', param: {msg: 'page1'}, storage: false},
                     {id: 2, title: 'Icon图标', path: '/normal/demo-icon', param: {msg: 'icon'}},
                     {id: 3, title: 'Button按钮', path: '/normal/demo-button', param: {msg: 'button'}},
