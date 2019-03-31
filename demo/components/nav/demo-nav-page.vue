@@ -1,14 +1,6 @@
 <template>
     <div class="demo-nav-page">
-        <demo-row>
-            <div class="demo-nav-page-box">
-                <link-nav-pages id="a" ref="pages" :rootPage="rootPage"/>
-            </div>
-        </demo-row>
-        <demo-row>
-            <link-button label="页面二" @click="page2"/>
-        </demo-row>
-
+        <link-nav-pages id="a" ref="pages" :rootPage="rootPage"/>
     </div>
 </template>
 
@@ -25,24 +17,13 @@
                 }
             }
         },
-        methods: {
-            page2() {
-                this.$refs.pages.push({
-                    path: '/nav/test/demo-nav-2',
-                    param: {
-                        hello: 11111
-                    }
-                })
-            },
-        }
+        methods: {}
     }
 </script>
 
 <style lang="scss">
     .demo-nav-page {
-        .demo-nav-page-box {
-            height: 200px;
-            width: 100%;
-        }
+        height: 100%;
+        width: 100%;
     }
 </style>

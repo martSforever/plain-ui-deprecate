@@ -8,7 +8,8 @@
                 v-bind="page.props"
                 :path="page.path"
                 :src="page.path"
-                v-if="!!page.component && page.init"/>
+                v-if="!!page.component && page.init"
+                :nav="nav"/>
     </div>
 </template>
 
@@ -20,14 +21,39 @@
             page: {},                                       //page页面的数据信息
         },
         data() {
-            return {}
+            const pages = this.$plain.$dom.findComponentUpward(this, 'pl-nav-pages')
+            return {
+                nav: {
+                    push: (...args) => pages.push(...args),
+                    back: (...args) => pages.back(...args),
+                    redirect: (...args) => pages.redirect(...args),
+                }
+            }
         },
         methods: {
+
+            push(...args) {
+                return this.$parent
+            },
+            back(...args) {
+                console.log(this.$parent)
+            },
+
+            /*
+             *  back之前执行钩子函数
+             *  @author     martsforever
+             *  @datetime   2019/3/31 10:40
+             */
             beforeBack(data) {
                 if (!!this.$refs.page && !!this.$refs.page.beforeBack) {
                     return this.$refs.page.beforeBack(data)
                 }
             },
+            /*
+             * 回退到当前页面时，触发的钩子函数
+             *  @author     martsforever
+             *  @datetime   2019/3/31 10:40
+             */
             onBack(data) {
                 if (!!this.$refs.page && !!this.$refs.page.onBack) {
                     return this.$refs.page.onBack(data)

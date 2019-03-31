@@ -28,6 +28,12 @@ class Page {
     }
 }
 
+class Nav {
+    _pages;
+    context;
+
+}
+
 export {
     NAV_STORAGE_KEY,
     Page,
