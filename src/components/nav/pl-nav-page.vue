@@ -32,14 +32,6 @@
             }
         },
         methods: {
-
-            push(...args) {
-                return this.$parent
-            },
-            back(...args) {
-                console.log(this.$parent)
-            },
-
             /*
              *  back之前执行钩子函数
              *  @author     martsforever
