@@ -14,6 +14,7 @@
         </demo-row>
         <demo-row>
             <link-button label="回退两个页面" @click="nav.back(ret,2)"/>
+            <link-button label="回退所有页面" @click="nav.backOff(ret,2)"/>
         </demo-row>
     </div>
 </template>

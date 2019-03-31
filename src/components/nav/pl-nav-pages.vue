@@ -116,6 +116,14 @@
                 this.$emit('redirect')
                 this.$emit('change')
             },
+            /*
+             *  回退所有页面，只留下根页面
+             *  @author     martsforever
+             *  @datetime   2019/3/31 17:08
+             */
+            async backOff(data) {
+                return await this.back(data, this.pages.length - 1)
+            },
 
             /*
              *  缓存页面信息

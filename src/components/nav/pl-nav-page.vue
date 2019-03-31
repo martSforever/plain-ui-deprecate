@@ -27,6 +27,7 @@
                     push: (...args) => pages.push(...args),
                     back: (...args) => pages.back(...args),
                     redirect: (...args) => pages.redirect(...args),
+                    backOff: (...args) => pages.backOff(...args),
                 }
             }
         },
