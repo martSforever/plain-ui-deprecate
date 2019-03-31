@@ -15,6 +15,7 @@
                     :key="tab.id"
                     :id="tab.id"
                     :root-page="tab"
+                    :storage="tab.storage"
                     v-if="tab.init"
                     v-show="tab.init && p_index === index"/>
         </div>
@@ -63,8 +64,8 @@
              *  @author     martsforever
              *  @datetime   2019/3/31 19:47
              */
-            async openTab({id, title, path, param, frame, props}, refresh = false) {
-                let tab = new Tab({id, title, path, param, frame, props, init: true})
+            async openTab({id, title, path, param, frame, props, storage}, refresh = false) {
+                let tab = new Tab({id, title, path, param, frame, props, storage, init: true})
                 !!this.beforeOpenTab && await this.beforeOpenTab(tab)
                 if (!tab.id) return Promise.reject('id can not be null!')
 
@@ -217,7 +218,7 @@
 
                 /*执行page的beforeBack方法*/
                 const pagesComponent = this.$plain.$utils.findOne(this.$refs.pages, item => item.id === id)
-                await pagesComponent.pl_closeAll()
+                !!pagesComponent && await pagesComponent.pl_closeAll()
 
                 /*切换下一个显示的tab*/
                 let nextIndex = this.p_index

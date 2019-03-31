@@ -22,6 +22,7 @@
             before: {type: Function},                           //在push页面之前
             after: {type: Function},                            //在push页面之后
             storageKey: {type: Function},                       //存储时的标志key
+            storage: {type: Boolean},                           //是否缓存
 
             getComponent: {type: Function},                     //获取页面
         },
@@ -131,6 +132,7 @@
              *  @datetime   2019/3/30 22:32
              */
             async pl_save() {
+                if (!this.storage) return
                 this.selfStorage.pages = this.pages.map(item => item.saveData())
                 this.pagesStorage[this.id] = this.selfStorage
                 this.$plain.$storage.set(NAV_STORAGE_KEY.PAGE + (this.storageKey || ''), this.pagesStorage)

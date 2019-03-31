@@ -36,6 +36,7 @@ class Tab {
     param = null;
     frame = null;
     props = null;
+    storage = true;
 
     init = false;
 
@@ -51,6 +52,7 @@ class Tab {
             param: this.param,
             frame: this.frame,
             props: this.props,
+            storage: this.storage,
         }
     }
 }
