@@ -1,9 +1,14 @@
 <template>
     <div class="demo-nav-1">
-        <h2>页面一</h2>
+        <demo-row>
+            <h2>页面一</h2>
+        </demo-row>
+        <demo-row>
+            <link-button box-type="line" :label="`页面一参数:${param.msg}`"/>
+        </demo-row>
         <demo-row>
             <link-button label="打开页面二" @click="page2"/>
-            <link-button label="页面二参数:" box-type="line"/>
+            <link-button label="打开页面二参数:" box-type="line"/>
             <link-input v-model="msg"/>
         </demo-row>
     </div>
@@ -14,6 +19,7 @@
         name: "demo-nav-1",
         props: {
             nav: {},
+            param: {},
         },
         data() {
             return {
@@ -21,10 +27,6 @@
             }
         },
         methods: {
-            onBack(data) {
-                // console.log('onBack', data)
-                this.$notice.show(`页面一监听到回退事件` + JSON.stringify(data))
-            },
             page2() {
                 this.nav.push({
                     path: '/nav/test/demo-nav-2',

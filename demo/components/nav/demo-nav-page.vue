@@ -12,7 +12,7 @@
                 rootPage: {
                     path: '/nav/test/demo-nav-1.vue',
                     param: {
-                        name: 'page1'
+                        msg: 'page1'
                     }
                 }
             }
