@@ -15,7 +15,7 @@
                     :key="tab.id"
                     :id="tab.id"
                     :root-page="tab"
-                    :storage="tab.storage"
+                    :storage="!disabledStorage && tab.storage"
                     v-if="tab.init"
                     v-show="tab.init && p_index === index"/>
         </div>
@@ -182,6 +182,7 @@
              *  @datetime   2019/3/31 20:40
              */
             pl_save() {
+                if (!!this.disabledStorage) return
                 this.selfStorage.index = this.p_index
                 this.selfStorage.tabs = this.tabs.map(item => item.saveData())
                 this.setStorage(NAV_STORAGE_KEY.TAB, this.selfStorage)
