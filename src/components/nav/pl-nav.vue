@@ -9,12 +9,14 @@
             </div>
         </div>
         <div class="pl-nav-body">
-            <pl-nav-pages v-for="(tab,index) in tabs"
-                          :key="tab.id"
-                          :id="tab.id"
-                          :root-page="tab"
-                          v-if="tab.init"
-                          v-show="tab.init && p_index === index"/>
+            <pl-nav-pages
+                    ref="pages"
+                    v-for="(tab,index) in tabs"
+                    :key="tab.id"
+                    :id="tab.id"
+                    :root-page="tab"
+                    v-if="tab.init"
+                    v-show="tab.init && p_index === index"/>
         </div>
     </div>
 </template>
@@ -212,6 +214,12 @@
                 }
                 const {tab, index} = this.pl_findTabById(id)
                 if (!tab) return
+
+                /*执行page的beforeBack方法*/
+                const pagesComponent = this.$plain.$utils.findOne(this.$refs.pages, item => item.id === id)
+                await pagesComponent.pl_closeAll()
+
+                /*切换下一个显示的tab*/
                 let nextIndex = this.p_index
                 if (index <= nextIndex) nextIndex--;
                 const closeTab = this.tabs.splice(index, 1)

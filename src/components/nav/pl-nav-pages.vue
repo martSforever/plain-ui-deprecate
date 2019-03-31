@@ -166,6 +166,23 @@
             pl_getPageInstance(page) {
                 return this.$plain.$utils.findOne(this.$refs.pages, i => i.page === page)
             },
+
+            /*
+             *  关闭页签触发动作
+             *  @author     martsforever
+             *  @datetime   2019/3/31 22:20
+             */
+            async pl_closeAll() {
+                /*执行弹出页面的back方法*/
+                for (let i = 0; i < this.pages.length; i++) {
+                    const page = this.pages[i];
+                    const navPageInstance = this.pl_getPageInstance(page)
+                    /*beforeBack函数中不能做任何逻辑操作，只能做是否能够回退的判断*/
+                    await navPageInstance.beforeBack()
+                }
+                this.pages.splice(0, this.pages.length)
+                this.pl_save()
+            },
         }
     }
 </script>
