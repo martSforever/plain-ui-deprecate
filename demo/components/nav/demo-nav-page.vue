@@ -41,7 +41,7 @@
 <style lang="scss">
     .demo-nav-page {
         .demo-nav-page-box {
-            height: 100px;
+            height: 200px;
             width: 100%;
         }
     }
