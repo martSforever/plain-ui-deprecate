@@ -2,14 +2,14 @@
     <div class="pl-nav">
         <div class="pl-nav-header-wrapper">
             <div class="pl-nav-header-wrapper-left">
-                <pl-nav-header :list="list" @close="p_remove" @click="({index})=>p_index = index" :value="p_index"/>
+                <pl-nav-header :list="tabs.map(item=>item.title)" @close="pl_headCloseTab" @click="({index})=>p_index = index" :value="p_index"/>
             </div>
             <div class="pl-nav-header-wrapper-right pl-nav-target">
                 <pl-icon icon="pad-plus"/>
             </div>
         </div>
         <div class="pl-nav-body">
-            <link-button @click="p_add">add</link-button>
+
         </div>
     </div>
 </template>
@@ -17,6 +17,8 @@
 <script>
     import PlIcon from "../icon/pl-icon";
     import PlNavHeader from "./pl-nav-header";
+    import {NAV_STORAGE_KEY, Tab} from "./index";
+    import {NAVIGATOR_CONSTANT} from "../navigator-main";
 
     export default {
         name: "pl-nav",
@@ -38,24 +40,199 @@
             disabledStorage: {type: Boolean},                                   //是否缓存页面历史
         },
         data() {
-            const list = []
-            for (let i = 0; i < 5; i++) {
-                list.push(this.$plain.$utils.uuid())
-            }
             return {
-                list,
-                p_index: 0,
+                tabs: [],
+                selfStorage: null,
+                p_index: null,
             }
         },
+        created() {
+            this.pl_init();
+        },
         methods: {
-            p_add() {
-                this.list.push(this.$plain.$utils.uuid())
-            },
-            p_remove({item, index}) {
-                this.list.splice(index, 1)
-            },
 
+            /*
+             *  打开一个新的页签
+             *  @author     martsforever
+             *  @datetime   2019/3/31 19:47
+             */
+            async openTab({id, title, path, param, frame, props}, refresh = false) {
+                let tab = new Tab({id, title, path, param, frame, props})
+                !!this.beforeOpenTab && await this.beforeOpenTab(tab)
+                if (!tab.id) return Promise.reject('id can not be null!')
 
+                const {tab: oldTab, index} = this.pl_findTabById(tab.id)
+                if (!!oldTab && index != null) {
+                    tab = Object.assign(oldTab, tab)
+                    if (refresh) await this.refresh(tab.id)
+                    this.p_index = index
+                } else if (!!this.maxTabs && this.tabs.length === this.maxTabs) {
+                    const msg = `最多只能打开${this.maxTabs}个页签！`
+                    this.$message.show(msg)
+                    return Promise.reject(msg)
+                } else {
+                    this.tabs.push(tab)
+                    await this.$plain.nextTick()
+                    this.p_index = this.tabs.length - 1
+                }
+                !!this.afterOpenTab && !!this.afterOpenTab(tab)
+                this.pl_save()
+                this.$emit('openTab', tab)
+                return tab
+            },
+            /*
+             *  关闭页签
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:42
+             */
+            async closeTab(id) {
+                return this.pl_closeTab(id)
+            },
+            /*
+             *  刷新某个页签
+             *  @author     martsforever
+             *  @datetime   2019/3/31 19:58
+             */
+            async refresh(id) {
+                this.pl_clearTabCache(id)
+                const tab = this.pl_findTabById(id)
+                tab.init = false
+                await this.$plain.nextTick()
+                tab.init = true
+            },
+            /*
+             *  更新tab信息
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:55
+             */
+            async update(id, newTabData) {
+                const {tab} = this.pl_findTabById(id)
+                if (this.tabs.length === 0 || !tab) return
+                Object.assign(tab, newTabData)
+                this.p_save()
+                this.refresh(tab.id)
+                return tab
+            },
+            /*
+             *  获取当前tab
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:56
+             */
+            getCurrentTab() {
+                return this.tabs.length > 0 && this.p_index != null ? this.tabs[this.p_index] : null
+            },
+            /*
+             *  获取缓存
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:02
+             */
+            getStorage(key) {
+                const storage = this.$plain.$storage.get(key) || {}
+                return !!this.storageKey ? storage[this.storageKey] : storage
+            },
+            /*
+             *  设置缓存
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:02
+             */
+            setStorage(key) {
+                let storage = this.$plain.$storage.get(key) || {}
+                if (!!this.storageKey) {
+                    storage[this.storageKey] = value
+                } else {
+                    storage = value
+                }
+                this.$plain.$storage.set(key, storage)
+            },
+            /*
+             *  初始化数据信息
+             *  @author     martsforever
+             *  @datetime   2019/3/31 21:00
+             */
+            pl_init() {
+                let tabs = []
+                /*从缓存中获取页面信息*/
+                let selfStorage = this.getStorage(NAVIGATOR_CONSTANT.TAB)
+                if (selfStorage.index != null && !!selfStorage.tabs && selfStorage.tabs.length > 0) {
+                    tabs = selfStorage.pageStack.map((item) => new Tab(item))
+                    this.$nextTick(() => this.pl_showTab(selfStorage.index))
+                }
+                this.tabs = tabs
+                this.selfStorage = selfStorage
+            },
+            /*
+             *  根据id找到对应的tab
+             *  @author     martsforever
+             *  @datetime   2019/3/31 19:56
+             */
+            pl_findTabById(id) {
+                for (let i = 0; i < this.tabs.length; i++) {
+                    const tab = this.tabs[i];
+                    if (tab.id === id) {
+                        return {tab, index: i}
+                    }
+                }
+                return {}
+            },
+            /*
+             *  清除tab缓存
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:04
+             */
+            pl_clearTabCache(id) {
+                const storage = this.getStorage(NAV_STORAGE_KEY.PAGE)
+                storage[id] = null
+                this.setStorage(NAV_STORAGE_KEY.PAGE, storage)
+            },
+            /*
+             *  缓存所有tab数据
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:40
+             */
+            pl_save() {
+                this.selfStorage.index = this.p_index
+                this.selfStorage.tabs = this.tabs.map(item => item.saveData())
+                this.setStorage(NAV_STORAGE_KEY.TAB, this.selfStorage)
+            },
+            /*
+             *  关闭tab
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:51
+             */
+            async pl_closeTab(id) {
+                if (this.pageStack.length === 1) {
+                    const msg = "不能关闭所有页面！"
+                    this.$message.show("不能关闭所有页面！")
+                    return Promise.reject(msg)
+                }
+                const {tab, index} = this.pl_findTabById(id)
+                if (!tab) return
+                let nextIndex = this.p_index
+                if (index <= nextIndex) nextIndex--;
+                const closeTab = this.tabs.splice(index, 1)
+                if (nextIndex < 0 && this.tabs.length > 0) nextIndex = 0
+                nextIndex > -1 && (await this.pl_showTab(nextIndex))
+                this.pl_save()
+                this.$emit('closeTab', closeTab)
+                return closeTab
+            },
+            /*
+             *  显示tab
+             *  @author     martsforever
+             *  @datetime   2019/3/31 20:50
+             */
+            async pl_showTab(index) {
+                if (!!this.p_index === index) return
+                return await this.openTab(this.tabs[index], false)
+            },
+            /*
+             *  关闭tab
+             *  @author     martsforever
+             *  @datetime   2019/3/31 21:03
+             */
+            pl_headCloseTab(item, index) {
+                this.pl_closeTab(this.tabs[index].id)
+            },
         }
     }
 </script>

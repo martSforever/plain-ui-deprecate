@@ -28,13 +28,35 @@ class Page {
     }
 }
 
-class Nav {
-    _pages;
-    context;
+class Tab {
+    id = null;
+    title = null;
 
+    path = null;
+    param = null;
+    frame = null;
+    props = null;
+
+    init = false;
+
+    constructor(tab) {
+        Object.assign(this, tab)
+    }
+
+    saveData() {
+        return {
+            id: this.id,
+            title: this.title,
+            path: this.path,
+            param: this.param,
+            frame: this.frame,
+            props: this.props,
+        }
+    }
 }
 
 export {
     NAV_STORAGE_KEY,
     Page,
+    Tab,
 }
