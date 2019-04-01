@@ -142,10 +142,7 @@
              * @date    2019/4/1 20:06
              */
             pl_openTab(tab) {
-                this.nav.openTab({
-                    ...tab,
-                    id: this.tab.id,
-                }, true)
+                this.nav.openTab(tab)
             },
             /**
              * 关闭页面
