@@ -2,7 +2,7 @@
     <div class="pl-nav">
         <div class="pl-nav-header-wrapper">
             <div class="pl-nav-header-wrapper-left">
-                <pl-nav-header :list="tabs" label-key="title" value-key="id" @close="pl_headCloseTab" @click="({index})=>pl_showTab(index)" :value="p_index"/>
+                <pl-nav-header :list="tabs" label-key="title" value-key="id" @close="pl_headCloseTab" @dblclick="pl_headCloseTab" @click="({index})=>pl_showTab(index)" :value="p_index"/>
             </div>
             <div class="pl-nav-header-wrapper-right pl-nav-target" @click="pl_openBlank">
                 <pl-icon icon="pad-plus"/>

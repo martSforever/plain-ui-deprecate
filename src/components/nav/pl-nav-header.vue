@@ -9,6 +9,7 @@
              :class="{'pl-nav-header-item-active':index === currentValue}"
              v-for="(item,index) in list"
              @click="$emit('click',{item,index})"
+             @dblclick="$emit('dblclick',{item,index})"
              :key="item[valueKey]">
             <div class="pl-nav-header-item-content">
                 <pl-tooltip-text show-overflow-tooltip :content="item[labelKey]"/>
