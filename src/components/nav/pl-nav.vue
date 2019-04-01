@@ -22,7 +22,9 @@
                     :after-push="afterPush"
                     :get-component="pl_getComponent"
                     v-if="tab.init"
-                    v-show="tab.init && p_index === index"/>
+                    v-show="tab.init && p_index === index"
+
+                    @emit="pl_emit"/>
         </div>
     </div>
 </template>
@@ -271,6 +273,14 @@
              */
             pl_headCloseTab({index}) {
                 this.pl_closeTab(this.tabs[index].id)
+            },
+            /**
+             * 处理全局广播事件
+             * @author  韦胜健
+             * @date    2019/4/1 10:00
+             */
+            pl_emit({event, param}) {
+                this.$refs.pages.forEach(item => item.listener.$emit(event, param))
             },
         }
     }

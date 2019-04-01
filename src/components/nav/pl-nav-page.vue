@@ -28,6 +28,10 @@
                     back: (...args) => pages.back(...args),
                     redirect: (...args) => pages.redirect(...args),
                     backOff: (...args) => pages.backOff(...args),
+                    on: (...args) => pages.on(...args),
+                    once: (...args) => pages.once(...args),
+                    off: (...args) => pages.off(...args),
+                    emit: (...args) => pages.emit(...args),
                 }
             }
         },
@@ -67,7 +71,7 @@
         overflow: auto;
         background-color: white;
         @include transition-all;
-        .pl-nav-page-target{
+        .pl-nav-page-target {
             width: 100%;
             height: 100%;
             overflow: auto;

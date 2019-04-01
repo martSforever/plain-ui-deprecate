@@ -12,7 +12,6 @@
                 <!--:afterOpenTab="()=>log('afterOpenTab')"-->
                 <!--:beforePush="()=>log('beforePush')"-->
                 <!--:afterPush="()=>log('afterPush')"/>-->
-
             </div>
         </div>
     </div>

@@ -14,6 +14,10 @@
             <link-button label="打开页面三参数:" box-type="line"/>
             <link-input v-model="msg"/>
         </demo-row>
+        <demo-row>
+            <link-button label="监听事件" @click="nav.on('hello',logData)"/>
+            <link-button label="派发事件" @click="nav.emit('hello','hello world')"/>
+        </demo-row>
     </div>
 </template>
 
@@ -45,6 +49,10 @@
 
             onBack(data) {
                 this.$notice.show(`页面二监听到回退事件` + JSON.stringify(data))
+            },
+
+            logData(data) {
+                console.log('页面二' + data);
             },
         }
     }

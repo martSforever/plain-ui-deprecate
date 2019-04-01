@@ -32,6 +32,7 @@
                 pagesStorage: null,
                 selfStorage: null,
                 pages: [],
+                listener: new this.$plain.Vue({render: () => <span></span>}).$mount()
             }
         },
         created() {
@@ -117,6 +118,20 @@
              */
             async backOff(data) {
                 return await this.back(data, this.pages.length - 1)
+            },
+
+            /*---------------------------------------导航广播-------------------------------------------*/
+            on(event, callback) {
+                this.listener.$on(event, callback)
+            },
+            once(event, callback) {
+                this.listener.$once(event, callback)
+            },
+            off(event, callback) {
+                this.listener.$off(event, callback)
+            },
+            emit(event, param, global) {
+                !global ? this.listener.$emit(event, param) : this.$emit('emit', {event, param})
             },
 
             /*
