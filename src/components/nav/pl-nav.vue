@@ -55,7 +55,9 @@
             disabledStorage: {type: Boolean},                                   //是否缓存页面历史
         },
         data() {
+            const historyStorage = this.$plain.$storage.get(NAV_STORAGE_KEY.HISTORY) || []
             return {
+                historyStorage,
                 tabs: [],
                 selfStorage: null,
                 p_index: null,
@@ -91,6 +93,7 @@
                     this.p_index = this.tabs.length - 1
                 }
                 !!this.afterOpenTab && !!this.afterOpenTab(tab)
+                this.pl_saveHistory(tab)
                 this.pl_save()
                 this.$emit('openTab', tab)
                 return tab
@@ -293,6 +296,18 @@
                     title: '快捷入口',
                     path: 'blank',
                 })
+            },
+            /**
+             * 保存页面打开的历史
+             * @author  韦胜健
+             * @date    2019/4/1 20:30
+             */
+            pl_saveHistory(tab) {
+                const existIndex = this.$plain.$utils.indexOf(this.historyStorage, item => item.id === tab.id || item.title === tab.title)
+                if (existIndex != null) this.historyStorage.splice(existIndex, 1)
+                this.historyStorage.unshift(tab)
+                if (this.historyStorage.length >= 10) this.historyStorage.splice(10, this.historyStorage.length)
+                this.$plain.$storage.set(NAV_STORAGE_KEY.HISTORY, this.historyStorage)
             },
         }
     }

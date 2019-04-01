@@ -41,6 +41,29 @@
                 <pl-item v-if="favoriteList.length === 0" key="empty"><span>无</span></pl-item>
             </pl-list>
         </div>
+
+        <div class="pl-nav-blank-list">
+            <h5>历史记录</h5>
+            <pl-list>
+                <pl-item v-for="(item) in storageList" :key="item.id">
+                    <div class="pl-nav-blank-list-item">
+                        <div class="pl-nav-blank-list-item-left" @click="pl_openTab(item)">
+                            <pl-tooltip-text :content="item.title" show-overflow-tooltip/>
+                        </div>
+                        <div class="pl-nav-blank-list-item-right">
+                            <pl-radio inactive-icon="pad-heart"
+                                      active-icon="pad-heart-fill" color="error"
+                                      readonly
+                                      @click.native.stop="pl_toggleFavorite(item)"
+                                      :value="favoriteList.some(i=>i.title === item.title)"/>
+                            <pl-icon icon="pad-close-circle" class="pl-nav-blank-close" @click.stop="pl_deleteHistory(item)"/>
+                        </div>
+                    </div>
+                    <pl-item v-if="storageList.length === 0" key="empty"><span>无</span></pl-item>
+                </pl-item>
+            </pl-list>
+        </div>
+
         <!--<div class="pl-nav-blank-history  pl-nav-blank-list">
             <h5>历史记录</h5>
             <pl-list>
@@ -74,6 +97,7 @@
     import PlIcon from "../icon/pl-icon";
     import PlTooltipText from "../tooltip/pl-tooltip-text";
     import PlRadio from "../radio/pl-radio";
+    import {NAV_STORAGE_KEY} from "./index";
 
     export default {
         name: "pl-nav-blank",
@@ -83,17 +107,17 @@
         },
         data() {
             const nav = this.$plain.$dom.findComponentUpward(this, 'pl-nav')
-            const STORAGE_KEY = 'nav-blank'
-            const componentStorage = this.$plain.$storage.get(STORAGE_KEY) || {}
+            const componentStorage = this.$plain.$storage.get(NAV_STORAGE_KEY.BLANK) || {}
             const favoriteList = componentStorage.favoriteList || []
-
-
+            const storageList = this.$plain.$storage.get(NAV_STORAGE_KEY.HISTORY) || []
+            console.log(storageList)
             return {
-                STORAGE_KEY,
+                NAV_STORAGE_KEY,
                 nowTabs: nav.tabs,
                 nav,
                 componentStorage,
                 favoriteList,
+                storageList,
             }
         },
         methods: {
@@ -110,7 +134,7 @@
                     this.favoriteList.unshift(tab.saveData())
                 }
                 this.componentStorage.favoriteList = this.favoriteList
-                this.$plain.$storage.set(this.STORAGE_KEY, this.componentStorage)
+                this.$plain.$storage.set(this.NAV_STORAGE_KEY.BLANK, this.componentStorage)
             },
             /**
              * 打开页面
@@ -130,6 +154,15 @@
              */
             pl_closeTab(tab) {
                 this.nav.closeTab(tab.id)
+            },
+            /**
+             * 删除历史
+             * @author  韦胜健
+             * @date    2019/4/1 20:45
+             */
+            pl_deleteHistory(tab) {
+                this.storageList.splice(this.$plain.$utils.indexOf(this.storageList, item => item.id === tab.id), 1)
+                this.$plain.$storage.set(NAV_STORAGE_KEY.HISTORY, this.storageList)
             },
         }
     }

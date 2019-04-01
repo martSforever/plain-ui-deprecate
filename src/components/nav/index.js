@@ -1,6 +1,9 @@
 const NAV_STORAGE_KEY = {
     TAB: 'nav-tab',
-    PAGE: 'nav-page'
+    PAGE: 'nav-page',
+    BLANK: 'nav-blank',
+    HISTORY: 'nav-history',
+
 }
 
 class Page {
