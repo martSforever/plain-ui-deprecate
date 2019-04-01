@@ -4,11 +4,11 @@
             <link-button label="basically" @click="$dialog.show('Hello world')"/>
         </demo-row>
         <demo-row title="消息类型">
-            <link-button label="info" @click="$dialog.show('Hello world',{type:'info'})"/>
-            <link-button label="success" @click="$dialog.show('Hello world',{type:'success'})"/>
-            <link-button label="warn" @click="$dialog.show('Hello world',{type:'warn'})"/>
-            <link-button label="error" @click="$dialog.show('Hello world',{type:'error'})"/>
-            <link-button label="help" @click="$dialog.show('Hello world',{type:'help'})"/>
+            <link-button label="info" box-color="primary" @click="$dialog.show('Hello world',{type:'info'})"/>
+            <link-button label="success" box-color="success" @click="$dialog.show('Hello world',{type:'success'})"/>
+            <link-button label="warn" box-color="warn" @click="$dialog.show('Hello world',{type:'warn'})"/>
+            <link-button label="error" box-color="error" @click="$dialog.show('Hello world',{type:'error'})"/>
+            <link-button label="help" box-color="info" @click="$dialog.show('Hello world',{type:'help'})"/>
         </demo-row>
         <demo-row title="标题">
             <link-button label="basically" @click="$dialog.show('Hello world',{title:'this is title'})"/>
