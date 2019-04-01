@@ -164,7 +164,6 @@
                     this.$emit('clickShadow', e)
                     if (!this.disabledHideOnClickShadow) {
                         this.p_cancel()
-                        this.hide()
                     }
                 }
             },
@@ -177,9 +176,11 @@
             },
             p_confirm() {
                 this.$emit('confirm')
+                this.hide()
             },
             p_cancel() {
                 this.$emit('cancel')
+                this.hide()
             },
         }
     }

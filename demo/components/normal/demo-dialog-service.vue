@@ -66,7 +66,7 @@
             <link-button label="hide head and foot" @click="$dialog.show('Hello world',{noHeader:true,noFooter:true})"/>
         </demo-row>
         <demo-row title="使用渲染函数自定义渲染内容">
-            <link-button label="hide head and foot" @click="customeRender"/>
+            <link-button label="hide head and foot" @click="customRender"/>
             <link-input v-model="input"/>
         </demo-row>
         <demo-row title="以option的形式调用">
@@ -93,11 +93,12 @@
             }
         },
         methods: {
-            customeRender() {
-                this.$dialog.show(null, {
+            customRender() {
+                this.$dialog.show({
                     render: () => {
                         return (
                             <div>
+                                <link-button label="show dialog" onClick={() => this.$dialog.show('hello world')}/>
                                 <link-input value={this.input} onInput={e => this.input = e} long/>
                             </div>
                         )

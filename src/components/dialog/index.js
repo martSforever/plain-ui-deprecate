@@ -47,12 +47,20 @@ const DEFAULT_OPTION = {
 }
 
 class DialogService {
-    _ins = null;
     Vue;
+    insList = [];
 
     get instance() {
-        if (!this._ins) this._ins = this.newInstance()
-        return this._ins;
+        let ins;
+        for (let i = 0; i < this.insList.length; i++) {
+            const item = this.insList[i];
+            if (!item.p_show) ins = item
+        }
+        if (!ins) {
+            ins = this.newInstance()
+        }
+        this.insList.push(ins)
+        return ins
     }
 
     constructor(Vue) {
@@ -101,12 +109,11 @@ class DialogService {
 
                         onConfirm={e => {
                             !!this.onConfirm && this.onConfirm({content: this.content});
-                            this.hide()
                         }}
                         onCancel={e => {
                             !!this.onCancel && this.onCancel()
-                            this.hide()
                         }}
+                        onInput={val => this.p_show = val}
                     >
                         <span>{this.message}</span>
                         {
@@ -121,6 +128,7 @@ class DialogService {
             },
             data() {
                 return {
+                    p_show: null,
                     message: null,
                     ...DEFAULT_OPTION,
                 }
