@@ -260,6 +260,7 @@
                 } catch (e) {
                     console.info('注册页面失败，转错误处理')
                     console.error(e)
+                    !!this.pageRegistryErrorHandler && await this.pageRegistryErrorHandler(path)
                     return await this.$plain.pageRegistry(this.page404)
                 }
             },
