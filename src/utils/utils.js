@@ -319,6 +319,19 @@ function findSome(array, fn) {
 }
 
 /**
+ * 根据判断条件判断所在位置
+ * @author  韦胜健
+ * @date    2019/4/1 19:55
+ */
+function indexOf(array, fn) {
+    for (let i = 0; i < array.length; i++) {
+        const item = array[i];
+        if (!!fn(item)) return i
+    }
+    return null
+}
+
+/**
  * 从数组中删除部分元素
  * @author  韦胜健
  * @date    2019/3/4 10:35
@@ -444,6 +457,7 @@ const $utils = {
     shuffle,                                    //打乱数组顺序
     findOne,                                    //从数组中查找一个
     findSome,                                   //从数组中查找多个
+    indexOf,                                    //根据条件从数组查找下标
     removeSome,                                 //从数组中删除部分元素
 
     telFormat,                                  //电话号码格式化
