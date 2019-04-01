@@ -17,12 +17,14 @@
         name: "pl-nav-pages",
         components: {PlNavPage},
         props: {
-            id: {required: true},                 //pages的id
-            rootPage: {},                                        //根页面
+            id: {required: true},                               //pages的id
+            rootPage: {},                                       //根页面
             before: {type: Function},                           //在push页面之前
             after: {type: Function},                            //在push页面之后
             storageKey: {type: Function},                       //存储时的标志key
-            storage: {type: Boolean},                           //是否缓存
+            storage: {type: Boolean, default: true},            //是否缓存
+            setStorage: {type: Function},                       //设置缓存
+            getStorage: {type: Function},                       //获取缓存
 
             getComponent: {type: Function},                     //获取页面
         },

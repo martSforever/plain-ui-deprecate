@@ -16,6 +16,8 @@
                     :id="tab.id"
                     :root-page="tab"
                     :storage="!disabledStorage && tab.storage"
+                    :set-storage="setStorage"
+                    :get-storage="getStorage"
                     v-if="tab.init"
                     v-show="tab.init && p_index === index"/>
         </div>
