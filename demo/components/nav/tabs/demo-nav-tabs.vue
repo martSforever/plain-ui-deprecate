@@ -5,7 +5,14 @@
                 <link-button :label="item.title" :box-type="!!item.fill?'fill':'line'" long v-for="(item,index) in menus" :key="index" @click="openTab(item)"/>
             </div>
             <div class="demo-nav-tabs-right">
-                <link-nav ref="nav" page404="/nav/test/demo-nav-not-found.vue"></link-nav>
+                <link-nav ref="nav" page404="/nav/test/demo-nav-not-found.vue"/>
+                <!--<link-nav ref="nav"-->
+                <!--page404="/nav/test/demo-nav-not-found.vue"-->
+                <!--:beforeOpenTab="()=>log('beforeOpenTab')"-->
+                <!--:afterOpenTab="()=>log('afterOpenTab')"-->
+                <!--:beforePush="()=>log('beforePush')"-->
+                <!--:afterPush="()=>log('afterPush')"/>-->
+
             </div>
         </div>
     </div>
@@ -31,6 +38,7 @@
             openTab(tab) {
                 this.$refs.nav.openTab(tab)
             },
+
         }
     }
 </script>
