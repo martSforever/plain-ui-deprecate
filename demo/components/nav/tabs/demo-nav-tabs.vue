@@ -2,10 +2,10 @@
     <div class="demo-nav-tabs">
         <div class="demo-nav-tabs-content">
             <div class="demo-nav-tabs-left">
-                <link-button :label="item.title" box-type="line" long v-for="(item,index) in menus" :key="index" @click="openTab(item)"/>
+                <link-button :label="item.title" :box-type="!!item.fill?'fill':'line'" long v-for="(item,index) in menus" :key="index" @click="openTab(item)"/>
             </div>
             <div class="demo-nav-tabs-right">
-                <link-nav ref="nav"></link-nav>
+                <link-nav ref="nav" page404="/nav/test/demo-nav-not-found.vue"></link-nav>
             </div>
         </div>
     </div>
@@ -23,6 +23,7 @@
                     {id: 3, title: 'Button按钮', path: '/normal/demo-button', param: {msg: 'button'}},
                     {id: 4, title: 'Input输入框', path: '/normal/demo-input', param: {msg: 'input'}},
                     {id: 5, title: 'Radio单复选按钮', path: '/normal/demo-radio', param: {msg: 'radio'}},
+                    {id: 'not-exist', title: '不存在的页面', path: '/normal/hello world', param: {msg: 'radio'}, fill: true},
                 ]
             }
         },

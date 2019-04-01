@@ -18,6 +18,9 @@
                     :storage="!disabledStorage && tab.storage"
                     :set-storage="setStorage"
                     :get-storage="getStorage"
+                    :before-push="beforePush"
+                    :after-push="afterPush"
+                    :get-component="pl_getComponent"
                     v-if="tab.init"
                     v-show="tab.init && p_index === index"/>
         </div>
@@ -244,6 +247,21 @@
                 const ret = await this.openTab(this.tabs[index], false)
                 this.pl_save()
                 return ret
+            },
+            /**
+             * 获取页面组件
+             * @author  韦胜健
+             * @date    2019/4/1 09:20
+             */
+            async pl_getComponent(path, frame) {
+                if (!!frame) return 'iframe'
+                try {
+                    return await this.$plain.pageRegistry(path)
+                } catch (e) {
+                    console.info('注册页面失败，转错误处理')
+                    console.error(e)
+                    return await this.$plain.pageRegistry(this.page404)
+                }
             },
             /*
              *  关闭tab

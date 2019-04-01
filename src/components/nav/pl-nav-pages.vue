@@ -19,13 +19,12 @@
         props: {
             id: {required: true},                               //pages的id
             rootPage: {},                                       //根页面
-            before: {type: Function},                           //在push页面之前
-            after: {type: Function},                            //在push页面之后
             storageKey: {type: Function},                       //存储时的标志key
             storage: {type: Boolean, default: true},            //是否缓存
             setStorage: {type: Function},                       //设置缓存
             getStorage: {type: Function},                       //获取缓存
-
+            beforePush: {type: Function},                       //push页面之前触发动作
+            afterPush: {type: Function},                        //push页面之后触发动作
             getComponent: {type: Function},                     //获取页面
         },
         data() {
@@ -47,9 +46,9 @@
              */
             async push({path, param, frame, props}) {
                 const page = new Page({path, param, frame, props, init: true, id: this.$plain.$utils.uuid()})
-                !!this.before && await this.before(page, this.rootPage)
+                !!this.beforePush && await this.beforePush(page, this.rootPage)
                 page.component = await this.pl_registryPage(page.path, page.frame)
-                !!this.after && await this.after(page)
+                !!this.afterPush && await this.afterPush(page)
                 this.pages.push(page)
                 this.pl_save()
                 this.$emit('push', page)
