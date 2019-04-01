@@ -5,7 +5,9 @@
              v-show="currentValue"
              v-dom-portal="transferDom"
              :style="styles"
-             @click="p_clickShadow">
+             @click="p_clickShadow"
+             @mouseenter="pl_mouseenter"
+             @mouseleave="pl_mouseleave">
             <div class="pl-dialog-content"
                  ref="content"
                  v-if="p_initialized"
@@ -42,6 +44,7 @@
     import PlIcon from "../icon/pl-icon";
     import PlButton from "../button/pl-button";
     import {TYPE} from "../../index";
+    import keyboard from 'src/utils/keyboard'
 
     export default {
         name: "pl-dialog",
@@ -82,6 +85,12 @@
             right: {type: Number | String},                                                     //对话框偏移右边界位置
             footAlign: {type: String, default: 'center'},                                       //对话框底部对其方式left|center|right
 
+            enterToConfirm: {type: Boolean, default: true},                                     //是否回车触发confirm事件
+            spaceToConfirm: {type: Boolean, default: true},                                     //是否空格触发confirm事件
+            escToCancel: {type: Boolean, default: true},                                        //是否Esc触发cancel事件
+
+            disabledHideOnConfirm: {type: Boolean},                                             //禁用触发确认事件之后的关闭弹框动作
+            disabledHideOnCancel: {type: Boolean},                                              //禁用触发取消事件之后的关闭弹框动作
         },
         data() {
             return {
@@ -92,7 +101,19 @@
                 p_index: 0,
                 p_watchValue: false,
                 p_isFull: this.full,
-                p_initialized: this.initialized || this.value
+                p_initialized: this.initialized || this.value,
+
+                keyboardListener: {
+                    'enter': () => {
+                        !!this.enterToConfirm && this.p_confirm()
+                    },
+                    'space': () => {
+                        !!this.spaceToConfirm && this.p_confirm()
+                    },
+                    'esc': () => {
+                        !!this.escToCancel && this.p_cancel()
+                    },
+                }
             }
         },
         watch: {
@@ -139,8 +160,6 @@
                 return styles
             },
         },
-        mounted() {
-        },
         methods: {
             show(val = true) {
                 const next = () => {
@@ -176,13 +195,23 @@
             },
             p_confirm() {
                 this.$emit('confirm')
-                this.hide()
+                !this.disabledHideOnConfirm && this.hide()
             },
             p_cancel() {
                 this.$emit('cancel')
-                this.hide()
+                !this.disabledHideOnCancel && this.hide()
             },
-        }
+            pl_mouseenter() {
+                keyboard.addListener(this.keyboardListener)
+            },
+            pl_mouseleave() {
+                keyboard.removeListener(this.keyboardListener)
+            },
+        },
+        beforeDestroy() {
+            keyboard.removeListener(this.keyboardListener)
+            window.body.removeChild(this.$el)
+        },
     }
 </script>
 
