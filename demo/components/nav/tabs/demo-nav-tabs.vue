@@ -30,12 +30,13 @@
                     {id: 4, title: 'Input输入框', path: '/normal/demo-input', param: {msg: 'input'}},
                     {id: 5, title: 'Radio单复选按钮', path: '/normal/demo-radio', param: {msg: 'radio'}},
                     {id: 'not-exist', title: '不存在的页面', path: '/normal/hello world', param: {msg: 'radio'}, fill: true},
+                    {id: 2, title: 'Icon替换为Button', path: '/normal/demo-button', param: {msg: 'radio'}, fill: true, refresh: true},
                 ]
             }
         },
         methods: {
             openTab(tab) {
-                this.$refs.nav.openTab(tab)
+                this.$refs.nav.openTab(tab, tab.refresh)
             },
 
         }

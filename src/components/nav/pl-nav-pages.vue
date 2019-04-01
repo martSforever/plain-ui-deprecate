@@ -12,6 +12,7 @@
 <script>
     import {NAV_STORAGE_KEY, Page} from "./index";
     import PlNavPage from "./pl-nav-page";
+    import PlNavBlank from './pl-nav-blank'
 
     export default {
         name: "pl-nav-pages",
@@ -175,6 +176,7 @@
              *  @datetime   2019/3/31 9:29
              */
             async pl_registryPage(path, frame) {
+                if (path === 'blank') return PlNavBlank
                 if (!!frame) return 'iframe'
                 if (!!this.getComponent) return await this.getComponent(path)
                 return this.$plain.pageRegistry(path)

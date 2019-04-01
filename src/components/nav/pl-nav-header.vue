@@ -9,9 +9,9 @@
              :class="{'pl-nav-header-item-active':index === currentValue}"
              v-for="(item,index) in list"
              @click="$emit('click',{item,index})"
-             :key="item">
+             :key="item[valueKey]">
             <div class="pl-nav-header-item-content">
-                <pl-tooltip-text show-overflow-tooltip :content="item"/>
+                <pl-tooltip-text show-overflow-tooltip :content="item[labelKey]"/>
                 <div class="pl-nav-header-item-close" @click.stop="$emit('close',{item,index})">
                     <pl-icon icon="pad-close" hover/>
                 </div>
@@ -32,6 +32,8 @@
         mixins: [ValueMixin],
         props: {
             list: {type: Array, default: () => []},
+            labelKey: {type: String},
+            valueKey: {type: String},
         },
         methods: {
             enter(el) {

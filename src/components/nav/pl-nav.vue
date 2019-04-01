@@ -2,9 +2,9 @@
     <div class="pl-nav">
         <div class="pl-nav-header-wrapper">
             <div class="pl-nav-header-wrapper-left">
-                <pl-nav-header :list="tabs.map(item=>item.title)" @close="pl_headCloseTab" @click="({index})=>pl_showTab(index)" :value="p_index"/>
+                <pl-nav-header :list="tabs" label-key="title" value-key="id" @close="pl_headCloseTab" @click="({index})=>pl_showTab(index)" :value="p_index"/>
             </div>
-            <div class="pl-nav-header-wrapper-right pl-nav-target">
+            <div class="pl-nav-header-wrapper-right pl-nav-target" @click="pl_openBlank">
                 <pl-icon icon="pad-plus"/>
             </div>
         </div>
@@ -110,7 +110,7 @@
              */
             async refresh(id) {
                 this.pl_clearTabCache(id)
-                const tab = this.pl_findTabById(id)
+                const {tab} = this.pl_findTabById(id)
                 tab.init = false
                 await this.$plain.nextTick()
                 tab.init = true
@@ -281,6 +281,18 @@
              */
             pl_emit({event, param}) {
                 this.$refs.pages.forEach(item => item.listener.$emit(event, param))
+            },
+            /**
+             * 打开空白页面
+             * @author  韦胜健
+             * @date    2019/4/1 19:21
+             */
+            pl_openBlank() {
+                this.openTab({
+                    id: this.$plain.$utils.uuid(),
+                    title: '快捷入口',
+                    path: 'blank',
+                })
             },
         }
     }
