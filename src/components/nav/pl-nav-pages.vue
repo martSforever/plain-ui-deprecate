@@ -5,7 +5,8 @@
                 v-for="(item) in pages"
                 :key="item.id"
                 :id="item.id"
-                :page="item"/>
+                :page="item"
+                :tab="rootPage"/>
     </transition-group>
 </template>
 

@@ -5,7 +5,7 @@
             <pl-list>
                 <pl-item v-for="(item) in nowTabs" :key="item.id">
                     <div class="pl-nav-blank-list-item">
-                        <div class="pl-nav-blank-list-item-left">
+                        <div class="pl-nav-blank-list-item-left" @click="pl_openTab(item)">
                             <pl-tooltip-text :content="item.title" show-overflow-tooltip/>
                         </div>
                         <div class="pl-nav-blank-list-item-right">
@@ -13,8 +13,8 @@
                                       active-icon="pad-heart-fill" color="error"
                                       readonly
                                       @click.native.stop="pl_toggleFavorite(item)"
-                                      :value="favoriteList.some(i=>i.id === item.id)"/>
-                            <pl-icon icon="pad-close-circle"/>
+                                      :value="favoriteList.some(i=>i.title === item.title)"/>
+                            <pl-icon icon="pad-close-circle" class="pl-nav-blank-close" @click.stop="pl_closeTab(item)"/>
                         </div>
                     </div>
                     <pl-item v-if="nowTabs.length === 0" key="empty"><span>无</span></pl-item>
@@ -26,7 +26,7 @@
             <pl-list>
                 <pl-item v-for="(item) in favoriteList" :key="item.id">
                     <div class="pl-nav-blank-list-item">
-                        <div class="pl-nav-blank-list-item-left">
+                        <div class="pl-nav-blank-list-item-left" @click="pl_openTab(item)">
                             <pl-tooltip-text :content="item.title" show-overflow-tooltip/>
                         </div>
                         <div class="pl-nav-blank-list-item-right">
@@ -34,7 +34,7 @@
                                       active-icon="pad-heart-fill" color="error"
                                       readonly
                                       @click.native.stop="pl_toggleFavorite(item)"
-                                      :value="favoriteList.some(i=>i.id === item.id)"/>
+                                      :value="favoriteList.some(i=>i.title === item.title)"/>
                         </div>
                     </div>
                 </pl-item>
@@ -78,6 +78,9 @@
     export default {
         name: "pl-nav-blank",
         components: {PlRadio, PlTooltipText, PlIcon, PlItem, PlList},
+        props: {
+            tab: {},
+        },
         data() {
             const nav = this.$plain.$dom.findComponentUpward(this, 'pl-nav')
             const STORAGE_KEY = 'nav-blank'
@@ -100,7 +103,7 @@
              * @date    2019/4/1 19:53
              */
             pl_toggleFavorite(tab) {
-                const index = this.$plain.$utils.indexOf(this.favoriteList, item => item.id === tab.id)
+                const index = this.$plain.$utils.indexOf(this.favoriteList, item => item.title === tab.title)
                 if (index != null) {
                     this.favoriteList.splice(index, 1)
                 } else {
@@ -108,7 +111,26 @@
                 }
                 this.componentStorage.favoriteList = this.favoriteList
                 this.$plain.$storage.set(this.STORAGE_KEY, this.componentStorage)
-            }
+            },
+            /**
+             * 打开页面
+             * @author  韦胜健
+             * @date    2019/4/1 20:06
+             */
+            pl_openTab(tab) {
+                this.nav.openTab({
+                    ...tab,
+                    id: this.tab.id,
+                }, true)
+            },
+            /**
+             * 关闭页面
+             * @author  韦胜健
+             * @date    2019/4/1 20:14
+             */
+            pl_closeTab(tab) {
+                this.nav.closeTab(tab.id)
+            },
         }
     }
 </script>
@@ -120,6 +142,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        .pl-nav-blank-close {
+            color: $color-normal-sub-color;
+        }
         .pl-nav-blank-list {
             height: 100%;
             width: 200px;
@@ -134,11 +159,11 @@
                 height: 40px;
                 width: 100%;
                 box-sizing: border-box;
-                padding: 0 12px;
+                padding: 0 20px;
                 display: flex;
                 justify-content: space-between;
                 position: relative;
-                left: -12px;
+                left: -20px;
                 border-radius: 40px;
                 &:hover {
                     background-color: $color-primary-light;

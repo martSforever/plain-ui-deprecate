@@ -5,6 +5,7 @@
                 ref="page"
                 :is="page.component"
                 :param="page.param"
+                :tab="tab"
                 v-bind="page.props"
                 :path="page.path"
                 :src="page.path"
@@ -19,6 +20,7 @@
         props: {
             id: {type: String, required: true},             //page的id
             page: {},                                       //page页面的数据信息
+            tab:{},
         },
         data() {
             const pages = this.$plain.$dom.findComponentUpward(this, 'pl-nav-pages')
