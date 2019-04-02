@@ -436,6 +436,46 @@ function deepmerge(...args) {
     return DM(...args)
 }
 
+/**
+ * 生成url地址
+ * @author  韦胜健
+ * @date    2019/4/2 10:06
+ */
+function encodeUrl(url, data) {
+    url = url.indexOf('?') < 0 ? '?' : '&';
+    let paramString = ''
+    Object.keys(data).forEach(key => {
+        let value = data[key] != null ? data[key] : '';
+        paramString += `&${key}=${encodeURIComponent(value)}`;
+    })
+    paramString = paramString.length > 1 ? paramString.substr(1) : ''
+    return url + paramString;
+}
+
+/**
+ * 解析url地址
+ * @author  韦胜健
+ * @date    2019/4/2 10:48
+ */
+function decodeUrl(url) {
+    let param = {}
+    let pureUrl
+    let urlParts = url.split('?')
+    if (urlParts.length === 0) {
+        console.error("地址解析失败：" + url)
+        return null
+    }
+    pureUrl = urlParts[0]
+    if (urlParts.length === 2) {
+        const paramStrings = urlParts[1].split("&");
+        paramStrings.forEach((str) => {
+            const [key, value] = str.split('=')
+            param[key] = decodeURIComponent(value)
+        })
+    }
+    return {url: pureUrl, param};
+}
+
 const $utils = {
     getKebabCase,                               //驼峰命名转横杠命名
     camelCase,                                  //转为驼峰命名
@@ -466,6 +506,8 @@ const $utils = {
     percentNumFormat,                           //百分比格式化
     keyboard,                                   //监听键盘事件
     deepmerge,                                  //深度合并
+    encodeUrl,
+    decodeUrl,
 }
 
 export default $utils

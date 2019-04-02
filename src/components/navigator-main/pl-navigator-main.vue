@@ -89,14 +89,10 @@
                 pageStack = selfStorage.pageStack.map((item) => Object.assign({init: false}, item))
                 this.$nextTick(() => this.p_clickTabTitle(selfStorage.index))
             }
-
-            let url = window.location.href
-            url = url.substring(0, url.indexOf("?"))
             return {
                 pageStack,
                 selfStorage,
                 currentValue: null,
-                url,
             }
         },
         created() {
@@ -361,7 +357,27 @@
                 const curTab = tabStorage.pageStack[this.currentValue]
                 const curPageStack = (pageStorage[curTab.id] || {}).pageStack || []
                 const curPage = curPageStack[curPageStack.length - 1] || {path: 'none'}
-                window.history.pushState({}, null, this.url + `?menu=${curTab.path},page=${curPage.path}`)
+
+                function getPageName(path) {
+                    let startIndex = path.lastIndexOf('/')
+                    startIndex = startIndex == null ? 0 : startIndex
+                    let endIndex = path.lastIndexOf('.')
+                    endIndex = endIndex === -1 ? path.length : endIndex
+                    return path.substring(startIndex + 1, endIndex)
+                }
+
+                const appendParam = {
+                    menu: getPageName(curTab.path),
+                    page: getPageName(curPage.path),
+                }
+
+                console.log(window.location.href)
+                const decodeData = this.$plain.$utils.decodeUrl(window.location.href)
+                if (!decodeData) return
+                const {url, param} = decodeData
+                console.log(url, param, appendParam)
+
+                window.history.pushState({}, null, this.$plain.$utils.encodeUrl(url, Object.assign(param, appendParam)))
             },
             /**
              * 获取缓存
