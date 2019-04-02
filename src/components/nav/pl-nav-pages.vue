@@ -1,13 +1,17 @@
 <template>
-    <transition-group tag="div" class="pl-nav-pages" name="pl-transition-from-right">
-        <pl-nav-page
-                ref="pages"
-                v-for="(item) in pages"
-                :key="item.id"
-                :id="item.id"
-                :page="item"
-                :tab="rootPage"/>
-    </transition-group>
+    <transition name="pl-transition-from-bottom">
+        <div class="pl-nav-pages" v-show="show">
+            <transition-group name="pl-transition-from-right">
+                <pl-nav-page
+                        ref="pages"
+                        v-for="(item) in pages"
+                        :key="item.id"
+                        :id="item.id"
+                        :page="item"
+                        :tab="rootPage"/>
+            </transition-group>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -28,6 +32,8 @@
             beforePush: {type: Function},                       //push页面之前触发动作
             afterPush: {type: Function},                        //push页面之后触发动作
             getComponent: {type: Function},                     //获取页面
+
+            show: {},
         },
         data() {
             return {

@@ -22,7 +22,7 @@
                     :after-push="afterPush"
                     :get-component="pl_getComponent"
                     v-if="tab.init"
-                    v-show="tab.init && p_index === index"
+                    :show="tab.init && p_index === index"
 
                     @emit="pl_emit"/>
         </div>
