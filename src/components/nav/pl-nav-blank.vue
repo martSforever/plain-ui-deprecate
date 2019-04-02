@@ -110,7 +110,6 @@
             const componentStorage = this.$plain.$storage.get(NAV_STORAGE_KEY.BLANK) || {}
             const favoriteList = componentStorage.favoriteList || []
             const storageList = this.$plain.$storage.get(NAV_STORAGE_KEY.HISTORY) || []
-            console.log(storageList)
             return {
                 NAV_STORAGE_KEY,
                 nowTabs: nav.tabs,

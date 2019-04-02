@@ -5,6 +5,7 @@
 /*缩放*/
 .pl-transition-scale-enter-active, .pl-transition-scale-leave-active {
   transform: scale(1);
+  @include transition-all;
 }
 
 .pl-transition-scale-enter, .pl-transition-scale-leave-to {
@@ -34,6 +35,7 @@
 
 /*移动*/
 .pl-transition-from-bottom-enter-active, .pl-transition-from-bottom-leave-active {
+  @include transition-all;
 }
 
 .pl-transition-from-bottom-enter, .pl-transition-from-bottom-leave-to {

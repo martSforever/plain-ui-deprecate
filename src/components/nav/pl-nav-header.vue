@@ -78,6 +78,7 @@
                 position: relative;
                 color: $color-normal-content;
                 cursor: pointer;
+                user-select: none;
                 .pl-tooltip-text {
                     text-align: center;
                 }
