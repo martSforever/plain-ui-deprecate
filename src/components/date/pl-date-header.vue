@@ -3,8 +3,8 @@
         <div class="pl-date-header-left">
             <slot name="left">
                 <template v-if="!hideLeftButton">
-                    <pl-icon icon="pl-double-arrow-left" class="pl-date-header-label" @click="p_pickYear--"/>
-                    <pl-icon icon="pl-arrow-left" class="pl-date-header-label" @click="p_previousMonth"/>
+                    <pl-icon icon="pad-doubleleft" class="pl-date-header-label" @click="p_pickYear--" hover/>
+                    <pl-icon icon="pad-left" class="pl-date-header-label" @click="p_previousMonth" hover/>
                 </template>
             </slot>
         </div>
@@ -21,8 +21,8 @@
         <div class="pl-date-header-right">
             <slot name="right">
                 <template v-if="!hideRightButton">
-                    <pl-icon icon="pl-arrow-right" class="pl-date-header-label" @click="p_nextMonth"/>
-                    <pl-icon icon="pl-double-arrow-right" class="pl-date-header-label" @click="p_pickYear++"/>
+                    <pl-icon icon="pad-right" class="pl-date-header-label" @click="p_nextMonth" hover/>
+                    <pl-icon icon="pad-doubleright" class="pl-date-header-label" @click="p_pickYear++" hover/>
                 </template>
             </slot>
         </div>
