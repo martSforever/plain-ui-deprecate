@@ -357,7 +357,6 @@
                 const curTab = tabStorage.pageStack[this.currentValue]
                 const curPageStack = (pageStorage[curTab.id] || {}).pageStack || []
                 const curPage = curPageStack[curPageStack.length - 1] || {path: 'none'}
-
                 function getPageName(path) {
                     let startIndex = path.lastIndexOf('/')
                     startIndex = startIndex == null ? 0 : startIndex
@@ -365,18 +364,15 @@
                     endIndex = endIndex === -1 ? path.length : endIndex
                     return path.substring(startIndex + 1, endIndex)
                 }
-
                 const appendParam = {
                     menu: getPageName(curTab.path),
                     page: getPageName(curPage.path),
                 }
-
-                console.log(window.location.href)
+                // console.log(window.location.href)
                 const decodeData = this.$plain.$utils.decodeUrl(window.location.href)
                 if (!decodeData) return
                 const {url, param} = decodeData
-                console.log(url, param, appendParam)
-
+                // console.log(url, param, appendParam)
                 window.history.pushState({}, null, this.$plain.$utils.encodeUrl(url, Object.assign(param, appendParam)))
             },
             /**
