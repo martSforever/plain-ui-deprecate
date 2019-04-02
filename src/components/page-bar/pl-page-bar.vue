@@ -92,7 +92,7 @@
                 return Math.ceil(this.total / this.p_size);
             },
             pages() {
-                if (!this.p_size) return [0];
+                if (!this.p_size) return [];
                 const ret = []
 
                 let begin = this.p_page - this.availablePage
