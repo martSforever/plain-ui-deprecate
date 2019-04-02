@@ -246,6 +246,9 @@
                 border-radius: $value;
             }
         }
+        &.pl-box-shape-round{
+            padding: 0 12px;
+        }
 
         &.pl-box-disabled {
             border: solid $border-size #f2f2f2 !important;
