@@ -17,7 +17,7 @@
                             <div class="pl-navigator-main-header-item-wrapper">
                                 <div class="pl-navigator-main-header-item-inner">
                                 <span class="pl-navigator-main-header-item-label">
-                                    <pl-tooltip-text :content="item.title"/>
+                                    <pl-tooltip-text :content="item.title" show-overflow-tooltip/>
                                 </span>
                                     <div class="pl-navigator-main-header-item-close" v-if="pageStack.length>1" @click.stop="p_close(item.id)">
                                         <pl-icon icon="pad-close"/>
