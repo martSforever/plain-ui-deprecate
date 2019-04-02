@@ -73,6 +73,7 @@ class NavigatorService {
      * @date    2019/3/6 11:24
      */
     async refreshTab(id) {
+        id = id || this.tab.id
         return await this.main.refresh(id)
     }
 
@@ -82,6 +83,7 @@ class NavigatorService {
      * @date    2019/3/6 11:38
      */
     async updateTab(id, newTabData) {
+        id = id || this.tab.id
         return await this.main.update(id, newTabData)
     }
 
@@ -194,7 +196,8 @@ class NavigatorService {
      * @param   global      是否为全局事件，是则所有页签内注册event事件的页面都可以监听，否则只有同页签内注册事件的页面才能监听event事件
      */
     $emit(event, param, global = false) {
-        this.page.emit(event, param, global)
+        if (global) {this.main.emit(event, param)}
+        else {this.page.emit(event, param)}
     }
 }
 
