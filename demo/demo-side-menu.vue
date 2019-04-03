@@ -123,7 +123,6 @@
                             {title: 'Card卡片', icon: 'pl-card', page: '/normal/demo-card', complete: true},
                             {title: 'Carousel轮播', icon: 'pl-carousel', page: '/normal/demo-carousel', complete: true},
                             {title: 'Collapse折叠面板', icon: 'pl-collapse', page: '/normal/demo-collapse', complete: true},
-                            {title: 'MarkdownParser', icon: 'pl-collapse', page: '/normal/demo-markdown-parser', complete: true},
                         ],
                     },
                 ],

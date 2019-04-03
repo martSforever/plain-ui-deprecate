@@ -1,5 +1,4 @@
 import PlMessageContainer from './pl-message-container'
-import Vue from 'vue'
 import utils from '../../utils/utils'
 import dom from '../../utils/dom'
 
@@ -64,7 +63,7 @@ class MessageService {
             horizontal,
             vertical,
         }
-        Vue.prototype.$nextTick(() => container.add(messageOption))
+        this.Vue.prototype.$nextTick(() => container.add(messageOption))
         return messageOption
     }
 
