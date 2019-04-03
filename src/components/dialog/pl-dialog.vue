@@ -210,7 +210,7 @@
         },
         beforeDestroy() {
             keyboard.removeListener(this.keyboardListener)
-            window.body.removeChild(this.$el)
+            !!this.$el && window.body.removeChild(this.$el)
         },
     }
 </script>
