@@ -1,4 +1,6 @@
 const path = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const resolve = (dir) => path.join(__dirname, '.', dir)
 
 module.exports = {
@@ -53,7 +55,10 @@ module.exports = {
                     loader: 'text-loader'
                 },
             ]
-        }
+        },
+        plugins: [
+            new BundleAnalyzerPlugin()
+        ]
     },
     css: {
         loaderOptions: {
