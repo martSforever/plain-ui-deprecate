@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("vue"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["plain-ui"] = factory(require("vue"));
+		exports["plain-ui"] = factory();
 	else
-		root["plain-ui"] = factory(root["Vue"]);
-})((typeof self !== 'undefined' ? self : this), function(__WEBPACK_EXTERNAL_MODULE__8bbf__) {
+		root["plain-ui"] = factory();
+})((typeof self !== 'undefined' ? self : this), function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -3738,13 +3738,6 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "8bbf":
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__8bbf__;
 
 /***/ }),
 
@@ -13349,12 +13342,7 @@ var pl_message_container_component = normalizeComponent(
 
 pl_message_container_component.options.__file = "pl-message-container.vue"
 /* harmony default export */ var pl_message_container = (pl_message_container_component.exports);
-// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
-var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
-var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
-
 // CONCATENATED MODULE: ./src/components/message/index.js
-
 
 
 
@@ -13442,7 +13430,7 @@ function () {
         horizontal: horizontal,
         vertical: vertical
       };
-      external_commonjs_vue_commonjs2_vue_root_Vue_default.a.prototype.$nextTick(function () {
+      this.Vue.prototype.$nextTick(function () {
         return container.add(messageOption);
       });
       return messageOption;

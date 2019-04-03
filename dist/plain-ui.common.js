@@ -3732,13 +3732,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "8bbf":
-/***/ (function(module, exports) {
-
-module.exports = require("vue");
-
-/***/ }),
-
 /***/ "8d41":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13340,12 +13333,7 @@ var pl_message_container_component = normalizeComponent(
 
 pl_message_container_component.options.__file = "pl-message-container.vue"
 /* harmony default export */ var pl_message_container = (pl_message_container_component.exports);
-// EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
-var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
-var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
-
 // CONCATENATED MODULE: ./src/components/message/index.js
-
 
 
 
@@ -13433,7 +13421,7 @@ function () {
         horizontal: horizontal,
         vertical: vertical
       };
-      external_commonjs_vue_commonjs2_vue_root_Vue_default.a.prototype.$nextTick(function () {
+      this.Vue.prototype.$nextTick(function () {
         return container.add(messageOption);
       });
       return messageOption;
