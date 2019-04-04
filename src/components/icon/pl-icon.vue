@@ -22,6 +22,8 @@
         vertical-align: bottom;
         display: inline;
         position: relative;
+        width: $icon-size;
+        height: $icon-size;
         .pl-icon-svg {
             width: $icon-size;
             height: $icon-size;
