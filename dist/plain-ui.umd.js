@@ -12446,12 +12446,7 @@ function decodeUrl(url) {
  */
 
 
-function copyToClipBoard(text, success, error) {
-  if (text.indexOf('-') !== -1) {
-    var arr = text.split('-');
-    text = arr[0] + arr[1];
-  }
-
+function copyToClipboard(text, success, error) {
   var textArea = document.createElement("textarea");
   textArea.style.position = 'fixed';
   textArea.style.top = '0';
@@ -12535,7 +12530,7 @@ var $utils = {
   //深度合并
   encodeUrl: encodeUrl,
   decodeUrl: decodeUrl,
-  copyToClipBoard: copyToClipBoard
+  copyToClipboard: copyToClipboard
 };
 /* harmony default export */ var utils = ($utils);
 // CONCATENATED MODULE: ./src/utils/dom.js

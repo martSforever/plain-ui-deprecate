@@ -481,11 +481,7 @@ function decodeUrl(url) {
  * @author  韦胜健
  * @date    2019/4/4 15:51
  */
-function copyToClipBoard(text, success, error) {
-    if (text.indexOf('-') !== -1) {
-        let arr = text.split('-');
-        text = arr[0] + arr[1];
-    }
+function copyToClipboard(text, success, error) {
     const textArea = document.createElement("textarea");
     textArea.style.position = 'fixed';
     textArea.style.top = '0';
@@ -545,7 +541,7 @@ const $utils = {
     deepmerge,                                  //深度合并
     encodeUrl,
     decodeUrl,
-    copyToClipBoard,
+    copyToClipboard,
 }
 
 export default $utils
