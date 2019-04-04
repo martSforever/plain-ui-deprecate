@@ -476,6 +476,43 @@ function decodeUrl(url) {
     return {url: pureUrl, param};
 }
 
+/**
+ * 复制内容到剪切板
+ * @author  韦胜健
+ * @date    2019/4/4 15:51
+ */
+function copyToClipBoard(text, success, error) {
+    if (text.indexOf('-') !== -1) {
+        let arr = text.split('-');
+        text = arr[0] + arr[1];
+    }
+    const textArea = document.createElement("textarea");
+    textArea.style.position = 'fixed';
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+    textArea.style.padding = '0';
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+    textArea.style.opacity = 0;
+    textArea.style.zIndex = -1000;
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) !!success && success()
+        else !!error && error("复制到剪切板失败！");
+    } catch (err) {
+        !!error && error(err);
+    }
+
+    document.body.removeChild(textArea);
+}
+
 const $utils = {
     getKebabCase,                               //驼峰命名转横杠命名
     camelCase,                                  //转为驼峰命名
@@ -508,6 +545,7 @@ const $utils = {
     deepmerge,                                  //深度合并
     encodeUrl,
     decodeUrl,
+    copyToClipBoard,
 }
 
 export default $utils
