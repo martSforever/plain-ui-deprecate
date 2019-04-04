@@ -87,6 +87,26 @@
         <demo-row title="空值占位符">
             <link-input placeholder="输入xxx"/>
         </demo-row>
+        <demo-row title="监听键盘事件">
+            <link-button-group>
+                <link-button label="up"/>
+                <link-button label="down"/>
+                <link-button label="left"/>
+                <link-button label="right"/>
+                <link-button label="enter"/>
+                <link-button label="esc"/>
+                <link-button label="space"/>
+            </link-button-group>
+            <link-input v-model="val0"
+                        @up="$message.show('up:'+val0)"
+                        @down="$message.show('down:'+val0)"
+                        @left="$message.show('left:'+val0)"
+                        @right="$message.show('right:'+val0)"
+                        @enter="$message.show('enter:'+val0)"
+                        @esc="$message.show('esc:'+val0)"
+                        @space="$message.show('space:'+val0)"
+            />
+        </demo-row>
         <demo-row title="前置插槽以及后置插槽">
             <link-input :width="null">
                 <div slot="prepend" class="pl-input-prepend">前置内容</div>

@@ -18,6 +18,14 @@
                @input="p_input"
                @focus="p_focus"
                @blur="p_blur"
+               @keyup.enter="e=>$emit('enter', e)"
+               @keyup.up="e=>$emit('up', e)"
+               @keyup.down="e=>$emit('down', e)"
+               @keyup.left="e=>$emit('left', e)"
+               @keyup.right="e=>$emit('right', e)"
+               @keyup.esc="e=>$emit('esc', e)"
+               @keyup.space="e=>$emit('space', e)"
+
                @click="e=>$emit('click', e)"
         >
         <slot name="append"></slot>
