@@ -79,6 +79,7 @@
     );
     .pl-message-container {
         position: fixed;
+        z-index: 9999;
         .pl-message-wrapper {
             .pl-item {
                 &:not(:last-child) {
