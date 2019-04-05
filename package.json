@@ -23,8 +23,8 @@
   "scripts": {
     "start": "npm run serve",
     "serve": "vue-cli-service serve",
-    "build:page": "vue-cli-service build",
-    "build": "vue-cli-service build --target lib --name plain-ui src/index.js --dest dist",
+    "build:page": "vue-cli-service build --analysis",
+    "build": "vue-cli-service build --target lib --name plain-ui src/index.js --dest dist --analysis",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

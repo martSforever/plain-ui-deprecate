@@ -1,12 +1,17 @@
-const path = require('path')
+const $utils = require('./utils/build.utils')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const resolve = (dir) => path.join(__dirname, '.', dir)
+/*获取命令行参数*/
+const arg = $utils.decodeArgv()
+console.log(arg)
+/*添加插件*/
+const plugins = []
+!!arg.analysis && plugins.push(new BundleAnalyzerPlugin({analyzerPort: '9999'}))                        //如果命令行参数中存在analysis，则启用webpack-bundle-analysis插件分析打包数据
 
-module.exports = {
+const option = {
     baseUrl: './',
     lintOnSave: false,
-    outputDir: resolve('page'),
+    outputDir: $utils.resolve('page'),
     devServer: {
         port: '8888',
     },
@@ -44,12 +49,12 @@ module.exports = {
         resolve: {
             extensions: ['.js', '.vue', '.json'],
             alias: {
-                'src': resolve('src'),
-                'demo': resolve('demo'),
+                'src': $utils.resolve('src'),
+                'demo': $utils.resolve('demo'),
             }
         },
-        module:{
-            rules:[
+        module: {
+            rules: [
                 {
                     test: /.md$/,
                     loader: 'text-loader'
@@ -57,7 +62,7 @@ module.exports = {
             ]
         },
         plugins: [
-            // new BundleAnalyzerPlugin()
+            ...plugins,
         ]
     },
     css: {
@@ -72,3 +77,5 @@ module.exports = {
         config.plugins.delete('prefetch-portal')
     }
 }
+
+module.exports = option
