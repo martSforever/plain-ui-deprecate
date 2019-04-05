@@ -40,9 +40,9 @@ const props = {
 
     /*不可配置信息*/
     scopedSlots: {type: Object},                                                                                    //作用域插槽
-    renderNormal: {type: Object},                                                                                   //渲染函数:非编辑状态
-    renderEdit: {type: Object},                                                                                     //渲染函数：编辑状态
-    renderHead: {type: Object},                                                                                     //渲染函数：列头
+    renderNormal: {type: Function},                                                                                 //渲染函数:非编辑状态
+    renderEdit: {type: Function},                                                                                   //渲染函数：编辑状态
+    renderHead: {type: Function},                                                                                   //渲染函数：列头
     propData: {type: Object},                                                                                       //列额外数据信息
 }
 

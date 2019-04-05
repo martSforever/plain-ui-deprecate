@@ -6,7 +6,7 @@
             :renderNormal="normal"
             :renderEdit="edit"
             :renderHead="head"
-            :propData="prop || {}"
+            :propData="propData || {}"
     />
 </template>
 
