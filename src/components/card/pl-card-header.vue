@@ -20,7 +20,7 @@
         justify-content: space-between;
         font-weight: 500;
         padding: 0 16px;
-        border-bottom: $border;
-        color: $color-normal-title;
+        border-bottom: var(--p-border);
+        color: var(--p-color-normal-title);
     }
 </style>

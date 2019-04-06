@@ -77,6 +77,6 @@
 
 <style lang="scss">
     .pl-collapse-transition {
-        transition: $transition-time height ease-in-out, $transition-time padding-top ease-in-out, $transition-time padding-bottom ease-in-out;
+        transition: var(--p-transition-time) height ease-in-out, var(--p-transition-time) padding-top ease-in-out, var(--p-transition-time) padding-bottom ease-in-out;
     }
 </style>

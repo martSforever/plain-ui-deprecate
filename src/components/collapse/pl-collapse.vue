@@ -66,7 +66,7 @@
     .pl-collapse {
         @include public-style;
         width: 100%;
-        border: solid 1px $color-normal-background;
+        border: solid 1px var(--p-color-normal-background);
         .pl-collapse-head {
             position: relative;
             box-sizing: border-box;

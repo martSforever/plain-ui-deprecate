@@ -105,7 +105,7 @@
     .pl-table-head-cell {
         position: relative;
         &:hover {
-            background-color: $base-table-head-hover-color;
+            background-color: var(--p-base-table-head-hover-color);
             cursor: pointer;
             .pl-table-head-cell-sort {
                 opacity: 1;
@@ -137,19 +137,19 @@
             font-size: 12px;
             transform: scale(0.5);
             position: relative;
-            color: $base-table-head-icon-color;
+            color: var(--p-base-table-head-icon-color);
             opacity: 0;
             &.pl-table-head-cell-sort-asc, &.pl-table-head-cell-sort-desc {
                 opacity: 1;
             }
             &.pl-table-head-cell-sort-asc {
                 .pl-sort-asc-icon {
-                    color: $base-table-head-icon-active-color
+                    color: var(--p-base-table-head-icon-active-color)
                 }
             }
             &.pl-table-head-cell-sort-desc {
                 .pl-sort-desc-icon {
-                    color: $base-table-head-icon-active-color
+                    color: var(--p-base-table-head-icon-active-color)
                 }
             }
         }

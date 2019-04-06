@@ -73,8 +73,8 @@
         overflow-x: hidden;
         tr:not(.pl-table-column):not(:last-child) {
             .pl-table-cell {
-                border-bottom: solid $base-table-border-size $base-table-border-color;
-                border-top: solid $base-table-border-size transparent;
+                border-bottom: solid var(--p-base-table-border-size) var(--p-base-table-border-color);
+                border-top: solid var(--p-base-table-border-size) transparent;
             }
         }
     }

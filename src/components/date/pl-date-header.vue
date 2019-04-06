@@ -102,7 +102,7 @@
                 padding: 4px 9px;
                 &:hover {
                     border-radius: 4px;
-                    background-color: $color-primary-light;
+                    background-color: var(--p-color-primary-light);
                 }
             }
         }
@@ -111,14 +111,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: $color-normal-content;
+            color: var(--p-color-normal-content);
             cursor: pointer;
             .pl-date-header-label {
                 &:not(:last-child) {
                     margin-right: 3px;
                 }
                 &:hover {
-                    color: $color-primary;
+                    color: var(--p-color-primary);
                 }
             }
         }

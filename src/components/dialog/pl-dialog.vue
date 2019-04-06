@@ -218,11 +218,11 @@
 <style lang="scss">
     $head-height: 40px;
     $dialog-types: (
-            info:$color-primary,
-            warn:$color-warn,
-            error:$color-error,
-            success:$color-success,
-            help:$color-info,
+            info:var(--p-color-primary),
+            warn:var(--p-color-warn),
+            error:var(--p-color-error),
+            success:var(--p-color-success),
+            help:var(--p-color-info),
     );
     .pl-dialog {
         @include public-style;
@@ -240,21 +240,21 @@
         .pl-dialog-content {
             position: relative;
             background-color: white;
-            box-shadow: $box-shadow;
+            box-shadow: var(--p-box-shadow);
             @include transition-all;
             .pl-dialog-head, .pl-dialog-foot {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 0 $padding;
+                padding: 0 var(--p-padding);
             }
             .pl-dialog-head {
-                border-bottom: solid $border-size $color-normal-border;
+                border-bottom: solid var(--p-border-size) var(--p-color-normal-border);
                 height: $head-height;
                 font-weight: bold;
                 box-sizing: border-box;
                 .pl-dialog-type-icon {
-                    margin-right: $padding/2;
+                    margin-right: var(--p-padding)/2;
                 }
                 .pl-dialog-head-operator {
                     .pl-icon {
@@ -276,9 +276,9 @@
             .pl-dialog-foot {
                 justify-content: flex-end;
                 box-sizing: border-box;
-                padding-bottom: $padding/4*3;
+                padding-bottom: 12px;
                 .pl-button {
-                    margin-left: $padding/4*3;
+                    margin-left: 12px;
                 }
                 &.pl-dialog-foot-align-left {
                     justify-content: flex-start;
@@ -345,8 +345,8 @@
         }
         &.pl-dialog-padding {
             .pl-dialog-body {
-                padding: $padding;
-                box-sizing: $padding;
+                padding: var(--p-padding);
+                box-sizing: var(--p-padding);
             }
         }
 

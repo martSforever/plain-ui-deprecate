@@ -258,7 +258,7 @@
                 cursor: pointer;
                 user-select: none;
                 font-size: 12px;
-                color: $color-normal-sub-color;
+                color: var(--p-color-normal-sub-color);
 
                 transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
                 transition-duration: 0ms;

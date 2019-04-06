@@ -62,15 +62,15 @@
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
                     background-color: $value;
-                    border: solid $border-size $value;
+                    border: solid var(--p-border-size) $value;
                     color: white;
 
                     &:active {
-                        background-color: mix(#000, $value, 30%);
-                        border-color: mix(#000, $value, 30%);
+                        background-color: var(--p-color-#{$key}-deep);
+                        border-color: var(--p-color-#{$key}-deep);
                         &.pl-tag-disabled {
-                            background-color: $color-normal-disabled;
-                            border-color: $color-normal-disabled;
+                            background-color: var(--p-color-disabled);
+                            border-color: var(--p-color-disabled);
                         }
                     }
                 }
@@ -80,12 +80,12 @@
         &.pl-tag-type-line {
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
-                    border: solid $border-size $value;
+                    border: solid var(--p-border-size) $value;
                     background: transparent;
                     color: $value;
 
                     &:active {
-                        background-color: mix(#fff, $value, 80%);
+                        background-color: var(--p-color-#{$key}-light);
                         &.pl-tag-disabled {
                             background-color: transparent;
                         }
@@ -100,12 +100,12 @@
         &.pl-tag-type-none {
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
-                    border: solid $border-size transparent;
+                    border: solid var(--p-border-size) transparent;
                     background: transparent;
-                    color: mix(#000, $value, 40%);
+                    color: var(--p-color-#{$key}-deep);
 
                     &:active {
-                        background-color: mix(#fff, $value, 80%);
+                        background-color: var(--p-color-#{$key}-light);
                         &.pl-tag-disabled {
                             background-color: transparent;
                         }
@@ -117,12 +117,12 @@
         &.pl-tag-type-dashed {
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
-                    border: dotted $border-size $value;
+                    border: dotted var(--p-border-size) $value;
                     background: transparent;
-                    color: mix(#000, $value, 40%);
+                    color: var(--p-color-#{$key}-deep);
 
                     &:active {
-                        background-color: mix(#fff, $value, 80%);
+                        background-color: var(--p-color-#{$key}-light);
                         &.pl-tag-disabled {
                             background-color: transparent;
                         }

@@ -68,16 +68,16 @@
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
                     &:active {
-                        background-color: mix(#000, $value, 30%);
-                        border-color: mix(#000, $value, 30%);
+                        background-color: var(--p-color-#{$key}-deep);
+                        border-color: var(--p-color-#{$key}-deep);
                         &.pl-box-disabled {
-                            background-color: $color-normal-disabled;
-                            border-color: $color-normal-disabled;
+                            background-color: var(--p-color-normal-disabled);
+                            border-color: var(--p-color-normal-disabled);
                         }
                     }
                     &.pl-button-active {
-                        background-color: mix(#000, $value, 30%);
-                        border-color: mix(#000, $value, 30%);
+                        background-color: var(--p-color-#{$key}-deep);
+                        border-color: var(--p-color-#{$key}-deep);
                     }
                 }
             }
@@ -87,13 +87,13 @@
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
                     &:active {
-                        background-color: mix(#fff, $value, 80%);
+                        background-color: var(--p-color-#{$key}-light);
                         &.pl-box-disabled {
                             background-color: transparent;
                         }
                     }
                     &.pl-button-active {
-                        background-color: mix(#fff, $value, 80%);
+                        background-color: var(--p-color-#{$key}-light);
                     }
                 }
             }

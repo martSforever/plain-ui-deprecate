@@ -138,13 +138,13 @@
 <style lang="scss">
     .pl-table-row {
         &.pl-table-row-hover {
-            background-color: $base-table-hover-row-background;
+            background-color: var(--p-base-table-hover-row-background);
         }
         &.pl-table-row-editing {
             background-color: initial;
         }
         &.pl-table-row-selected {
-            background-color: $base-table-hover-row-background;
+            background-color: var(--p-base-table-hover-row-background);
         }
         .pl-table-cell {
             font-size: 12px;

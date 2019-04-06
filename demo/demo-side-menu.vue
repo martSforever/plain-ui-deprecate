@@ -156,7 +156,7 @@
             width: 100%;
             text-align: center;
             box-sizing: border-box;
-            color: $color-primary;
+            color: var(--p-color-primary);
         }
         .demo-menu-list {
             padding-left: 12px;
@@ -174,7 +174,7 @@
                     font-size: 12px;
                 }
                 &:hover {
-                    background-color: $color-primary-light;
+                    background-color: var(--p-color-primary-light);
                 }
             }
         }

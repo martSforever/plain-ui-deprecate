@@ -43,7 +43,7 @@
         white-space: nowrap;
         @each $key, $value in $list-color {
             &.pl-message-item-color-#{$key} {
-                background-color: rgba($value, 0.8);
+                background-color: $value;
                 color: white;
             }
         }
@@ -54,7 +54,7 @@
         }
         &.pl-message-item-color-white {
             background-color: white;
-            color: $color-normal-content;
+            color: var(--p-color-normal-content);
             box-shadow: 0 0 15px 3px #ddd;
         }
     }

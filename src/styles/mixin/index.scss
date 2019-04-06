@@ -1,5 +1,5 @@
 @mixin transition-all {
-  transition: all $transition-time;
+  transition: all var(--p-transition-time);
 }
 
 @mixin transition-all-cubic-bezier {
@@ -8,7 +8,7 @@
 
 @mixin public-style {
   font-family: Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
-  color: $color-normal-content;
+  color: var(--p-color-normal-content);
   margin: 0;
   padding: 0;
   letter-spacing: 0.5px;

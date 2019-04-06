@@ -40,7 +40,7 @@
 
 <style lang="scss">
     .pl-table-head-item {
-        background-color: $base-table-head-background;
+        background-color: var(--p-base-table-head-background);
         &.pl-table-head-item-left, &.pl-table-head-item-right {
             position: absolute;
             top: 0;

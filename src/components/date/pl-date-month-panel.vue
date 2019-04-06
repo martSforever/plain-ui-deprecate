@@ -94,18 +94,18 @@
                     align-items: center;
                     justify-content: center;
                     &:hover, &.pl-date-month-panel-item-pick-month {
-                        background-color: $color-primary-light;
+                        background-color: var(--p-color-primary-light);
                     }
                     &.pl-date-month-panel-item-now {
-                        background-color: $color-success;
+                        background-color: var(--p-color-success);
                         color: white;
                     }
                     &.pl-date-month-panel-item-active {
-                        background-color: $color-primary;
+                        background-color: var(--p-color-primary);
                         color: white;
                     }
                     &.pl-date-month-panel-item-disabled {
-                        background-color: $color-normal-background-error;
+                        background-color: var(--p-color-normal-background-error);
                     }
                 }
             }

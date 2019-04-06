@@ -122,12 +122,12 @@
 <style lang="scss">
     .pl-radio {
         @include public-style;
-        min-width: $icon-size;
-        height: $icon-size;
+        min-width: var(--p-icon-size);
+        height: var(--p-icon-size);
         position: relative;
         cursor: pointer;
         user-select: none;
-        padding-left: $icon-size;
+        padding-left: var(--p-icon-size);
         display: inline-flex;
         align-items: center;
         .pl-icon {
@@ -159,7 +159,7 @@
             &.pl-radio-color-#{$key} {
                 color: $value;
                 &:active {
-                    color: mix(#000, $value, 30%);
+                    color: var(--p-color-#{$key}-deep);
                 }
             }
         }

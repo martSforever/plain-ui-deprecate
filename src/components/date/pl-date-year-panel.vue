@@ -148,18 +148,18 @@
                     cursor: pointer;
                     border-radius: 4px;
                     &:hover, &.pl-date-year-panel-item-pick-year {
-                        background-color: $color-primary-light;
+                        background-color: var(--p-color-primary-light);
                     }
                     &.pl-date-year-panel-item-now {
-                        background-color: $color-success;
+                        background-color: var(--p-color-success);
                         color: white;
                     }
                     &.pl-date-year-panel-item-active {
-                        background-color: $color-primary;
+                        background-color: var(--p-color-primary);
                         color: white;
                     }
                     &.pl-date-year-panel-item-disabled {
-                        background-color: $color-normal-background-error;
+                        background-color: var(--p-color-normal-background-error);
                     }
                 }
             }

@@ -547,7 +547,7 @@
         @include public-style;
         width: 100%;
         position: relative;
-        border: solid 1px $base-table-border-color;
+        border: solid 1px var(--p-base-table-border-color);
         table {
             border-spacing: 0;
             border-collapse: collapse;

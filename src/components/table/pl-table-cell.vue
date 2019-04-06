@@ -48,7 +48,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        padding: 0 $base-table-cell-padding;
+        padding: 0 var(--p-base-table-cell-padding);
         min-width: 100%;
         &, & > div {
             width: 100%;

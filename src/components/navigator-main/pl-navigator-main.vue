@@ -497,12 +497,12 @@
                                 }
                                 &:hover {
                                     .pl-navigator-main-header-item-close {
-                                        background-color: $color-normal-border;
+                                        background-color: var(--p-color-normal-border);
                                     }
                                 }
                             }
                             &.pl-navigator-main-header-item-active {
-                                color: $color-primary;
+                                color: var(--p-color-primary);
                                 .pl-navigator-main-header-item-wrapper {
                                     background-color: white;
                                     border-top-left-radius: $navigator-main-tab-head-radios;

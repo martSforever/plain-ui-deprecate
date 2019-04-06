@@ -155,10 +155,10 @@
             justify-content: flex-start;
             align-items: center;
             &.link-select-item-active {
-                background-color: $color-primary-light;
+                background-color: var(--p-color-primary-light);
             }
             &:hover {
-                background-color: $color-primary-light;
+                background-color: var(--p-color-primary-light);
                 cursor: pointer;
             }
         }

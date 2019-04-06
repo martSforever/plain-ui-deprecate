@@ -32,10 +32,10 @@
     .pl-base-table-head {
         position: relative;
         overflow: hidden;
-        border-bottom: solid $base-table-border-size $base-table-border-color;
+        border-bottom: solid var(--p-base-table-border-size) var(--p-base-table-border-color);
         tr:not(.pl-base-table-column-space) {
-            font-size: $base-table-font-size;
-            font-weight: $base-table-font-weight;
+            font-size: var(--p-base-table-font-size);
+            font-weight: var(--p-base-table-font-weight);
         }
         & + .pl-base-table-body {
             border-top: none;

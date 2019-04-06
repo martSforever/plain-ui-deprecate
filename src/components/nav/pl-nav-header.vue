@@ -66,7 +66,7 @@
             box-sizing: border-box;
             font-size: 12px;
             &:not(:last-child) {
-                border-right: solid 1px $tab-color;
+                border-right: solid 1px var(--p-tab-color);
             }
             @include transition-all;
             .pl-nav-header-item-content {
@@ -76,7 +76,7 @@
                 box-sizing: border-box;
                 padding: 0 12px;
                 position: relative;
-                color: $color-normal-content;
+                color: var(--p-color-normal-content);
                 cursor: pointer;
                 user-select: none;
                 .pl-tooltip-text {
@@ -91,7 +91,7 @@
             }
 
             &.pl-nav-header-item-active {
-                background-color: $color-primary-light !important;
+                background-color: var(--p-color-primary-light) !important;
             }
         }
     }

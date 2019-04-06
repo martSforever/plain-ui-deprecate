@@ -198,7 +198,7 @@
             font-size: 12px;
             cursor: pointer;
             &:hover, &.pl-context-menu-item-active {
-                background-color: $color-primary;
+                background-color: var(--p-color-primary);
                 color: white;
             }
         }

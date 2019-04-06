@@ -118,7 +118,7 @@
                 background: transparent;
                 outline: none;
                 &::placeholder {
-                    color: $color-normal-placeholder;
+                    color: var(--p-color-normal-placeholder);
                 }
                 &::-ms-clear {
                     display: none;
@@ -140,13 +140,13 @@
         &.pl-input-focus {
             /*fill type*/
             &.pl-box-type-line {
-                border-color: $color-primary;
+                border-color: var(--p-color-primary);
             }
             &.pl-box-invalid {
-                border-color: $color-error;
+                border-color: var(--p-color-error);
             }
             .pl-icon {
-                color: $color-primary !important;
+                color: var(--p-color-primary) !important;
             }
         }
     }

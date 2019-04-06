@@ -237,14 +237,14 @@
             padding-left: 6px;
             box-sizing: border-box;
             &:hover {
-                color: $color-primary;
+                color: var(--p-color-primary);
             }
             &.pl-tree-node-empty-text {
                 padding-left: 1em;
             }
             .pl-radio {
                 margin-right: 5px;
-                color: $color-normal-content !important;
+                color: var(--p-color-normal-content) !important;
             }
         }
         .pl-tree-node-wrapper {
@@ -253,7 +253,7 @@
         }
         &.pl-tree-node-open {
             & > .pl-tree-node-content {
-                color: $color-primary;
+                color: var(--p-color-primary);
             }
             & > .pl-tree-node-content > .pl-tree-node-icon {
                 transform: scale(0.7) rotate(90deg);

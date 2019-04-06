@@ -22,11 +22,11 @@
         vertical-align: bottom;
         display: inline;
         position: relative;
-        width: $icon-size;
-        height: $icon-size;
+        width: var(--p-icon-size);
+        height: var(--p-icon-size);
         .pl-icon-svg {
-            width: $icon-size;
-            height: $icon-size;
+            width: var(--p-icon-size);
+            height: var(--p-icon-size);
             vertical-align: -0.15em;
             fill: currentColor;
             overflow: hidden;

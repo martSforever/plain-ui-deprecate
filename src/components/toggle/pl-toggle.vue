@@ -70,7 +70,7 @@
             &.pl-toggle-size-#{$key} {
                 height: $value;
                 width: $value*52/32;
-                border-radius: $value/2;
+                border-radius: var(--p-shape-round);
                 &.pl-toggle-on {
                     .pl-toggle-circle {
                         left: $value/2+6;
@@ -78,7 +78,7 @@
                 }
                 .pl-toggle-circle {
                     right: $value/2+6;
-                    border-radius: $value/2-2;
+                    border-radius: var(--p-shape-round);
                 }
 
                 &.pl-toggle-active {
@@ -117,7 +117,7 @@
                     background-color: $value;
                 }
                 &.pl-toggle-disabled {
-                    background-color: $color-info;
+                    background-color: var(--p-color-info);
                 }
             }
         }

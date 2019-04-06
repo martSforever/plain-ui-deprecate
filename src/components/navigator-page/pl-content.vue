@@ -36,7 +36,7 @@
 <style lang="scss">
     .pl-content {
         @include public-style;
-        transition: $page-transition;
+        transition: var(--p-page-transition);
         position: relative;
         background-color: white;
 
@@ -48,7 +48,7 @@
         overflow: auto;
 
         &.pl-content-padding {
-            padding: $padding;
+            padding: var(--p-padding);
         }
     }
 </style>

@@ -46,12 +46,12 @@
         @include public-style;
         display: block;
         vertical-align: middle;
-        border: solid 1px $color-normal-background;
+        border: solid 1px var(--p-color-normal-background);
 
         .pl-collapse {
             border: none;
             &:not(:last-child) {
-                border-bottom: solid 1px $color-normal-background;
+                border-bottom: solid 1px var(--p-color-normal-background);
                 box-sizing: border-box;
             }
         }
