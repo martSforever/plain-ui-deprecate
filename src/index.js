@@ -184,7 +184,7 @@ const PlainUI = {
         Object.keys(components).forEach(key => Vue.component(`${prefix}-${$utils.getKebabCase(key)}`, components[key]))
         Vue.directive(`${prefix}-tooltip`, tooltip)
         $utils.addScript('https://at.alicdn.com/t/font_948159_x1ihl5p7zni.js')                  //plain
-        $utils.addScript('https://at.alicdn.com/t/font_1113642_ny96uri8cbm.js')                 //ant-design
+        $utils.addScript('https://at.alicdn.com/t/font_1113642_w82jwgy9lk8.js')                 //ant-design
         !!iconfont && $utils.addScript(iconfont)
 
         standardTableColumns.concat(tableColumns).forEach(col => {

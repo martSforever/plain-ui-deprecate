@@ -1,25 +1,10 @@
 <template>
     <pl-box class="pl-button"
-            :box-color="boxColor"
-            :box-shape="boxShape"
-            :box-size="boxSize"
-            :box-type="boxType"
-            :prefix-icon="prefixIcon"
-            :suffix-icon="suffixIcon"
-            :clear-icon="clearIcon"
-            :loading="loading"
-            :icon-only="iconOnly"
-            :readonly="readonly"
-            :disabled="disabled"
-            :padding="padding"
-            :long="long"
-            :width="width"
+            v-bind="boxBinding"
             @click="e=>$emit('click',e)"
-
             :class="{
                 'pl-button-active':active,
-            }"
-    >
+            }">
         <slot>
             {{label}}
         </slot>
@@ -39,6 +24,8 @@
 
             label: {},                                      //按钮显示的文本
             active: {type: Boolean},                        //按钮是否处于激活状态
+
+            loadingType: {default: 'section-one'},
         },
     }
 </script>
@@ -70,11 +57,13 @@
                     &:active {
                         background-color: var(--p-color-#{$key}-deep);
                         border-color: var(--p-color-#{$key}-deep);
+
                         &.pl-box-disabled {
                             background-color: var(--p-color-normal-disabled);
                             border-color: var(--p-color-normal-disabled);
                         }
                     }
+
                     &.pl-button-active {
                         background-color: var(--p-color-#{$key}-deep);
                         border-color: var(--p-color-#{$key}-deep);
@@ -88,10 +77,12 @@
                 &.pl-box-color-#{$key} {
                     &:active {
                         background-color: var(--p-color-#{$key}-light);
+
                         &.pl-box-disabled {
                             background-color: transparent;
                         }
                     }
+
                     &.pl-button-active {
                         background-color: var(--p-color-#{$key}-light);
                     }

@@ -141,12 +141,12 @@
             /*fill type*/
             &.pl-box-type-line {
                 border-color: var(--p-color-primary);
+                .pl-icon {
+                    color: var(--p-color-primary) !important;
+                }
             }
             &.pl-box-invalid {
                 border-color: var(--p-color-error);
-            }
-            .pl-icon {
-                color: var(--p-color-primary) !important;
             }
         }
     }

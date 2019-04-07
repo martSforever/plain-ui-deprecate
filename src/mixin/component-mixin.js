@@ -42,6 +42,7 @@ export const BoxMixin = {
         clearIcon: {type: String},                                      //清除图标，当该属性存在时，hover自动为true，当value有值并且hovering时，显示pad-close，否则显示clearIcon
         clearable: {type: Boolean, default: true},                      //是否可清除
         loading: {type: Boolean},                                       //loading 图标
+        loadingType: {type: String, default: 'default'},                //loading默认类型
         iconOnly: {type: Boolean},                                      //只有图标，设置为true则盒子宽高相等，并且为圆形
 
         readonly: {type: Boolean},                                      //只读
@@ -69,6 +70,7 @@ export const BoxMixin = {
                 clearIcon: this.clearIcon,
                 clearable: this.clearable,
                 loading: this.loading,
+                loadingType:this.loadingType,
                 iconOnly: this.iconOnly,
                 readonly: this.readonly,
                 disabled: this.disabled,
