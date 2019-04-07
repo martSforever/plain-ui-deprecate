@@ -4,7 +4,7 @@
             v-bind="boxBinding"
             :hover="hover || focusOnHover"
             :value="currentValue"
-            @clear="p_clear"
+            @clear="!loading && p_clear()"
             @enter="()=>{$emit('enter-box');!!this.focusOnHover && this.$refs.input.focus()}"
     >
         <slot name="prepend"></slot>
@@ -13,7 +13,7 @@
                class="pl-input-el"
                :value="currentValue"
                :disabled="disabled"
-               :readonly="readonly"
+               :readonly="readonly || loading"
                :placeholder="placeholder"
                @input="p_input"
                @focus="p_focus"

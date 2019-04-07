@@ -120,10 +120,10 @@
                 position: relative;
             }
             .pl-number-icon-up {
-                top: 2px;
+                top: 3px;
             }
             .pl-number-icon-down {
-                bottom: 2px;
+                bottom: 3px;
             }
         }
         @each $key, $value in $list-size {
