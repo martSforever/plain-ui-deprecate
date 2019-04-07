@@ -66,8 +66,8 @@
                 }
             },
             p_input({target: {value}}) {
+                !!this.replaceRegexp && (value = this.p_replaceRegexp(value))
                 this.currentValue = value
-                !!this.replaceRegexp && this.p_replaceRegexp(value)
                 this.$emit('input', value)
             },
             p_focus(e) {
@@ -108,21 +108,26 @@
 <style lang="scss">
     .pl-input {
         @include transition-all;
+
         .pl-box-content {
             display: inline-flex;
             width: 100%;
+
             .pl-input-el {
                 width: 100%;
                 flex: 1;
                 border: none;
                 background: transparent;
                 outline: none;
+
                 &::placeholder {
                     color: var(--p-color-normal-placeholder);
                 }
+
                 &::-ms-clear {
                     display: none;
                 }
+
                 &::-webkit-outer-spin-button,
                 &::-webkit-inner-spin-button {
                     -webkit-appearance: none !important;
@@ -131,20 +136,24 @@
 
             }
         }
+
         .pl-input-prepend, .pl-input-append {
             height: 100%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
         }
+
         &.pl-input-focus {
             /*fill type*/
             &.pl-box-type-line {
                 border-color: var(--p-color-primary);
+
                 .pl-icon {
                     color: var(--p-color-primary) !important;
                 }
             }
+
             &.pl-box-invalid {
                 border-color: var(--p-color-error);
             }
