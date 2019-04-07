@@ -9,7 +9,7 @@
         name: "pl-loading",
         components: {PlIcon},
         props: {
-            type: {type: String, default: 'section-one'},
+            type: {type: String, default: 'default'},
         },
     }
 </script>

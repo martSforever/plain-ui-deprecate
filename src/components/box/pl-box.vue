@@ -3,7 +3,7 @@
          @click="e=>!readonly && !disabled && $emit('click',e)"
     >
         <pl-icon v-if="!!prefixIcon" :icon="prefixIcon" class="pl-box-prefix-icon"/>
-        <pl-loading v-if="!!loading" style="margin-right: 0.5em"/>
+        <pl-loading v-if="!!loading" type="section-one" style="margin-right: 0.5em"/>
         <div class="pl-box-content" v-if="!iconOnly">
             <slot></slot>
         </div>

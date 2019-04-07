@@ -4,6 +4,7 @@
             <link-loading/>
         </demo-row>
         <demo-row title="基本用法">
+            <link-loading type="default"/>
             <link-loading type="section-one"/>
             <link-loading type="section-two"/>
             <link-loading type="section-three"/>

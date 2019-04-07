@@ -24,6 +24,7 @@
         position: relative;
         width: var(--p-icon-size);
         height: var(--p-icon-size);
+
         .pl-icon-svg {
             width: var(--p-icon-size);
             height: var(--p-icon-size);
@@ -33,18 +34,22 @@
             position: relative;
 
             &.pl-icon-loading {
-                animation: rotating 1s linear infinite;
+                animation: rotating 0.65s ease infinite;
             }
+
+            $degs: (1, 3, 4, 5, 6, 7, 8, 9, 10, 11);
 
             @keyframes rotating {
                 from {
                     transform: rotate(0deg);
                 }
-                50% {
-                    transform: rotate(180deg);
+                @each $item in $degs {
+                    #{$item*8.33%} {
+                        transform: rotate(-#{$item*30}deg);
+                    }
                 }
                 to {
-                    transform: rotate(360deg);
+                    transform: rotate(-360deg);
                 }
             }
         }
@@ -52,6 +57,7 @@
         &.pl-icon-enable-hover:hover {
             cursor: pointer;
             user-select: none;
+
             &:before {
                 position: absolute;
                 top: -4px;
@@ -62,7 +68,8 @@
                 background-color: #f2f2f2;
                 border-radius: 100px;
             }
-            &:active{
+
+            &:active {
                 &:before {
                     background-color: #eae3f2;
                 }
