@@ -148,7 +148,7 @@
                     cursor: pointer;
                     border-radius: 4px;
                     &:hover, &.pl-date-year-panel-item-pick-year {
-                        background-color: var(--p-color-primary-light);
+                        background-color: var(--p-color-primary-lighter);
                     }
                     &.pl-date-year-panel-item-now {
                         background-color: var(--p-color-success);

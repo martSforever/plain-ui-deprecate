@@ -91,7 +91,7 @@
             }
 
             &.pl-nav-header-item-active {
-                background-color: var(--p-color-primary-light) !important;
+                background-color: var(--p-color-primary-lighter) !important;
             }
         }
     }

@@ -229,7 +229,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: dateBorderRadius;
+                    border-radius: $dateBorderRadius;
                     .pl-date-day-panel-item-label {
                         transform: scale(0.9);
                     }
@@ -246,24 +246,24 @@
                 }
                 &:hover {
                     .pl-date-day-panel-item-inner {
-                        background-color: var(--p-color-primary-light);
+                        background-color: var(--p-color-primary-lighter);
                         color: var(--p-color-normal-sub-color);
                     }
                 }
                 &.pl-date-day-panel-item-light {
-                    background-color: var(--p-color-primary-light);
+                    background-color: var(--p-color-primary-lighter);
                 }
                 &.pl-date-day-panel-item-disabled {
                     .pl-date-day-panel-item-inner {
                         background-color: var(--p-color-normal-background-error);
-                        border-radius: dateBorderRadius;
+                        border-radius: $dateBorderRadius;
                         color: white;
                     }
                 }
                 &.pl-date-day-panel-item-active {
                     .pl-date-day-panel-item-inner {
                         background-color: var(--p-color-primary);
-                        border-radius: dateBorderRadius;
+                        border-radius: $dateBorderRadius;
                         color: white;
                     }
                 }

@@ -13,10 +13,10 @@
             </div>
         </div>
         <div class="pl-carousel-prev-button" @click="p_clickButton(false)" v-if="!disabledButton">
-            <pl-icon icon="pl-arrow-left-light"/>
+            <pl-icon icon="pad-left-circle"/>
         </div>
         <div class="pl-carousel-next-button" @click="p_clickButton(true)" v-if="!disabledButton">
-            <pl-icon icon="pl-arrow-right-light"/>
+            <pl-icon icon="pad-right-circle"/>
         </div>
         <slot name="hover"></slot>
     </div>
@@ -245,6 +245,7 @@
             .pl-carousel-prev-button, .pl-carousel-next-button {
                 opacity: 1;
                 transform: translateX(0);
+                color: white;
             }
         }
     }

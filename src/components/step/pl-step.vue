@@ -31,10 +31,10 @@
         mixins: [ValueMixin],
         props: {
             data: {type: Array, default: () => [], required: true},             //渲染的数组数据
-            size: {type: Number, default: 100},                            //步骤的宽度（横向），高度（纵向）
+            size: {type: Number, default: 100},                                 //步骤的宽度（横向），高度（纵向）
             vertical: {type: Boolean},                                          //是否纵向
-            activeIcon: {type: String, default: 'pl-checked-circle-fill'},      //激活的时候的图标
-            inactiveIcon: {type: String, default: 'pl-circle-fill'},            //未激活的时候的图标
+            activeIcon: {type: String, default: 'pl-circle-radio'},      //激活的时候的图标
+            inactiveIcon: {type: String, default: 'pl-circle'},            //未激活的时候的图标
             activeColor: {type: String, default: '#02D173'},                    //激活的时候的颜色
             inactiveColor: {type: String, default: '#C4C5C8'},                  //未激活的时候的颜色
         },

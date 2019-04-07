@@ -174,7 +174,7 @@
                     font-size: 12px;
                 }
                 &:hover {
-                    background-color: var(--p-color-primary-light);
+                    background-color: var(--p-color-primary-lighter);
                 }
             }
         }

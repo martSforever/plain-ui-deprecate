@@ -94,7 +94,7 @@
                     align-items: center;
                     justify-content: center;
                     &:hover, &.pl-date-month-panel-item-pick-month {
-                        background-color: var(--p-color-primary-light);
+                        background-color: var(--p-color-primary-lighter);
                     }
                     &.pl-date-month-panel-item-now {
                         background-color: var(--p-color-success);

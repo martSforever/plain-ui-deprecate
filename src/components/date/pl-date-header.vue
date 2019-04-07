@@ -102,7 +102,7 @@
                 padding: 4px 9px;
                 &:hover {
                     border-radius: 4px;
-                    background-color: var(--p-color-primary-light);
+                    background-color: var(--p-color-primary-lighter);
                 }
             }
         }

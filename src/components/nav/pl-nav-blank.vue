@@ -195,7 +195,7 @@
                 left: -20px;
                 border-radius: 40px;
                 &:hover {
-                    background-color: var(--p-color-primary-light);
+                    background-color: var(--p-color-primary-lighter);
                     cursor: pointer;
                 }
                 .pl-nav-blank-list-item-left {

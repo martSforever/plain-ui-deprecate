@@ -11,7 +11,7 @@
             <link-step :data="steps0" :value="index"/>
         </demo-row>
         <demo-row title="设置激活图标与未激活图标">
-            <link-step :data="steps0" :value="index" active-icon="pl-star-fill" inactive-icon="pl-star"/>
+            <link-step :data="steps0" :value="index" active-icon="pad-star" inactive-icon="pad-star"/>
         </demo-row>
         <demo-row title="单独设置激活图标与未激活图标">
             <link-step :data="steps1" :value="index"/>
@@ -48,23 +48,23 @@
                 steps1: [
                     {
                         title: '买家下单',
-                        activeIcon: 'pl-like-fill',
-                        inactiveIcon: 'pl-like',
+                        activeIcon: 'pad-heart-fill',
+                        inactiveIcon: 'pad-heart',
                     },
                     {
                         title: '买家发货',
-                        activeIcon: 'pl-weixin',
-                        inactiveIcon: 'pl-appzhi',
+                        activeIcon: 'pad-wechat-fill',
+                        inactiveIcon: 'pad-alipay-circle-fill',
                     },
                     {
                         title: '确认收货',
-                        activeIcon: 'pl-rmb2',
-                        inactiveIcon: 'pl-rmb3',
+                        activeIcon: 'pad-apple-fill',
+                        inactiveIcon: 'pad-android-fill',
                     },
                     {
                         title: '订单结束',
-                        activeIcon: 'pl-bell-fill',
-                        inactiveIcon: 'pl-bell',
+                        activeIcon: 'pad-Gitlab-fill',
+                        inactiveIcon: 'pad-github-fill',
                     },
                 ],
                 verticalSteps: [

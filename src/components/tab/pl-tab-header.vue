@@ -105,7 +105,7 @@
                 }
             }
             &:hover:not(.pl-tab-header-item-active) {
-                background-color: var(--p-color-primary-light);
+                background-color: var(--p-color-primary-lighter);
             }
 
             .pl-tab-header-item-text {

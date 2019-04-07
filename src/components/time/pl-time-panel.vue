@@ -148,7 +148,7 @@
                     padding: 6px 12px;
                     border-radius: 4px;
                     &:hover {
-                        background-color: var(--p-color-primary-light);
+                        background-color: var(--p-color-primary-lighter);
                     }
                 }
             }
