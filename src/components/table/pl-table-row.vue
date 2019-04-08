@@ -6,6 +6,7 @@
             @dblclick.native="p_dblclick"
             @mouseenter.native="p_enter"
             @mouseleave.native="p_leave"
+            :default-editing="defaultEnableEditable"
             :class="{'pl-table-row-hover':p_hover,'pl-table-row-selected':p_selected,'pl-table-row-editing':p_editing}">
         <td v-for="(col,colIndex) in columns" :key="colIndex">
             <pl-table-cell
@@ -40,7 +41,7 @@
                 p_baseTable: null,
                 p_hover: false,
                 p_selected: false,
-                p_editing: false,
+                p_editing: this.defaultEnableEditable,
             }
         },
         mounted() {

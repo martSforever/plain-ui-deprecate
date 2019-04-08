@@ -17,6 +17,7 @@
                               :columns="bodyColumns"
                               :row-height="rowHeight"
                               :fixed="fixed"
+                              :default-enable-editable="defaultEnableEditable"
                 />
             </table>
         </pl-scroll>

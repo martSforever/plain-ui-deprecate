@@ -12,6 +12,7 @@
                 :table-data="tableData"
                 :row-height="rowHeight"
                 :row-num="rowNum"
+                :default-enable-editable="defaultEnableEditable"
 
                 @scroll="e=>p_scroll(e,fixed)"
                 @mouseenter.native="p_hoverFixed = fixed"

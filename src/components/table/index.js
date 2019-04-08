@@ -15,6 +15,7 @@ const TableMixin = {
         hostWidth: {type: Number},                      //宿主宽度
         sortField: {type: String},                      //排序字段
         sortDesc: {type: Boolean, default: true},       //先序降序
+        defaultEnableEditable: {type: Boolean},         //默认情况下可编辑
     },
 }
 

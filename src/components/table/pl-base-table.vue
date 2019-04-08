@@ -24,6 +24,7 @@
                 :fixed-exist="p_fixedExist"
                 :row-height="rowHeight"
                 :row-num="rowNum"
+                :default-enable-editable="defaultEnableEditable"
                 @mouseenter.native="p_hover = 'body'"
                 @scroll="e=>p_hover !== 'head' && !!$refs.head && $refs.head.$refs.scroll.setScroll({x: e.target.scrollLeft})"/>
     </div>
