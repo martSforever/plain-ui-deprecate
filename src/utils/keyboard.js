@@ -82,6 +82,7 @@ const Keyboard = {
         }
         /*当监听某个快捷键的情况下，默认阻止默认事件的发生*/
         const keydown = (e) => {
+            if (e.target.tagName !== 'BODY') return
             const names = [];
             e.ctrlKey && names.push('ctrl')
             e.shiftKey && names.push('shift')
