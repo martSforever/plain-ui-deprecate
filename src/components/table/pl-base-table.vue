@@ -337,20 +337,13 @@
              * @date    2019/1/14 16:54
              */
             validate() {
-                /*输入不通过的字段*/
-                let inValidField = null;
-                /*输入不通过的提示消息*/
-                let validateMsg = null;
-
+                let ret = {flag: true, validateMsg: null, field: null, col: null}
                 this.p_rowIterate((row) => {
-                    if (!row.p_editing || !!inValidField) return
-                    const {flag, validateMsg: msg, field} = row.validate()
-                    if (!flag) {
-                        inValidField = field
-                        validateMsg = msg
-                    }
+                    if (!row.p_editing || !ret.flag) return
+                    const {flag, validateMsg, field, col} = row.validate()
+                    if (!flag) ret = {flag, validateMsg, field, col}
                 })
-                return {inValidField, validateMsg};
+                return ret
             },
             /*
              *  计算宿主宽度，左右表格的显示宽度应该分别是左右列宽之和，但是里面的head、body的宽度应该为宿主宽度
