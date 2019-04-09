@@ -1,4 +1,5 @@
 import DomPortal from 'vue-dom-portal';
+import cssVars from './asserts/css-vars-ponyfill.esm.min';
 
 import 'src/styles/index.scss'
 
@@ -74,6 +75,12 @@ import popper from './components/popper/pl-popper'
 import nav from './components/nav/pl-nav'
 import navPages from './components/nav/pl-nav-pages'
 
+cssVars({
+    onlyLegacy: false,
+    variables: {
+        '--p-color-primary': 'red'
+    }
+});
 
 const components = {
     icon,

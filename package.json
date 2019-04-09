@@ -28,6 +28,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "css-vars-ponyfill": "^1.17.2",
     "deepmerge": "^3.2.0",
     "element-resize-detector": "^1.2.0",
     "fecha": "^3.0.2",
