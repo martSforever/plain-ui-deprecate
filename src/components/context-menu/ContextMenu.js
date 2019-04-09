@@ -25,7 +25,7 @@ class ContextMenu {
 
     constructor(Vue) {
         this.Vue = Vue
-        this.Vue.$nextTick(() => this.instance)
+        this.Vue.prototype.$nextTick(() => this.instance)
     }
 
     async pick({data, labelKey, valueKey, value, multiple, width = '150px', height = '200px', sizeEqual, el, event} = {}) {
