@@ -27,7 +27,7 @@
         .demo-row-title {
             display: flex;
             align-items: center;
-            color: var(--p-color-normal-title);
+            color: $p-color-normal-title;
             span {
                 margin-right: 12px;
             }

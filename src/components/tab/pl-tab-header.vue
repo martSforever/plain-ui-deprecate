@@ -60,7 +60,7 @@
     .pl-tab-header {
         @include public-style;
         display: block;
-        border-bottom: solid 1px var(--p-tab-color);
+        border-bottom: solid 1px $p-tab-color;
         .pl-item {
             display: inline-block;
             margin-right: 16px;
@@ -88,7 +88,7 @@
             }
 
             &:before {
-                border: solid 1px var(--p-tab-color);
+                border: solid 1px $p-tab-color;
                 content: '';
                 position: absolute;
                 top: 0;
@@ -97,7 +97,7 @@
                 bottom: 0;
             }
             &.pl-tab-header-item-active {
-                color: var(--p-color-primary);
+                color: $p-color-primary;
                 background-color: white;
                 &:before {
                     bottom: -17px;
@@ -105,7 +105,7 @@
                 }
             }
             &:hover:not(.pl-tab-header-item-active) {
-                background-color: var(--p-color-primary-lighter);
+                background-color: $p-color-primary-lighter;
             }
 
             .pl-tab-header-item-text {

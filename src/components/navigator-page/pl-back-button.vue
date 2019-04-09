@@ -31,7 +31,7 @@
 <style lang="scss">
     .pl-back-button {
         display: inline-block;
-        color: var(--p-color-primary);
+        color: $p-color-primary;
         box-sizing: border-box;
         cursor: pointer;
     }

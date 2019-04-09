@@ -38,7 +38,7 @@
 
 <style lang="scss">
     .pl-base-table-head-item {
-        background-color: var(--p-base-table-head-background);
+        background-color: $p-base-table-head-background;
         &.pl-base-table-head-item-left, &.pl-base-table-head-item-right {
             position: absolute;
             top: 0;

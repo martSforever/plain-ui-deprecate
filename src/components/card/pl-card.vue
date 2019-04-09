@@ -27,18 +27,18 @@
     .pl-card {
         @include public-style;
         @include transition-all;
-        border: var(--p-border);
+        border: $p-border;
         display: inline-block;
         &:hover {
             transform: scale(1.02);
         }
 
         &.pl-card-shadow-always {
-            box-shadow: var(--p-box-shadow);
+            box-shadow: $p-box-shadow;
         }
         &.pl-card-shadow-hover {
             &:hover {
-                box-shadow: var(--p-box-shadow);
+                box-shadow: $p-box-shadow;
             }
         }
         &.pl-card-shadow-never {

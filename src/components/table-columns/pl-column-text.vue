@@ -67,7 +67,7 @@
         box-sizing: border-box;
         outline: none;
         &.pl-column-text-link {
-            color: var(--p-color-primary);
+            color: $p-color-primary;
             cursor: pointer;
         }
         &.pl-column-text-left {

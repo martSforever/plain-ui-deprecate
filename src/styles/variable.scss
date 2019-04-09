@@ -6,25 +6,183 @@
 
 /*@formatter:off*/
 /*---------------------------------------颜色-------------------------------------------*/
+  /*基本*/
+  $p-color-primary:#3F86E8;
+  $p-color-primary-light:#92BBF3;
+  $p-color-primary-deep:#4F77AE;
+  $p-color-primary-lighter:#edf6ff;
+  /*成功*/
+  $p-color-success:#30ED69;
+  $p-color-success-light:#8AF6AB;
+  $p-color-success-deep:#48B268;
+  /*警告*/
+  $p-color-warn:#FFAF34;
+  $p-color-warn-light:#FFD38F;
+  $p-color-warn-deep:#BF924D;
+  /*错误*/
+  $p-color-error:#FF3333;
+  $p-color-error-light:#FF8F8F;
+  $p-color-error-deep:#BF4C4C;
+  /*提示*/
+  $p-color-info:#929292;
+  $p-color-info-light:#C8C8C8;
+  $p-color-info-deep:#6D6D6D;
+  /*禁用*/
+  $p-color-disabled:#EBEAE7;
+  $p-color-disabled-light:#F5F4F3;
+  $p-color-disabled-deep:#B0B0AE;
+
+  /*---------------------------------------文字色-------------------------------------------*/
+  $p-color-normal-title:#17233d;                                             //标题
+  $p-color-normal-content:#5c677b;                                           //内容
+  $p-color-normal-sub-color:#a3a9b9;                                         //辅助（图标）
+  $p-color-normal-disabled:#EBEAE7;                                          //失效
+  $p-color-normal-placeholder:#d5d8de;                                       //占位符
+  $p-color-normal-border:#eee;                                               //边框
+  $p-color-normal-divider:#e8eaec;                                           //分割线
+  $p-color-normal-background:#f2f2f2;                                        //背景色
+  $p-color-normal-background-error:#ffd9ce;                                  //背景色
+
+
+  /*---------------------------------------大小尺寸-------------------------------------------*/
+  $p-size-large:36px;
+  $p-size-default:28px;
+  $p-size-small:22px;
+
+  /*---------------------------------------形状-------------------------------------------*/
+  $p-shape-fillet:4px;
+  $p-shape-round:999px;
+  $p-shape-none:0;
+
+  /*---------------------------------------其他变量-------------------------------------------*/
+  $p-transition-time:0.15s;                                                  //transition过渡动画时长
+  $p-animation-loop-time:1.5s;                                               //css动画循环时长
+  $p-padding:16px;                                                           //默认padding大小
+  $p-margin:16px;                                                            //默认margin大小
+  $p-border-size:1px;                                                        //默认border大小
+  $p-box-shadow: 0 0 12px #eee;                                              //阴影
+  $p-border:$p-border-size $p-color-normal-border solid;         //边框
+  $p-icon-size:1.2em;                                                        //图标大小
+  $p-page-transition:all 1s cubic-bezier(.28, 1, 0, 1);                      //页面动画设置
+
+  /*---------------------------------------组件变量-------------------------------------------*/
+  /*页签Tabs*/
+  $p-tab-color: #eee;                                                        //Tab页签组件的边框色
+
+  /*表格Table*/
+  $p-base-table-font-size:13px;                                              //表格文字大小
+  $p-base-table-font-weight:600;                                             //表格文字粗细
+  $p-base-table-border-color:#E2E7F1;                                        //表格边框颜色
+  $p-base-table-border-size:0.5px;                                           //表格边框大小
+  $p-base-table-head-background:#F5F6FA;                                     //表格标题背景色
+  $p-base-table-head-color:#17233D;                                          //表格标题文字色
+  $p-base-table-head-hover-color:#E4E7EF;                                    //表格标题鼠标悬浮背景色
+  $p-base-table-head-icon-color: #b3b6bf;                                    //表格标题图标色
+  $p-base-table-head-icon-active-color: #17233d;                             //表格标题图标激活色
+  $p-base-table-body-color:#515A6E;                                          //表格表体文字色
+  $p-base-table-hover-row-background:#ECF5FF;                                //表格表体鼠标悬浮背景色
+  $p-base-table-cell-padding:9px;                                            //表格表体单元格左右内边距
+
+  /*日期*/
+  $p-dateItemSize:32px;                                                      //日期单元格大小
+  $p-dateBorderRadius:4px;                                                   //日期单元格圆角大小
+  $p-dateInnerItemSize:26px;                                                 //日期单元格内部大小
+
+/*支持css变量*/
+@supports ( (--variable: 0)) {
+  $p-color-primary:var(--p-color-primary) !global;
+  $p-color-primary-light:var(--p-color-primary-light) !global;
+  $p-color-primary-deep:var(--p-color-primary-deep)!global;
+  $p-color-primary-lighter:var(--p-color-primary-lighter)!global;
+  $p-color-success:var(--p-color-success)!global;
+  $p-color-success-light:var(--p-color-success-light)!global;
+  $p-color-success-deep:var(--p-color-success-deep)!global;
+  $p-color-warn:var(--p-color-warn)!global;
+  $p-color-warn-light:var(--p-color-warn-light)!global;
+  $p-color-warn-deep:var(--p-color-warn-deep)!global;
+  $p-color-error:var(--p-color-error)!global;
+  $p-color-error-light:var(--p-color-error-light)!global;
+  $p-color-error-deep:var(--p-color-error-deep)!global;
+  $p-color-info:var(--p-color-info)!global;
+  $p-color-info-light:var(--p-color-info-light)!global;
+  $p-color-info-deep:var(--p-color-info-deep)!global;
+  $p-color-disabled:var(--p-color-disabled)!global;
+  $p-color-disabled-light:var(--p-color-disabled-light)!global;
+  $p-color-disabled-deep:var(--p-color-disabled-deep)!global;
+  $p-color-normal-title:var(--p-color-normal-title)!global;
+  $p-color-normal-content:var(--p-color-normal-content)!global;
+  $p-color-normal-sub-color:var(--p-color-normal-sub-color)!global;
+  $p-color-normal-disabled:var(--p-color-normal-disabled)!global;
+  $p-color-normal-placeholder:var(--p-color-normal-placeholder)!global;
+  $p-color-normal-border:var(--p-color-normal-border)!global;
+  $p-color-normal-divider:var(--p-color-normal-divider)!global;
+  $p-color-normal-background:var(--p-color-normal-background)!global;
+  $p-color-normal-background-error:var(--p-color-normal-background-error)!global;
+  $p-size-large:var(--p-size-large)!global;
+  $p-size-default:var(--p-size-default)!global;
+  $p-size-small:var(--p-size-small)!global;
+  $p-shape-fillet:var(--p-shape-fillet)!global;
+  $p-shape-round:var(--p-shape-round)!global;
+  $p-shape-none:var(--p-shape-none)!global;
+  $p-transition-time:var(--p-transition-time)!global;
+  $p-animation-loop-time:var(--p-animation-loop-time)!global;
+  $p-padding:var(--p-padding)!global;
+  $p-margin:var(--p-margin)!global;
+  $p-border-size:var(--p-border-size)!global;
+  $p-box-shadow: var(--p-box-shadow)!global;
+  $p-border:var(--p-border)!global;
+  $p-icon-size:var(--p-icon-size)!global;
+  $p-page-transition:var(--p-page-transition)!global;
+  $p-tab-color: $p-tab-color!global;
+  $p-base-table-font-size:var(--p-base-table-font-size)!global;
+  $p-base-table-font-weight:var(--p-base-table-font-weight)!global;
+  $p-base-table-border-color:var(--p-base-table-border-color)!global;
+  $p-base-table-border-size:var(--p-base-table-border-size)!global;
+  $p-base-table-head-background:var(--p-base-table-head-background)!global;
+  $p-base-table-head-color:var(--p-base-table-head-color)!global;
+  $p-base-table-head-hover-color:var(--p-base-table-head-hover-color)!global;
+  $p-base-table-head-icon-color:var(--p-base-table-head-icon-color)!global;
+  $p-base-table-head-icon-active-color:var(--p-base-table-head-icon-active-color)!global;
+  $p-base-table-body-color:var(--p-base-table-body-color)!global;
+  $p-base-table-hover-row-background:var(--p-base-table-hover-row-background)!global;
+  $p-base-table-cell-padding:var(--p-base-table-cell-padding)!global;
+}
 /*@formatter:on*/
 
 $list-color: (
-        primary:var(--p-color-primary),
-        success:var(--p-color-success),
-        warn:var(--p-color-warn),
-        error:var(--p-color-error),
-        info:var(--p-color-info),
-        disabled:var(--p-color-disabled)
+        primary:$p-color-primary,
+        success:$p-color-success,
+        warn:$p-color-warn,
+        error:$p-color-error,
+        info:$p-color-info,
+        disabled:$p-color-disabled
 );
+$list-color-deep: (
+        primary:$p-color-primary-deep,
+        success:$p-color-success-deep,
+        warn:$p-color-warn-deep,
+        error:$p-color-error-deep,
+        info:$p-color-info-deep,
+        disabled:$p-color-disabled-deep
+);
+$list-color-light: (
+        primary:$p-color-primary-light,
+        success:$p-color-success-light,
+        warn:$p-color-warn-light,
+        error:$p-color-error-light,
+        info:$p-color-info-light,
+        disabled:$p-color-disabled-light
+);
+
 $list-size: (
         large:36px,
         default:28px,
         small:22px,
 );
 $list-shape: (
-        fillet:var(--p-shape-fillet),
-        round:var(--p-shape-round),
-        none:var(--p-shape-none),
+        fillet:$p-shape-fillet,
+        round:$p-shape-round,
+        none:$p-shape-none,
 );
 /*---------------------------------------日期相关-------------------------------------------*/
 $dateItemSize: 32px;

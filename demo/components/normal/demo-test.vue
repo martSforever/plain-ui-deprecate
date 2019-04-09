@@ -161,7 +161,7 @@
     }
 
     button {
-        background-color: var(--color);
+        background-color: --color;
     }
 
     .child-component {

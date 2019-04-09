@@ -57,10 +57,10 @@
                 color: #AAA;
             }
             &:hover, &.pl-cascade-option-item-active {
-                background-color: var(--p-color-primary-lighter);
+                background-color: $p-color-primary-lighter;
             }
             &.pl-cascade-option-item-disabled {
-                background-color: var(--p-color-disabled);
+                background-color: $p-color-disabled;
                 color: #AAA;
             }
         }

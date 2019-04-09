@@ -121,7 +121,7 @@
                 outline: none;
 
                 &::placeholder {
-                    color: var(--p-color-normal-placeholder);
+                    color: $p-color-normal-placeholder;
                 }
 
                 &::-ms-clear {
@@ -147,15 +147,15 @@
         &.pl-input-focus {
             /*fill type*/
             &.pl-box-type-line {
-                border-color: var(--p-color-primary);
+                border-color: $p-color-primary;
 
                 .pl-icon {
-                    color: var(--p-color-primary) !important;
+                    color: $p-color-primary !important;
                 }
             }
 
             &.pl-box-invalid {
-                border-color: var(--p-color-error);
+                border-color: $p-color-error;
             }
         }
     }

@@ -60,6 +60,6 @@
 
 <style lang="scss">
     .demo-select {
-        padding: var(--p-padding);
+        padding: $p-padding;
     }
 </style>

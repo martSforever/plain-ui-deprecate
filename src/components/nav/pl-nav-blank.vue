@@ -172,7 +172,7 @@
         align-items: center;
         justify-content: center;
         .pl-nav-blank-close {
-            color: var(--p-color-normal-sub-color);
+            color: $p-color-normal-sub-color;
         }
         .pl-nav-blank-list {
             height: 100%;
@@ -195,7 +195,7 @@
                 left: -20px;
                 border-radius: 40px;
                 &:hover {
-                    background-color: var(--p-color-primary-lighter);
+                    background-color: $p-color-primary-lighter;
                     cursor: pointer;
                 }
                 .pl-nav-blank-list-item-left {

@@ -506,12 +506,12 @@
                                 }
                                 &:hover {
                                     .pl-navigator-main-header-item-close {
-                                        background-color: var(--p-color-normal-border);
+                                        background-color: $p-color-normal-border;
                                     }
                                 }
                             }
                             &.pl-navigator-main-header-item-active {
-                                color: var(--p-color-primary);
+                                color: $p-color-primary;
                                 .pl-navigator-main-header-item-wrapper {
                                     background-color: white;
                                     border-top-left-radius: $navigator-main-tab-head-radios;

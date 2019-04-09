@@ -159,13 +159,13 @@
 <style lang="scss">
     .pl-base-table-row {
         &.pl-base-table-row-hover {
-            background-color: var(--p-base-table-hover-row-background);
+            background-color: $p-base-table-hover-row-background;
         }
         &.pl-base-table-row-editing {
             background-color: initial;
         }
         &.pl-base-table-row-selected {
-            background-color: var(--p-base-table-hover-row-background);
+            background-color: $p-base-table-hover-row-background;
         }
         .pl-base-table-cell {
             font-size: 12px;

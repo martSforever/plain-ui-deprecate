@@ -536,7 +536,7 @@
         @include public-style;
         width: 100%;
         position: relative;
-        border: solid 1px var(--p-base-table-border-color);
+        border: solid 1px $p-base-table-border-color;
         * {
             box-sizing: border-box;
         }

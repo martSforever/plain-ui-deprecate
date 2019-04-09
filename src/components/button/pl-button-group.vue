@@ -48,7 +48,7 @@
                 &.pl-box-type-fill {
                     @each $key, $value in $list-color {
                         &.pl-box-color-#{$key}:not(:last-child) {
-                            border-bottom-color: var(--p-color-#{$key}-light);
+                            border-bottom-color: map_get($list-color-light,$key);
                         }
                     }
                 }
@@ -78,7 +78,7 @@
                 &.pl-box-type-fill {
                     @each $key, $value in $list-color {
                         &.pl-box-color-#{$key}:not(:last-child) {
-                            border-right-color: var(--p-color-#{$key}-light);
+                            border-right-color: map_get($list-color-light,$key);
                         }
                     }
                 }

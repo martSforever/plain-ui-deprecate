@@ -277,7 +277,7 @@
         padding: 0 8px 0px 8px;
         .pl-date-time {
             font-size: 12px;
-            color: var(--p-color-primary);
+            color: $p-color-primary;
         }
     }
 </style>

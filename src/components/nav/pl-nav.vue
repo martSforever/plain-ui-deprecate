@@ -329,7 +329,7 @@
             .pl-nav-header-wrapper-left {
                 flex: 1;
                 overflow: hidden;
-                border: solid 1px var(--p-tab-color);
+                border: solid 1px $p-tab-color;
                 height: 40px;
             }
             .pl-nav-header-wrapper-right {
@@ -338,7 +338,7 @@
                 text-align: center;
                 line-height: 40px;
                 font-size: 13px;
-                border: solid 1px var(--p-tab-color);
+                border: solid 1px $p-tab-color;
                 border-left: initial;
             }
             .pl-nav-target {
@@ -349,7 +349,7 @@
         }
         .pl-nav-body {
             flex: 1;
-            border: solid 1px var(--p-tab-color);
+            border: solid 1px $p-tab-color;
             box-sizing: border-box;
             position: relative;
             overflow: hidden;

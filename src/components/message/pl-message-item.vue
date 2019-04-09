@@ -54,7 +54,7 @@
         }
         &.pl-message-item-color-white {
             background-color: white;
-            color: var(--p-color-normal-content);
+            color: $p-color-normal-content;
             box-shadow: 0 0 15px 3px #ddd;
         }
     }

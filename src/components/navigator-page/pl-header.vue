@@ -54,7 +54,7 @@
         position: relative;
         z-index: 1;
         background-color: white;
-        transition: var(--p-page-transition);
+        transition: $p-page-transition;
         opacity: 0.2;
         .pl-header-content-wrapper {
             height: 100%;
@@ -66,10 +66,10 @@
             padding: 0 6px;
             box-sizing: border-box;
             background-color: white;
-            transition: var(--p-page-transition);
+            transition: $p-page-transition;
             left: 20%;
             .pl-back-button {
-                margin-right: var(--p-padding);
+                margin-right: $p-padding;
             }
         }
         &::after {

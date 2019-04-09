@@ -145,7 +145,7 @@
             flex: 1;
             width: 100%;
             position: relative;
-            border: solid 1px var(--p-tab-color);
+            border: solid 1px $p-tab-color;
             box-sizing: border-box;
             overflow: hidden;
             border-top: none;

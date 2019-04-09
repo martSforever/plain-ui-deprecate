@@ -83,7 +83,7 @@
             background-color: white;
             position: absolute;
             top: 0;
-            border: solid 1px var(--p-color-info);
+            border: solid 1px $p-color-info;
             box-sizing: border-box;
         }
     }

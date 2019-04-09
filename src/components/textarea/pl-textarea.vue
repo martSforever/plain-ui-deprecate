@@ -42,7 +42,7 @@
         box-sizing: border-box;
         outline: none;
         letter-spacing: 1px;
-        border: solid 1px var(--p-color-info);
+        border: solid 1px $p-color-info;
         font-size: 12px;
 
         @each $key, $color in $list-color {

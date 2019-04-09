@@ -62,15 +62,15 @@
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
                     background-color: $value;
-                    border: solid var(--p-border-size) $value;
+                    border: solid $p-border-size $value;
                     color: white;
 
                     &:active {
-                        background-color: var(--p-color-#{$key}-deep);
-                        border-color: var(--p-color-#{$key}-deep);
+                        background-color: map_get($list-color-deep,$key);
+                        border-color: map_get($list-color-deep,$key);
                         &.pl-tag-disabled {
-                            background-color: var(--p-color-disabled);
-                            border-color: var(--p-color-disabled);
+                            background-color: $p-color-disabled;
+                            border-color: $p-color-disabled;
                         }
                     }
                 }
@@ -80,12 +80,12 @@
         &.pl-tag-type-line {
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
-                    border: solid var(--p-border-size) $value;
+                    border: solid $p-border-size $value;
                     background: transparent;
                     color: $value;
 
                     &:active {
-                        background-color: var(--p-color-#{$key}-light);
+                        background-color: map_get($list-color-light,$key);
                         &.pl-tag-disabled {
                             background-color: transparent;
                         }
@@ -100,12 +100,12 @@
         &.pl-tag-type-none {
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
-                    border: solid var(--p-border-size) transparent;
+                    border: solid $p-border-size transparent;
                     background: transparent;
-                    color: var(--p-color-#{$key}-deep);
+                    color: map_get($list-color-deep,$key);
 
                     &:active {
-                        background-color: var(--p-color-#{$key}-light);
+                        background-color: map_get($list-color-light,$key);
                         &.pl-tag-disabled {
                             background-color: transparent;
                         }
@@ -117,12 +117,12 @@
         &.pl-tag-type-dashed {
             @each $key, $value in $list-color {
                 &.pl-tag-color-#{$key} {
-                    border: dotted var(--p-border-size) $value;
+                    border: dotted $p-border-size $value;
                     background: transparent;
-                    color: var(--p-color-#{$key}-deep);
+                    color: map_get($list-color-deep,$key);
 
                     &:active {
-                        background-color: var(--p-color-#{$key}-light);
+                        background-color: map_get($list-color-light,$key);
                         &.pl-tag-disabled {
                             background-color: transparent;
                         }

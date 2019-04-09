@@ -69,11 +69,11 @@
 <style lang="scss">
     .pl-notice-item {
         @include public-style;
-        padding: var(--p-padding);
+        padding: $p-padding;
         white-space: nowrap;
         background-color: white;
         min-width: 300px;
-        box-shadow: var(--p-box-shadow);
+        box-shadow: $p-box-shadow;
 
         @each $key, $value in $list-color {
             &.pl-notice-item-color-#{$key} {
@@ -91,7 +91,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: var(--p-padding);
+            margin-bottom: $p-padding;
             .pl-notice-item-title {
                 flex: 1;
                 overflow-x: hidden;

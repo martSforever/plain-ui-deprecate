@@ -107,7 +107,7 @@
         align-items: center;
         .pl-progress-bar {
             flex: 1;
-            background-color: var(--p-color-info);
+            background-color: $p-color-info;
             border-radius: 9px;
             height: 100%;
             position: relative;
@@ -116,13 +116,13 @@
                 border-radius: inherit;
                 @include transition-all;
                 &.pl-progress-bar-percent-normal {
-                    background-color: var(--p-color-primary);
+                    background-color: $p-color-primary;
                 }
                 &.pl-progress-bar-percent-success {
-                    background-color: var(--p-color-success);
+                    background-color: $p-color-success;
                 }
                 &.pl-progress-bar-percent-error {
-                    background-color: var(--p-color-error);
+                    background-color: $p-color-error;
                 }
             }
             .pl-progress-bar-active {

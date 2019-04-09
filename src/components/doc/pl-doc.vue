@@ -100,7 +100,7 @@
         padding: 0 20px;
         .pl-doc-item {
             .pl-doc-item-head {
-                color: var(--p-color-primary);
+                color: $p-color-primary;
             }
             table {
                 width: 100%;

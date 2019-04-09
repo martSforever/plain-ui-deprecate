@@ -55,18 +55,18 @@
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
                     &:active {
-                        background-color: var(--p-color-#{$key}-deep);
-                        border-color: var(--p-color-#{$key}-deep);
+                        background-color: map_get($list-color-deep,$key);
+                        border-color: map_get($list-color-deep,$key);
 
                         &.pl-box-disabled {
-                            background-color: var(--p-color-normal-disabled);
-                            border-color: var(--p-color-normal-disabled);
+                            background-color: $p-color-normal-disabled;
+                            border-color: $p-color-normal-disabled;
                         }
                     }
 
                     &.pl-button-active {
-                        background-color: var(--p-color-#{$key}-deep);
-                        border-color: var(--p-color-#{$key}-deep);
+                        background-color: map_get($list-color-deep,$key);
+                        border-color: map_get($list-color-deep,$key);
                     }
                 }
             }
@@ -76,7 +76,7 @@
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
                     &:active {
-                        background-color: var(--p-color-#{$key}-light);
+                        background-color: map_get($list-color-light,$key);
 
                         &.pl-box-disabled {
                             background-color: transparent;
@@ -84,7 +84,7 @@
                     }
 
                     &.pl-button-active {
-                        background-color: var(--p-color-#{$key}-light);
+                        background-color: map_get($list-color-light,$key);
                     }
                 }
             }

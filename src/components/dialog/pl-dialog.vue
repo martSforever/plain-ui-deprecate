@@ -218,11 +218,11 @@
 <style lang="scss">
     $head-height: 40px;
     $dialog-types: (
-            info:var(--p-color-primary),
-            warn:var(--p-color-warn),
-            error:var(--p-color-error),
-            success:var(--p-color-success),
-            help:var(--p-color-info),
+            info:$p-color-primary,
+            warn:$p-color-warn,
+            error:$p-color-error,
+            success:$p-color-success,
+            help:$p-color-info,
     );
     .pl-dialog {
         @include public-style;
@@ -240,21 +240,21 @@
         .pl-dialog-content {
             position: relative;
             background-color: white;
-            box-shadow: var(--p-box-shadow);
+            box-shadow: $p-box-shadow;
             @include transition-all;
             .pl-dialog-head, .pl-dialog-foot {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 0 var(--p-padding);
+                padding: 0 $p-padding;
             }
             .pl-dialog-head {
-                border-bottom: solid var(--p-border-size) var(--p-color-normal-border);
+                border-bottom: solid $p-border-size $p-color-normal-border;
                 height: $head-height;
                 font-weight: bold;
                 box-sizing: border-box;
                 .pl-dialog-type-icon {
-                    margin-right: var(--p-padding)/2;
+                    margin-right: $p-padding/2;
                 }
                 .pl-dialog-head-operator {
                     .pl-icon {
@@ -345,8 +345,8 @@
         }
         &.pl-dialog-padding {
             .pl-dialog-body {
-                padding: var(--p-padding);
-                box-sizing: var(--p-padding);
+                padding: $p-padding;
+                box-sizing: $p-padding;
             }
         }
 

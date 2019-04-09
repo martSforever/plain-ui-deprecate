@@ -192,7 +192,7 @@
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
                     background-color: $value;
-                    border: solid var(--p-border-size) $value;
+                    border: solid $p-border-size $value;
                     &, & div, & input {
                         color: white;
                     }
@@ -203,13 +203,13 @@
         &.pl-box-type-line {
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
-                    border: solid var(--p-border-size) $value;
+                    border: solid $p-border-size $value;
                     background: white;
                     &, & div {
                         color: $value;
                     }
                     & input, .pl-box-prefix-icon, .pl-box-suffix-icon, .pl-box-clear-icon {
-                        color: var(--p-color-#{$key}-deep);
+                        color: map_get($list-color-deep,$key);
                     }
                 }
             }
@@ -221,10 +221,10 @@
         &.pl-box-type-none {
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
-                    border: solid var(--p-border-size) transparent;
+                    border: solid $p-border-size transparent;
                     background: transparent;
                     &, & div, & input {
-                        color: var(--p-color-#{$key}-deep);
+                        color: map_get($list-color-deep,$key);
                     }
                 }
             }
@@ -233,10 +233,10 @@
         &.pl-box-type-dashed {
             @each $key, $value in $list-color {
                 &.pl-box-color-#{$key} {
-                    border: dotted var(--p-border-size) $value;
+                    border: dotted $p-border-size $value;
                     background: transparent;
                     &, & div, & input {
-                        color: var(--p-color-#{$key}-deep);
+                        color: map_get($list-color-deep,$key);
                     }
                 }
             }
@@ -253,16 +253,16 @@
         }
 
         &.pl-box-disabled {
-            border: solid var(--p-border-size) #f2f2f2 !important;
+            border: solid $p-border-size #f2f2f2 !important;
             background: #f2f2f2 !important;
-            color: var(--p-color-disabled) !important;
+            color: $p-color-disabled !important;
             &, & * {
                 cursor: not-allowed;
             }
         }
 
         .pl-box-tooltip {
-            $tooltip-color: var(--p-color-error);
+            $tooltip-color: $p-color-error;
             visibility: visible;
             width: max-content;
             background-color: $tooltip-color;

@@ -203,7 +203,7 @@
         display: inline-flex;
         width: $dateItemSize*7;
         flex-wrap: wrap;
-        color: var(--p-color-normal-sub-color);
+        color: $p-color-normal-sub-color;
         user-select: none;
 
         .pl-date-day-panel-item-wrapper {
@@ -215,7 +215,7 @@
             cursor: pointer;
             margin-bottom: 6px;
             &.pl-date-day-panel-item-wrapper-title {
-                color: var(--p-color-normal-content);
+                color: $p-color-normal-content;
             }
             .pl-date-day-panel-item {
                 height: $dateInnerItemSize;
@@ -236,33 +236,33 @@
                 }
                 &.pl-date-day-panel-item-today {
                     .pl-date-day-panel-item-inner {
-                        background-color: var(--p-color-success);
+                        background-color: $p-color-success;
                         border-radius: $dateItemSize;
                         color: white;
                     }
                 }
                 &.pl-date-day-panel-item-other-month {
-                    color: var(--p-color-disabled);
+                    color: $p-color-disabled;
                 }
                 &:hover {
                     .pl-date-day-panel-item-inner {
-                        background-color: var(--p-color-primary-lighter);
-                        color: var(--p-color-normal-sub-color);
+                        background-color: $p-color-primary-lighter;
+                        color: $p-color-normal-sub-color;
                     }
                 }
                 &.pl-date-day-panel-item-light {
-                    background-color: var(--p-color-primary-lighter);
+                    background-color: $p-color-primary-lighter;
                 }
                 &.pl-date-day-panel-item-disabled {
                     .pl-date-day-panel-item-inner {
-                        background-color: var(--p-color-normal-background-error);
+                        background-color: $p-color-normal-background-error;
                         border-radius: $dateBorderRadius;
                         color: white;
                     }
                 }
                 &.pl-date-day-panel-item-active {
                     .pl-date-day-panel-item-inner {
-                        background-color: var(--p-color-primary);
+                        background-color: $p-color-primary;
                         border-radius: $dateBorderRadius;
                         color: white;
                     }

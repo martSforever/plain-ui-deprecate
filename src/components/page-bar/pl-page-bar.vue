@@ -156,18 +156,18 @@
             }
             .pl-page-bar-operate-icon, .pl-page-bar-operate-num {
                 cursor: pointer;
-                color: var(--p-color-info);
+                color: $p-color-info;
                 &:hover {
-                    color: var(--p-color-primary);
+                    color: $p-color-primary;
                 }
                 &.pl-page-bar-operate-num-active {
-                    color: var(--p-color-primary);
+                    color: $p-color-primary;
                 }
                 &.pl-page-bar-operate-refresh-icon {
                     margin-left: 2em;
                 }
                 &.pl-icon-loading {
-                    color: var(--p-color-primary);
+                    color: $p-color-primary;
                 }
             }
             .pl-page-bar-jump-wrapper {

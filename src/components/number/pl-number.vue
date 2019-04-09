@@ -107,7 +107,7 @@
             height: 100%;
             flex-direction: column;
             cursor: pointer;
-            width: var(--p-icon-size);
+            width: $p-icon-size;
             user-select: none;
             .pl-icon:active {
                 background-color: #f2f2f2;

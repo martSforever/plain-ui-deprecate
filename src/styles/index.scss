@@ -2,6 +2,7 @@
 @import "./mixin/index";
 @import "./transition";
 
+/*@formatter:off*/
 :root{
   /*基本*/
   --p-color-primary:#3F86E8;
@@ -79,12 +80,8 @@
   --p-base-table-body-color:#515A6E;                                          //表格表体文字色
   --p-base-table-hover-row-background:#ECF5FF;                                //表格表体鼠标悬浮背景色
   --p-base-table-cell-padding:9px;                                            //表格表体单元格左右内边距
-
-  /*日期*/
-  --p-dateItemSize:32px;                                                      //日期单元格大小
-  --p-dateBorderRadius:4px;                                                   //日期单元格圆角大小
-  --p-dateInnerItemSize:26px;                                                 //日期单元格内部大小
 }
+/*@formatter:on*/
 
 .pl-body-user-select-none {
   user-select: none;

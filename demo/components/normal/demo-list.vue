@@ -67,10 +67,10 @@
         width: 200px;
         margin-bottom: 12px;
         margin-right: 12px;
-        border-radius: var(--p-shape-fillet);
+        border-radius: $p-shape-fillet;
         padding: 12px;
         color: white;
-        background-color: var(--p-color-primary);
+        background-color: $p-color-primary;
         display: inline-block !important;
     }
 </style>
