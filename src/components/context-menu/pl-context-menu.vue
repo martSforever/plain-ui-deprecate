@@ -1,6 +1,6 @@
 <template>
     <transition name="pl-context-menu">
-        <div class="pl-context-menu" :style="styles" v-show="show">
+        <div class="pl-context-menu" :style="styles" v-show="p_show">
             <div class="pl-context-menu-content" :style="contentStyles">
                 <pl-scroll>
                     <div class="pl-context-menu-item"
@@ -41,10 +41,9 @@
                 el: null,                                       //菜单依附dom对象
                 event: null,                                    //菜单显示在鼠标的位置
                 onConfirm: null,                                //点击触发回调函数
+                sizeEqual: null,                                //是否与el宽度相同
 
-                show: false,                                    //当前是否显示
-                defaultWidth: '150px',                          //默认宽度
-                defaultHeight: '200px',                         //默认高度
+                p_show: false,                                    //当前是否显示
                 p_top: null,                                    //菜单顶部位置
                 p_left: null,                                   //菜单左部位置
                 p_targetWidth: null,                            //菜单依附目标宽度
@@ -52,29 +51,6 @@
                 p_targetTop: null,                              //菜单依附目标顶部位置
                 p_targetLeft: null,                             //菜单依附目标左部位置
             }
-        },
-        watch: {
-            el: {
-                immediate: true,
-                handler(el) {
-                    if (!el) return
-                    this.p_saveTargetData(el)
-                    this.p_top = this.p_targetTop + this.p_targetHeight
-                    this.p_left = this.p_targetLeft
-                },
-            },
-            event: {
-                immediate: true,
-                handler(e) {
-                    if (!e) return
-                    this.p_saveTargetData(e.target)
-                    this.p_top = e.clientY
-                    this.p_left = e.clientX
-                },
-            },
-            show(val) {
-                if (!val) this.p_clearPosition()
-            },
         },
         computed: {
             styles() {
@@ -85,16 +61,33 @@
             },
             contentStyles() {
                 return {
-                    width: this.width || this.defaultWidth,
-                    height: this.height || this.defaultHeight,
+                    width: this.width,
+                    height: this.height,
 
                 }
             },
         },
         mounted() {
-            document.body.addEventListener('click', this.p_clickWindow)
+            document.body.addEventListener('mousedown', this.p_clickWindow)
         },
         methods: {
+            show({data, labelKey, valueKey, value, multiple, width, height, sizeEqual, el, event, onConfirm}) {
+                this.p_clearPosition()
+                Object.assign(this, {data, labelKey, valueKey, value, multiple, width, height, sizeEqual, el, event, onConfirm})
+
+                if (!!el) {
+                    this.p_saveTargetData(el)
+                    this.p_top = this.p_targetTop + this.p_targetHeight
+                    this.p_left = this.p_targetLeft
+                }
+                if (!!event) {
+                    this.p_saveTargetData(event.target)
+                    this.p_top = event.clientY
+                    this.p_left = event.clientX
+                }
+
+                this.p_show = true
+            },
             /**
              * 点击窗口触发动作
              * @author  韦胜健
@@ -102,7 +95,7 @@
              */
             p_clickWindow(e) {
                 if (!this.$el.contains(e.target)) {
-                    this.show = false
+                    this.p_show = false
                 }
             },
             /**
@@ -113,7 +106,7 @@
             p_clickItem(item) {
                 if (!this.multiple) {
                     !!this.onConfirm && this.onConfirm(item)
-                    this.show = false
+                    this.p_show = false
                 } else {
                     const ret = [].concat(this.value || [])
                     if (this.$plain.$utils.findOne(ret, (it) => !!this.valueKey ? it[this.valueKey] === item[this.valueKey] : it === item)) {
@@ -169,12 +162,12 @@
              */
             p_confirm() {
                 !!this.onConfirm && this.onConfirm(this.value)
-                this.show = false
+                this.p_show = false
             },
         },
         beforeDestroy() {
-            document.body.removeEventListener('click', this.p_click)
-            this.show = false
+            document.body.removeEventListener('mousedown', this.p_click)
+            this.p_show = false
         },
     }
 </script>
@@ -229,9 +222,11 @@
 
     .pl-context-menu-enter-active, .pl-context-menu-leave-active {
         opacity: 1;
+        transform-origin: top;
     }
 
     .pl-context-menu-enter, .pl-context-menu-leave-to {
+        transform: scaleY(0.65) translateY(-10px);
         opacity: 0;
     }
 </style>
