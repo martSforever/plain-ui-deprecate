@@ -8,4 +8,3 @@ module.exports = "```html\r\n<link-button label=\"按钮11\"/>\r\n<link-button l
 /***/ })
 
 }]);
-//# sourceMappingURL=plain-ui.common.1.js.map
