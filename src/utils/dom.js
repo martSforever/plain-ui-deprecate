@@ -55,8 +55,9 @@ function findComponentUpward(context, componentName, componentNames) {
  * @author 韦胜健
  * @date 2018/11/19
  */
-function hasClass(cls, clsList) {
-    return $utils.oneOf(cls, clsList.value.split(' '));
+function hasClass(el, cls) {
+    if (!!el.classList) return $utils.oneOf(cls, el.classList.value.split(' '));
+    else return (el.className || '').split(' ').indexOf(cls) > -1
 }
 
 /**
@@ -64,25 +65,17 @@ function hasClass(cls, clsList) {
  * @author 韦胜健
  * @date 2018/11/19
  */
-function addClass(el, cls) {
-    if (!el) return;
-    let curClass = el.className;
-    const classes = (cls || '').split(' ');
-
-    for (let i = 0, j = classes.length; i < j; i++) {
-        const clsName = classes[i];
-        if (!clsName) continue;
-
-        if (el.classList) {
-            el.classList.add(clsName);
-        } else {
-            if (!hasClass(el, clsName)) {
-                curClass += ' ' + clsName;
-            }
-        }
-    }
-    if (!el.classList) {
-        el.className = curClass;
+function addClass(el, addCLs) {
+    if (!el || !addCLs) return;
+    const addClasses = $utils.typeOf(addCLs) === 'string' ? addCLs.split(' ') : addCLs
+    if (!!el.classList) {
+        addClasses.forEach(item => el.classList.add(item))
+    } else {
+        const curClasses = (el.className || '').split(' ')
+        addClasses.forEach(item => {
+            if (curClasses.indexOf(item) === -1) curClasses.push(item)
+        })
+        el.className = addClasses.join(' ')
     }
 }
 
@@ -91,25 +84,18 @@ function addClass(el, cls) {
  * @author 韦胜健
  * @date 2018/11/19
  */
-function removeClass(el, cls) {
-    if (!el || !cls) return;
-    const classes = cls.split(' ');
-    let curClass = ' ' + el.className + ' ';
-
-    for (let i = 0, j = classes.length; i < j; i++) {
-        const clsName = classes[i];
-        if (!clsName) continue;
-
-        if (el.classList) {
-            el.classList.remove(clsName);
-        } else {
-            if (hasClass(el, clsName)) {
-                curClass = curClass.replace(' ' + clsName + ' ', ' ');
-            }
-        }
-    }
-    if (!el.classList) {
-        el.className = curClass.trim();
+function removeClass(el, rmCls) {
+    if (!el || !rmCls) return;
+    const rmClasses = $utils.typeOf(rmCls) === 'string' ? rmCls.split(' ') : rmCls
+    if (!!el.classList) {
+        rmClasses.forEach(item => el.classList.remove(item))
+    } else {
+        const curClasses = (el.className || '').split(' ')
+        rmClasses.forEach(item => {
+            const index = curClasses.indexOf(item)
+            if (index > -1) curClasses.splice(index, 1)
+        })
+        el.className = rmClasses.join(' ')
     }
 }
 

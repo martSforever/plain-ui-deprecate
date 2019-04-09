@@ -232,10 +232,17 @@
              * @date    2019/3/6 17:10
              */
             async p_contextMenu(e, item, index) {
+                let menuTarget = e.target;
+                let count = 0
+                while (!this.$plain.$dom.hasClass(menuTarget, 'pl-navigator-main-header-item') && count < 10) {
+                    count++
+                    menuTarget = menuTarget.parentNode
+                }
                 const ret = await this.$contextMenu.pick({
                     data: this.pageStack.length > 1 ? ['刷新', '关闭', '关闭左侧页签', '关闭右侧页签', '关闭其他页签'] : ['刷新'],
-                    el: e.target
+                    el: menuTarget
                 })
+
                 switch (ret) {
                     case '刷新':
                         this.refresh(item.id)
@@ -357,6 +364,7 @@
                 const curTab = tabStorage.pageStack[this.currentValue]
                 const curPageStack = (pageStorage[curTab.id] || {}).pageStack || []
                 const curPage = curPageStack[curPageStack.length - 1] || {path: 'none'}
+
                 function getPageName(path) {
                     let startIndex = path.lastIndexOf('/')
                     startIndex = startIndex == null ? 0 : startIndex
@@ -364,6 +372,7 @@
                     endIndex = endIndex === -1 ? path.length : endIndex
                     return path.substring(startIndex + 1, endIndex)
                 }
+
                 const appendParam = {
                     menu: getPageName(curTab.path),
                     page: getPageName(curPage.path),
@@ -479,7 +488,7 @@
                                 .pl-navigator-main-header-item-close {
                                     position: absolute;
                                     right: 10px;
-                                    top: 0;
+                                    top: 4px;
                                     bottom: 0;
                                     display: flex;
                                     align-items: center;
@@ -526,6 +535,7 @@
                             }
                             .pl-navigator-main-header-item-inner {
                                 width: 100%;
+                                height: 100%;
                                 padding: 0 20px;
                                 display: flex;
                                 align-items: center;
