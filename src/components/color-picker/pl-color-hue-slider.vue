@@ -68,23 +68,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-color-hue-slider {
-        background: linear-gradient(90deg, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red);
-        width: 100%;
-        height: 10px;
-        position: relative;
-        cursor: pointer;
-        .pl-color-hue-slider-thumb {
-            display: inline-block;
-            height: 100%;
-            width: 8px;
-            background-color: white;
-            position: absolute;
-            top: 0;
-            border: solid 1px $p-color-info;
-            box-sizing: border-box;
-        }
-    }
-</style>

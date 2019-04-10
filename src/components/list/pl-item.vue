@@ -9,9 +9,3 @@
         name: "pl-item"
     }
 </script>
-
-<style lang="scss">
-    .pl-item {
-        @include public-style;
-    }
-</style>

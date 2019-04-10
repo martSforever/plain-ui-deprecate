@@ -80,26 +80,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-color-alpha-slider {
-        width: 100%;
-        height: 10px;
-        position: relative;
-        cursor: pointer;
-        background-size: 10px 10px;
-        .pl-color-alpha-slider-shadow {
-            height: 100%;
-        }
-        .pl-color-alpha-slider-thumb {
-            display: inline-block;
-            height: 100%;
-            width: 8px;
-            background-color: white;
-            position: absolute;
-            top: 0;
-            border: solid 1px $p-color-info;
-            box-sizing: border-box;
-        }
-    }
-</style>

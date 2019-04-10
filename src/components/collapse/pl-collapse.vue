@@ -61,37 +61,3 @@
         },
     };
 </script>
-
-<style lang="scss">
-    .pl-collapse {
-        @include public-style;
-        width: 100%;
-        border: solid 1px $p-color-normal-background;
-        .pl-collapse-head {
-            position: relative;
-            box-sizing: border-box;
-            padding: 12px 32px 12px 16px;
-            .pl-collapse-head-icon-wrapper {
-                position: absolute;
-                right: 16px;
-                top: 0;
-                bottom: 0;
-                display: flex;
-                align-items: center;
-                .pl-icon {
-                    @include transition-all-cubic-bezier;
-                }
-            }
-        }
-        .pl-collapse-body {
-
-        }
-
-        &.pl-collapse-active {
-            .pl-collapse-head-icon-wrapper .pl-icon {
-                transform: rotate(180deg);
-            }
-        }
-
-    }
-</style>

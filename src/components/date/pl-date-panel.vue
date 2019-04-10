@@ -128,15 +128,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-date-panel {
-        @include public-style;
-        width: 196px;
-        display: inline-block;
-        .pl-date-panel-body {
-            width: $dateItemSize*7;
-            height: $dateItemSize*7+6*6;
-        }
-    }
-</style>

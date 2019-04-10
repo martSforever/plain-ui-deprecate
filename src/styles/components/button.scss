@@ -62,4 +62,70 @@
       left: unset;
     }
   }
+
+  .pl-button-group {
+    @include public-style;
+    display: inline-flex;
+    box-sizing: border-box;
+    &.pl-button-group-vertical {
+      flex-direction: column;
+      /*shape*/
+      .pl-button {
+        border-radius: 0;
+        &:not(:first-child) {
+          border-top-color: transparent;
+        }
+        &.pl-box-type-fill {
+          @each $key, $value in $list-color {
+            &.pl-box-color-#{$key}:not(:last-child) {
+              border-bottom-color: map_get($list-color-light,$key);
+            }
+          }
+        }
+      }
+
+      @each $key, $value in $list-shape {
+        &.pl-button-group-shape-#{$key} {
+          .pl-button:first-child {
+            border-top-left-radius: $value;
+            border-top-right-radius: $value;
+          }
+          .pl-button:last-child {
+            border-bottom-left-radius: $value;
+            border-bottom-right-radius: $value;
+          }
+        }
+      }
+    }
+    &.pl-button-group-horizontal {
+      flex-direction: row;
+      .pl-button {
+        border-radius: 0;
+        &:not(:first-child) {
+          border-left-color: transparent;
+        }
+
+        &.pl-box-type-fill {
+          @each $key, $value in $list-color {
+            &.pl-box-color-#{$key}:not(:last-child) {
+              border-right-color: map_get($list-color-light,$key);
+            }
+          }
+        }
+      }
+      /*shape*/
+      @each $key, $value in $list-shape {
+        &.pl-button-group-shape-#{$key} {
+          .pl-button:first-child {
+            border-top-left-radius: $value;
+            border-bottom-left-radius: $value;
+          }
+          .pl-button:last-child {
+            border-top-right-radius: $value;
+            border-bottom-right-radius: $value;
+          }
+        }
+      }
+    }
+  }
 }

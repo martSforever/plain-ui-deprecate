@@ -40,29 +40,3 @@
         },
     };
 </script>
-
-<style lang="scss">
-    .pl-collapse-group {
-        @include public-style;
-        display: block;
-        vertical-align: middle;
-        border: solid 1px $p-color-normal-background;
-
-        .pl-collapse {
-            border: none;
-            &:not(:last-child) {
-                border-bottom: solid 1px $p-color-normal-background;
-                box-sizing: border-box;
-            }
-        }
-
-    }
-
-    /*shape*/
-    @each $key, $value in $list-shape {
-        &.pl-collapse-group-shape-#{$key} {
-            border-radius: $value;
-            overflow: hidden;
-        }
-    }
-</style>

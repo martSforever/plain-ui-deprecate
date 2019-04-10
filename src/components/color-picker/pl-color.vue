@@ -38,18 +38,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-color {
-        overflow: hidden;
-        background-size: 10px;
-        cursor: pointer;
-        .pl-color-inner {
-            height: 100%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    }
-</style>

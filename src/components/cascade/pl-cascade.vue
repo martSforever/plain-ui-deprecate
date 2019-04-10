@@ -86,14 +86,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-cascade-popper {
-        height: 100%;
-        .pl-cascade-option {
-            &:not(:last-child) {
-                border-right: solid 1px #f2f2f2;
-            }
-        }
-    }
-</style>

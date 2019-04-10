@@ -58,16 +58,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-color-picker {
-        @include public-style;
-        display: inline-block;
-        .pl-input {
-            padding-right: 0;
-        }
-        .pl-color {
-            height: 100% !important;
-        }
-    }
-</style>

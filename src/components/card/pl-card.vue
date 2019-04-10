@@ -22,27 +22,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-card {
-        @include public-style;
-        @include transition-all;
-        border: $p-border;
-        display: inline-block;
-        &:hover {
-            transform: scale(1.02);
-        }
-
-        &.pl-card-shadow-always {
-            box-shadow: $p-box-shadow;
-        }
-        &.pl-card-shadow-hover {
-            &:hover {
-                box-shadow: $p-box-shadow;
-            }
-        }
-        &.pl-card-shadow-never {
-            box-shadow: initial;
-        }
-    }
-</style>

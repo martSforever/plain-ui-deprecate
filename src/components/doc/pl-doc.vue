@@ -94,30 +94,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-doc {
-        padding: 0 20px;
-        .pl-doc-item {
-            .pl-doc-item-head {
-                color: $p-color-primary;
-            }
-            table {
-                width: 100%;
-                thead, tbody {
-                    tr th, tr td {
-                        border-bottom: solid 1px #f2f2f2;
-                        text-align: left;
-                        padding: 12px 0;
-                    }
-                }
-                thead {
-                    th:not(:last-child) {
-                        width: 250px;
-                    }
-                }
-            }
-
-        }
-    }
-</style>

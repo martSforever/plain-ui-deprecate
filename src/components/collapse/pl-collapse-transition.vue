@@ -74,9 +74,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-collapse-transition {
-        transition: $p-transition-time height ease-in-out, $p-transition-time padding-top ease-in-out, $p-transition-time padding-bottom ease-in-out;
-    }
-</style>

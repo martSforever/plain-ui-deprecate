@@ -36,29 +36,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-color-history {
-        @include public-style;
-        display: flex;
-        align-items: center;
-        padding: 0 6px;
-        .pl-color-history-item {
-            $itemSize: 24px;
-            width: $itemSize;
-            height: $itemSize;
-            border-radius: $itemSize;
-            box-sizing: border-box;
-            cursor: pointer;
-            &.pl-color-history-current {
-                $currentItemSize: 30px;
-                width: $currentItemSize;
-                height: $currentItemSize;
-                border-radius: $currentItemSize;
-            }
-            &:not(last-child) {
-                margin-right: 6px;
-            }
-        }
-    }
-</style>

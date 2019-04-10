@@ -37,32 +37,3 @@
 
     }
 </script>
-
-<style lang="scss">
-    .pl-cascade-option {
-        height: 100%;
-        display: inline-block;
-        vertical-align: top;
-        .pl-cascade-option-item {
-            box-sizing: border-box;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 12px;
-            padding: 6px 6px;
-            cursor: pointer;
-            .pl-cascade-option-item-icon {
-                transform: scale(0.9);
-                color: #AAA;
-            }
-            &:hover, &.pl-cascade-option-item-active {
-                background-color: $p-color-primary-lighter;
-            }
-            &.pl-cascade-option-item-disabled {
-                background-color: $p-color-disabled;
-                color: #AAA;
-            }
-        }
-    }
-</style>

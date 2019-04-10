@@ -342,13 +342,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-date-range-panel {
-        display: inline-flex;
-        align-items: center;
-        .pl-date-range-panel-left {
-            margin-right: 12px;
-        }
-    }
-</style>

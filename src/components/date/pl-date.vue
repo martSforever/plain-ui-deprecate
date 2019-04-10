@@ -266,18 +266,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-date {
-        @include public-style;
-        display: inline-block;
-    }
-
-    .pl-date-popper {
-        padding: 0 8px 0px 8px;
-        .pl-date-time {
-            font-size: 12px;
-            color: $p-color-primary;
-        }
-    }
-</style>

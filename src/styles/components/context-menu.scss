@@ -1,0 +1,61 @@
+@mixin component-context-menu {
+  .pl-context-menu {
+    @include transition-all;
+    @include public-style;
+    box-shadow: 0 0 15px 1px #ddd;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: white;
+    z-index: 9999;
+
+    .pl-context-menu-content {
+      padding: 4px 0;
+    }
+
+    .pl-context-menu-item {
+      padding: 4px 10px;
+      font-size: 12px;
+      cursor: pointer;
+
+      &:hover, &.pl-context-menu-item-active {
+        background-color: $p-color-primary;
+        color: white;
+      }
+    }
+
+    .pl-context-menu-footer {
+      height: 40px;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        content: '';
+        box-shadow: 0 0 15px 1px #ddd;
+      }
+
+      .pl-context-menu-footer-content {
+        background-color: white;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 12px;
+        position: relative;
+        z-index: 1;
+      }
+    }
+  }
+  .pl-context-menu-enter-active, .pl-context-menu-leave-active {
+    opacity: 1;
+    transform-origin: top;
+  }
+  .pl-context-menu-enter, .pl-context-menu-leave-to {
+    transform: scaleY(0.65) translateY(-10px);
+    opacity: 0;
+  }
+}

@@ -69,25 +69,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-color-picker-panel {
-        @include public-style;
-        display: inline-flex;
-        flex-direction: column;
-        width: 250px;
-        & > *:not(last-child) {
-            margin-bottom: 6px;
-        }
-        .pl-color-picker-panel-operate {
-            padding: 0 6px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            .pl-button {
-                padding: 0 12px;
-                min-width: initial;
-            }
-        }
-    }
-</style>
