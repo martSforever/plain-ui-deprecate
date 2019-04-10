@@ -1,7 +1,6 @@
-import DomPortal from 'vue-dom-portal';
-import cssVars from './asserts/css-vars-ponyfill.esm.min';
-
 import 'src/styles/index.scss'
+
+import DomPortal from 'vue-dom-portal';
 
 import $utils from './utils/utils'
 import $dom from './utils/dom'
@@ -163,10 +162,6 @@ const PlainUI = {
             return await this._pageRegistry(path)
         }
     },
-    _cssVars: cssVars,
-    cssVars(param = {}) {
-        this._cssVars(Object.assign({onlyLegacy: false}, param))
-    },
     install(Vue, {
         prefix = 'lv',
         iconfont,
@@ -196,9 +191,6 @@ const PlainUI = {
             component.name = `${prefix}-tc-${col.name}`
             Vue.component(component.name, component)
         })
-
-        // cssVars({onlyLegacy: false, variables: {'--p-color-primary': 'red'}});
-        this.cssVars({onlyLegacy: true})
     },
 }
 

@@ -1,3 +1,5 @@
+@import "../components/index";
+
 @mixin transition-all {
   transition: all $p-transition-time;
 }
@@ -7,7 +9,7 @@
 }
 
 @mixin public-style {
-  font-family: Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+  font-family: Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   color: $p-color-normal-content;
   margin: 0;
   padding: 0;

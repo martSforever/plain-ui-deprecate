@@ -53,7 +53,6 @@ $p-page-transition: all 1s cubic-bezier(.28, 1, 0, 1);
 
 $p-tab-color: #eee;
 
-/*表格Table*/
 $p-base-table-font-size: 13px;
 $p-base-table-font-weight: 600;
 $p-base-table-border-color: #E2E7F1;
@@ -67,12 +66,10 @@ $p-base-table-body-color: #515A6E;
 $p-base-table-hover-row-background: #ECF5FF;
 $p-base-table-cell-padding: 9px;
 
-/*日期*/
 $p-dateItemSize: 32px;
 $p-dateBorderRadius: 4px;
 $p-dateInnerItemSize: 26px;
 
-/*支持css变量*/
 @supports ( (--variable: 0)) {
   $p-color-primary: var(--p-color-primary) !global;
   $p-color-primary-light: var(--p-color-primary-light) !global;
@@ -170,5 +167,75 @@ $list-shape: (
 $dateItemSize: 32px;
 $dateBorderRadius: 4px;
 $dateInnerItemSize: 26px;
+
+
+$pl-custom-themes: () !default;
+$default-theme: (
+        color-primary: #3F86E8,
+        color-primary-light: #92BBF3,
+        color-primary-deep: #4F77AE,
+        color-primary-lighter: #edf6ff,
+        color-success: #30ED69,
+        color-success-light: #8AF6AB,
+        color-success-deep: #48B268,
+        color-warn: #FFAF34,
+        color-warn-light: #FFD38F,
+        color-warn-deep: #BF924D,
+        color-error: #FF3333,
+        color-error-light: #FF8F8F,
+        color-error-deep: #BF4C4C,
+        color-info: #929292,
+        color-info-light: #C8C8C8,
+        color-info-deep: #6D6D6D,
+        color-disabled: #EBEAE7,
+        color-disabled-light: #F5F4F3,
+        color-disabled-deep: #B0B0AE,
+);
+$pl-themes: (
+        "":$default-theme,
+        "black":(
+                color-primary: #77777b,
+                color-primary-light: #dbdbe2,
+                color-primary-deep: #3e3e40,
+        ),
+);
+@if (length(map-keys($pl-custom-themes))>0) {
+  $pl-themes: map-merge($pl-themes, $pl-custom-themes)
+}
+
+@function pl-var($key) {
+  @if (map_has_key($theme-map, $key)) {
+    @return map-get($theme-map, $key);
+  } @else {
+    @return map-get($default-theme, $key);
+  }
+}
+
+@mixin themeify {
+  @each $theme-name, $theme-map in $pl-themes {
+    $theme-map: $theme-map !global;
+    @if (str_length($theme-name) >0) {
+      .#{$theme-name} {
+        @content;
+      }
+    } @else {
+      html {
+        @content;
+      }
+    }
+  }
+}
+
+$pl-colors: (primary, success, warn, error, info, disabled);
+@mixin pl-colors($prefix) {
+  @each $key in $pl-colors {
+    &.#{$prefix}-color-#{$key} {
+      $pl-color: pl-var(color-#{$key}) !global;
+      $pl-color-deep: pl-var(color-#{$key}-deep) !global;
+      $pl-color-light: pl-var(color-#{$key}-light) !global;
+      @content;
+    }
+  }
+}
 
 

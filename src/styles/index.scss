@@ -92,3 +92,7 @@
     width: 100% !important;
   }
 }
+
+@include themeify {
+  @include component-mixin;
+}

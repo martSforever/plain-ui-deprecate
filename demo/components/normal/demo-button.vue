@@ -173,7 +173,6 @@
                 console.log("click");
             },
             changeTheme() {
-                this.$plain.cssVars({variables: {'--p-color-primary': 'olivedrab'}})
             },
         }
     }

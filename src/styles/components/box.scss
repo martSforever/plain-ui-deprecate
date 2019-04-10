@@ -1,0 +1,163 @@
+@mixin component-box {
+  .pl-box {
+    @include public-style;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: fit-content;
+
+    .pl-box-clear-icon {
+      cursor: pointer;
+    }
+
+    .pl-box-prefix-icon {
+      margin-right: 6px;
+    }
+
+    .pl-box-suffix-icon {
+      margin-left: 6px;
+    }
+
+    &.pl-box-padding {
+      padding: 0 6px;
+    }
+
+    &.pl-box-long {
+      min-width: unset;
+      width: 100%;
+    }
+
+    &.pl-box-fix-width {
+      .pl-box-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .pl-box-content {
+      height: 100%;
+    }
+
+    @each $key, $value in $list-size {
+      &.pl-box-size-#{$key} {
+        height: $value;
+
+        &, & span, & input, & label, & div {
+          font-size: $value/2.5;
+        }
+
+        &.pl-box-icon-only {
+          min-width: inherit;
+          width: $value !important;
+          padding: 0;
+          border-radius: $value/2;
+
+          .pl-box-prefix-icon, .pl-box-suffix-icon {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    /*fill type*/
+    &.pl-box-type-fill {
+      @include pl-colors(pl-box) {
+        background-color: $pl-color;
+        border: solid $p-border-size $pl-color;
+        &, & div, & input {
+          color: white;
+        }
+      }
+    }
+
+    /*line type*/
+    &.pl-box-type-line {
+      @include pl-colors(pl-box) {
+        border: solid $p-border-size $pl-color;
+        background: white;
+        &, & div {
+          color: $pl-color;
+        }
+        & input, .pl-box-prefix-icon, .pl-box-suffix-icon, .pl-box-clear-icon {
+          color: $pl-color-deep;
+        }
+      }
+
+      &.pl-box-dashed {
+        border-style: dashed;
+      }
+    }
+
+    /*none type*/
+    &.pl-box-type-none {
+      @include pl-colors(pl-box) {
+        border: solid $p-border-size transparent;
+        background: transparent;
+
+        &, & div, & input {
+          color: $pl-color-deep;
+        }
+      }
+    }
+
+    /*dash type*/
+    &.pl-box-type-dashed {
+      @include pl-colors(pl-box) {
+        border: dotted $p-border-size $pl-color;
+        background: transparent;
+        &, & div, & input {
+          color: $pl-color-deep;
+        }
+      }
+    }
+
+    /*shape*/
+    @each $key, $value in $list-shape {
+      &.pl-box-shape-#{$key} {
+        border-radius: $value;
+      }
+    }
+
+    &.pl-box-shape-round {
+      padding: 0 12px;
+    }
+
+    &.pl-box-disabled {
+      border: solid $p-border-size #f2f2f2 !important;
+      background: #f2f2f2 !important;
+      color: $p-color-disabled !important;
+
+      &, & * {
+        cursor: not-allowed;
+      }
+    }
+
+    .pl-box-tooltip {
+      $tooltip-color: $p-color-error;
+      visibility: visible;
+      width: max-content;
+      background-color: $tooltip-color;
+      color: white !important;
+      text-align: center;
+      padding: 3px 6px;
+      font-size: 12px;
+      /* 定位 */
+      position: absolute;
+      z-index: 0;
+      top: calc(100% + 3px);
+      right: 0;
+
+      &::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -3px;
+        border: 3px solid transparent;
+        border-bottom-color: $tooltip-color;
+      }
+    }
+  }
+}
