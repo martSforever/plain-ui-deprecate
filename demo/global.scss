@@ -2,7 +2,7 @@
 @import "theme";
 
 @mixin themeify {
-  @include pl-themeify($custom) {
+  @include pl-theme-wrap($custom) {
     @content;
   }
 }

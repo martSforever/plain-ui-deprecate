@@ -229,8 +229,14 @@ $pl-default-themes: (
   }
 }
 
-@mixin pl-use-theme($theme:(),$append-default-theme:false) {
-  @include pl-themeify($theme, $append-default-theme) {
+@mixin pl-theme-wrap($theme) {
+  @include pl-themeify($theme, true){
+    @content;
+  }
+}
+
+@mixin pl-use-theme($theme:()) {
+  @include pl-themeify($theme, false) {
     @include component-mixin;
   }
 }
