@@ -230,7 +230,7 @@ $pl-default-themes: (
 }
 
 @mixin pl-theme-wrap($theme) {
-  @include pl-themeify($theme, true){
+  @include pl-themeify($theme, true) {
     @content;
   }
 }
