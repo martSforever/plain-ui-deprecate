@@ -1,7 +1,7 @@
 <template>
     <div class="demo-button">
         <demo-row>
-            <link-button label="基本用法"/>
+            <link-button label="基本用法" @click="changeTheme"/>
         </demo-row>
 
         <demo-row title="颜色">
@@ -11,7 +11,7 @@
             <link-button v-for="(item,index) in colors" :label="item" :box-color="item" loading :key="index"/>
         </demo-row>
         <demo-row title="左右图标">
-            <link-button v-for="(item,index) in colors" :label="item" :key="index" prefix-icon="pl-date-fill" suffix-icon="pad-search"/>
+            <link-button v-for="(item,index) in colors" :label="item" :key="index" :box-color="item" prefix-icon="pl-date-fill" suffix-icon="pad-search"/>
         </demo-row>
 
         <demo-row title="只有图标">
@@ -171,6 +171,9 @@
         methods: {
             _click() {
                 console.log("click");
+            },
+            changeTheme() {
+                this.$plain.cssVars({variables: {'--p-color-primary': 'olivedrab'}})
             },
         }
     }

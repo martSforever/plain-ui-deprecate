@@ -3,6 +3,7 @@ import App from './App.vue'
 import plain from 'src'
 import DemoChild from './demo-child'
 import move from 'src/directives/move'
+import './index.scss'
 
 import DemoRow from './demo-row'
 import DemoRowItem from './demo-row-item'

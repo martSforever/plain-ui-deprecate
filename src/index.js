@@ -75,13 +75,6 @@ import popper from './components/popper/pl-popper'
 import nav from './components/nav/pl-nav'
 import navPages from './components/nav/pl-nav-pages'
 
-cssVars({
-    onlyLegacy: false,
-    variables: {
-        '--p-color-primary': 'red'
-    }
-});
-
 const components = {
     icon,
     scroll,
@@ -170,6 +163,10 @@ const PlainUI = {
             return await this._pageRegistry(path)
         }
     },
+    _cssVars: cssVars,
+    cssVars(param = {}) {
+        this._cssVars(Object.assign({onlyLegacy: false}, param))
+    },
     install(Vue, {
         prefix = 'lv',
         iconfont,
@@ -199,6 +196,9 @@ const PlainUI = {
             component.name = `${prefix}-tc-${col.name}`
             Vue.component(component.name, component)
         })
+
+        // cssVars({onlyLegacy: false, variables: {'--p-color-primary': 'red'}});
+        this.cssVars({onlyLegacy: true})
     },
 }
 

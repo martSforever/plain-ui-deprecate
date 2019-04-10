@@ -27,7 +27,4 @@
         margin: 0;
         height: 100%;
     }
-    :root{
-        --p-color-primary: red !important;
-    }
 </style>
