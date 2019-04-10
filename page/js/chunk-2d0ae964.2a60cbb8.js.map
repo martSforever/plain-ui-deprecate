@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./demo/components/mavon.md"],"names":["module","exports"],"mappings":"mGAAAA,EAAAC,QAAA","file":"js/chunk-2d0ae964.2a60cbb8.js","sourcesContent":["module.exports = \"```html\\r\\n<link-button label=\\\"按钮11\\\"/>\\r\\n<link-button label=\\\"按钮22\\\"/>\\r\\n<link-button label=\\\"按钮33\\\"/>\\r\\n```\""],"sourceRoot":""}
