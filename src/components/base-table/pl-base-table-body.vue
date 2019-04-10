@@ -66,16 +66,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-base-table-body {
-        position: relative;
-        overflow-x: hidden;
-        tr:not(.pl-table-column):not(:last-child) {
-            .pl-base-table-cell {
-                border-bottom: solid $p-base-table-border-size $p-base-table-border-color;
-                border-top: solid $p-base-table-border-size transparent;
-            }
-        }
-    }
-</style>

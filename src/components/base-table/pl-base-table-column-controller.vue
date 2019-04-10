@@ -51,9 +51,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-base-table-column-controller {
-        display: none;
-    }
-</style>

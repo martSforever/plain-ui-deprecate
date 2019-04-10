@@ -1,7 +1,11 @@
 @import "button";
 @import "box";
+@import "badge";
+@import "base-table";
 
 @mixin component-mixin {
   @include component-box;
   @include component-button;
+  @include component-badge;
+  @include component-base-table;
 }

@@ -27,18 +27,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-base-table-head {
-        position: relative;
-        overflow: hidden;
-        border-bottom: solid $p-base-table-border-size $p-base-table-border-color;
-        tr:not(.pl-base-table-column-space) {
-            font-size: $p-base-table-font-size;
-            font-weight: $p-base-table-font-weight;
-        }
-        & + .pl-base-table-body {
-            border-top: none;
-        }
-    }
-</style>
