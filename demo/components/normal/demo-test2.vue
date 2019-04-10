@@ -47,6 +47,9 @@
 </script>
 
 <style lang="scss">
+
+    @import "../../global";
+
     @include themeify {
         .demo-test2 {
             .hello {

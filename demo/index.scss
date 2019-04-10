@@ -1,0 +1,4 @@
+@import "../src/styles/variable";
+@import "theme";
+
+@include pl-use-theme($custom)

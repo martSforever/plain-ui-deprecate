@@ -1,5 +1,3 @@
-@import "../components/index";
-
 @mixin transition-all {
   transition: all $p-transition-time;
 }

@@ -93,6 +93,4 @@
   }
 }
 
-@include themeify {
-  @include component-mixin;
-}
+@include pl-use-theme((), true);

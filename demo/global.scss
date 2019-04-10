@@ -1,0 +1,8 @@
+@import "../src/styles/variable";
+@import "theme";
+
+@mixin themeify {
+  @include pl-themeify($custom) {
+    @content;
+  }
+}
