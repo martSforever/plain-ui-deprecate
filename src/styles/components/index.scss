@@ -2,10 +2,32 @@
 @import "box";
 @import "badge";
 @import "base-table";
+@import "card";
+@import "carousel";
+@import "collapse";
+@import "color-picker";
+@import "context-menu";
+@import "date";
+@import "dialog";
+@import "doc";
+@import "input";
+@import "icon";
+@import "list";
 
 @mixin component-mixin {
   @include component-box;
   @include component-button;
   @include component-badge;
   @include component-base-table;
+  @include component-card;
+  @include component-carousel;
+  @include component-collapse;
+  @include component-color-picker;
+  @include component-context-menu;
+  @include component-date;
+  @include component-dialog;
+  @include component-doc;
+  @include component-input;
+  @include component-icon;
+  @include component-list;
 }
