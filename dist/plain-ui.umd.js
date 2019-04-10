@@ -11250,6 +11250,10 @@ var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
 // EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/web.dom.iterable.js
 var web_dom_iterable = __webpack_require__("612f");
 
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/object/assign.js
+var object_assign = __webpack_require__("208e");
+var assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
+
 // EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/promise.js
 var promise = __webpack_require__("3f46");
 var promise_default = /*#__PURE__*/__webpack_require__.n(promise);
@@ -11351,12 +11355,937 @@ function _objectSpread(target) {
 var vue_dom_portal_common = __webpack_require__("16fd");
 var vue_dom_portal_common_default = /*#__PURE__*/__webpack_require__.n(vue_dom_portal_common);
 
-// EXTERNAL MODULE: ./src/styles/index.scss
-var src_styles = __webpack_require__("b20f");
+// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.array.iterator.js
+var es6_array_iterator = __webpack_require__("5c07");
+
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/json/stringify.js
+var stringify = __webpack_require__("cc80");
+var stringify_default = /*#__PURE__*/__webpack_require__.n(stringify);
+
+// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.constructor.js
+var es6_regexp_constructor = __webpack_require__("5f33");
+
+// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.match.js
+var es6_regexp_match = __webpack_require__("f10e");
+
+// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.replace.js
+var es6_regexp_replace = __webpack_require__("f91a");
+
+// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.split.js
+var es6_regexp_split = __webpack_require__("ea65");
+
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/array/from.js
+var from = __webpack_require__("ab6b");
+var from_default = /*#__PURE__*/__webpack_require__.n(from);
+
+// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.to-string.js
+var es6_regexp_to_string = __webpack_require__("48fb");
+
+// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/is-iterable.js
+var is_iterable = __webpack_require__("ad81");
+var is_iterable_default = /*#__PURE__*/__webpack_require__.n(is_iterable);
 
 // EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/array/is-array.js
 var is_array = __webpack_require__("6c85");
 var is_array_default = /*#__PURE__*/__webpack_require__.n(is_array);
+
+// CONCATENATED MODULE: ./src/asserts/css-vars-ponyfill.esm.min.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*!
+ * css-vars-ponyfill
+ * v1.17.2
+ * https://github.com/jhildenbiddle/css-vars-ponyfill
+ * (c) 2018-2019 John Hildenbiddle <http://hildenbiddle.com>
+ * MIT license
+ */
+function css_vars_ponyfill_esm_min_e() {
+  return (css_vars_ponyfill_esm_min_e = assign_default.a || function (e) {
+    for (var t = 1; t < arguments.length; t++) {
+      var n = arguments[t];
+
+      for (var r in n) {
+        Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
+      }
+    }
+
+    return e;
+  }).apply(this, arguments);
+}
+
+function css_vars_ponyfill_esm_min_t(e) {
+  return function (e) {
+    if (is_array_default()(e)) {
+      for (var t = 0, n = new Array(e.length); t < e.length; t++) {
+        n[t] = e[t];
+      }
+
+      return n;
+    }
+  }(e) || function (e) {
+    if (is_iterable_default()(Object(e)) || "[object Arguments]" === Object.prototype.toString.call(e)) return from_default()(e);
+  }(e) || function () {
+    throw new TypeError("Invalid attempt to spread non-iterable instance");
+  }();
+}
+
+function css_vars_ponyfill_esm_min_n(e) {
+  var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {},
+      n = {
+    mimeType: t.mimeType || null,
+    onBeforeSend: t.onBeforeSend || Function.prototype,
+    onSuccess: t.onSuccess || Function.prototype,
+    onError: t.onError || Function.prototype,
+    onComplete: t.onComplete || Function.prototype
+  },
+      r = is_array_default()(e) ? e : [e],
+      o = Array.apply(null, Array(r.length)).map(function (e) {
+    return null;
+  });
+
+  function s() {
+    return !("<" === (arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : "").trim().charAt(0));
+  }
+
+  function a(e, t) {
+    n.onError(e, r[t], t);
+  }
+
+  function c(e, t) {
+    var s = n.onSuccess(e, r[t], t);
+    e = !1 === s ? "" : s || e, o[t] = e, -1 === o.indexOf(null) && n.onComplete(o);
+  }
+
+  var i = document.createElement("a");
+  r.forEach(function (e, t) {
+    if (i.setAttribute("href", e), i.href = String(i.href), Boolean(document.all && !window.atob) && i.host.split(":")[0] !== location.host.split(":")[0]) {
+      if (i.protocol === location.protocol) {
+        var r = new XDomainRequest();
+        r.open("GET", e), r.timeout = 0, r.onprogress = Function.prototype, r.ontimeout = Function.prototype, r.onload = function () {
+          s(r.responseText) ? c(r.responseText, t) : a(r, t);
+        }, r.onerror = function (e) {
+          a(r, t);
+        }, setTimeout(function () {
+          r.send();
+        }, 0);
+      } else console.warn("Internet Explorer 9 Cross-Origin (CORS) requests must use the same protocol (".concat(e, ")")), a(null, t);
+    } else {
+      var o = new XMLHttpRequest();
+      o.open("GET", e), n.mimeType && o.overrideMimeType && o.overrideMimeType(n.mimeType), n.onBeforeSend(o, e, t), o.onreadystatechange = function () {
+        4 === o.readyState && (200 === o.status && s(o.responseText) ? c(o.responseText, t) : a(o, t));
+      }, o.send();
+    }
+  });
+}
+
+function css_vars_ponyfill_esm_min_r(e) {
+  var t = {
+    cssComments: /\/\*[\s\S]+?\*\//g,
+    cssImports: /(?:@import\s*)(?:url\(\s*)?(?:['"])([^'"]*)(?:['"])(?:\s*\))?(?:[^;]*;)/g
+  },
+      r = {
+    rootElement: e.rootElement || document,
+    include: e.include || 'style,link[rel="stylesheet"]',
+    exclude: e.exclude || null,
+    filter: e.filter || null,
+    useCSSOM: e.useCSSOM || !1,
+    onBeforeSend: e.onBeforeSend || Function.prototype,
+    onSuccess: e.onSuccess || Function.prototype,
+    onError: e.onError || Function.prototype,
+    onComplete: e.onComplete || Function.prototype
+  },
+      s = Array.apply(null, r.rootElement.querySelectorAll(r.include)).filter(function (e) {
+    return t = e, n = r.exclude, !(t.matches || t.matchesSelector || t.webkitMatchesSelector || t.mozMatchesSelector || t.msMatchesSelector || t.oMatchesSelector).call(t, n);
+    var t, n;
+  }),
+      a = Array.apply(null, Array(s.length)).map(function (e) {
+    return null;
+  });
+
+  function c() {
+    if (-1 === a.indexOf(null)) {
+      var e = a.join("");
+      r.onComplete(e, a, s);
+    }
+  }
+
+  function i(e, t, o, s) {
+    var i = r.onSuccess(e, o, s);
+
+    (function e(t, o, s, a) {
+      var c = arguments.length > 4 && void 0 !== arguments[4] ? arguments[4] : [];
+      var i = arguments.length > 5 && void 0 !== arguments[5] ? arguments[5] : [];
+      var u = l(t, s, i);
+      u.rules.length ? css_vars_ponyfill_esm_min_n(u.absoluteUrls, {
+        onBeforeSend: function onBeforeSend(e, t, n) {
+          r.onBeforeSend(e, o, t);
+        },
+        onSuccess: function onSuccess(e, t, n) {
+          var s = r.onSuccess(e, o, t),
+              a = l(e = !1 === s ? "" : s || e, t, i);
+          return a.rules.forEach(function (t, n) {
+            e = e.replace(t, a.absoluteRules[n]);
+          }), e;
+        },
+        onError: function onError(n, r, l) {
+          c.push({
+            xhr: n,
+            url: r
+          }), i.push(u.rules[l]), e(t, o, s, a, c, i);
+        },
+        onComplete: function onComplete(n) {
+          n.forEach(function (e, n) {
+            t = t.replace(u.rules[n], e);
+          }), e(t, o, s, a, c, i);
+        }
+      }) : a(t, c);
+    })(e = void 0 !== i && !1 === Boolean(i) ? "" : i || e, o, s, function (e, n) {
+      null === a[t] && (n.forEach(function (e) {
+        return r.onError(e.xhr, o, e.url);
+      }), !r.filter || r.filter.test(e) ? a[t] = e : a[t] = "", c());
+    });
+  }
+
+  function l(e, n) {
+    var r = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : [],
+        s = {};
+    return s.rules = (e.replace(t.cssComments, "").match(t.cssImports) || []).filter(function (e) {
+      return -1 === r.indexOf(e);
+    }), s.urls = s.rules.map(function (e) {
+      return e.replace(t.cssImports, "$1");
+    }), s.absoluteUrls = s.urls.map(function (e) {
+      return css_vars_ponyfill_esm_min_o(e, n);
+    }), s.absoluteRules = s.rules.map(function (e, t) {
+      var r = s.urls[t],
+          a = css_vars_ponyfill_esm_min_o(s.absoluteUrls[t], n);
+      return e.replace(r, a);
+    }), s;
+  }
+
+  s.length ? s.forEach(function (e, t) {
+    var s = e.getAttribute("href"),
+        l = e.getAttribute("rel"),
+        u = "LINK" === e.nodeName && s && l && "stylesheet" === l.toLowerCase(),
+        f = "STYLE" === e.nodeName;
+    if (u) css_vars_ponyfill_esm_min_n(s, {
+      mimeType: "text/css",
+      onBeforeSend: function onBeforeSend(t, n, o) {
+        r.onBeforeSend(t, e, n);
+      },
+      onSuccess: function onSuccess(n, r, a) {
+        var c = css_vars_ponyfill_esm_min_o(s, location.href);
+        i(n, t, e, c);
+      },
+      onError: function onError(n, o, s) {
+        a[t] = "", r.onError(n, e, o), c();
+      }
+    });else if (f) {
+      var p = e.textContent;
+      r.useCSSOM && (p = Array.apply(null, e.sheet.cssRules).map(function (e) {
+        return e.cssText;
+      }).join("")), i(p, t, e, location.href);
+    } else a[t] = "", c();
+  }) : r.onComplete("", []);
+}
+
+function css_vars_ponyfill_esm_min_o(e) {
+  var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : location.href,
+      n = document.implementation.createHTMLDocument(""),
+      r = n.createElement("base"),
+      o = n.createElement("a");
+  return n.head.appendChild(r), n.body.appendChild(o), r.href = t, o.href = e, o.href;
+}
+
+var css_vars_ponyfill_esm_min_s = css_vars_ponyfill_esm_min_a;
+
+function css_vars_ponyfill_esm_min_a(e, t, n) {
+  e instanceof RegExp && (e = css_vars_ponyfill_esm_min_c(e, n)), t instanceof RegExp && (t = css_vars_ponyfill_esm_min_c(t, n));
+  var r = css_vars_ponyfill_esm_min_i(e, t, n);
+  return r && {
+    start: r[0],
+    end: r[1],
+    pre: n.slice(0, r[0]),
+    body: n.slice(r[0] + e.length, r[1]),
+    post: n.slice(r[1] + t.length)
+  };
+}
+
+function css_vars_ponyfill_esm_min_c(e, t) {
+  var n = t.match(e);
+  return n ? n[0] : null;
+}
+
+function css_vars_ponyfill_esm_min_i(e, t, n) {
+  var r,
+      o,
+      s,
+      a,
+      c,
+      i = n.indexOf(e),
+      l = n.indexOf(t, i + 1),
+      u = i;
+
+  if (i >= 0 && l > 0) {
+    for (r = [], s = n.length; u >= 0 && !c;) {
+      u == i ? (r.push(u), i = n.indexOf(e, u + 1)) : 1 == r.length ? c = [r.pop(), l] : ((o = r.pop()) < s && (s = o, a = l), l = n.indexOf(t, u + 1)), u = i < l && i >= 0 ? i : l;
+    }
+
+    r.length && (c = [s, a]);
+  }
+
+  return c;
+}
+
+function css_vars_ponyfill_esm_min_l(t) {
+  var n = css_vars_ponyfill_esm_min_e({}, {
+    onlyVars: !1,
+    removeComments: !1
+  }, arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {});
+
+  function r(e) {
+    throw new Error("CSS parse error: ".concat(e));
+  }
+
+  function o(e) {
+    var n = e.exec(t);
+    if (n) return t = t.slice(n[0].length), n;
+  }
+
+  function a() {
+    return o(/^{\s*/);
+  }
+
+  function c() {
+    return o(/^}/);
+  }
+
+  function i() {
+    o(/^\s*/);
+  }
+
+  function l() {
+    if (i(), "/" === t[0] && "*" === t[1]) {
+      for (var e = 2; t[e] && ("*" !== t[e] || "/" !== t[e + 1]);) {
+        e++;
+      }
+
+      if (!t[e]) return r("end of comment is missing");
+      var n = t.slice(2, e);
+      return t = t.slice(e + 2), {
+        type: "comment",
+        comment: n
+      };
+    }
+  }
+
+  function u() {
+    for (var e, t = []; e = l();) {
+      t.push(e);
+    }
+
+    return n.removeComments ? [] : t;
+  }
+
+  function f() {
+    for (i(); "}" === t[0];) {
+      r("extra closing bracket");
+    }
+
+    var e = o(/^(("(?:\\"|[^"])*"|'(?:\\'|[^'])*'|[^{])+)/);
+    if (e) return e[0].trim().replace(/\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*\/+/g, "").replace(/"(?:\\"|[^"])*"|'(?:\\'|[^'])*'/g, function (e) {
+      return e.replace(/,/g, "‌");
+    }).split(/\s*(?![^(]*\)),\s*/).map(function (e) {
+      return e.replace(/\u200C/g, ",");
+    });
+  }
+
+  function p() {
+    o(/^([;\s]*)+/);
+    var e = /\/\*[^*]*\*+([^\/*][^*]*\*+)*\//g,
+        t = o(/^(\*?[-#\/*\\\w]+(\[[0-9a-z_-]+\])?)\s*/);
+
+    if (t) {
+      if (t = t[0].trim(), !o(/^:\s*/)) return r("property missing ':'");
+      var n = o(/^((?:\/\*.*?\*\/|'(?:\\'|.)*?'|"(?:\\"|.)*?"|\((\s*'(?:\\'|.)*?'|"(?:\\"|.)*?"|[^)]*?)\s*\)|[^};])+)/),
+          s = {
+        type: "declaration",
+        property: t.replace(e, ""),
+        value: n ? n[0].replace(e, "").trim() : ""
+      };
+      return o(/^[;\s]*/), s;
+    }
+  }
+
+  function d() {
+    if (!a()) return r("missing '{'");
+
+    for (var e, t = u(); e = p();) {
+      t.push(e), t = t.concat(u());
+    }
+
+    return c() ? t : r("missing '}'");
+  }
+
+  function m() {
+    i();
+
+    for (var e, t = []; e = o(/^((\d+\.\d+|\.\d+|\d+)%?|[a-z]+)\s*/);) {
+      t.push(e[1]), o(/^,\s*/);
+    }
+
+    if (t.length) return {
+      type: "keyframe",
+      values: t,
+      declarations: d()
+    };
+  }
+
+  function v() {
+    if (i(), "@" === t[0]) {
+      var e = function () {
+        var e = o(/^@([-\w]+)?keyframes\s*/);
+
+        if (e) {
+          var t = e[1];
+          if (!(e = o(/^([-\w]+)\s*/))) return r("@keyframes missing name");
+          var n,
+              s = e[1];
+          if (!a()) return r("@keyframes missing '{'");
+
+          for (var i = u(); n = m();) {
+            i.push(n), i = i.concat(u());
+          }
+
+          return c() ? {
+            type: "keyframes",
+            name: s,
+            vendor: t,
+            keyframes: i
+          } : r("@keyframes missing '}'");
+        }
+      }() || function () {
+        var e = o(/^@supports *([^{]+)/);
+        if (e) return {
+          type: "supports",
+          supports: e[1].trim(),
+          rules: h()
+        };
+      }() || function () {
+        if (o(/^@host\s*/)) return {
+          type: "host",
+          rules: h()
+        };
+      }() || function () {
+        var e = o(/^@media *([^{]+)/);
+        if (e) return {
+          type: "media",
+          media: e[1].trim(),
+          rules: h()
+        };
+      }() || function () {
+        var e = o(/^@custom-media\s+(--[^\s]+)\s*([^{;]+);/);
+        if (e) return {
+          type: "custom-media",
+          name: e[1].trim(),
+          media: e[2].trim()
+        };
+      }() || function () {
+        if (o(/^@page */)) return {
+          type: "page",
+          selectors: f() || [],
+          declarations: d()
+        };
+      }() || function () {
+        var e = o(/^@([-\w]+)?document *([^{]+)/);
+        if (e) return {
+          type: "document",
+          document: e[2].trim(),
+          vendor: e[1] ? e[1].trim() : null,
+          rules: h()
+        };
+      }() || function () {
+        if (o(/^@font-face\s*/)) return {
+          type: "font-face",
+          declarations: d()
+        };
+      }() || function () {
+        var e = o(/^@(import|charset|namespace)\s*([^;]+);/);
+        if (e) return {
+          type: e[1],
+          name: e[2].trim()
+        };
+      }();
+
+      if (e && n.onlyVars) {
+        var s = !1;
+        if (e.declarations) s = e.declarations.some(function (e) {
+          return /var\(/.test(e.value);
+        });else s = (e.keyframes || e.rules || []).some(function (e) {
+          return (e.declarations || []).some(function (e) {
+            return /var\(/.test(e.value);
+          });
+        });
+        return s ? e : {};
+      }
+
+      return e;
+    }
+  }
+
+  function y() {
+    if (n.onlyVars) {
+      var e = css_vars_ponyfill_esm_min_s("{", "}", t);
+
+      if (e) {
+        var o = -1 !== e.pre.indexOf(":root") && /--\S*\s*:/.test(e.body),
+            a = /var\(/.test(e.body);
+        if (!o && !a) return t = t.slice(e.end + 1), {};
+      }
+    }
+
+    var c = f() || [],
+        i = n.onlyVars ? d().filter(function (e) {
+      var t = c.some(function (e) {
+        return -1 !== e.indexOf(":root");
+      }) && /^--\S/.test(e.property),
+          n = /var\(/.test(e.value);
+      return t || n;
+    }) : d();
+    return c.length || r("selector missing"), {
+      type: "rule",
+      selectors: c,
+      declarations: i
+    };
+  }
+
+  function h(e) {
+    if (!e && !a()) return r("missing '{'");
+
+    for (var n, o = u(); t.length && (e || "}" !== t[0]) && (n = v() || y());) {
+      n.type && o.push(n), o = o.concat(u());
+    }
+
+    return e || c() ? o : r("missing '}'");
+  }
+
+  return {
+    type: "stylesheet",
+    stylesheet: {
+      rules: h(!0),
+      errors: []
+    }
+  };
+}
+
+css_vars_ponyfill_esm_min_a.range = css_vars_ponyfill_esm_min_i;
+var css_vars_ponyfill_esm_min_u = "--",
+    css_vars_ponyfill_esm_min_f = "var",
+    css_vars_ponyfill_esm_min_p = {
+  dom: {},
+  temp: {},
+  user: {}
+};
+
+function css_vars_ponyfill_esm_min_d(t) {
+  var n,
+      r,
+      o = css_vars_ponyfill_esm_min_e({}, {
+    fixNestedCalc: !0,
+    onlyVars: !1,
+    persist: !1,
+    preserve: !1,
+    variables: {},
+    onWarning: function onWarning() {}
+  }, arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {}),
+      a = o.persist ? css_vars_ponyfill_esm_min_p.dom : css_vars_ponyfill_esm_min_p.temp = JSON.parse(stringify_default()(css_vars_ponyfill_esm_min_p.dom)),
+      c = css_vars_ponyfill_esm_min_l(t, {
+    onlyVars: o.onlyVars
+  });
+
+  if (c.stylesheet.rules.forEach(function (e) {
+    var t = [];
+    if ("rule" === e.type && 1 === e.selectors.length && ":root" === e.selectors[0] && (e.declarations.forEach(function (e, n) {
+      var r = e.property,
+          o = e.value;
+      r && 0 === r.indexOf(css_vars_ponyfill_esm_min_u) && (a[r] = o, t.push(n));
+    }), !o.preserve)) for (var n = t.length - 1; n >= 0; n--) {
+      e.declarations.splice(t[n], 1);
+    }
+  }), keys_default()(css_vars_ponyfill_esm_min_p.user).forEach(function (e) {
+    a[e] = css_vars_ponyfill_esm_min_p.user[e];
+  }), keys_default()(o.variables).length) {
+    var i = {
+      declarations: [],
+      selectors: [":root"],
+      type: "rule"
+    };
+    keys_default()(o.variables).forEach(function (e) {
+      var t = "--".concat(e.replace(/^-+/, "")),
+          n = o.variables[e];
+      o.persist && (css_vars_ponyfill_esm_min_p.user[t] = n), a[t] !== n && (a[t] = n, i.declarations.push({
+        type: "declaration",
+        property: t,
+        value: n
+      }));
+    }), o.preserve && i.declarations.length && c.stylesheet.rules.push(i);
+  }
+
+  return function e(t, n) {
+    t.rules.forEach(function (r) {
+      r.rules ? e(r, n) : r.keyframes ? r.keyframes.forEach(function (e) {
+        "keyframe" === e.type && n(e.declarations, r);
+      }) : r.declarations && n(r.declarations, t);
+    });
+  }(c.stylesheet, function (e, t) {
+    for (var n, r, s, c = 0; c < e.length; c++) {
+      s = (n = e[c]).value, "declaration" === n.type && s && -1 !== s.indexOf(css_vars_ponyfill_esm_min_f + "(") && (r = css_vars_ponyfill_esm_min_m(s, a, o)) !== n.value && (o.preserve ? (e.splice(c, 0, {
+        type: n.type,
+        property: n.property,
+        value: r
+      }), c++) : n.value = r);
+    }
+  }), o.fixNestedCalc && (n = c.stylesheet.rules, r = /(-[a-z]+-)?calc\(/, n.forEach(function (e) {
+    e.declarations && e.declarations.forEach(function (e) {
+      for (var t = e.value, n = ""; r.test(t);) {
+        var o = css_vars_ponyfill_esm_min_s("calc(", ")", t || "");
+
+        for (t = t.slice(o.end); r.test(o.body);) {
+          var a = css_vars_ponyfill_esm_min_s(r, ")", o.body);
+          o.body = "".concat(a.pre, "(").concat(a.body, ")").concat(a.post);
+        }
+
+        n += "".concat(o.pre, "calc(").concat(o.body), n += r.test(t) ? "" : ")".concat(o.post);
+      }
+
+      e.value = n || e.value;
+    });
+  })), function (e) {
+    var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "",
+        n = arguments.length > 2 ? arguments[2] : void 0,
+        r = {
+      charset: function charset(e) {
+        return "@charset " + e.name + ";";
+      },
+      comment: function comment(e) {
+        return 0 === e.comment.indexOf("__CSSVARSPONYFILL") ? "/*" + e.comment + "*/" : "";
+      },
+      "custom-media": function customMedia(e) {
+        return "@custom-media " + e.name + " " + e.media + ";";
+      },
+      declaration: function declaration(e) {
+        return e.property + ":" + e.value + ";";
+      },
+      document: function document(e) {
+        return "@" + (e.vendor || "") + "document " + e.document + "{" + o(e.rules) + "}";
+      },
+      "font-face": function fontFace(e) {
+        return "@font-face{" + o(e.declarations) + "}";
+      },
+      host: function host(e) {
+        return "@host{" + o(e.rules) + "}";
+      },
+      import: function _import(e) {
+        return "@import " + e.name + ";";
+      },
+      keyframe: function keyframe(e) {
+        return e.values.join(",") + "{" + o(e.declarations) + "}";
+      },
+      keyframes: function keyframes(e) {
+        return "@" + (e.vendor || "") + "keyframes " + e.name + "{" + o(e.keyframes) + "}";
+      },
+      media: function media(e) {
+        return "@media " + e.media + "{" + o(e.rules) + "}";
+      },
+      namespace: function namespace(e) {
+        return "@namespace " + e.name + ";";
+      },
+      page: function page(e) {
+        return "@page " + (e.selectors.length ? e.selectors.join(", ") : "") + "{" + o(e.declarations) + "}";
+      },
+      rule: function rule(e) {
+        var t = e.declarations;
+        if (t.length) return e.selectors.join(",") + "{" + o(t) + "}";
+      },
+      supports: function supports(e) {
+        return "@supports " + e.supports + "{" + o(e.rules) + "}";
+      }
+    };
+
+    function o(e) {
+      for (var o = "", s = 0; s < e.length; s++) {
+        var a = e[s];
+        n && n(a);
+        var c = r[a.type](a);
+        c && (o += c, c.length && a.selectors && (o += t));
+      }
+
+      return o;
+    }
+
+    return o(e.stylesheet.rules);
+  }(c);
+}
+
+function css_vars_ponyfill_esm_min_m(e, t) {
+  var n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {},
+      r = arguments.length > 3 ? arguments[3] : void 0;
+  if (-1 === e.indexOf("var(")) return e;
+  var o = css_vars_ponyfill_esm_min_s("(", ")", e);
+  return o ? "var" === o.pre.slice(-3) ? 0 === o.body.trim().length ? (n.onWarning("var() must contain a non-whitespace string"), e) : o.pre.slice(0, -3) + function (e) {
+    var o = e.split(",")[0].replace(/[\s\n\t]/g, ""),
+        s = (e.match(/(?:\s*,\s*){1}(.*)?/) || [])[1],
+        a = t.hasOwnProperty(o) ? String(t[o]) : void 0,
+        c = a || (s ? String(s) : void 0),
+        i = r || e;
+    return a || n.onWarning('variable "'.concat(o, '" is undefined')), c && "undefined" !== c && c.length > 0 ? css_vars_ponyfill_esm_min_m(c, t, n, i) : "var(".concat(i, ")");
+  }(o.body) + css_vars_ponyfill_esm_min_m(o.post, t, n) : o.pre + "(".concat(css_vars_ponyfill_esm_min_m(o.body, t, n), ")") + css_vars_ponyfill_esm_min_m(o.post, t, n) : (-1 !== e.indexOf("var(") && n.onWarning('missing closing ")" in the value "'.concat(e, '"')), e);
+}
+
+var css_vars_ponyfill_esm_min_v = "css-vars-ponyfill",
+    css_vars_ponyfill_esm_min_y = "undefined" != typeof window,
+    css_vars_ponyfill_esm_min_h = css_vars_ponyfill_esm_min_y && window.CSS && window.CSS.supports && window.CSS.supports("(--a: 0)"),
+    css_vars_ponyfill_esm_min_g = "cssVars(): ",
+    css_vars_ponyfill_esm_min_S = {
+  rootElement: css_vars_ponyfill_esm_min_y ? document : null,
+  shadowDOM: !1,
+  include: "style,link[rel=stylesheet]",
+  exclude: "",
+  variables: {},
+  fixNestedCalc: !0,
+  onlyLegacy: !0,
+  onlyVars: !1,
+  preserve: !1,
+  silent: !1,
+  updateDOM: !0,
+  updateURLs: !0,
+  watch: null,
+  onBeforeSend: function onBeforeSend() {},
+  onSuccess: function onSuccess() {},
+  onWarning: function onWarning() {},
+  onError: function onError() {},
+  onComplete: function onComplete() {}
+},
+    E = {
+  cssComments: /\/\*[\s\S]+?\*\//g,
+  cssKeyframes: /@(?:-\w*-)?keyframes/,
+  cssRootRules: /(?::root\s*{\s*[^}]*})/g,
+  cssUrls: /url\((?!['"]?(?:data|http|\/\/):)['"]?([^'")]*)['"]?\)/g,
+  cssVars: /(?:(?::root\s*{\s*[^;]*;*\s*)|(?:var\(\s*))(--[^:)]+)(?:\s*[:)])/
+},
+    css_vars_ponyfill_esm_min_b = null,
+    css_vars_ponyfill_esm_min_x = null,
+    css_vars_ponyfill_esm_min_C = !1;
+
+function O() {
+  var n = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
+      o = css_vars_ponyfill_esm_min_e({}, css_vars_ponyfill_esm_min_S, n),
+      s = css_vars_ponyfill_esm_min_v;
+
+  function a(e, t, n, r) {
+    o.silent || console.error("".concat(css_vars_ponyfill_esm_min_g).concat(e, "\n"), t), o.onError(e, t, n, r);
+  }
+
+  function c(e) {
+    o.silent || console.warn("".concat(css_vars_ponyfill_esm_min_g).concat(e)), o.onWarning(e);
+  }
+
+  if (o.exclude = "#".concat(s) + (o.exclude ? ",".concat(o.exclude) : ""), o._benchmark = o._benchmark ? o._benchmark : k(), css_vars_ponyfill_esm_min_y) if (!1 === o.watch && css_vars_ponyfill_esm_min_b && css_vars_ponyfill_esm_min_b.disconnect(), o.watch) !function (e, t) {
+    if (!window.MutationObserver) return;
+
+    var n = function n(e) {
+      return "LINK" === e.tagName && -1 !== (e.getAttribute("rel") || "").indexOf("stylesheet");
+    },
+        r = function r(e) {
+      return "STYLE" === e.tagName && (!t || e.id !== t);
+    };
+
+    css_vars_ponyfill_esm_min_b && css_vars_ponyfill_esm_min_b.disconnect();
+    e.watch = css_vars_ponyfill_esm_min_S.watch, (css_vars_ponyfill_esm_min_b = new MutationObserver(function (t) {
+      var o = t.some(function (e) {
+        var t = !1;
+        if ("attributes" === e.type) t = n(e.target) || r(e.target);else if ("childList" === e.type) {
+          var o = Array.apply(null, e.addedNodes),
+              s = Array.apply(null, e.removedNodes);
+          t = [].concat(o, s).some(function (e) {
+            var t = n(e) && !e.disabled,
+                o = r(e) && E.cssVars.test(e.textContent);
+            return t || o;
+          });
+        }
+        return t;
+      });
+      o && w(e);
+    })).observe(document.documentElement, {
+      attributes: !0,
+      attributeFilter: ["disabled", "href"],
+      childList: !0,
+      subtree: !0
+    });
+  }(o, s), w(o);else if ("loading" !== document.readyState) {
+    var i = o.shadowDOM || o.rootElement.shadowRoot || o.rootElement.host;
+
+    if (css_vars_ponyfill_esm_min_h && o.onlyLegacy) {
+      if (o.updateDOM) {
+        var l = o.rootElement.host || (o.rootElement === document ? document.documentElement : o.rootElement);
+
+        keys_default()(o.variables).forEach(function (e) {
+          var t = "--".concat(e.replace(/^-+/, "")),
+              n = o.variables[e];
+          l.style.setProperty(t, n);
+        });
+      }
+    } else css_vars_ponyfill_esm_min_r(i && !css_vars_ponyfill_esm_min_C ? {
+      rootElement: css_vars_ponyfill_esm_min_S.rootElement,
+      include: css_vars_ponyfill_esm_min_S.include,
+      exclude: o.exclude,
+      onSuccess: function onSuccess(e, t, n) {
+        return (e.match(E.cssRootRules) || []).join("") || !1;
+      },
+      onComplete: function onComplete(e, t, n) {
+        css_vars_ponyfill_esm_min_d(e, {
+          persist: !0
+        }), css_vars_ponyfill_esm_min_C = !0, O(o);
+      }
+    } : {
+      rootElement: o.rootElement,
+      include: o.include,
+      exclude: o.exclude,
+      filter: o.onlyVars ? E.cssVars : null,
+      onBeforeSend: o.onBeforeSend,
+      onSuccess: function onSuccess(e, t, n) {
+        var r = o.onSuccess(e, t, n);
+        (e = void 0 !== r && !1 === Boolean(r) ? "" : r || e, t.setAttribute("data-cssvars", ""), o.updateURLs) && (e.replace(E.cssComments, "").match(E.cssUrls) || []).forEach(function (t) {
+          var r = t.replace(E.cssUrls, "$1"),
+              o = A(r, n);
+          e = e.replace(t, t.replace(r, o));
+        });
+        return e;
+      },
+      onError: function onError(e, t, n) {
+        var r = e.responseURL || A(n, location.href),
+            o = e.statusText ? "(".concat(e.statusText, ")") : "Unspecified Error" + (0 === e.status ? " (possibly CORS related)" : "");
+        a("CSS XHR Error: ".concat(r, " ").concat(e.status, " ").concat(o), t, e, r);
+      },
+      onComplete: function onComplete(n, r, i) {
+        var l,
+            u = stringify_default()({
+          include: o.include,
+          exclude: o.exclude,
+          variables: o.variables,
+          fixNestedCalc: o.fixNestedCalc,
+          onlyVars: o.onlyVars,
+          preserve: o.preserve,
+          silent: o.silent,
+          updateURLs: o.updateURLs
+        }),
+            f = o.rootElement.querySelector("#".concat(s)) || document.createElement("style"),
+            m = f.__cssVars || {},
+            v = m.cssText === n && m.settings === u;
+
+        if (v) n = f.textContent, o.silent || console.info("".concat(css_vars_ponyfill_esm_min_g, "No changes"), f);else {
+          f.__cssVars = {
+            cssText: n,
+            settings: u
+          }, n = r.map(function (e, t) {
+            return E.cssVars.test(e) ? e : "/*__CSSVARSPONYFILL-".concat(t, "__*/");
+          }).join("");
+
+          try {
+            n = css_vars_ponyfill_esm_min_d(n, {
+              fixNestedCalc: o.fixNestedCalc,
+              onlyVars: o.onlyVars,
+              persist: o.updateDOM,
+              preserve: o.preserve,
+              variables: o.variables,
+              onWarning: c
+            }), l = E.cssKeyframes.test(n), n = n.replace(/\/\*__CSSVARSPONYFILL-(\d+)__\*\//g, function (e, t) {
+              return r[t];
+            });
+          } catch (e) {
+            var y = !1;
+            r.forEach(function (e, t) {
+              try {
+                e = css_vars_ponyfill_esm_min_d(e, o);
+              } catch (e) {
+                var n = i[t - 0];
+                y = !0, a(e.message, n);
+              }
+            }), y || a(e.message || e);
+          }
+        }
+        if (o.shadowDOM) for (var h, S = [o.rootElement].concat(css_vars_ponyfill_esm_min_t(o.rootElement.querySelectorAll("*"))), b = 0; h = S[b]; ++b) {
+          if (h.shadowRoot && h.shadowRoot.querySelector("style")) O(css_vars_ponyfill_esm_min_e({}, o, {
+            rootElement: h.shadowRoot,
+            variables: css_vars_ponyfill_esm_min_p.dom
+          }));
+        }
+
+        if (!v && i && i.length) {
+          var x = o.rootElement.querySelectorAll("link[data-cssvars],style[data-cssvars]") || o.rootElement.querySelectorAll('link[rel+="stylesheet"],style'),
+              C = x ? x[x.length - 1] : null;
+          if (C) C.parentNode.insertBefore(f, C.nextSibling);else (o.rootElement.head || o.rootElement.body || o.rootElement).appendChild(f);
+          o.updateDOM && (f.setAttribute("id", s), f.textContent = n, l && function (e) {
+            var t = ["animation-name", "-moz-animation-name", "-webkit-animation-name"].filter(function (e) {
+              return getComputedStyle(document.body)[e];
+            })[0];
+
+            if (t) {
+              for (var n = e.getElementsByTagName("*"), r = [], o = 0, s = n.length; o < s; o++) {
+                var a = n[o],
+                    c = getComputedStyle(a)[t];
+                "none" !== c && (a.style[t] += "__CSSVARSPONYFILL-KEYFRAMES__", r.push(a));
+              }
+
+              document.body.offsetHeight;
+
+              for (var i = 0, l = r.length; i < l; i++) {
+                var u = r[i].style;
+                u[t] = u[t].replace("__CSSVARSPONYFILL-KEYFRAMES__", "");
+              }
+            }
+          }(o.rootElement)), o.onComplete(n, f, JSON.parse(stringify_default()(o.updateDOM ? css_vars_ponyfill_esm_min_p.dom : css_vars_ponyfill_esm_min_p.temp)), k() - o._benchmark);
+        }
+      }
+    });
+  } else document.addEventListener("DOMContentLoaded", function e(t) {
+    O(n), document.removeEventListener("DOMContentLoaded", e);
+  });
+}
+
+function w(e) {
+  clearTimeout(css_vars_ponyfill_esm_min_x), css_vars_ponyfill_esm_min_x = setTimeout(function () {
+    e._benchmark = null, O(e);
+  }, 100);
+}
+
+function A(e) {
+  var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : location.href,
+      n = document.implementation.createHTMLDocument(""),
+      r = n.createElement("base"),
+      o = n.createElement("a");
+  return n.head.appendChild(r), n.body.appendChild(o), r.href = t, o.href = e, o.href;
+}
+
+function k() {
+  return css_vars_ponyfill_esm_min_y && (window.performance || {}).now ? window.performance.now() : new Date().getTime();
+}
+
+/* harmony default export */ var css_vars_ponyfill_esm_min = (O);
+// EXTERNAL MODULE: ./src/styles/index.scss
+var src_styles = __webpack_require__("b20f");
 
 // CONCATENATED MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/helpers/esm/arrayWithHoles.js
 
@@ -11405,21 +12334,9 @@ function _nonIterableRest() {
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
-// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.split.js
-var es6_regexp_split = __webpack_require__("ea65");
-
 // EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/parse-float.js
 var parse_float = __webpack_require__("ffba");
 var parse_float_default = /*#__PURE__*/__webpack_require__.n(parse_float);
-
-// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.to-string.js
-var es6_regexp_to_string = __webpack_require__("48fb");
-
-// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.constructor.js
-var es6_regexp_constructor = __webpack_require__("5f33");
-
-// EXTERNAL MODULE: ./node_modules/_core-js@2.6.5@core-js/modules/es6.regexp.replace.js
-var es6_regexp_replace = __webpack_require__("f91a");
 
 // CONCATENATED MODULE: ./node_modules/_fecha@3.0.2@fecha/src/fecha.js
 /**
@@ -12725,10 +13642,6 @@ var $dom = {
   disabledSelectNone: disabledSelectNone
 };
 /* harmony default export */ var dom = ($dom);
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/json/stringify.js
-var stringify = __webpack_require__("cc80");
-var stringify_default = /*#__PURE__*/__webpack_require__.n(stringify);
-
 // CONCATENATED MODULE: ./src/utils/storage.js
 
 var $storage = {
@@ -12805,14 +13718,6 @@ function _arrayWithoutHoles(arr) {
     return arr2;
   }
 }
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/array/from.js
-var from = __webpack_require__("ab6b");
-var from_default = /*#__PURE__*/__webpack_require__.n(from);
-
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/is-iterable.js
-var is_iterable = __webpack_require__("ad81");
-var is_iterable_default = /*#__PURE__*/__webpack_require__.n(is_iterable);
-
 // CONCATENATED MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/helpers/esm/iterableToArray.js
 
 
@@ -13023,10 +13928,6 @@ var $validator = {
   }
 };
 /* harmony default export */ var utils_validate = ($validator);
-// EXTERNAL MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/core-js/object/assign.js
-var object_assign = __webpack_require__("208e");
-var assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
-
 // CONCATENATED MODULE: ./node_modules/_@babel_runtime-corejs2@7.4.3@@babel/runtime-corejs2/helpers/esm/classCallCheck.js
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -36790,6 +37691,8 @@ var pl_nav_component = normalizeComponent(
 
 
 
+
+
 var components = _objectSpread({
   icon: pl_icon,
   scroll: pl_scroll,
@@ -36924,6 +37827,14 @@ var PlainUI = {
 
     return pageRegistry;
   }(),
+  _cssVars: css_vars_ponyfill_esm_min,
+  cssVars: function cssVars() {
+    var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    this._cssVars(assign_default()({
+      onlyLegacy: false
+    }, param));
+  },
   install: function install(Vue) {
     var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
         _ref$prefix = _ref.prefix,
@@ -36970,6 +37881,10 @@ var PlainUI = {
       var component = utils.deepmerge(pl_base_table_column_basic, col);
       component.name = "".concat(prefix, "-tc-").concat(col.name);
       Vue.component(component.name, component);
+    }); // cssVars({onlyLegacy: false, variables: {'--p-color-primary': 'red'}});
+
+    this.cssVars({
+      onlyLegacy: true
     });
   }
 };
@@ -37558,6 +38473,54 @@ module.exports = {};
 
 /***/ }),
 
+/***/ "f10e":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var anObject = __webpack_require__("4d65");
+var toLength = __webpack_require__("33f2");
+var advanceStringIndex = __webpack_require__("1ff3");
+var regExpExec = __webpack_require__("b21e");
+
+// @@match logic
+__webpack_require__("c5aa")('match', 1, function (defined, MATCH, $match, maybeCallNative) {
+  return [
+    // `String.prototype.match` method
+    // https://tc39.github.io/ecma262/#sec-string.prototype.match
+    function match(regexp) {
+      var O = defined(this);
+      var fn = regexp == undefined ? undefined : regexp[MATCH];
+      return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
+    },
+    // `RegExp.prototype[@@match]` method
+    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@match
+    function (regexp) {
+      var res = maybeCallNative($match, regexp, this);
+      if (res.done) return res.value;
+      var rx = anObject(regexp);
+      var S = String(this);
+      if (!rx.global) return regExpExec(rx, S);
+      var fullUnicode = rx.unicode;
+      rx.lastIndex = 0;
+      var A = [];
+      var n = 0;
+      var result;
+      while ((result = regExpExec(rx, S)) !== null) {
+        var matchStr = String(result[0]);
+        A[n] = matchStr;
+        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
+        n++;
+      }
+      return n === 0 ? null : A;
+    }
+  ];
+});
+
+
+/***/ }),
+
 /***/ "f11f":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37886,3 +38849,4 @@ module.exports = __webpack_require__("8725");
 
 /******/ });
 });
+//# sourceMappingURL=plain-ui.umd.js.map
