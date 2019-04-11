@@ -68,7 +68,7 @@ $default-theme: (
         dateInnerItemSize: 26px,
 );
 $pl-default-themes: (
-        "":$default-theme,
+        "default":$default-theme,
         "black":(
                 color-primary: #77777b,
                 color-primary-light: #dbdbe2,
@@ -154,7 +154,7 @@ $pl-default-themes: (
     $p-dateInnerItemSize: pl-var(dateInnerItemSize) !global;
 
     @if (str_length($theme-name) >0) {
-      .#{$theme-name} {
+      .pl-theme-#{$theme-name} {
         @content;
       }
     } @else {
@@ -180,7 +180,7 @@ $pl-default-themes: (
 
 @mixin pl-colors($prefix) {
   @each $key in (primary, success, warn, error, info, disabled) {
-    $key:$key !global;
+    $key: $key !global;
     $pl-color: pl-var(color-#{$key}) !global;
     $value: pl-var(color-#{$key}) !global;
     $pl-color-deep: pl-var(color-#{$key}-deep) !global;

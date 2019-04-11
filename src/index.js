@@ -160,13 +160,20 @@ const PlainUI = {
             return await this._pageRegistry(path)
         }
     },
+    changeTheme(theme) {
+        this.$dom.removeClass(document.body, `pl-theme-${this.theme}`)
+        this.$dom.addClass(document.body, `pl-theme-${theme}`)
+        this.theme = theme
+    },
     install(Vue, {
         prefix = 'lv',
         iconfont,
         zIndex = 2000,
         pageRegistry = null,
-        tableColumns = []
+        tableColumns = [],
+        theme = 'default',
     } = {}) {
+        this.theme = theme
         this.zIndex = zIndex
         this._pageRegistry = pageRegistry
         Vue.use(DomPortal)
@@ -189,6 +196,8 @@ const PlainUI = {
             component.name = `${prefix}-tc-${col.name}`
             Vue.component(component.name, component)
         })
+
+        this.changeTheme(theme)
     },
 }
 

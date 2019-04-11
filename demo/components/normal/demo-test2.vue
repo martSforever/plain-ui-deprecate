@@ -43,9 +43,7 @@
                     () => this.$message.show("复制失败！"))
             },
             changeTheme(item) {
-                this.$plain.$dom.removeClass(document.body, this.theme)
-                this.theme = item
-                this.$plain.$dom.addClass(document.body, item)
+                this.$plain.changeTheme(item)
             },
         }
     }
