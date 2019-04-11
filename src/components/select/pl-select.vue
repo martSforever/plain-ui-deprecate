@@ -136,33 +136,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-select {
-        @include public-style;
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .pl-select-content {
-        @include public-style;
-        padding: 6px 0;
-        .link-select-item {
-            font-size: 12px;
-            height: 28px;
-            padding: 0 12px;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            &.link-select-item-active {
-                background-color: $p-color-primary-lighter;
-            }
-            &:hover {
-                background-color: $p-color-primary-lighter;
-                cursor: pointer;
-            }
-        }
-    }
-
-
-</style>

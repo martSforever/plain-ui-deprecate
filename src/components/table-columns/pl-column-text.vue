@@ -54,39 +54,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-column-text {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
-        box-sizing: border-box;
-        outline: none;
-        &.pl-column-text-link {
-            color: $p-color-primary;
-            cursor: pointer;
-        }
-        &.pl-column-text-left {
-            justify-content: flex-start;
-            .pl-column-text-default-text {
-                text-align: left;
-            }
-        }
-        &.pl-column-text-center {
-            justify-content: center;
-            .pl-column-text-default-text {
-                text-align: center;
-            }
-        }
-        &.pl-column-text-right {
-            justify-content: flex-end;
-            .pl-column-text-default-text {
-                text-align: right;
-            }
-        }
-    }
-</style>

@@ -37,22 +37,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-table-head-item {
-        background-color: $p-base-table-head-background;
-        &.pl-table-head-item-left, &.pl-table-head-item-right {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            overflow: hidden;
-        }
-        &.pl-table-head-item-right {
-            right: 0;
-            table {
-                position: absolute;
-                right: 0;
-            }
-        }
-    }
-</style>

@@ -232,38 +232,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-navigator-main-tab {
-        @include public-style;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        overflow: auto;
-        .pl-navigator-main-tab-wrapper {
-            height: 100%;
-            width: 100%;
-            position: relative;
-            background-color: white;
-            .pl-navigator-main-page {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                overflow: auto;
-                box-sizing: border-box;
-                background-color: white;
-                padding: 16px;
-                z-index: 1;
-            }
-            iframe {
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-        }
-    }
-</style>

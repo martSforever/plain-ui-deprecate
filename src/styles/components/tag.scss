@@ -1,0 +1,107 @@
+@mixin component-tag{
+  .pl-tag {
+    @include public-style;
+    font-size: 12px;
+    line-height: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 6px;
+    cursor: pointer;
+    user-select: none;
+    .pl-tag-close {
+      margin-left: 3px;
+      position: relative;
+      top: 1px;
+    }
+
+    @each $key, $value in $list-size {
+      &.pl-tag-size-#{$key} {
+        height: $value/1.5;
+        line-height: $value/1.5;
+        font-size: $value/2.5;
+      }
+    }
+
+    /*fill type*/
+    &.pl-tag-type-fill {
+      @each $key, $value in $list-color {
+        &.pl-tag-color-#{$key} {
+          background-color: $value;
+          border: solid $p-border-size $value;
+          color: white;
+
+          &:active {
+            background-color: map_get($list-color-deep,$key);
+            border-color: map_get($list-color-deep,$key);
+            &.pl-tag-disabled {
+              background-color: $p-color-disabled;
+              border-color: $p-color-disabled;
+            }
+          }
+        }
+      }
+    }
+    /*line type*/
+    &.pl-tag-type-line {
+      @each $key, $value in $list-color {
+        &.pl-tag-color-#{$key} {
+          border: solid $p-border-size $value;
+          background: transparent;
+          color: $value;
+
+          &:active {
+            background-color: map_get($list-color-light,$key);
+            &.pl-tag-disabled {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+      &.pl-tag-dashed {
+        border-style: dashed;
+      }
+    }
+    /*none type*/
+    &.pl-tag-type-none {
+      @each $key, $value in $list-color {
+        &.pl-tag-color-#{$key} {
+          border: solid $p-border-size transparent;
+          background: transparent;
+          color: map_get($list-color-deep,$key);
+
+          &:active {
+            background-color: map_get($list-color-light,$key);
+            &.pl-tag-disabled {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+    }
+    /*dash type*/
+    &.pl-tag-type-dashed {
+      @each $key, $value in $list-color {
+        &.pl-tag-color-#{$key} {
+          border: dotted $p-border-size $value;
+          background: transparent;
+          color: map_get($list-color-deep,$key);
+
+          &:active {
+            background-color: map_get($list-color-light,$key);
+            &.pl-tag-disabled {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+    }
+
+    /*shape*/
+    @each $key, $value in $list-shape {
+      &.pl-tag-shape-#{$key} {
+        border-radius: $value;
+      }
+    }
+  }
+
+}

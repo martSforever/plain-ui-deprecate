@@ -32,23 +32,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-content {
-        @include public-style;
-        transition: $p-page-transition;
-        position: relative;
-        background-color: white;
-
-        flex: 1;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-        overflow: auto;
-
-        &.pl-content-padding {
-            padding: $p-padding;
-        }
-    }
-</style>

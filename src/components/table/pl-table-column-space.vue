@@ -19,12 +19,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-table-column-space {
-        height: 0;
-        span{
-            display: block;
-        }
-    }
-</style>

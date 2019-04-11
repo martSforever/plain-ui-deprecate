@@ -13,15 +13,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-loading {
-        display: inline-block;
-        vertical-align: center;
-        img.pl-loading-img {
-            height: 100%;
-            width: 100%;
-            display: block;
-        }
-    }
-</style>

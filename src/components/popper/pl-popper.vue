@@ -9,7 +9,3 @@
         name: "pl-popper"
     }
 </script>
-
-<style lang="scss">
-
-</style>

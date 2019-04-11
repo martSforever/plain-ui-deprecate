@@ -42,7 +42,6 @@ import cardContent from './components/card/pl-card-content'
 import tooltip from './directives/tooltip'
 import carousel from './components/carousel/pl-carousel'
 import badge from './components/badge/pl-badge'
-import mavon from './components/mavon/pl-mavon'
 import doc from './components/doc/pl-doc'
 import baseTable from './components/table/pl-base-table'
 import tag from './components/tag/pl-tag'
@@ -100,7 +99,6 @@ const components = {
     cardContent,
     carousel,
     badge,
-    mavon,
     doc,
     baseTable,
     tag,

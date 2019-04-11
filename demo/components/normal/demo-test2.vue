@@ -14,7 +14,7 @@
                     <link-button v-for="(item,index) in themes"
                                  :key="index"
                                  :label="item"
-                                 @click="theme = item"/>
+                                 @click="changeTheme(item)"/>
                 </link-button-group>
             </div>
             <div class="hello">
@@ -38,9 +38,14 @@
         },
         methods: {
             click() {
-                this.$plain.$utils.copyToClipBoard("hello world",
+                this.$plain.$utils.copyToClipboard("hello world",
                     () => this.$message.show("复制成功！"),
                     () => this.$message.show("复制失败！"))
+            },
+            changeTheme(item) {
+                this.$plain.$dom.removeClass(document.body, this.theme)
+                this.theme = item
+                this.$plain.$dom.addClass(document.body, item)
             },
         }
     }

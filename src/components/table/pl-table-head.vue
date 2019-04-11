@@ -29,18 +29,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-table-head {
-        position: relative;
-        overflow: hidden;
-        border-bottom: solid $p-base-table-border-size $p-base-table-border-color;
-        tr:not(.pl-table-column-space) {
-            font-size: $p-base-table-font-size;
-            font-weight: $p-base-table-font-weight;
-        }
-        & + .pl-table-body {
-            border-top: none;
-        }
-    }
-</style>

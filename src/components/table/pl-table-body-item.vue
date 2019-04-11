@@ -55,32 +55,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-table-body-item {
-        background-color: white;
-        &.pl-table-body-item-left, &.pl-table-body-item-right {
-            position: absolute;
-            top: 0;
-            overflow: hidden;
-            height: 100%;
-        }
-        &.pl-table-body-item-right {
-            right: 0;
-            .pl-scroll-content-wrapper {
-                position: relative;
-                .pl-scroll-content {
-                    right: 0;
-                    position: absolute;
-                    float: right;
-                    table {
-                        float: right;
-                    }
-                }
-            }
-        }
-        .pl-scroll-content {
-            padding-bottom: 9px;
-        }
-    }
-</style>

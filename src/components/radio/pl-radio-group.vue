@@ -106,21 +106,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-radio-group {
-        @include public-style;
-        display: inline-flex;
-        &.pl-radio-group-horizontal {
-            .pl-radio:not(:last-child) {
-                margin-right: 1em;
-            }
-        }
-        &.pl-radio-group-vertical {
-            flex-direction: column;
-            .pl-radio:not(:last-child) {
-                margin-bottom: 1em;
-            }
-        }
-    }
-</style>

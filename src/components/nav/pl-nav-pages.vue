@@ -231,12 +231,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-nav-pages {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        overflow: hidden;
-    }
-</style>

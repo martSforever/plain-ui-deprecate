@@ -78,21 +78,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    $position: (
-            start:flex-start,
-            center:center,
-            end:flex-end,
-    );
-    .pl-notice-container {
-        position: fixed;
-        .pl-notice-wrapper {
-            .pl-item {
-                &:not(:last-child) {
-                    margin-bottom: 12px;
-                }
-            }
-        }
-    }
-</style>

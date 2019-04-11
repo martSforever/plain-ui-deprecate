@@ -47,39 +47,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-header {
-        height: 44px;
-        position: relative;
-        z-index: 1;
-        background-color: white;
-        transition: $p-page-transition;
-        opacity: 0.2;
-        .pl-header-content-wrapper {
-            height: 100%;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            padding: 0 6px;
-            box-sizing: border-box;
-            background-color: white;
-            transition: $p-page-transition;
-            left: 20%;
-            .pl-back-button {
-                margin-right: $p-padding;
-            }
-        }
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            box-shadow: 0 0 15px 1px #ddd;
-        }
-    }
-</style>

@@ -9,7 +9,3 @@
         name: "pl-select-text"
     }
 </script>
-
-<style lang="scss">
-
-</style>

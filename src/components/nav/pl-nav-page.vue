@@ -118,21 +118,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-nav-page {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        overflow: auto;
-        background-color: white;
-        @include transition-all;
-        .pl-nav-page-target {
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-        }
-    }
-</style>

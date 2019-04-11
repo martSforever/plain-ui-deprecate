@@ -50,9 +50,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-table-column-controller {
-        display: none;
-    }
-</style>

@@ -135,21 +135,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-table-row {
-        &.pl-table-row-hover {
-            background-color: $p-base-table-hover-row-background;
-        }
-        &.pl-table-row-editing {
-            background-color: initial;
-        }
-        &.pl-table-row-selected {
-            background-color: $p-base-table-hover-row-background;
-        }
-        .pl-table-cell {
-            font-size: 12px;
-            font-weight: 500;
-        }
-    }
-</style>

@@ -64,32 +64,3 @@
 
     }
 </script>
-
-<style lang="scss">
-    .pl-step-item {
-        .pl-step-item-content {
-            .pl-step-item-icon, .pl-step-item-title {
-                color: inherit;
-            }
-        }
-        .pl-step-item-icon {
-            .pl-step-item-line {
-                flex: 1;
-            }
-            .pl-step-item-radio {
-                font-size: 20px;
-                color: inherit;
-            }
-        }
-        &.pl-item-first {
-            .pl-step-item-line-left {
-                opacity: 0;
-            }
-        }
-        &.pl-item-last {
-            .pl-step-item-line-right {
-                opacity: 0;
-            }
-        }
-    }
-</style>

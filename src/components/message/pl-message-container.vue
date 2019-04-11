@@ -70,22 +70,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    $position: (
-            start:flex-start,
-            center:center,
-            end:flex-end,
-    );
-    .pl-message-container {
-        position: fixed;
-        z-index: 9999;
-        .pl-message-wrapper {
-            .pl-item {
-                &:not(:last-child) {
-                    margin-bottom: 12px;
-                }
-            }
-        }
-    }
-</style>

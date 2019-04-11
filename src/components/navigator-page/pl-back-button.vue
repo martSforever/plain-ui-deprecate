@@ -27,12 +27,3 @@
 
     }
 </script>
-
-<style lang="scss">
-    .pl-back-button {
-        display: inline-block;
-        color: $p-color-primary;
-        box-sizing: border-box;
-        cursor: pointer;
-    }
-</style>

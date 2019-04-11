@@ -153,11 +153,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .pl-tree {
-        @include public-style;
-        height: 100%;
-        background-color: #f2f2f2;
-    }
-</style>

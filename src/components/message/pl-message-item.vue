@@ -35,27 +35,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-message-item {
-        @include public-style;
-        padding: 6px 12px;
-        white-space: nowrap;
-        @each $key, $value in $list-color {
-            &.pl-message-item-color-#{$key} {
-                background-color: $value;
-                color: white;
-            }
-        }
-        &.pl-message-item-color-black {
-            background-color: rgba(black, 0.75);
-            color: white;
-            box-shadow: 0 0 15px 1px #999;
-        }
-        &.pl-message-item-color-white {
-            background-color: white;
-            color: $p-color-normal-content;
-            box-shadow: 0 0 15px 3px #ddd;
-        }
-    }
-</style>

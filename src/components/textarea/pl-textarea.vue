@@ -33,27 +33,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-textarea {
-        @include public-style;
-        display: inline-block;
-        padding: 6px;
-        box-sizing: border-box;
-        outline: none;
-        letter-spacing: 1px;
-        border: solid 1px $p-color-info;
-        font-size: 12px;
-
-        @each $key, $color in $list-color {
-            &.pl-textarea-color-#{$key}:focus {
-                border-color: $color;
-            }
-        }
-        @each $key, $value in $list-shape {
-            &.pl-textarea-color-#{$key}:focus {
-                border-radius: $value;
-            }
-        }
-    }
-</style>

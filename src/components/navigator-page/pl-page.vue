@@ -55,17 +55,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-page {
-        @include public-style;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        overflow: hidden;
-        flex-direction: column;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-</style>

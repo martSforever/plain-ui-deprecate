@@ -74,16 +74,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .pl-tabs {
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        vertical-align: middle;
-        font-size: 14px;
-        .pl-tabs-body {
-            padding: 12px;
-        }
-    }
-</style>

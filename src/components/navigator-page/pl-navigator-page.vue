@@ -139,12 +139,3 @@
 
     }
 </script>
-
-<style lang="scss">
-    .pl-navigator-page {
-        @include public-style;
-        height: 100%;
-        width: 100%;
-        position: relative;
-    }
-</style>
