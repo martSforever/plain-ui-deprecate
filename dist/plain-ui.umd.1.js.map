@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://plain-ui/./demo/components/mavon.md"],"names":[],"mappings":";;;;;AAAA,oI","file":"plain-ui.umd.1.js","sourcesContent":["module.exports = \"```html\\r\\n<link-button label=\\\"按钮11\\\"/>\\r\\n<link-button label=\\\"按钮22\\\"/>\\r\\n<link-button label=\\\"按钮33\\\"/>\\r\\n```\""],"sourceRoot":""}
