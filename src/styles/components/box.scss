@@ -40,23 +40,21 @@
       height: 100%;
     }
 
-    @each $key, $value in $list-size {
-      &.pl-box-size-#{$key} {
-        height: $value;
+    @include pl-sizes(pl-box){
+      height: $pl-size;
 
-        &, & span, & input, & label, & div {
-          font-size: $value/2.5;
-        }
+      &, & span, & input, & label, & div {
+        font-size: $pl-size/2.5;
+      }
 
-        &.pl-box-icon-only {
-          min-width: inherit;
-          width: $value !important;
-          padding: 0;
-          border-radius: $value/2;
+      &.pl-box-icon-only {
+        min-width: inherit;
+        width: $pl-size !important;
+        padding: 0;
+        border-radius: $pl-size/2;
 
-          .pl-box-prefix-icon, .pl-box-suffix-icon {
-            margin: 0;
-          }
+        .pl-box-prefix-icon, .pl-box-suffix-icon {
+          margin: 0;
         }
       }
     }
@@ -113,11 +111,8 @@
       }
     }
 
-    /*shape*/
-    @each $key, $value in $list-shape {
-      &.pl-box-shape-#{$key} {
-        border-radius: $value;
-      }
+    @include pl-shapes(pl-box){
+      border-radius: $pl-shape;
     }
 
     &.pl-box-shape-round {

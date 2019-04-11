@@ -59,7 +59,9 @@
 </script>
 
 <style lang="scss">
-    .demo-select {
-        padding: $p-padding;
+    @include themeify{
+        .demo-select {
+            padding: $p-padding;
+        }
     }
 </style>

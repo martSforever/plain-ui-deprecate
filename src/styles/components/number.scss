@@ -1,4 +1,4 @@
-@mixin component-number{
+@mixin component-number {
   .pl-number {
     .pl-number-controller {
       display: flex;
@@ -9,9 +9,11 @@
       cursor: pointer;
       width: $p-icon-size;
       user-select: none;
+
       .pl-icon:active {
         background-color: #f2f2f2;
       }
+
       .pl-icon:not(:last-child) {
         margin-bottom: 1px;
       }
@@ -19,19 +21,20 @@
       .pl-number-icon-up, .pl-number-icon-down {
         position: relative;
       }
+
       .pl-number-icon-up {
         top: 3px;
       }
+
       .pl-number-icon-down {
         bottom: 3px;
       }
     }
-    @each $key, $value in $list-size {
-      &.pl-box-size-#{$key} {
-        .pl-number-controller {
-          font-size: $value/3.5;
-          transform: scale(0.7);
-        }
+
+    @include pl-sizes(pl-box) {
+      .pl-number-controller {
+        font-size: $pl-size/3.5;
+        transform: scale(0.7);
       }
     }
   }

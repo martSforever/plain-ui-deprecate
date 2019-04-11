@@ -20,27 +20,29 @@
 </script>
 
 <style lang="scss">
-    .demo-row {
-        @include public-style;
-        width: 100%;
-        padding: 24px 0 0 24px;
-        .demo-row-title {
-            display: flex;
-            align-items: center;
-            color: $p-color-normal-title;
-            span {
-                margin-right: 12px;
+    @include themeify{
+        .demo-row {
+            @include public-style;
+            width: 100%;
+            padding: 24px 0 0 24px;
+            .demo-row-title {
+                display: flex;
+                align-items: center;
+                color: $p-color-normal-title;
+                span {
+                    margin-right: 12px;
+                }
+                .demo-row-title-segment {
+                    height: 1px;
+                    background-color: #f2f2f2;
+                    flex: 1;
+                }
             }
-            .demo-row-title-segment {
-                height: 1px;
-                background-color: #f2f2f2;
-                flex: 1;
-            }
-        }
-        .demo-row-content {
-            padding: 12px 0;
-            & > *:not(:last-child) {
-                margin-right: 12px;
+            .demo-row-content {
+                padding: 12px 0;
+                & > *:not(:last-child) {
+                    margin-right: 12px;
+                }
             }
         }
     }

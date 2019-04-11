@@ -1,4 +1,4 @@
-@mixin component-textarea{
+@mixin component-textarea {
   .pl-textarea {
     @include public-style;
     display: inline-block;
@@ -9,15 +9,13 @@
     border: solid 1px $p-color-info;
     font-size: 12px;
 
-    @each $key, $color in $list-color {
+    @include pl-colors('') {
       &.pl-textarea-color-#{$key}:focus {
-        border-color: $color;
+        border-color: $pl-color;
       }
     }
-    @each $key, $value in $list-shape {
-      &.pl-textarea-color-#{$key}:focus {
-        border-radius: $value;
-      }
+    @include pl-shapes(pl-textarea) {
+      border-radius: $value;
     }
   }
 

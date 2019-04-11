@@ -1,4 +1,4 @@
-@mixin component-toggle{
+@mixin component-toggle {
   .pl-toggle {
     background-color: #f2f2f2;
     position: relative;
@@ -8,28 +8,29 @@
     cursor: pointer;
     user-select: none;
 
-    @each $key, $value in $list-size {
-      &.pl-toggle-size-#{$key} {
-        height: $value;
-        width: $value*52/32;
-        border-radius: $p-shape-round;
-        &.pl-toggle-on {
-          .pl-toggle-circle {
-            left: $value/2+6;
-          }
-        }
+    @include pl-sizes(pl-toggle) {
+      height: $value;
+      width: $value*52/32;
+      border-radius: $p-shape-round;
+
+      &.pl-toggle-on {
         .pl-toggle-circle {
-          right: $value/2+6;
-          border-radius: $p-shape-round;
+          left: $value/2+6;
+        }
+      }
+
+      .pl-toggle-circle {
+        right: $value/2+6;
+        border-radius: $p-shape-round;
+      }
+
+      &.pl-toggle-active {
+        .pl-toggle-circle {
+          right: $value/2;
         }
 
-        &.pl-toggle-active {
-          .pl-toggle-circle {
-            right: $value/2;
-          }
-          &.pl-toggle-on .pl-toggle-circle {
-            left: $value/2;
-          }
+        &.pl-toggle-on .pl-toggle-circle {
+          left: $value/2;
         }
       }
     }
@@ -47,22 +48,21 @@
       transform: scaleX(1);
       transition: transform .3s;
     }
+
     &.pl-toggle-on {
       &:before {
         transform: scale3d(0, 0, 0);
       }
+
       .pl-toggle-circle {
         right: 2px;
       }
-      @each $key, $value in $list-color {
-        &.pl-toggle-color-#{$key} {
-          background-color: $value;
-        }
-        &.pl-toggle-disabled {
-          background-color: $p-color-info;
-        }
+
+      @include pl-colors(pl-toggle){
+        background-color: $value;
       }
     }
+
     .pl-toggle-circle {
       position: absolute;
       left: 2px;
@@ -72,10 +72,12 @@
       box-shadow: 0 3px 12px rgba(0, 0, 0, .16), 0 3px 1px rgba(0, 0, 0, .1);
       transition: all 0.3s;
     }
+
     &.pl-toggle-active {
       .pl-toggle-circle {
         left: 2px;
       }
+
       &.pl-toggle-on .pl-toggle-circle {
         right: 2px;
       }

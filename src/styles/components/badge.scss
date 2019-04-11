@@ -10,12 +10,10 @@
       font-size: 12px;
       padding: 2px 4px;
 
-      @each $key, $value in $list-color {
-        &.pl-badge-content-color-#{$key} {
-          background-color: $value;
-          border-radius: 100px;
-          color: white;
-        }
+      @include pl-colors(pl-badge-content) {
+        background-color: $pl-color;
+        border-radius: 100px;
+        color: white;
       }
 
       &.pl-badge-content-top {

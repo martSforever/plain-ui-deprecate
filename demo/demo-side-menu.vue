@@ -132,51 +132,54 @@
 </script>
 
 <style lang="scss">
-    .demo-side-menu {
-        height: 100%;
-        width: 100%;
-        cursor: pointer;
-        position: relative;
-        @include public-style;
-        &:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+    @include themeify{
+        .demo-side-menu {
             height: 100%;
             width: 100%;
-            box-shadow: 0 5px 20px #ddd;
-        }
-
-        .demo-menu-group-title {
-            font-size: 12px;
-            height: 20px;
-            line-height: 20px;
-            background-color: #f2f2f2;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-            color: $p-color-primary;
-        }
-        .demo-menu-list {
-            padding-left: 12px;
-            .demo-menu-list-item {
-                font-size: 13px;
-                height: 44px;
+            cursor: pointer;
+            position: relative;
+            @include public-style;
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
                 width: 100%;
-                border-bottom: solid 1px #f2f2f2;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                @include transition-all;
-                .pl-icon {
-                    margin-right: 12px;
-                    font-size: 12px;
-                }
-                &:hover {
-                    background-color: $p-color-primary-lighter;
+                box-shadow: 0 5px 20px #ddd;
+            }
+
+            .demo-menu-group-title {
+                font-size: 12px;
+                height: 20px;
+                line-height: 20px;
+                background-color: #f2f2f2;
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+                color: $p-color-primary;
+            }
+            .demo-menu-list {
+                padding-left: 12px;
+                .demo-menu-list-item {
+                    font-size: 13px;
+                    height: 44px;
+                    width: 100%;
+                    border-bottom: solid 1px #f2f2f2;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    @include transition-all;
+                    .pl-icon {
+                        margin-right: 12px;
+                        font-size: 12px;
+                    }
+                    &:hover {
+                        background-color: $p-color-primary-lighter;
+                    }
                 }
             }
         }
+
     }
 </style>

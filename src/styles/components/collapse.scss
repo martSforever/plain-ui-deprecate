@@ -46,11 +46,9 @@
 
   }
   /*shape*/
-  @each $key, $value in $list-shape {
-    &.pl-collapse-group-shape-#{$key} {
-      border-radius: $value;
-      overflow: hidden;
-    }
+  @include pl-shapes(pl-collapse-group){
+    border-radius: $pl-shape;
+    overflow: hidden;
   }
   .pl-collapse-transition {
     transition: $p-transition-time height ease-in-out, $p-transition-time padding-top ease-in-out, $p-transition-time padding-bottom ease-in-out;

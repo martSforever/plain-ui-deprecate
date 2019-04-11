@@ -1,9 +1,10 @@
-@mixin component-rate{
+@mixin component-rate {
   .pl-rate {
     @include public-style;
     position: relative;
     display: inline-block;
     cursor: pointer;
+
     .pl-rate-active {
       white-space: nowrap;
       overflow: hidden;
@@ -13,10 +14,8 @@
       bottom: 0;
     }
 
-    @each $key, $value in $list-color {
-      &.pl-rate-color-#{$key} {
-        color: $value;
-      }
+    @include pl-colors(pl-rate) {
+      color: $pl-color;
     }
   }
 }

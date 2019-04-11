@@ -123,11 +123,9 @@
         }
       }
     }
-    @each $key, $value in $list-shape {
-      &.pl-dialog-shape-#{$key} {
-        .pl-dialog-content {
-          border-radius: $value;
-        }
+    @include pl-shapes(pl-dialog) {
+      .pl-dialog-content {
+        border-radius: $pl-shape;
       }
     }
 

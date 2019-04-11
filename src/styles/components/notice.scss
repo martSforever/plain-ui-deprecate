@@ -22,12 +22,10 @@
     min-width: 300px;
     box-shadow: $p-box-shadow;
 
-    @each $key, $value in $list-color {
-      &.pl-notice-item-color-#{$key} {
-        .pl-notice-item-head {
-          .pl-notice-item-title {
-            color: $value;
-          }
+    @include pl-colors(pl-notice-item){
+      .pl-notice-item-head {
+        .pl-notice-item-title {
+          color: $pl-color;
         }
       }
     }

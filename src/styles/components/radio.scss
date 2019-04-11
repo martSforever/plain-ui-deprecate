@@ -1,4 +1,4 @@
-@mixin component-radio{
+@mixin component-radio {
   .pl-radio {
     @include public-style;
     min-width: $p-icon-size;
@@ -9,46 +9,49 @@
     padding-left: $p-icon-size;
     display: inline-flex;
     align-items: center;
+
     .pl-icon {
       position: absolute;
       left: 0;
       top: 0;
       @include transition-all;
     }
+
     &.pl-radio-active {
       .pl-radio-icon-active {
         transform: scale(1);
       }
+
       .pl-radio-icon-inactive {
         transform: scale(0.5);
         opacity: 0;
       }
     }
+
     &.pl-radio-inactive {
       .pl-radio-icon-active {
         transform: scale(0.5);
         opacity: 0;
       }
+
       .pl-radio-icon-inactive {
         transform: scale(1);
       }
     }
 
-    @each $key, $value in $list-color {
-      &.pl-radio-color-#{$key} {
-        color: $value;
-        &:active {
-          color: map_get($list-color-deep,$key);
-        }
+    @include pl-colors(pl-radio) {
+      color: $pl-color;
+      &:active {
+        color: $pl-color-deep;
       }
     }
-    @each $key, $value in $list-size {
-      &.pl-radio-size-#{$key} {
-        font-size: $value/1.8;
-        .pl-radio-label {
-          font-size: $value/1.6;
-          margin-left: 0.25em;
-        }
+
+    @include pl-sizes(pl-radio) {
+      font-size: $pl-size/1.8;
+
+      .pl-radio-label {
+        font-size: $pl-size/1.6;
+        margin-left: 0.25em;
       }
     }
 
@@ -60,13 +63,16 @@
   .pl-radio-group {
     @include public-style;
     display: inline-flex;
+
     &.pl-radio-group-horizontal {
       .pl-radio:not(:last-child) {
         margin-right: 1em;
       }
     }
+
     &.pl-radio-group-vertical {
       flex-direction: column;
+
       .pl-radio:not(:last-child) {
         margin-bottom: 1em;
       }
