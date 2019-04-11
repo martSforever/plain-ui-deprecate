@@ -56,7 +56,7 @@ function findComponentUpward(context, componentName, componentNames) {
  * @date 2018/11/19
  */
 function hasClass(el, cls) {
-    if (!!el.classList) return $utils.oneOf(cls, el.classList.value.split(' '));
+    if (!!el.classList && !!el.classList.value) return $utils.oneOf(cls, el.classList.value.split(' '));
     else return (el.className || '').split(' ').indexOf(cls) > -1
 }
 
@@ -68,14 +68,14 @@ function hasClass(el, cls) {
 function addClass(el, addCLs) {
     if (!el || !addCLs) return;
     const addClasses = $utils.typeOf(addCLs) === 'string' ? addCLs.split(' ') : addCLs
-    if (!!el.classList) {
+    if (!!el.classList && !!el.classList.value) {
         addClasses.forEach(item => el.classList.add(item))
     } else {
         const curClasses = (el.className || '').split(' ')
         addClasses.forEach(item => {
             if (curClasses.indexOf(item) === -1) curClasses.push(item)
         })
-        el.className = addClasses.join(' ')
+        el.className = curClasses.join(' ')
     }
 }
 
@@ -87,15 +87,19 @@ function addClass(el, addCLs) {
 function removeClass(el, rmCls) {
     if (!el || !rmCls) return;
     const rmClasses = $utils.typeOf(rmCls) === 'string' ? rmCls.split(' ') : rmCls
-    if (!!el.classList) {
+    if (!!el.classList && !!el.classList.value) {
         rmClasses.forEach(item => el.classList.remove(item))
     } else {
         const curClasses = (el.className || '').split(' ')
-        rmClasses.forEach(item => {
-            const index = curClasses.indexOf(item)
-            if (index > -1) curClasses.splice(index, 1)
-        })
-        el.className = rmClasses.join(' ')
+        for (let i = 0; i < rmClasses.length; i++) {
+            const rmClass = rmClasses[i];
+            const index = curClasses.indexOf(rmClass)
+            if (index > -1) {
+                curClasses.splice(index, 1)
+                i--
+            }
+        }
+        el.className = curClasses.join(' ')
     }
 }
 

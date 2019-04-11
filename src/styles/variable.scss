@@ -5,7 +5,6 @@ $dateItemSize: 32px;
 $dateBorderRadius: 4px;
 $dateInnerItemSize: 26px;
 
-
 $default-theme: (
         color-primary: #3F86E8,
         color-primary-light: #92BBF3,
@@ -197,9 +196,10 @@ $pl-default-themes: (
 
 @mixin pl-shapes($prefix) {
   @each $key in (none, fillet, round) {
+    $pl-shape: pl-var(shape-#{$key}) !global;
+    $value: pl-var(shape-#{$key}) !global;
+    $key: $key !global;
     &.#{$prefix}-shape-#{$key} {
-      $pl-shape: pl-var(shape-#{$key}) !global;
-      $value: pl-var(shape-#{$key}) !global;
       @content
     }
   }
@@ -207,9 +207,10 @@ $pl-default-themes: (
 
 @mixin pl-sizes($prefix) {
   @each $key in (large, default, small) {
+    $pl-size: pl-var(size-#{$key}) !global;
+    $value: pl-var(size-#{$key}) !global;
+    $key: $key !global;
     &.#{$prefix}-size-#{$key} {
-      $pl-size: pl-var(size-#{$key}) !global;
-      $value: pl-var(size-#{$key}) !global;
       @content
     }
   }
