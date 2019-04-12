@@ -141,6 +141,7 @@ class DialogService {
                     this.$refs.dialog.hide(arguments)
                 },
             },
+            ...this.Vue.prototype._plRootOptionData
         }).$mount()
         document.body.appendChild(instance.$el)
         return instance;

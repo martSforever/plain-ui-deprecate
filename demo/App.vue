@@ -11,9 +11,9 @@
         name: "App",
         components: {DemoMain},
         created(){
-            console.log(this.$store)
-            console.log(this.$plain.Vue.prototype)
-            console.log(this)
+            // console.log(this.$store)
+            // console.log(this.$plain.Vue.prototype)
+            // console.log(this)
         },
     }
 </script>

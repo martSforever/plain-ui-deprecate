@@ -172,7 +172,11 @@ const PlainUI = {
         pageRegistry = null,
         tableColumns = [],
         theme = 'default',
+
+        rootOption,
     } = {}) {
+
+        Vue.prototype._plRootOptionData = rootOption
         this.theme = theme
         this.zIndex = zIndex
         this._pageRegistry = pageRegistry

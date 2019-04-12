@@ -1,15 +1,26 @@
 <template>
-    <link-button @click="handleClick" label="test vuex"/>
+    <div>
+        <link-input :value="val" @input="saveChange"/>
+        <link-button @click="log" label="log"/>
+    </div>
 </template>
 
 <script>
     export default {
         name: "test-vuex",
         methods: {
-            handleClick() {
-                console.log(this.$store)
+            log() {
+                this.$dialog.show(this.val)
             },
-        }
+            saveChange(val) {
+                this.$store.commit('saveChange', val)
+            },
+        },
+        computed: {
+            val() {
+                if (!!this.$store) return this.$store.state.testData
+            },
+        },
     }
 </script>
 

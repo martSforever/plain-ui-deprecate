@@ -13,13 +13,6 @@ Vue.component('demo-row', DemoRow)
 Vue.component('demo-row-item', DemoRowItem)
 
 Vue.config.productionTip = false
-Vue.use(plain, {
-    prefix: 'link',
-    iconfont: 'https://at.alicdn.com/t/font_954560_kicgud0zqeb.js',                               //自定义iconfont图表地址
-    pageRegistry(path) {
-        return new Promise((rs, rj) => import('demo/components' + path.replace('.vue', '') + '.vue').then(module => rs(module.default)).catch(rj))
-    },
-})
 Vue.mixin({
     methods: {
         log() {
@@ -34,13 +27,20 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        count: 0
+        testData: 0
     },
     mutations: {
-        increment(state) {
-            state.count++
+        saveChange(state, val) {
+            state.testData = val
         }
     }
+})
+
+Vue.use(plain, {
+    prefix: 'link',
+    iconfont: 'https://at.alicdn.com/t/font_954560_kicgud0zqeb.js',                               //自定义iconfont图表地址
+    pageRegistry(path) {return new Promise((rs, rj) => import('demo/components' + path.replace('.vue', '') + '.vue').then(module => rs(module.default)).catch(rj))},
+    rootOption:{store},
 })
 
 new Vue({
