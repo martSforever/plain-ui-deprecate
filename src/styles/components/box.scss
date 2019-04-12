@@ -6,7 +6,9 @@
     justify-content: center;
     position: relative;
     width: fit-content;
-
+    .pl-box-loading-icon {
+      margin-right: 0.5em;
+    }
     .pl-box-clear-icon {
       cursor: pointer;
     }
@@ -40,7 +42,7 @@
       height: 100%;
     }
 
-    @include pl-sizes(pl-box){
+    @include pl-sizes(pl-box) {
       height: $pl-size;
 
       &, & span, & input, & label, & div {
@@ -111,7 +113,7 @@
       }
     }
 
-    @include pl-shapes(pl-box){
+    @include pl-shapes(pl-box) {
       border-radius: $pl-shape;
     }
 

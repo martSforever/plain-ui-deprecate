@@ -3,10 +3,10 @@
          @click="e=>!readonly && !disabled && $emit('click',e)"
     >
         <pl-icon v-if="!!prefixIcon" :icon="prefixIcon" class="pl-box-prefix-icon"/>
+        <pl-loading v-if="!!loading" :type="loadingType" class="pl-box-loading-icon"/>
         <div class="pl-box-content" v-if="!iconOnly">
             <slot></slot>
         </div>
-        <pl-loading v-if="!!loading" :type="loadingType"/>
         <template v-else>
             <pl-icon v-if="!!suffixIcon" :icon="suffixIcon" class="pl-box-suffix-icon"/>
             <pl-icon v-if="!!clearIcon && clearable" :hover="clearable&&hovering&&value!=null" :icon="clearable&&hovering&&value!=null&&value!='' ?'pad-close-circle-fill':clearIcon"
