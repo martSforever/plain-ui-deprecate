@@ -90,7 +90,7 @@
         },
         computed: {
             p_suffixIcon() {
-                return this.currentShow ? 'pl-triangle-up-fill' : 'pl-triangle-down-fill'
+                return this.currentShow ? 'pl-dropup' : 'pl-dropdown'
             },
             showValue() {
                 return this.p_data.reduce((ret, item) => {
