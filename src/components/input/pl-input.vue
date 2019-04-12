@@ -34,7 +34,7 @@
 
 <script>
     import PlBox from "../box/pl-box";
-    import {BoxMixin, InputMixin} from "../../mixin/component-mixin";
+    import {InputMixin} from "../../mixin/component-mixin";
 
     const keyMap = {
         8: 'back',
@@ -49,7 +49,9 @@
         name: "pl-input",
         components: {PlBox},
         mixins: [InputMixin],
-        props: {},
+        props: {
+            loadingColor: {default: 'black'},
+        },
         data() {
             return {
                 p_timer: null,

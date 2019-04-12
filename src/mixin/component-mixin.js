@@ -72,6 +72,7 @@ export const BoxMixin = {
                 clearable: this.clearable,
                 loading: this.loading,
                 loadingType:this.loadingType,
+                loadingColor:this.loadingColor,
                 iconOnly: this.iconOnly,
                 readonly: this.readonly,
                 disabled: this.disabled,

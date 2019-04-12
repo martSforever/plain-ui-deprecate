@@ -4,6 +4,11 @@
             <link-input v-model="val0"/>
             <link-button>val0:{{val0}}</link-button>
         </demo-row>
+        <demo-row title="Loading">
+            <link-input v-model="val0" :loading="loading"/>
+            <link-button>val0:{{val0}}</link-button>
+            <link-toggle v-model="loading"/>
+        </demo-row>
         <demo-row title="类型">
             <demo-row-item title="fill">
                 <link-input v-for="(item,index) in colors" :box-color="item" :key="index" box-type="fill"/>
@@ -127,7 +132,8 @@
             return {
                 val0: null,
                 val1: null,
-                colors: ['primary', 'success', 'warn', 'error', 'info']
+                colors: ['primary', 'success', 'warn', 'error', 'info'],
+                loading:true,
             }
         },
         methods: {
