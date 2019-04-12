@@ -83,8 +83,10 @@
 </template>
 
 <script>
+    import TestVuex from "../../test-vuex";
     export default {
         name: "demo-dialog-service",
+        components: {TestVuex},
         data() {
             return {
                 vertical: 'center',
@@ -100,6 +102,7 @@
                             <div>
                                 <link-button label="show dialog" onClick={() => this.$dialog.show('hello world')}/>
                                 <link-input value={this.input} onInput={e => this.input = e} long/>
+                                <test-vuex/>
                             </div>
                         )
                     },

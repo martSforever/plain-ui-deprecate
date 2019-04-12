@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import plain from 'src'
 import DemoChild from './demo-child'
@@ -29,8 +30,22 @@ Vue.mixin({
 Vue.component('demo-child', DemoChild)
 Vue.directive('move', move)
 
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+    state: {
+        count: 0
+    },
+    mutations: {
+        increment(state) {
+            state.count++
+        }
+    }
+})
+
 new Vue({
     render: h => h(App),
+    store,
 }).$mount('#app')
 
 /*function load() {

@@ -7,6 +7,7 @@
                 <link-button label="关闭" @click="val1 = false" full/>
                 <demo-child title="i am child"/>
                 <link-button label="hello world" @click="$dialog.show('Hello world')"/>
+                <test-vuex/>
             </link-dialog>
         </demo-row>
         <demo-row title="形状">
@@ -154,8 +155,10 @@
 </template>
 
 <script>
+    import TestVuex from "../../test-vuex";
     export default {
         name: "demo-dialog",
+        components: {TestVuex},
         data() {
             return {
                 val1: false,
