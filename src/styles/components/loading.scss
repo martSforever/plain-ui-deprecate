@@ -1,12 +1,63 @@
 @mixin component-loading {
   .pl-loading {
+    position: relative;
+    width: 1.2em;
+    height: 1.2em;
     display: inline-block;
     vertical-align: center;
 
-    img.pl-loading-img {
-      height: 100%;
+    .pl-loading-item {
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
-      display: block;
+      height: 100%;
+      &:before {
+        content: '';
+        display: block;
+        margin: 5% auto;
+        width: 5.5%;
+        height: 25%;
+        animation: pl-loading-animation 0.8s infinite ease-in-out both;
+      }
+    }
+    $items: (2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+    @each $item in $items {
+      .pl-loading-#{$item} {
+        transform: rotate(#{30*(($item)-1)}deg);
+      }
+      .pl-loading-#{$item}:before {
+        animation-delay: #{(-0.8+((($item)-1)*0.067))}s;
+      }
+    }
+    @keyframes pl-loading-animation {
+      0%,
+      39%,
+      100% {
+        opacity: .3;
+      }
+      40% {
+        opacity: 1;
+      }
+    }
+    @include pl-colors(pl-loading) {
+      .pl-loading-item:before {
+        background-color: $value;
+      }
+      color: $value;
+    }
+
+    &.pl-loading-color-white {
+      .pl-loading-item:before {
+        background-color: white;
+      }
+      color: white;
+    }
+    &.pl-loading-color-black {
+      .pl-loading-item:before {
+        background-color: black;
+      }
+      color: black;
     }
   }
 }

@@ -43,6 +43,7 @@ export const BoxMixin = {
         clearable: {type: Boolean, default: true},                      //是否可清除
         loading: {type: Boolean},                                       //loading 图标
         loadingType: {type: String, default: 'default'},                //loading默认类型
+        loadingColor: {type: String, default: 'white'},                 //loading默认颜色
         iconOnly: {type: Boolean},                                      //只有图标，设置为true则盒子宽高相等，并且为圆形
 
         readonly: {type: Boolean},                                      //只读

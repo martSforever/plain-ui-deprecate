@@ -8,7 +8,8 @@
             <link-icon icon="icon-youtubeplay"/>
         </demo-row>
         <demo-row title="loading">
-            <link-icon icon="icon-loading" loading/>
+            <link-icon icon="pl-loading-default" loading style="font-size: 50px"/>
+            <link-icon icon="pl-loading-default" style="font-size: 50px"/>
         </demo-row>
         <demo-row title="hover样式">
             <span>hover样式</span>

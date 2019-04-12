@@ -12,7 +12,18 @@
             <link-loading type="section-dot"/>
         </demo-row>
         <demo-row title="大小">
-            <link-loading size="56px"/>
+            <link-loading style="font-size: 3em"/>
+        </demo-row>
+        <demo-row title="颜色">
+            <div v-for="item in ['primary','success','warn','error','info','black','white']" :key="item" style="display: inline-block;padding: 12px;"
+                 :style="{backgroundColor:item==='white'?'black':'unset'}">
+                <link-loading type="default" :color="item"/>
+                <link-loading type="section-one" :color="item"/>
+                <link-loading type="section-two" :color="item"/>
+                <link-loading type="section-three" :color="item"/>
+                <link-loading type="section-part" :color="item"/>
+                <link-loading type="section-dot" :color="item"/>
+            </div>
         </demo-row>
     </div>
 </template>

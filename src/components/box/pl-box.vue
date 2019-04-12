@@ -3,7 +3,6 @@
          @click="e=>!readonly && !disabled && $emit('click',e)"
     >
         <pl-icon v-if="!!prefixIcon" :icon="prefixIcon" class="pl-box-prefix-icon"/>
-        <pl-loading v-if="!!loading" :type="loadingType" class="pl-box-loading-icon"/>
         <div class="pl-box-content" v-if="!iconOnly">
             <slot></slot>
         </div>
@@ -12,6 +11,7 @@
             <pl-icon v-if="!!clearIcon && clearable" :hover="clearable&&hovering&&value!=null" :icon="clearable&&hovering&&value!=null&&value!='' ?'pad-close-circle-fill':clearIcon"
                      @click.stop.prevent="e=>clearable && $emit('clear',e)" class="pl-box-clear-icon"/>
         </template>
+        <pl-loading v-if="!!loading" :type="loadingType" :color="loadingColor" class="pl-box-loading-icon"/>
         <div class="pl-box-tooltip" v-if="!!passValidMsg && passValidMsg!=='必填'">
             <span>{{passValidMsg}}</span>
         </div>

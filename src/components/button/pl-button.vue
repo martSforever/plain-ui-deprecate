@@ -25,7 +25,7 @@
             label: {},                                      //按钮显示的文本
             active: {type: Boolean},                        //按钮是否处于激活状态
 
-            loadingType: {default: 'section-one'},
+            loadingType: {default: 'default'},
         },
     }
 </script>
