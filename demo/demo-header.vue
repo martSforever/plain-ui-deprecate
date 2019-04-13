@@ -1,6 +1,10 @@
 <template>
     <div class="demo-header">
-        Plain-UI DEMO
+        <span>Plain-UI DEMO</span>
+            <link-button-group>
+                <link-button box-type="line" label="改变主题："/>
+                <link-button v-for="(item,index) in ['default','black','custom']" :label="item" :key="index" @click="$plain.changeTheme(item)"/>
+            </link-button-group>
     </div>
 </template>
 
@@ -19,7 +23,9 @@
         position: relative;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: space-between;
+        padding: 0 12px;
+        box-sizing: border-box;
         &::after {
             box-shadow: 0 -5px 20px #ddd;
             position: absolute;
@@ -28,7 +34,7 @@
             right: 0;
             top: 0;
             content: '';
-            z-index: 2;
+            z-index: -1;
         }
     }
 </style>
