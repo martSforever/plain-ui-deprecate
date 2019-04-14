@@ -122,9 +122,9 @@
     }
 
     &.pl-box-disabled {
-      border: solid $p-border-size #f2f2f2 !important;
-      background: #f2f2f2 !important;
-      color: $p-color-disabled !important;
+      border: solid $p-border-size $p-color-disabled !important;
+      background: $p-color-disabled !important;
+      color: $p-color-disabled-deep !important;
 
       &, & * {
         cursor: not-allowed;

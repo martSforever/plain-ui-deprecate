@@ -12,11 +12,21 @@
   .pl-tab-header {
     @include public-style;
     display: block;
-    border-bottom: solid 1px $p-tab-color;
     .pl-item {
       display: inline-block;
       margin-right: 16px;
       padding-bottom: 16px;
+
+      &.pl-tab-header-item-active {
+        color: $p-color-primary;
+        background-color: $p-color-normal-background-light;
+        &:before {
+          bottom: -17px;
+        }
+      }
+      &:hover:not(.pl-tab-header-item-active) {
+        background-color: $p-color-normal-background-light;
+      }
     }
 
     .pl-tab-header-item {
@@ -24,7 +34,8 @@
       font-size: 12px;
       height: 36px;
       line-height: 36px;
-      background-color: #f9f9f9;
+      background-color: transparent;
+      color: $p-color-normal-title;
       cursor: pointer;
       width: 150px;
       position: relative;
@@ -40,24 +51,12 @@
       }
 
       &:before {
-        border: solid 1px $p-tab-color;
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-      }
-      &.pl-tab-header-item-active {
-        color: $p-color-primary;
-        background-color: white;
-        &:before {
-          bottom: -17px;
-          border-bottom-color: white;
-        }
-      }
-      &:hover:not(.pl-tab-header-item-active) {
-        background-color: $p-color-primary-lighter;
       }
 
       .pl-tab-header-item-text {

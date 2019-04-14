@@ -34,7 +34,7 @@
                 }
                 .demo-row-title-segment {
                     height: 1px;
-                    background-color: #f2f2f2;
+                    background-color: $p-color-normal-background-deep;
                     flex: 1;
                 }
             }

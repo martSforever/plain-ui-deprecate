@@ -132,7 +132,7 @@
 </script>
 
 <style lang="scss">
-    @include themeify{
+    @include themeify {
         .demo-side-menu {
             height: 100%;
             width: 100%;
@@ -153,22 +153,25 @@
                 font-size: 12px;
                 height: 20px;
                 line-height: 20px;
-                background-color: #f2f2f2;
+                background-color: $p-color-normal-background-deep;
                 width: 100%;
                 text-align: center;
                 box-sizing: border-box;
                 color: $p-color-primary;
             }
             .demo-menu-list {
-                padding-left: 12px;
+                background-color: $p-color-normal-background;
                 .demo-menu-list-item {
+                    padding-left: 12px;
                     font-size: 13px;
                     height: 44px;
                     width: 100%;
-                    border-bottom: solid 1px #f2f2f2;
+                    border-bottom: solid 1px $p-color-normal-background-deep;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    color: $p-color-normal-content;
+                    box-sizing: border-box;
                     @include transition-all;
                     .pl-icon {
                         margin-right: 12px;
@@ -176,6 +179,7 @@
                     }
                     &:hover {
                         background-color: $p-color-primary-lighter;
+                        color: $p-color-primary-deep;
                     }
                 }
             }

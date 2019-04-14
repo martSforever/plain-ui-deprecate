@@ -25,18 +25,21 @@
 </script>
 
 <style lang="scss">
-    .demo-row-item {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        margin-bottom: 12px;
-        .demo-row-item-title {
-            font-size: 14px;
-            width: 100px;
-        }
-        .demo-row-item-content {
-            & > * {
-                margin-right: 12px;
+    @include themeify {
+        .demo-row-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 12px;
+            .demo-row-item-title {
+                font-size: 14px;
+                width: 100px;
+                color: $p-color-normal-content;
+            }
+            .demo-row-item-content {
+                & > * {
+                    margin-right: 12px;
+                }
             }
         }
     }

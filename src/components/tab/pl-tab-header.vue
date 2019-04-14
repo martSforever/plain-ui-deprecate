@@ -1,15 +1,15 @@
 <template>
     <pl-list class="pl-tab-header" direction="top">
-        <pl-item v-if="!data || data.length === 0" key="empty">
-            <div class="pl-tab-header-item pl-tab-header-item-active">
+        <pl-item v-if="!data || data.length === 0" key="empty" class="pl-tab-header-item-active">
+            <div class="pl-tab-header-item">
                 <span>无</span>
             </div>
         </pl-item>
         <pl-item v-for="(item,index) in data"
-                 :key="!!ids&&ids[index]?ids[index]:item">
+                 :key="!!ids&&ids[index]?ids[index]:item"
+                 :class="{'pl-tab-header-item-active':index === currentValue}">
             <div class="pl-tab-header-item"
                  @click="p_click(item,index)"
-                 :class="{'pl-tab-header-item-active':index === currentValue}"
                  @contextmenu.prevent.stop="p_contextmenu(item,index)">
                 <div class="pl-tab-header-item-content">
                     <div class="pl-tab-header-item-text">
