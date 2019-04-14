@@ -48,6 +48,7 @@ $pl-default-themes: (
     $p-color-disabled: pl-var(color-disabled) !global;
     $p-color-disabled-light: pl-var(color-disabled-light) !global;
     $p-color-disabled-deep: pl-var(color-disabled-deep) !global;
+
     $p-color-normal-title: pl-var(color-normal-title) !global;
     $p-color-normal-content: pl-var(color-normal-content) !global;
     $p-color-normal-sub-color: pl-var(color-normal-sub-color) !global;
@@ -55,8 +56,12 @@ $pl-default-themes: (
     $p-color-normal-placeholder: pl-var(color-normal-placeholder) !global;
     $p-color-normal-border: pl-var(color-normal-border) !global;
     $p-color-normal-divider: pl-var(color-normal-divider) !global;
+
     $p-color-normal-background: pl-var(color-normal-background) !global;
+    $p-color-normal-background-light: pl-var(color-normal-background-light) !global;
+    $p-color-normal-background-deep: pl-var(color-normal-background-deep) !global;
     $p-color-normal-background-error: pl-var(color-normal-background-error) !global;
+
     $p-size-large: pl-var(size-large) !global;
     $p-size-default: pl-var(size-default) !global;
     $p-size-small: pl-var(size-small) !global;

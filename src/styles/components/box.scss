@@ -76,7 +76,7 @@
     &.pl-box-type-line {
       @include pl-colors(pl-box) {
         border: solid $p-border-size $pl-color;
-        background: white;
+        background: transparent;
         &, & div {
           color: $pl-color;
         }
