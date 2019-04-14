@@ -1,0 +1,72 @@
+/*@formatter:off*/
+$theme-black: (
+        color-primary: #3F86E8,                               //颜色：基本
+        color-primary-light: #92BBF3,                         //颜色：基本轻
+        color-primary-deep: #4F77AE,                          //颜色：基本重
+        color-primary-lighter: #edf6ff,                       //颜色：基本更轻
+        color-success: #30ED69,                               //颜色：成功
+        color-success-light: #8AF6AB,                         //颜色：成功轻
+        color-success-deep: #48B268,                          //颜色：成功重
+        color-warn: #FFAF34,                                  //颜色：警告
+        color-warn-light: #FFD38F,                            //颜色：警告轻
+        color-warn-deep: #BF924D,                             //颜色：警告重
+        color-error: #FF3333,                                 //颜色：错误
+        color-error-light: #FF8F8F,                           //颜色：错误轻
+        color-error-deep: #BF4C4C,                            //颜色：错误重
+        color-info: #929292,                                  //颜色：提示
+        color-info-light: #C8C8C8,                            //颜色：提示轻
+        color-info-deep: #6D6D6D,                             //颜色：提示重
+        color-disabled: #EBEAE7,                              //颜色：禁用
+        color-disabled-light: #F5F4F3,                        //颜色：禁用轻
+        color-disabled-deep: #B0B0AE,                         //颜色：禁用重
+
+        color-normal-title: #17233d,                          //颜色：标题
+        color-normal-content: #5c677b,                        //颜色：内容
+        color-normal-sub-color: #a3a9b9,                      //颜色：副内容
+        color-normal-disabled: #EBEAE7,                       //颜色：禁用
+        color-normal-placeholder: #d5d8de,                    //颜色：占位符
+        color-normal-border: #eee,                            //颜色：边框
+        color-normal-divider: #e8eaec,                        //颜色：分割线
+
+        color-normal-background: #f2f2f2,                     //颜色：背景色
+        color-normal-background-light: #f2f2f2,               //颜色：背景色轻
+        color-normal-background-deep: #f2f2f2,                //颜色：背景色重
+        color-normal-background-error: #ffd9ce,               //颜色：背景色错误
+
+        size-large: 36px,                                     //尺寸：大
+        size-default: 28px,                                   //尺寸：中
+        size-small: 22px,                                     //尺寸：小
+
+        shape-fillet: 4px,                                    //形状：圆角
+        shape-round: 999px,                                   //形状：圆
+        shape-none: 0,                                        //形状：无
+
+        transition-time: 0.15s,                               //过渡动画时长
+        animation-loop-time: 1.5s,                            //动画循环时长
+        padding: 16px,                                        //默认内边距
+        margin: 16px,                                         //默认外边距
+        border-size: 1px,                                     //边框大小
+        box-shadow: 0 0 12px #eee,                            //阴影
+        border: 1px #eee solid,                               //边框
+        icon-size: 1.2em,                                     //图标大小
+        page-transition: all 1s cubic-bezier(.28, 1, 0, 1),   //页面导航组件，页面过渡动画
+        tab-color: #eee,                                      //页签边框色
+
+        base-table-font-size: 13px,                           //表格字体大小
+        base-table-font-weight: 600,                          //表格字体粗细
+        base-table-border-color: #E2E7F1,                     //表格边框颜色
+        base-table-border-size: 0.5px,                        //表格边框大小
+        base-table-head-background: #F5F6FA,                  //表格表头背景色
+        base-table-head-color: #17233D,                       //表格表头字体色
+        base-table-head-hover-color: #E4E7EF,                 //表格表头鼠标悬浮背景色
+        base-table-head-icon-color: #b3b6bf,                  //表格表头图标颜色
+        base-table-head-icon-active-color: #17233d,           //表格表头图标激活色
+        base-table-body-color: #515A6E,                       //表格表体文字色
+        base-table-hover-row-background: #ECF5FF,             //表格行鼠标悬浮色
+        base-table-cell-padding: 9px,                         //表格单元格左右内边距
+
+        dateItemSize: 32px,                                   //日期组件单元格大小
+        dateBorderRadius: 4px,                                //日期组件单元格圆角大小
+        dateInnerItemSize: 26px,                              //日期组件单元格内部大小
+);
+/*@formatter:on*/

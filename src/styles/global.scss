@@ -1,86 +1,22 @@
 @import "components";
 @import "transition";
 @import "./mixin/index";
+@import "theme";
 
 $dateItemSize: 32px;
 $dateBorderRadius: 4px;
 $dateInnerItemSize: 26px;
 
-$default-theme: (
-        color-primary: #3F86E8,
-        color-primary-light: #92BBF3,
-        color-primary-deep: #4F77AE,
-        color-primary-lighter: #edf6ff,
-        color-success: #30ED69,
-        color-success-light: #8AF6AB,
-        color-success-deep: #48B268,
-        color-warn: #FFAF34,
-        color-warn-light: #FFD38F,
-        color-warn-deep: #BF924D,
-        color-error: #FF3333,
-        color-error-light: #FF8F8F,
-        color-error-deep: #BF4C4C,
-        color-info: #929292,
-        color-info-light: #C8C8C8,
-        color-info-deep: #6D6D6D,
-        color-disabled: #EBEAE7,
-        color-disabled-light: #F5F4F3,
-        color-disabled-deep: #B0B0AE,
-        color-normal-title: #17233d,
-        color-normal-content: #5c677b,
-        color-normal-sub-color: #a3a9b9,
-        color-normal-disabled: #EBEAE7,
-        color-normal-placeholder: #d5d8de,
-        color-normal-border: #eee,
-        color-normal-divider: #e8eaec,
-        color-normal-background: #f2f2f2,
-        color-normal-background-error: #ffd9ce,
-        size-large: 36px,
-        size-default: 28px,
-        size-small: 22px,
-        shape-fillet: 4px,
-        shape-round: 999px,
-        shape-none: 0,
-        transition-time: 0.15s,
-        animation-loop-time: 1.5s,
-        padding: 16px,
-        margin: 16px,
-        border-size: 1px,
-        box-shadow: 0 0 12px #eee,
-        border: 1px #eee solid,
-        icon-size: 1.2em,
-        page-transition: all 1s cubic-bezier(.28, 1, 0, 1),
-        tab-color: #eee,
-        base-table-font-size: 13px,
-        base-table-font-weight: 600,
-        base-table-border-color: #E2E7F1,
-        base-table-border-size: 0.5px,
-        base-table-head-background: #F5F6FA,
-        base-table-head-color: #17233D,
-        base-table-head-hover-color: #E4E7EF,
-        base-table-head-icon-color: #b3b6bf,
-        base-table-head-icon-active-color: #17233d,
-        base-table-body-color: #515A6E,
-        base-table-hover-row-background: #ECF5FF,
-        base-table-cell-padding: 9px,
-        dateItemSize: 32px,
-        dateBorderRadius: 4px,
-        dateInnerItemSize: 26px,
-);
 $pl-default-themes: (
-        "default":$default-theme,
-        "black":(
-                color-primary: #77777b,
-                color-primary-light: #dbdbe2,
-                color-primary-deep: #3e3e40,
-        ),
+        "default":$theme-default,
+        "black":$theme-black,
 );
 
 @function pl-var($key) {
   @if (map_has_key($theme-map, $key)) {
     @return map-get($theme-map, $key);
   } @else {
-    @return map-get($default-theme, $key);
+    @return map-get($theme-default, $key);
   }
 }
 
