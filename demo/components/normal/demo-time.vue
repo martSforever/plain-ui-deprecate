@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import PlTimePanel from "../../../src/components/time/pl-time-panel";
+    import PlTimePanel from "../../../src-bak/components/time/pl-time-panel";
 
     export default {
         name: "demo-time",

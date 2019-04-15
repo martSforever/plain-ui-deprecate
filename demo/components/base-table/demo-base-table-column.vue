@@ -140,7 +140,7 @@
 
 <script>
     import {SimpleTableData} from "../../data";
-    import PlBaseTable from "../../../src/components/base-table/pl-base-table";
+    import PlBaseTable from "../../../src-bak/components/base-table/pl-base-table";
 
     export default {
         name: "demo-base-table-column",

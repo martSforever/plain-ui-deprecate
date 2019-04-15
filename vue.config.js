@@ -15,7 +15,7 @@ const option = {
         port: '8888',
     },
     pages: {
-        index: {
+        /*index: {
             // page 的入口
             entry: 'demo/main.js',
             // 模板来源
@@ -28,7 +28,7 @@ const option = {
             // 在这个页面中包含的块，默认情况下会包含
             // 提取出来的通用 chunk 和 vendor chunk。
             chunks: ['chunk-vendors', 'chunk-common', 'index']
-        },
+        },*/
         portal: {
             // page 的入口
             entry: 'portal/main.js',
@@ -43,20 +43,6 @@ const option = {
             // 提取出来的通用 chunk 和 vendor chunk。
             chunks: ['chunk-vendors', 'chunk-common', 'portal']
         },
-        new: {
-            // page 的入口
-            entry: 'new-demo/main.js',
-            // 模板来源
-            template: 'public/index.html',
-            // 在 dist/index.html 的输出
-            filename: 'new.html',
-            // 当使用 title 选项时，
-            // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-            title: 'plain-ui new',
-            // 在这个页面中包含的块，默认情况下会包含
-            // 提取出来的通用 chunk 和 vendor chunk。
-            chunks: ['chunk-vendors', 'chunk-common', 'new']
-        },
     },
     configureWebpack: {
         resolve: {
@@ -64,7 +50,7 @@ const option = {
             alias: {
                 'src': $utils.resolve('src'),
                 'demo': $utils.resolve('demo'),
-                'new-demo': $utils.resolve('new-demo'),
+                'portal': $utils.resolve('portal'),
             }
         },
         module: {
@@ -82,14 +68,12 @@ const option = {
     css: {
         loaderOptions: {
             sass: {
-                data: `@import "src/styles/global.scss"; @import "demo/global.scss";@import "new-src/styles/global.scss";@import "new-demo/styles/global.scss";`
+                data: `@import "src/styles/global.scss"; @import "portal/styles/global.scss";`
             }
         }
     },
     chainWebpack: config => {
-        config.plugins.delete('prefetch-index')
         config.plugins.delete('prefetch-portal')
-        config.plugins.delete('prefetch-new')
     }
 }
 

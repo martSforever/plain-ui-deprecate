@@ -109,9 +109,9 @@
 <script>
 
     import {TableData} from "../../data";
-    import PlBaseTable from "../../../src/components/base-table/pl-base-table";
-    import PlBaseTableColumn from "../../../src/components/base-table/pl-base-table-column";
-    import PlBaseTableColumnGroup from "../../../src/components/base-table/pl-base-table-column-group";
+    import PlBaseTable from "../../../src-bak/components/base-table/pl-base-table";
+    import PlBaseTableColumn from "../../../src-bak/components/base-table/pl-base-table-column";
+    import PlBaseTableColumnGroup from "../../../src-bak/components/base-table/pl-base-table-column-group";
 
     export default {
         name: "demo-basic-table",

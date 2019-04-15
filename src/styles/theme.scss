@@ -1,2 +1,7 @@
-@import "./theme/default";
-@import "./theme/black";
+@import "./theme/theme-default";
+@import "./theme/theme-black";
+
+$themes: (
+        default:$theme-default,
+        black:$theme-black,
+)

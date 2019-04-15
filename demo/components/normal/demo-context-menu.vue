@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import PlContextMenu from "../../../src/components/context-menu/pl-context-menu";
+    import PlContextMenu from "../../../src-bak/components/context-menu/pl-context-menu";
 
     export default {
         name: "demo-context-menu",

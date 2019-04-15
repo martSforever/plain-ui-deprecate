@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
-import plain from 'src'
+import plain from 'src-bak'
 import DemoChild from './demo-child'
-import move from 'src/directives/move'
+import move from 'src-bak/directives/move'
 import './index.scss'
 
 import DemoRow from './demo-row'

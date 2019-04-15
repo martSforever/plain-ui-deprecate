@@ -43,8 +43,8 @@
 
 <script>
     import {SimpleTableData, TableData} from "../../data";
-    import PlScopeSlot from "../../../src/components/render/pl-scope-slot";
-    import PlTableCellController from "../../../src/components/table/pl-table-cell-controller";
+    import PlScopeSlot from "../../../src-bak/components/render/pl-scope-slot";
+    import PlTableCellController from "../../../src-bak/components/table/pl-table-cell-controller";
 
     export default {
         name: "demo-base-table-column",

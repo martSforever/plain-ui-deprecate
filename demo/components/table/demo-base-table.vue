@@ -107,7 +107,7 @@
 </template>
 
 <script>
-    import PlRenderFunc from "../../../src/components/render/pl-render-func";
+    import PlRenderFunc from "../../../src-bak/components/render/pl-render-func";
 
     export default {
         name: "demo-base-table",
