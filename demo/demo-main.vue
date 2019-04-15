@@ -23,27 +23,40 @@
 </script>
 
 <style lang="scss">
-    .demo-main {
-        height: 100%;
-        width: 100%;
-        position: relative;
-        .demo-body {
+    @include themeify {
+        .demo-main {
+            height: 100%;
             width: 100%;
-            display: flex;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            top: 64px;
-            .demo-left-side {
-                width: 256px;
-            }
-            .demo-right-side {
-                flex: 1;
-                overflow-y: auto;
-                overflow-x: hidden;
+            position: relative;
+            background-color: $p-color-normal-background;
+            .demo-body {
+                width: 100%;
+                display: flex;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: 74px;
+                .demo-left-side {
+                    width: 256px;
+                    position: relative;
+                    &::after {
+                        box-shadow: 0 0 12px $p-color-normal-background-deep;
+                        position: absolute;
+                        content: '';
+                        z-index: 1;
+                        width: 1px;
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                    }
+                }
+                .demo-right-side {
+                    flex: 1;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                }
             }
         }
-
     }
 </style>

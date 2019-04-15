@@ -138,22 +138,15 @@
             width: 100%;
             cursor: pointer;
             position: relative;
+            background-color: $p-color-normal-background;
+            z-index: 2;
             @include public-style;
-            &:before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                box-shadow: 0 5px 20px #ddd;
-            }
 
             .demo-menu-group-title {
                 font-size: 12px;
                 height: 20px;
                 line-height: 20px;
-                background-color: $p-color-normal-background-deep;
+                background-color: $p-color-normal-background-light;
                 width: 100%;
                 text-align: center;
                 box-sizing: border-box;
@@ -166,7 +159,7 @@
                     font-size: 13px;
                     height: 44px;
                     width: 100%;
-                    border-bottom: solid 1px $p-color-normal-background-deep;
+                    border-bottom: solid 1px $p-color-normal-background-light;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;

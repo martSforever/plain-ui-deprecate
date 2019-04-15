@@ -41,6 +41,7 @@ Vue.use(plain, {
     iconfont: 'https://at.alicdn.com/t/font_954560_kicgud0zqeb.js',                               //自定义iconfont图表地址
     pageRegistry(path) {return new Promise((rs, rj) => import('demo/components' + path.replace('.vue', '') + '.vue').then(module => rs(module.default)).catch(rj))},
     rootOption:{store},
+    theme:'black',
 })
 
 new Vue({
