@@ -64,6 +64,7 @@ const option = {
             alias: {
                 'src': $utils.resolve('src'),
                 'demo': $utils.resolve('demo'),
+                'new-demo': $utils.resolve('new-demo'),
             }
         },
         module: {
@@ -81,7 +82,7 @@ const option = {
     css: {
         loaderOptions: {
             sass: {
-                data: `@import "src/styles/global.scss"; @import "demo/global.scss";`
+                data: `@import "src/styles/global.scss"; @import "demo/global.scss";@import "new-src/styles/global.scss";@import "new-demo/styles/global.scss";`
             }
         }
     },
