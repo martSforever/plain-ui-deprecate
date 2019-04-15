@@ -7,7 +7,7 @@
     export default {
         name: "App",
         beforeCreate() {
-            window.location.href = './demo.html'
+            window.location.href = './new.html'
         },
     }
 </script>
